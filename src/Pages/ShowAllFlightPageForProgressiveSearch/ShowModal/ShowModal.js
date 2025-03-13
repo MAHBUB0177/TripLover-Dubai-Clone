@@ -212,370 +212,444 @@ const ShowModal = ({
                     <div className="p-2">
                       <div className="container">
                         {direction0.segments.map((seg, index) => (
-                          <div key={index}>
-                            {index === 0 ? (
-                              <div
-                                className="row py-2 px-0 border button-color text-white"
-                                // style={{ backgroundColor: "	white" }}
-                              >
-                                <div className="col-lg-3 text-start">
-                                  <span className="d-inline fs-6 fw-bold ms-1">
-                                    Departure,{" "}
-                                    {airports
-                                      .filter((f) => f.iata === seg.from)
-                                      .map((item) => item.city)}
-                                  </span>
+                          <React.Fragment key={index}>
+                            {!direction0?.segments?.every(
+                              (item) =>
+                                item.airlineCode ===
+                                direction0?.platingCarrierCode
+                            ) &&
+                              index === 0 && (
+                                <div className="my-2 d-flex gap-2 align-items-start">
+                                  <i
+                                    className="fa fa-info-circle"
+                                    aria-hidden="true"
+                                  ></i>
+                                  <p style={{ fontSize: "13px" }}>
+                                    This flight includes a codeshare segment.
+                                    Bangladeshi passport holders may need a
+                                    transit visa for travel. Please verify visa
+                                    requirements based on your nationality
+                                    before booking your ticket.
+                                  </p>
                                 </div>
-                                <div className="col-lg-3 text-center">
-                                  <i className="fas fa-plane fa-sm"></i>
-                                </div>
-                                <div className="col-lg-3">
-                                  <span className="d-inline fs-6 fw-bold">
-                                    Arrival,{" "}
-                                    {airports
-                                      .filter(
-                                        (f) =>
-                                          f.iata ===
-                                          direction0.segments[
-                                            direction0.segments.length - 1
-                                          ].to
-                                      )
-                                      .map((item) => item.city)}
-                                  </span>
-                                </div>
-                                <div className="col-lg-3 fs-6 fw-bold">
-                                  <span>
-                                    Duration :{" "}
-                                    {direction0.segments.length === 1
-                                      ? totalFlightDuration(direction0.segments)
-                                      : direction0.segments.length === 2
-                                      ? addDurations([
-                                          totalFlightDuration(
-                                            direction0.segments
-                                          ),
-                                          timeDuration(
-                                            direction0.segments[index].arrival,
-                                            direction0.segments[index + 1]
-                                              .departure
-                                          ),
-                                        ])
-                                      : direction0.segments.length === 3
-                                      ? addDurations([
-                                          totalFlightDuration(
-                                            direction0.segments
-                                          ),
-                                          timeDuration(
-                                            direction0.segments[index].arrival,
-                                            direction0.segments[index + 1]
-                                              .departure
-                                          ),
-                                          timeDuration(
-                                            direction0.segments[index + 1]
-                                              .arrival,
-                                            direction0.segments[index + 2]
-                                              .departure
-                                          ),
-                                        ])
-                                      : ""}
-                                  </span>
-                                  {direction0.segments.length > 1 && (
-                                    <Text fontSize={"xs"} fontWeight={200}>
-                                      (including layover time)
-                                    </Text>
-                                  )}
-                                </div>
+                              )}
+                            {direction0?.stops > 1 && index === 0 && (
+                              <div className="my-2 d-flex gap-2 align-items-start">
+                                <i
+                                  class="fa fa-info-circle"
+                                  aria-hidden="true"
+                                ></i>
+                                <p style={{ fontSize: "13px" }}>
+                                  This flight has multiple stopovers. Please
+                                  check the visa requirements for each stop
+                                  based on your nationality before booking.
+                                </p>
                               </div>
-                            ) : (
-                              <></>
                             )}
-                            {seg.details.length > 1 ? (
-                              seg.details.map((item, idx) => {
-                                return (
-                                  <>
-                                    {index === seg.details.length - 1 ? (
-                                      <></>
-                                    ) : seg.details.length > 1 ? (
-                                      <>
-                                        {idx === 0 ? (
-                                          <></>
-                                        ) : (
-                                          <>
-                                            <div className="row my-2">
-                                              <div className="text-center fw-bold button-secondary-color py-1 rounded-3 text-white">
-                                                {" "}
-                                                Layover : &nbsp;
-                                                {layOver(
-                                                  seg.details[index + 1]
-                                                    ?.departure,
-                                                  seg.details[index]?.arrival
-                                                )}
-                                              </div>
-                                            </div>
-                                          </>
-                                        )}
-                                      </>
-                                    ) : (
-                                      <></>
+
+                            <div>
+                              {index === 0 ? (
+                                <div
+                                  className="row py-2 px-0 border button-color text-white"
+                                  // style={{ backgroundColor: "	white" }}
+                                >
+                                  <div className="col-lg-3 text-start">
+                                    <span className="d-inline fs-6 fw-bold ms-1">
+                                      Departure,{" "}
+                                      {airports
+                                        .filter((f) => f.iata === seg.from)
+                                        .map((item) => item.city)}
+                                    </span>
+                                  </div>
+                                  <div className="col-lg-3 text-center">
+                                    <i className="fas fa-plane fa-sm"></i>
+                                  </div>
+                                  <div className="col-lg-3">
+                                    <span className="d-inline fs-6 fw-bold">
+                                      Arrival,{" "}
+                                      {airports
+                                        .filter(
+                                          (f) =>
+                                            f.iata ===
+                                            direction0.segments[
+                                              direction0.segments.length - 1
+                                            ].to
+                                        )
+                                        .map((item) => item.city)}
+                                    </span>
+                                  </div>
+                                  <div className="col-lg-3 fs-6 fw-bold">
+                                    <span>
+                                      Duration :{" "}
+                                      {direction0.segments.length === 1
+                                        ? totalFlightDuration(
+                                            direction0.segments
+                                          )
+                                        : direction0.segments.length === 2
+                                        ? addDurations([
+                                            totalFlightDuration(
+                                              direction0.segments
+                                            ),
+                                            timeDuration(
+                                              direction0.segments[index]
+                                                .arrival,
+                                              direction0.segments[index + 1]
+                                                .departure
+                                            ),
+                                          ])
+                                        : direction0.segments.length === 3
+                                        ? addDurations([
+                                            totalFlightDuration(
+                                              direction0.segments
+                                            ),
+                                            timeDuration(
+                                              direction0.segments[index]
+                                                .arrival,
+                                              direction0.segments[index + 1]
+                                                .departure
+                                            ),
+                                            timeDuration(
+                                              direction0.segments[index + 1]
+                                                .arrival,
+                                              direction0.segments[index + 2]
+                                                .departure
+                                            ),
+                                          ])
+                                        : ""}
+                                    </span>
+                                    {direction0.segments.length > 1 && (
+                                      <Text fontSize={"xs"} fontWeight={200}>
+                                        (including layover time)
+                                      </Text>
                                     )}
-                                    {index === 0 ? (
-                                      <></>
-                                    ) : (
-                                      <div className="row my-2">
-                                        <div className="text-center fw-bold button-secondary-color py-1 rounded-3 text-white">
-                                          {" "}
-                                          Layover : &nbsp;
+                                  </div>
+                                </div>
+                              ) : (
+                                <></>
+                              )}
+                              {seg.details.length > 1 ? (
+                                seg.details.map((item, idx) => {
+                                  return (
+                                    <>
+                                      {index === seg.details.length - 1 ? (
+                                        <></>
+                                      ) : seg.details.length > 1 ? (
+                                        <>
                                           {idx === 0 ? (
+                                            <></>
+                                          ) : (
                                             <>
-                                              {layOver(
-                                                direction0.segments[index]
-                                                  ?.departure,
-                                                direction0.segments[index - 1]
-                                                  ?.arrival
-                                              )}
+                                              <div className="row my-2">
+                                                <div className="text-center fw-bold button-secondary-color py-1 rounded-3 text-white">
+                                                  {" "}
+                                                  Layover : &nbsp;
+                                                  {layOver(
+                                                    seg.details[index + 1]
+                                                      ?.departure,
+                                                    seg.details[index]?.arrival
+                                                  )}
+                                                </div>
+                                              </div>
+                                            </>
+                                          )}
+                                        </>
+                                      ) : (
+                                        <></>
+                                      )}
+                                      {index === 0 ? (
+                                        <></>
+                                      ) : (
+                                        <div className="row my-2">
+                                          <div className="text-center fw-bold button-secondary-color py-1 rounded-3 text-white">
+                                            {" "}
+                                            Layover : &nbsp;
+                                            {idx === 0 ? (
+                                              <>
+                                                {layOver(
+                                                  direction0.segments[index]
+                                                    ?.departure,
+                                                  direction0.segments[index - 1]
+                                                    ?.arrival
+                                                )}
+                                              </>
+                                            ) : (
+                                              <>
+                                                {layOver(
+                                                  seg.details[index]?.departure,
+                                                  seg.details[index - 1]
+                                                    ?.arrival
+                                                )}
+                                              </>
+                                            )}
+                                          </div>
+                                        </div>
+                                      )}
+                                      <div className="row py-4 p-2 border mb-2 align-items-center shadow">
+                                        <div className="col-lg-1">
+                                          <img
+                                            src={
+                                              environment.s3ArliensImage +
+                                              `${seg.airlineCode}.png`
+                                            }
+                                            alt=""
+                                            width="40px"
+                                            height="40px"
+                                          />
+                                        </div>
+                                        <div className="col-lg-3 d-block">
+                                          <p className="my-auto text-start">
+                                            {seg.airline}
+                                          </p>
+                                          <p className="my-auto text-start">
+                                            {item.equipment}
+                                          </p>
+                                          <p className="my-auto text-start">
+                                            Class {seg.bookingClass}
+                                          </p>
+                                        </div>
+                                        <div className="col-lg-4">
+                                          <span className="float-start fw-bold">
+                                            {item.origin}
+                                            <strong className="ms-1">
+                                              {item.departure.substr(11, 5)}
+                                            </strong>
+                                          </span>
+                                          <br></br>
+                                          <span className="float-start">
+                                            {moment(item.departure).format(
+                                              "DD MMMM,yyyy, dddd"
+                                            )}
+                                          </span>
+                                          <br></br>
+                                          <h6 className="text-start">
+                                            {item.originName}
+                                          </h6>
+                                        </div>
+                                        <div className="col-lg-4">
+                                          <span className="float-start fw-bold">
+                                            {item.destination}
+                                            <strong className="ms-1">
+                                              {item.arrival.substr(11, 5)}
+                                            </strong>
+                                          </span>
+                                          <br />
+                                          <span className="float-start">
+                                            {moment(item.arrival).format(
+                                              "DD MMMM,yyyy, dddd"
+                                            )}
+                                          </span>
+                                          <br></br>
+                                          <h6 className="text-start">
+                                            {item.destinationName}
+                                          </h6>
+                                        </div>
+                                      </div>
+                                    </>
+                                  );
+                                })
+                              ) : (
+                                <>
+                                  {/* <span>Segments</span> */}
+                                  {index !== 0 ? (
+                                    <div className="row my-2">
+                                      <div className="text-center fw-bold button-secondary-color py-1 rounded-3 text-white">
+                                        {" "}
+                                        Layover :&nbsp;
+                                        {layOver(
+                                          direction0.segments[index]?.departure,
+                                          direction0.segments[index - 1]
+                                            ?.arrival
+                                        )}
+                                      </div>
+                                    </div>
+                                  ) : (
+                                    <></>
+                                  )}
+                                  <div className="row py-4 p-2 border align-items-center shadow">
+                                    <div className="col-lg-1">
+                                      <img
+                                        src={
+                                          environment.s3ArliensImage +
+                                          `${seg.airlineCode}.png`
+                                        }
+                                        alt=""
+                                        width="40px"
+                                        height="40px"
+                                      />
+                                    </div>
+                                    <div className="col-lg-3 d-block">
+                                      <p className="my-auto text-start">
+                                        {seg.airline}
+                                      </p>
+                                      <p className="my-auto text-start">
+                                        {seg.airlineCode}-{seg.flightNumber}{" "}
+                                        <span
+                                          style={{ fontSize: "13px" }}
+                                          className="fw-bold"
+                                        >
+                                          Class(
+                                          {brandedFares !== null &&
+                                          brandedFares !== undefined &&
+                                          brandedFares?.length > 0 ? (
+                                            <>
+                                              {Object.keys(
+                                                brandedFares[
+                                                  selectedBrandedFareIdx
+                                                ].bookingClasses
+                                              ).map((innerKey, idex) => {
+                                                return (
+                                                  <>
+                                                    {index === idex && (
+                                                      <span>
+                                                        {
+                                                          brandedFares[
+                                                            selectedBrandedFareIdx
+                                                          ].bookingClasses[
+                                                            innerKey
+                                                          ]
+                                                        }
+                                                      </span>
+                                                    )}
+                                                  </>
+                                                );
+                                              })}
+                                            </>
+                                          ) : (
+                                            seg.bookingClass
+                                          )}
+                                          ){" "}
+                                          {seg.bookingCount > 0 && (
+                                            <>Seats({seg.bookingCount})</>
+                                          )}
+                                        </span>
+                                      </p>
+                                      <p className="my-auto text-start">
+                                        {seg.details[0].equipment}
+                                      </p>
+                                      <p className="my-auto text-start">
+                                        <span
+                                          style={{ fontSize: "13px" }}
+                                          className="fw-bold"
+                                        >
+                                          {brandedFares !== null &&
+                                          brandedFares !== undefined &&
+                                          brandedFares?.length > 0 ? (
+                                            <>
+                                              {Object.keys(
+                                                brandedFares[
+                                                  selectedBrandedFareIdx
+                                                ].cabinClasses
+                                              ).map((innerKey, idex) => {
+                                                return (
+                                                  <>
+                                                    {index === idex && (
+                                                      <span>
+                                                        {brandedFares[
+                                                          selectedBrandedFareIdx
+                                                        ].cabinClasses[
+                                                          innerKey
+                                                        ] !== ""
+                                                          ? brandedFares[
+                                                              selectedBrandedFareIdx
+                                                            ].cabinClasses[
+                                                              innerKey
+                                                            ]
+                                                          : searchData?.travelClass}
+                                                      </span>
+                                                    )}
+                                                  </>
+                                                );
+                                              })}
                                             </>
                                           ) : (
                                             <>
-                                              {layOver(
-                                                seg.details[index]?.departure,
-                                                seg.details[index - 1]?.arrival
-                                              )}
+                                              {seg.cabinClass
+                                                ? seg.cabinClass
+                                                : seg.serviceClass}
                                             </>
                                           )}
-                                        </div>
-                                      </div>
-                                    )}
-                                    <div className="row py-4 p-2 border mb-2 align-items-center shadow">
-                                      <div className="col-lg-1">
-                                        <img
-                                          src={
-                                            environment.s3ArliensImage +
-                                            `${seg.airlineCode}.png`
-                                          }
-                                          alt=""
-                                          width="40px"
-                                          height="40px"
-                                        />
-                                      </div>
-                                      <div className="col-lg-3 d-block">
-                                        <p className="my-auto text-start">
-                                          {seg.airline}
-                                        </p>
-                                        <p className="my-auto text-start">
-                                          {item.equipment}
-                                        </p>
-                                        <p className="my-auto text-start">
-                                          Class {seg.bookingClass}
-                                        </p>
-                                      </div>
-                                      <div className="col-lg-4">
-                                        <span className="float-start fw-bold">
-                                          {item.origin}
-                                          <strong className="ms-1">
-                                            {item.departure.substr(11, 5)}
-                                          </strong>
                                         </span>
-                                        <br></br>
-                                        <span className="float-start">
-                                          {moment(item.departure).format(
-                                            "DD MMMM,yyyy, dddd"
-                                          )}
-                                        </span>
-                                        <br></br>
-                                        <h6 className="text-start">
-                                          {item.originName}
-                                        </h6>
-                                      </div>
-                                      <div className="col-lg-4">
-                                        <span className="float-start fw-bold">
-                                          {item.destination}
-                                          <strong className="ms-1">
-                                            {item.arrival.substr(11, 5)}
-                                          </strong>
-                                        </span>
-                                        <br />
-                                        <span className="float-start">
-                                          {moment(item.arrival).format(
-                                            "DD MMMM,yyyy, dddd"
-                                          )}
-                                        </span>
-                                        <br></br>
-                                        <h6 className="text-start">
-                                          {item.destinationName}
-                                        </h6>
-                                      </div>
+                                      </p>
                                     </div>
-                                  </>
-                                );
-                              })
-                            ) : (
-                              <>
-                                {/* <span>Segments</span> */}
-                                {index !== 0 ? (
-                                  <div className="row my-2">
-                                    <div className="text-center fw-bold button-secondary-color py-1 rounded-3 text-white">
-                                      {" "}
-                                      Layover :&nbsp;
-                                      {layOver(
-                                        direction0.segments[index]?.departure,
-                                        direction0.segments[index - 1]?.arrival
-                                      )}
-                                    </div>
-                                  </div>
-                                ) : (
-                                  <></>
-                                )}
-                                <div className="row py-4 p-2 border align-items-center shadow">
-                                  <div className="col-lg-1">
-                                    <img
-                                      src={
-                                        environment.s3ArliensImage +
-                                        `${seg.airlineCode}.png`
-                                      }
-                                      alt=""
-                                      width="40px"
-                                      height="40px"
-                                    />
-                                  </div>
-                                  <div className="col-lg-3 d-block">
-                                    <p className="my-auto text-start">
-                                      {seg.airline}
-                                    </p>
-                                    <p className="my-auto text-start">
-                                      {seg.airlineCode}-{seg.flightNumber}{" "}
-                                      <span
-                                        style={{ fontSize: "13px" }}
-                                        className="fw-bold"
-                                      >
-                                        Class(
-                                        {brandedFares !== null &&
-                                        brandedFares !== undefined &&
-                                        brandedFares?.length > 0 ? (
-                                          <>
-                                            {Object.keys(
-                                              brandedFares[
-                                                selectedBrandedFareIdx
-                                              ].bookingClasses
-                                            ).map((innerKey, idex) => {
-                                              return (
-                                                <>
-                                                  {index === idex && (
-                                                    <span>
-                                                      {
-                                                        brandedFares[
-                                                          selectedBrandedFareIdx
-                                                        ].bookingClasses[
-                                                          innerKey
-                                                        ]
-                                                      }
-                                                    </span>
-                                                  )}
-                                                </>
-                                              );
-                                            })}
-                                          </>
-                                        ) : (
-                                          seg.bookingClass
-                                        )}
-                                        ){" "}
-                                        {seg.bookingCount > 0 && (
-                                          <>Seats({seg.bookingCount})</>
+                                    <div className="col-lg-4">
+                                      <span className="float-start fw-bold">
+                                        {seg.from}
+                                        <strong className="ms-1">
+                                          {seg.departure.substr(11, 5)}
+                                        </strong>
+                                      </span>
+                                      <br></br>
+                                      <span className="float-start">
+                                        {moment(seg.departure).format(
+                                          "DD MMMM,yyyy, dddd"
                                         )}
                                       </span>
-                                    </p>
-                                    <p className="my-auto text-start">
-                                      {seg.details[0].equipment}
-                                    </p>
-                                    <p className="my-auto text-start">
-                                      <span
-                                        style={{ fontSize: "13px" }}
-                                        className="fw-bold"
-                                      >
-                                        {brandedFares !== null &&
-                                        brandedFares !== undefined &&
-                                        brandedFares?.length > 0 ? (
-                                          <>
-                                            {Object.keys(
-                                              brandedFares[
-                                                selectedBrandedFareIdx
-                                              ].cabinClasses
-                                            ).map((innerKey, idex) => {
-                                              return (
-                                                <>
-                                                  {index === idex && (
-                                                    <span>
-                                                      {brandedFares[
-                                                        selectedBrandedFareIdx
-                                                      ].cabinClasses[
-                                                        innerKey
-                                                      ] !== ""
-                                                        ? brandedFares[
-                                                            selectedBrandedFareIdx
-                                                          ].cabinClasses[
-                                                            innerKey
-                                                          ]
-                                                        : searchData?.travelClass}
-                                                    </span>
-                                                  )}
-                                                </>
-                                              );
-                                            })}
-                                          </>
-                                        ) : (
-                                          <>
-                                            {seg.cabinClass
-                                              ? seg.cabinClass
-                                              : seg.serviceClass}
-                                          </>
+                                      <br></br>
+                                      <h6 className="text-start">
+                                        {seg.fromAirport}
+                                      </h6>
+                                    </div>
+                                    <div className="col-lg-4">
+                                      <span className="float-start fw-bold">
+                                        {seg.to}
+                                        <strong className="ms-1">
+                                          {seg.arrival.substr(11, 5)}
+                                        </strong>
+                                      </span>
+                                      <br />
+                                      <span className="float-start">
+                                        {moment(seg.arrival).format(
+                                          "DD MMMM,yyyy, dddd"
                                         )}
                                       </span>
-                                    </p>
+                                      <br></br>
+                                      <h6 className="text-start">
+                                        {seg.toAirport}
+                                      </h6>
+                                    </div>
                                   </div>
-                                  <div className="col-lg-4">
-                                    <span className="float-start fw-bold">
-                                      {seg.from}
-                                      <strong className="ms-1">
-                                        {seg.departure.substr(11, 5)}
-                                      </strong>
-                                    </span>
-                                    <br></br>
-                                    <span className="float-start">
-                                      {moment(seg.departure).format(
-                                        "DD MMMM,yyyy, dddd"
-                                      )}
-                                    </span>
-                                    <br></br>
-                                    <h6 className="text-start">
-                                      {seg.fromAirport}
-                                    </h6>
-                                  </div>
-                                  <div className="col-lg-4">
-                                    <span className="float-start fw-bold">
-                                      {seg.to}
-                                      <strong className="ms-1">
-                                        {seg.arrival.substr(11, 5)}
-                                      </strong>
-                                    </span>
-                                    <br />
-                                    <span className="float-start">
-                                      {moment(seg.arrival).format(
-                                        "DD MMMM,yyyy, dddd"
-                                      )}
-                                    </span>
-                                    <br></br>
-                                    <h6 className="text-start">
-                                      {seg.toAirport}
-                                    </h6>
-                                  </div>
-                                </div>
-                              </>
-                            )}
-                          </div>
+                                </>
+                              )}
+                            </div>
+                          </React.Fragment>
                         ))}
                       </div>
                       <div className="container my-1">
                         <>
                           {Object.keys(direction1).length > 0 ? (
                             <>
+                              {!direction1?.segments?.every(
+                                (item) =>
+                                  item.airlineCode ===
+                                  direction1?.platingCarrierCode
+                              ) && (
+                                <div className="my-2 d-flex gap-2 align-items-start">
+                                  <i
+                                    className="fa fa-info-circle"
+                                    aria-hidden="true"
+                                  ></i>
+                                  <p style={{ fontSize: "13px" }}>
+                                    This flight includes a codeshare segment.
+                                    Bangladeshi passport holders may need a
+                                    transit visa for travel. Please verify visa
+                                    requirements based on your nationality
+                                    before booking your ticket.
+                                  </p>
+                                </div>
+                              )}
+                              {direction1?.stops > 1 && (
+                                <div className="my-2 d-flex gap-2 align-items-start">
+                                  <i
+                                    class="fa fa-info-circle"
+                                    aria-hidden="true"
+                                  ></i>
+                                  <p style={{ fontSize: "13px" }}>
+                                    This flight has multiple stopovers. Please
+                                    check the visa requirements for each stop
+                                    based on your nationality before booking.
+                                  </p>
+                                </div>
+                              )}
                               <div className="row border py-2 px-0 button-color text-white">
                                 <div className="col-lg-3 text-start">
                                   <span className="d-inline fs-6 fw-bold ms-1">
@@ -960,388 +1034,446 @@ const ShowModal = ({
                           {direction2.segments !== undefined ? (
                             <>
                               {direction2.segments.map((seg, index) => (
-                                <div key={index}>
-                                  {index === 0 ? (
-                                    <div className="row py-2 px-0 border button-color text-white">
-                                      <div className="col-lg-3 text-start">
-                                        <span className="d-inline fs-6 fw-bold ms-1">
-                                          Departure,{" "}
-                                          {airports
-                                            .filter((f) => f.iata === seg.from)
-                                            .map((item) => item.city)}
-                                        </span>
+                                <React.Fragment key={index}>
+                                  {!direction2?.segments?.every(
+                                    (item) =>
+                                      item.airlineCode ===
+                                      direction2?.platingCarrierCode
+                                  ) &&
+                                    index === 0 && (
+                                      <div className="my-2 d-flex gap-2 align-items-start">
+                                        <i
+                                          className="fa fa-info-circle"
+                                          aria-hidden="true"
+                                        ></i>
+                                        <p style={{ fontSize: "13px" }}>
+                                          This flight includes a codeshare
+                                          segment. Bangladeshi passport holders
+                                          may need a transit visa for travel.
+                                          Please verify visa requirements based
+                                          on your nationality before booking
+                                          your ticket.
+                                        </p>
                                       </div>
-                                      <div className="col-lg-3 text-center">
-                                        <i className="fas fa-plane fa-sm"></i>
-                                      </div>
-                                      <div className="col-lg-3">
-                                        <span className="d-inline fs-6 fw-bold">
-                                          Arrival,{" "}
-                                          {airports
-                                            .filter(
-                                              (f) =>
-                                                f.iata ===
-                                                direction2.segments[
-                                                  direction2.segments.length - 1
-                                                ].to
-                                            )
-                                            .map((item) => item.city)}
-                                        </span>
-                                      </div>
-                                      <div className="col-lg-3 fs-6 fw-bold">
-                                        <span>
-                                          Duration :{" "}
-                                          {direction2.segments.length === 1
-                                            ? totalFlightDuration(
-                                                direction2.segments
-                                              )
-                                            : direction2.segments.length === 2
-                                            ? addDurations([
-                                                totalFlightDuration(
-                                                  direction2.segments
-                                                ),
-                                                timeDuration(
-                                                  direction2.segments[index]
-                                                    .arrival,
-                                                  direction2.segments[index + 1]
-                                                    .departure
-                                                ),
-                                              ])
-                                            : direction2.segments.length === 3
-                                            ? addDurations([
-                                                totalFlightDuration(
-                                                  direction2.segments
-                                                ),
-                                                timeDuration(
-                                                  direction2.segments[index]
-                                                    .arrival,
-                                                  direction2.segments[index + 1]
-                                                    .departure
-                                                ),
-                                                timeDuration(
-                                                  direction2.segments[index + 1]
-                                                    .arrival,
-                                                  direction2.segments[index + 2]
-                                                    .departure
-                                                ),
-                                              ])
-                                            : ""}
-                                        </span>
-                                        {direction2.segments.length > 1 && (
-                                          <Text
-                                            fontSize={"xs"}
-                                            fontWeight={200}
-                                          >
-                                            (including layover time)
-                                          </Text>
-                                        )}
-                                      </div>
+                                    )}
+                                  {direction2?.stops > 1 && index === 0 && (
+                                    <div className="my-2 d-flex gap-2 align-items-start">
+                                      <i
+                                        class="fa fa-info-circle"
+                                        aria-hidden="true"
+                                      ></i>
+                                      <p style={{ fontSize: "13px" }}>
+                                        This flight has multiple stopovers.
+                                        Please check the visa requirements for
+                                        each stop based on your nationality
+                                        before booking.
+                                      </p>
                                     </div>
-                                  ) : (
-                                    <></>
                                   )}
-                                  {seg.details.length > 1 ? (
-                                    seg.details.map((item, idx) => {
-                                      return (
-                                        <>
-                                          {index === seg.details.length - 1 ? (
-                                            <></>
-                                          ) : seg.details.length > 1 ? (
-                                            <>
-                                              {idx === 0 ? (
-                                                <></>
-                                              ) : (
-                                                <>
-                                                  <div className="row my-2">
-                                                    <div className="text-center fw-bold button-secondary-color py-1 rounded-3 text-white">
-                                                      {" "}
-                                                      Layover : &nbsp;
-                                                      {layOver(
-                                                        seg.details[index + 1]
-                                                          ?.departure,
-                                                        seg.details[index]
-                                                          ?.arrival
-                                                      )}
-                                                    </div>
-                                                  </div>
-                                                </>
-                                              )}
-                                            </>
-                                          ) : (
-                                            <></>
+                                  <div key={index}>
+                                    {index === 0 ? (
+                                      <div className="row py-2 px-0 border button-color text-white">
+                                        <div className="col-lg-3 text-start">
+                                          <span className="d-inline fs-6 fw-bold ms-1">
+                                            Departure,{" "}
+                                            {airports
+                                              .filter(
+                                                (f) => f.iata === seg.from
+                                              )
+                                              .map((item) => item.city)}
+                                          </span>
+                                        </div>
+                                        <div className="col-lg-3 text-center">
+                                          <i className="fas fa-plane fa-sm"></i>
+                                        </div>
+                                        <div className="col-lg-3">
+                                          <span className="d-inline fs-6 fw-bold">
+                                            Arrival,{" "}
+                                            {airports
+                                              .filter(
+                                                (f) =>
+                                                  f.iata ===
+                                                  direction2.segments[
+                                                    direction2.segments.length -
+                                                      1
+                                                  ].to
+                                              )
+                                              .map((item) => item.city)}
+                                          </span>
+                                        </div>
+                                        <div className="col-lg-3 fs-6 fw-bold">
+                                          <span>
+                                            Duration :{" "}
+                                            {direction2.segments.length === 1
+                                              ? totalFlightDuration(
+                                                  direction2.segments
+                                                )
+                                              : direction2.segments.length === 2
+                                              ? addDurations([
+                                                  totalFlightDuration(
+                                                    direction2.segments
+                                                  ),
+                                                  timeDuration(
+                                                    direction2.segments[index]
+                                                      .arrival,
+                                                    direction2.segments[
+                                                      index + 1
+                                                    ].departure
+                                                  ),
+                                                ])
+                                              : direction2.segments.length === 3
+                                              ? addDurations([
+                                                  totalFlightDuration(
+                                                    direction2.segments
+                                                  ),
+                                                  timeDuration(
+                                                    direction2.segments[index]
+                                                      .arrival,
+                                                    direction2.segments[
+                                                      index + 1
+                                                    ].departure
+                                                  ),
+                                                  timeDuration(
+                                                    direction2.segments[
+                                                      index + 1
+                                                    ].arrival,
+                                                    direction2.segments[
+                                                      index + 2
+                                                    ].departure
+                                                  ),
+                                                ])
+                                              : ""}
+                                          </span>
+                                          {direction2.segments.length > 1 && (
+                                            <Text
+                                              fontSize={"xs"}
+                                              fontWeight={200}
+                                            >
+                                              (including layover time)
+                                            </Text>
                                           )}
-                                          {index === 0 ? (
-                                            <></>
-                                          ) : (
-                                            <div className="row my-2">
-                                              <div className="text-center fw-bold button-secondary-color py-1 rounded-3 text-white">
-                                                {" "}
-                                                Layover : &nbsp;
-                                                {/* {layOver(
+                                        </div>
+                                      </div>
+                                    ) : (
+                                      <></>
+                                    )}
+                                    {seg.details.length > 1 ? (
+                                      seg.details.map((item, idx) => {
+                                        return (
+                                          <>
+                                            {index ===
+                                            seg.details.length - 1 ? (
+                                              <></>
+                                            ) : seg.details.length > 1 ? (
+                                              <>
+                                                {idx === 0 ? (
+                                                  <></>
+                                                ) : (
+                                                  <>
+                                                    <div className="row my-2">
+                                                      <div className="text-center fw-bold button-secondary-color py-1 rounded-3 text-white">
+                                                        {" "}
+                                                        Layover : &nbsp;
+                                                        {layOver(
+                                                          seg.details[index + 1]
+                                                            ?.departure,
+                                                          seg.details[index]
+                                                            ?.arrival
+                                                        )}
+                                                      </div>
+                                                    </div>
+                                                  </>
+                                                )}
+                                              </>
+                                            ) : (
+                                              <></>
+                                            )}
+                                            {index === 0 ? (
+                                              <></>
+                                            ) : (
+                                              <div className="row my-2">
+                                                <div className="text-center fw-bold button-secondary-color py-1 rounded-3 text-white">
+                                                  {" "}
+                                                  Layover : &nbsp;
+                                                  {/* {layOver(
                                                 seg.details[index]?.departure,
                                                 seg.details[index - 1]?.arrival
                                               )} */}
-                                                {idx === 0 ? (
-                                                  <>
-                                                    {layOver(
-                                                      direction2.segments[index]
-                                                        ?.departure,
-                                                      direction2.segments[
-                                                        index - 1
-                                                      ]?.arrival
+                                                  {idx === 0 ? (
+                                                    <>
+                                                      {layOver(
+                                                        direction2.segments[
+                                                          index
+                                                        ]?.departure,
+                                                        direction2.segments[
+                                                          index - 1
+                                                        ]?.arrival
+                                                      )}
+                                                    </>
+                                                  ) : (
+                                                    <>
+                                                      {layOver(
+                                                        seg.details[index]
+                                                          ?.departure,
+                                                        seg.details[index - 1]
+                                                          ?.arrival
+                                                      )}
+                                                    </>
+                                                  )}
+                                                </div>
+                                              </div>
+                                            )}
+                                            <div className="row py-4 p-2 border mb-2 align-items-center shadow">
+                                              <div className="col-lg-1">
+                                                <img
+                                                  src={
+                                                    environment.s3ArliensImage +
+                                                    `${seg.airlineCode}.png`
+                                                  }
+                                                  alt=""
+                                                  width="40px"
+                                                  height="40px"
+                                                />
+                                              </div>
+                                              <div className="col-lg-3 d-block">
+                                                <p className="my-auto text-start">
+                                                  {seg.airline}
+                                                </p>
+                                                <p className="my-auto text-start">
+                                                  {item.equipment}
+                                                </p>
+                                                <p className="my-auto text-start">
+                                                  Class {seg.bookingClass}
+                                                </p>
+                                              </div>
+                                              <div className="col-lg-4">
+                                                <span className="float-start fw-bold">
+                                                  {item.origin}
+                                                  <strong className="ms-1">
+                                                    {item.departure.substr(
+                                                      11,
+                                                      5
                                                     )}
+                                                  </strong>
+                                                </span>
+                                                <br></br>
+                                                <span className="float-start">
+                                                  {moment(
+                                                    item.departure
+                                                  ).format(
+                                                    "DD MMMM,yyyy, dddd"
+                                                  )}
+                                                </span>
+                                                <br></br>
+                                                <h6 className="text-start">
+                                                  {item.originName}
+                                                </h6>
+                                              </div>
+                                              <div className="col-lg-4">
+                                                <span className="float-start fw-bold">
+                                                  {item.destination}
+                                                  <strong className="ms-1">
+                                                    {item.arrival.substr(11, 5)}
+                                                  </strong>
+                                                </span>
+                                                <br />
+                                                <span className="float-start">
+                                                  {moment(item.arrival).format(
+                                                    "DD MMMM,yyyy, dddd"
+                                                  )}
+                                                </span>
+                                                <br></br>
+                                                <h6 className="text-start">
+                                                  {item.destinationName}
+                                                </h6>
+                                              </div>
+                                            </div>
+                                          </>
+                                        );
+                                      })
+                                    ) : (
+                                      <>
+                                        {/* <span>Segments</span> */}
+                                        {index !== 0 ? (
+                                          <div className="row my-2">
+                                            <div className="text-center fw-bold button-secondary-color py-1 rounded-3 text-white">
+                                              {" "}
+                                              Layover :&nbsp;
+                                              {layOver(
+                                                direction2.segments[index]
+                                                  ?.departure,
+                                                direction2.segments[index - 1]
+                                                  ?.arrival
+                                              )}
+                                            </div>
+                                          </div>
+                                        ) : (
+                                          <></>
+                                        )}
+                                        <div className="row py-4 p-2 border align-items-center shadow">
+                                          <div className="col-lg-1">
+                                            <img
+                                              src={
+                                                environment.s3ArliensImage +
+                                                `${seg.airlineCode}.png`
+                                              }
+                                              alt=""
+                                              width="40px"
+                                              height="40px"
+                                            />
+                                          </div>
+                                          <div className="col-lg-3 d-block">
+                                            <p className="my-auto text-start">
+                                              {seg.airline}
+                                            </p>
+                                            <p className="my-auto text-start">
+                                              {seg.airlineCode}-
+                                              {seg.flightNumber}{" "}
+                                              <span
+                                                style={{ fontSize: "13px" }}
+                                                className="fw-bold"
+                                              >
+                                                Class(
+                                                {brandedFares !== null &&
+                                                brandedFares !== undefined &&
+                                                brandedFares?.length > 0 ? (
+                                                  <>
+                                                    {Object.keys(
+                                                      brandedFares[
+                                                        selectedBrandedFareIdx
+                                                      ].bookingClasses
+                                                    ).map((innerKey, idex) => {
+                                                      return (
+                                                        <>
+                                                          {idex ===
+                                                            index +
+                                                              direction0
+                                                                .segments
+                                                                .length +
+                                                              direction1
+                                                                .segments
+                                                                .length && (
+                                                            <span>
+                                                              {
+                                                                brandedFares[
+                                                                  selectedBrandedFareIdx
+                                                                ]
+                                                                  .bookingClasses[
+                                                                  innerKey
+                                                                ]
+                                                              }
+                                                            </span>
+                                                          )}
+                                                        </>
+                                                      );
+                                                    })}
+                                                  </>
+                                                ) : (
+                                                  seg.bookingClass
+                                                )}
+                                                {seg.bookingCount > 0 && (
+                                                  <>Seats({seg.bookingCount})</>
+                                                )}
+                                              </span>
+                                            </p>
+
+                                            <p className="my-auto text-start">
+                                              {seg.details[0].equipment}
+                                            </p>
+                                            <p className="my-auto text-start">
+                                              <span
+                                                style={{ fontSize: "13px" }}
+                                                className="fw-bold"
+                                              >
+                                                {brandedFares !== null &&
+                                                brandedFares !== undefined &&
+                                                brandedFares?.length > 0 ? (
+                                                  <>
+                                                    {Object.keys(
+                                                      brandedFares[
+                                                        selectedBrandedFareIdx
+                                                      ].cabinClasses
+                                                    ).map((innerKey, idex) => {
+                                                      return (
+                                                        <>
+                                                          {idex ===
+                                                            index +
+                                                              direction0
+                                                                .segments
+                                                                .length +
+                                                              direction1
+                                                                .segments
+                                                                .length && (
+                                                            <span>
+                                                              {brandedFares[
+                                                                selectedBrandedFareIdx
+                                                              ].cabinClasses[
+                                                                innerKey
+                                                              ] !== ""
+                                                                ? brandedFares[
+                                                                    selectedBrandedFareIdx
+                                                                  ]
+                                                                    .cabinClasses[
+                                                                    innerKey
+                                                                  ]
+                                                                : searchData?.travelClass}
+                                                            </span>
+                                                          )}
+                                                        </>
+                                                      );
+                                                    })}
                                                   </>
                                                 ) : (
                                                   <>
-                                                    {layOver(
-                                                      seg.details[index]
-                                                        ?.departure,
-                                                      seg.details[index - 1]
-                                                        ?.arrival
-                                                    )}
+                                                    {seg.cabinClass
+                                                      ? seg.cabinClass
+                                                      : seg.serviceClass}
                                                   </>
                                                 )}
-                                              </div>
-                                            </div>
-                                          )}
-                                          <div className="row py-4 p-2 border mb-2 align-items-center shadow">
-                                            <div className="col-lg-1">
-                                              <img
-                                                src={
-                                                  environment.s3ArliensImage +
-                                                  `${seg.airlineCode}.png`
-                                                }
-                                                alt=""
-                                                width="40px"
-                                                height="40px"
-                                              />
-                                            </div>
-                                            <div className="col-lg-3 d-block">
-                                              <p className="my-auto text-start">
-                                                {seg.airline}
-                                              </p>
-                                              <p className="my-auto text-start">
-                                                {item.equipment}
-                                              </p>
-                                              <p className="my-auto text-start">
-                                                Class {seg.bookingClass}
-                                              </p>
-                                            </div>
-                                            <div className="col-lg-4">
-                                              <span className="float-start fw-bold">
-                                                {item.origin}
-                                                <strong className="ms-1">
-                                                  {item.departure.substr(11, 5)}
-                                                </strong>
                                               </span>
-                                              <br></br>
-                                              <span className="float-start">
-                                                {moment(item.departure).format(
-                                                  "DD MMMM,yyyy, dddd"
-                                                )}
-                                              </span>
-                                              <br></br>
-                                              <h6 className="text-start">
-                                                {item.originName}
-                                              </h6>
-                                            </div>
-                                            <div className="col-lg-4">
-                                              <span className="float-start fw-bold">
-                                                {item.destination}
-                                                <strong className="ms-1">
-                                                  {item.arrival.substr(11, 5)}
-                                                </strong>
-                                              </span>
-                                              <br />
-                                              <span className="float-start">
-                                                {moment(item.arrival).format(
-                                                  "DD MMMM,yyyy, dddd"
-                                                )}
-                                              </span>
-                                              <br></br>
-                                              <h6 className="text-start">
-                                                {item.destinationName}
-                                              </h6>
-                                            </div>
+                                            </p>
                                           </div>
-                                        </>
-                                      );
-                                    })
-                                  ) : (
-                                    <>
-                                      {/* <span>Segments</span> */}
-                                      {index !== 0 ? (
-                                        <div className="row my-2">
-                                          <div className="text-center fw-bold button-secondary-color py-1 rounded-3 text-white">
-                                            {" "}
-                                            Layover :&nbsp;
-                                            {layOver(
-                                              direction2.segments[index]
-                                                ?.departure,
-                                              direction2.segments[index - 1]
-                                                ?.arrival
-                                            )}
-                                          </div>
-                                        </div>
-                                      ) : (
-                                        <></>
-                                      )}
-                                      <div className="row py-4 p-2 border align-items-center shadow">
-                                        <div className="col-lg-1">
-                                          <img
-                                            src={
-                                              environment.s3ArliensImage +
-                                              `${seg.airlineCode}.png`
-                                            }
-                                            alt=""
-                                            width="40px"
-                                            height="40px"
-                                          />
-                                        </div>
-                                        <div className="col-lg-3 d-block">
-                                          <p className="my-auto text-start">
-                                            {seg.airline}
-                                          </p>
-                                          <p className="my-auto text-start">
-                                            {seg.airlineCode}-{seg.flightNumber}{" "}
-                                            <span
-                                              style={{ fontSize: "13px" }}
-                                              className="fw-bold"
-                                            >
-                                              Class(
-                                              {brandedFares !== null &&
-                                              brandedFares !== undefined &&
-                                              brandedFares?.length > 0 ? (
-                                                <>
-                                                  {Object.keys(
-                                                    brandedFares[
-                                                      selectedBrandedFareIdx
-                                                    ].bookingClasses
-                                                  ).map((innerKey, idex) => {
-                                                    return (
-                                                      <>
-                                                        {idex ===
-                                                          index +
-                                                            direction0.segments
-                                                              .length +
-                                                            direction1.segments
-                                                              .length && (
-                                                          <span>
-                                                            {
-                                                              brandedFares[
-                                                                selectedBrandedFareIdx
-                                                              ].bookingClasses[
-                                                                innerKey
-                                                              ]
-                                                            }
-                                                          </span>
-                                                        )}
-                                                      </>
-                                                    );
-                                                  })}
-                                                </>
-                                              ) : (
-                                                seg.bookingClass
-                                              )}
-                                              {seg.bookingCount > 0 && (
-                                                <>Seats({seg.bookingCount})</>
+                                          <div className="col-lg-4">
+                                            <span className="float-start fw-bold">
+                                              {seg.from}
+                                              <strong className="ms-1">
+                                                {seg.departure.substr(11, 5)}
+                                              </strong>
+                                            </span>
+                                            <br></br>
+                                            <span className="float-start">
+                                              {moment(seg.departure).format(
+                                                "DD MMMM,yyyy, dddd"
                                               )}
                                             </span>
-                                          </p>
-
-                                          <p className="my-auto text-start">
-                                            {seg.details[0].equipment}
-                                          </p>
-                                          <p className="my-auto text-start">
-                                            <span
-                                              style={{ fontSize: "13px" }}
-                                              className="fw-bold"
-                                            >
-                                              {brandedFares !== null &&
-                                              brandedFares !== undefined &&
-                                              brandedFares?.length > 0 ? (
-                                                <>
-                                                  {Object.keys(
-                                                    brandedFares[
-                                                      selectedBrandedFareIdx
-                                                    ].cabinClasses
-                                                  ).map((innerKey, idex) => {
-                                                    return (
-                                                      <>
-                                                        {idex ===
-                                                          index +
-                                                            direction0.segments
-                                                              .length +
-                                                            direction1.segments
-                                                              .length && (
-                                                          <span>
-                                                            {brandedFares[
-                                                              selectedBrandedFareIdx
-                                                            ].cabinClasses[
-                                                              innerKey
-                                                            ] !== ""
-                                                              ? brandedFares[
-                                                                  selectedBrandedFareIdx
-                                                                ].cabinClasses[
-                                                                  innerKey
-                                                                ]
-                                                              : searchData?.travelClass}
-                                                          </span>
-                                                        )}
-                                                      </>
-                                                    );
-                                                  })}
-                                                </>
-                                              ) : (
-                                                <>
-                                                  {seg.cabinClass
-                                                    ? seg.cabinClass
-                                                    : seg.serviceClass}
-                                                </>
+                                            <br></br>
+                                            <h6 className="text-start">
+                                              {seg.fromAirport}
+                                            </h6>
+                                          </div>
+                                          <div className="col-lg-4">
+                                            <span className="float-start fw-bold">
+                                              {seg.to}
+                                              <strong className="ms-1">
+                                                {seg.arrival.substr(11, 5)}
+                                              </strong>
+                                            </span>
+                                            <br />
+                                            <span className="float-start">
+                                              {moment(seg.arrival).format(
+                                                "DD MMMM,yyyy, dddd"
                                               )}
                                             </span>
-                                          </p>
+                                            <br></br>
+                                            <h6 className="text-start">
+                                              {seg.toAirport}
+                                            </h6>
+                                          </div>
                                         </div>
-                                        <div className="col-lg-4">
-                                          <span className="float-start fw-bold">
-                                            {seg.from}
-                                            <strong className="ms-1">
-                                              {seg.departure.substr(11, 5)}
-                                            </strong>
-                                          </span>
-                                          <br></br>
-                                          <span className="float-start">
-                                            {moment(seg.departure).format(
-                                              "DD MMMM,yyyy, dddd"
-                                            )}
-                                          </span>
-                                          <br></br>
-                                          <h6 className="text-start">
-                                            {seg.fromAirport}
-                                          </h6>
-                                        </div>
-                                        <div className="col-lg-4">
-                                          <span className="float-start fw-bold">
-                                            {seg.to}
-                                            <strong className="ms-1">
-                                              {seg.arrival.substr(11, 5)}
-                                            </strong>
-                                          </span>
-                                          <br />
-                                          <span className="float-start">
-                                            {moment(seg.arrival).format(
-                                              "DD MMMM,yyyy, dddd"
-                                            )}
-                                          </span>
-                                          <br></br>
-                                          <h6 className="text-start">
-                                            {seg.toAirport}
-                                          </h6>
-                                        </div>
-                                      </div>
-                                    </>
-                                  )}
-                                </div>
+                                      </>
+                                    )}
+                                  </div>
+                                </React.Fragment>
                               ))}
                             </>
                           ) : (
@@ -1350,385 +1482,445 @@ const ShowModal = ({
                           {direction3.segments !== undefined ? (
                             <>
                               {direction3.segments.map((seg, index) => (
-                                <div key={index}>
-                                  {index === 0 ? (
-                                    <div
-                                      className="row pt-2 p-2 border-bottom"
-                                      style={{ backgroundColor: "	white" }}
-                                    >
-                                      <div className="col-lg-3 text-start">
-                                        <span className="d-inline fs-6 fw-bold ms-1">
-                                          Departure,{" "}
-                                          {airports
-                                            .filter((f) => f.iata === seg.from)
-                                            .map((item) => item.city)}
-                                        </span>
+                                <React.Fragment key={index}>
+                                  {!direction3?.segments?.every(
+                                    (item) =>
+                                      item.airlineCode ===
+                                      direction3?.platingCarrierCode
+                                  ) &&
+                                    index === 0 && (
+                                      <div className="my-2 d-flex gap-2 align-items-start">
+                                        <i
+                                          className="fa fa-info-circle"
+                                          aria-hidden="true"
+                                        ></i>
+                                        <p style={{ fontSize: "13px" }}>
+                                          This flight includes a codeshare
+                                          segment. Bangladeshi passport holders
+                                          may need a transit visa for travel.
+                                          Please verify visa requirements based
+                                          on your nationality before booking
+                                          your ticket.
+                                        </p>
                                       </div>
-                                      <div className="col-lg-3">
-                                        <i className="fas fa-plane fa-sm"></i>
-                                      </div>
-                                      <div className="col-lg-3">
-                                        <span className="d-inline fs-6 fw-bold">
-                                          Arrival,{" "}
-                                          {airports
-                                            .filter(
-                                              (f) =>
-                                                f.iata ===
-                                                direction3.segments[
-                                                  direction3.segments.length - 1
-                                                ].to
-                                            )
-                                            .map((item) => item.city)}
-                                        </span>
-                                      </div>
-                                      <div className="col-lg-3 fs-6 fw-bold">
-                                        {/* <span>Duration: {seg.duration[0]}</span> */}
-                                        <span>
-                                          Duration :{" "}
-                                          {/* {totalFlightDuration(direction3.segments)} */}
-                                          {direction3.segments.length === 1
-                                            ? totalFlightDuration(
-                                                direction3.segments
+                                    )}
+                                  {direction3?.stops > 1 && index === 0 && (
+                                    <div className="my-2 d-flex gap-2 align-items-start">
+                                      <i
+                                        class="fa fa-info-circle"
+                                        aria-hidden="true"
+                                      ></i>
+                                      <p style={{ fontSize: "13px" }}>
+                                        This flight has multiple stopovers.
+                                        Please check the visa requirements for
+                                        each stop based on your nationality
+                                        before booking.
+                                      </p>
+                                    </div>
+                                  )}
+                                  <div key={index}>
+                                    {index === 0 ? (
+                                      <div
+                                        className="row pt-2 p-2 border-bottom"
+                                        style={{ backgroundColor: "	white" }}
+                                      >
+                                        <div className="col-lg-3 text-start">
+                                          <span className="d-inline fs-6 fw-bold ms-1">
+                                            Departure,{" "}
+                                            {airports
+                                              .filter(
+                                                (f) => f.iata === seg.from
                                               )
-                                            : direction3.segments.length === 2
-                                            ? addDurations([
-                                                totalFlightDuration(
+                                              .map((item) => item.city)}
+                                          </span>
+                                        </div>
+                                        <div className="col-lg-3">
+                                          <i className="fas fa-plane fa-sm"></i>
+                                        </div>
+                                        <div className="col-lg-3">
+                                          <span className="d-inline fs-6 fw-bold">
+                                            Arrival,{" "}
+                                            {airports
+                                              .filter(
+                                                (f) =>
+                                                  f.iata ===
+                                                  direction3.segments[
+                                                    direction3.segments.length -
+                                                      1
+                                                  ].to
+                                              )
+                                              .map((item) => item.city)}
+                                          </span>
+                                        </div>
+                                        <div className="col-lg-3 fs-6 fw-bold">
+                                          {/* <span>Duration: {seg.duration[0]}</span> */}
+                                          <span>
+                                            Duration :{" "}
+                                            {/* {totalFlightDuration(direction3.segments)} */}
+                                            {direction3.segments.length === 1
+                                              ? totalFlightDuration(
                                                   direction3.segments
-                                                ),
-                                                timeDuration(
-                                                  direction3.segments[index]
-                                                    .arrival,
-                                                  direction3.segments[index + 1]
-                                                    .departure
-                                                ),
-                                              ])
-                                            : direction3.segments.length === 3
-                                            ? addDurations([
-                                                totalFlightDuration(
-                                                  direction3.segments
-                                                ),
-                                                timeDuration(
-                                                  direction3.segments[index]
-                                                    .arrival,
-                                                  direction3.segments[index + 1]
-                                                    .departure
-                                                ),
-                                                timeDuration(
-                                                  direction3.segments[index + 1]
-                                                    .arrival,
-                                                  direction3.segments[index + 2]
-                                                    .departure
-                                                ),
-                                              ])
-                                            : ""}
-                                          {/* {addDurations([
+                                                )
+                                              : direction3.segments.length === 2
+                                              ? addDurations([
+                                                  totalFlightDuration(
+                                                    direction3.segments
+                                                  ),
+                                                  timeDuration(
+                                                    direction3.segments[index]
+                                                      .arrival,
+                                                    direction3.segments[
+                                                      index + 1
+                                                    ].departure
+                                                  ),
+                                                ])
+                                              : direction3.segments.length === 3
+                                              ? addDurations([
+                                                  totalFlightDuration(
+                                                    direction3.segments
+                                                  ),
+                                                  timeDuration(
+                                                    direction3.segments[index]
+                                                      .arrival,
+                                                    direction3.segments[
+                                                      index + 1
+                                                    ].departure
+                                                  ),
+                                                  timeDuration(
+                                                    direction3.segments[
+                                                      index + 1
+                                                    ].arrival,
+                                                    direction3.segments[
+                                                      index + 2
+                                                    ].departure
+                                                  ),
+                                                ])
+                                              : ""}
+                                            {/* {addDurations([
                                           totalFlightDuration(direction3.segments),
                                           timeDuration(
                                             direction3.segments[index].arrival,
                                             direction3.segments[index + 1].departure
                                           ),
                                         ])} */}
-                                        </span>
-                                        {direction3.segments.length > 1 && (
-                                          <Text
-                                            fontSize={"xs"}
-                                            fontWeight={200}
-                                          >
-                                            (including layover time)
-                                          </Text>
-                                        )}
-                                      </div>
-                                    </div>
-                                  ) : (
-                                    <></>
-                                  )}
-                                  {seg.details.length > 1 ? (
-                                    seg.details.map((item, idx) => {
-                                      return (
-                                        <>
-                                          {index === seg.details.length - 1 ? (
-                                            <></>
-                                          ) : seg.details.length > 1 ? (
-                                            <>
-                                              {idx === 0 ? (
-                                                <></>
-                                              ) : (
-                                                <>
-                                                  <div className="row my-2">
-                                                    <div className="text-center fw-bold button-secondary-color py-1 rounded-3 text-white">
-                                                      {" "}
-                                                      Layover : &nbsp;
-                                                      {layOver(
-                                                        seg.details[index + 1]
-                                                          ?.departure,
-                                                        seg.details[index]
-                                                          ?.arrival
-                                                      )}
-                                                    </div>
-                                                  </div>
-                                                </>
-                                              )}
-                                            </>
-                                          ) : (
-                                            <></>
+                                          </span>
+                                          {direction3.segments.length > 1 && (
+                                            <Text
+                                              fontSize={"xs"}
+                                              fontWeight={200}
+                                            >
+                                              (including layover time)
+                                            </Text>
                                           )}
-                                          {index === 0 ? (
-                                            <></>
-                                          ) : (
-                                            <div className="row my-2">
-                                              <div className="text-center fw-bold button-secondary-color py-1 rounded-3 text-white">
-                                                {" "}
-                                                Layover : &nbsp;
-                                                {layOver(
-                                                  seg.details[index]?.departure,
-                                                  seg.details[index - 1]
-                                                    ?.arrival
+                                        </div>
+                                      </div>
+                                    ) : (
+                                      <></>
+                                    )}
+                                    {seg.details.length > 1 ? (
+                                      seg.details.map((item, idx) => {
+                                        return (
+                                          <>
+                                            {index ===
+                                            seg.details.length - 1 ? (
+                                              <></>
+                                            ) : seg.details.length > 1 ? (
+                                              <>
+                                                {idx === 0 ? (
+                                                  <></>
+                                                ) : (
+                                                  <>
+                                                    <div className="row my-2">
+                                                      <div className="text-center fw-bold button-secondary-color py-1 rounded-3 text-white">
+                                                        {" "}
+                                                        Layover : &nbsp;
+                                                        {layOver(
+                                                          seg.details[index + 1]
+                                                            ?.departure,
+                                                          seg.details[index]
+                                                            ?.arrival
+                                                        )}
+                                                      </div>
+                                                    </div>
+                                                  </>
                                                 )}
+                                              </>
+                                            ) : (
+                                              <></>
+                                            )}
+                                            {index === 0 ? (
+                                              <></>
+                                            ) : (
+                                              <div className="row my-2">
+                                                <div className="text-center fw-bold button-secondary-color py-1 rounded-3 text-white">
+                                                  {" "}
+                                                  Layover : &nbsp;
+                                                  {layOver(
+                                                    seg.details[index]
+                                                      ?.departure,
+                                                    seg.details[index - 1]
+                                                      ?.arrival
+                                                  )}
+                                                </div>
+                                              </div>
+                                            )}
+                                            <div className="row py-4 p-2 border mb-2 align-items-center shadow">
+                                              <div className="col-lg-1">
+                                                <img
+                                                  src={
+                                                    environment.s3ArliensImage +
+                                                    `${seg.airlineCode}.png`
+                                                  }
+                                                  alt=""
+                                                  width="40px"
+                                                  height="40px"
+                                                />
+                                              </div>
+                                              <div className="col-lg-3 d-block">
+                                                <p className="my-auto text-start">
+                                                  {seg.airline}
+                                                </p>
+                                                <p className="my-auto text-start">
+                                                  {item.equipment}
+                                                </p>
+                                                <p className="my-auto text-start">
+                                                  Class {seg.bookingClass}
+                                                </p>
+                                              </div>
+                                              <div className="col-lg-4">
+                                                <span className="float-start fw-bold">
+                                                  {item.origin}
+                                                  <strong className="ms-1">
+                                                    {item.departure.substr(
+                                                      11,
+                                                      5
+                                                    )}
+                                                  </strong>
+                                                </span>
+                                                <br></br>
+                                                <span className="float-start">
+                                                  {moment(
+                                                    item.departure
+                                                  ).format(
+                                                    "DD MMMM,yyyy, dddd"
+                                                  )}
+                                                </span>
+                                                <br></br>
+                                                <h6 className="text-start">
+                                                  {item.originName}
+                                                </h6>
+                                              </div>
+                                              <div className="col-lg-4">
+                                                <span className="float-start fw-bold">
+                                                  {item.destination}
+                                                  <strong className="ms-1">
+                                                    {item.arrival.substr(11, 5)}
+                                                  </strong>
+                                                </span>
+                                                <br />
+                                                <span className="float-start">
+                                                  {moment(item.arrival).format(
+                                                    "DD MMMM,yyyy, dddd"
+                                                  )}
+                                                </span>
+                                                <br></br>
+                                                <h6 className="text-start">
+                                                  {item.destinationName}
+                                                </h6>
                                               </div>
                                             </div>
-                                          )}
-                                          <div className="row py-4 p-2 border mb-2 align-items-center shadow">
-                                            <div className="col-lg-1">
-                                              <img
-                                                src={
-                                                  environment.s3ArliensImage +
-                                                  `${seg.airlineCode}.png`
-                                                }
-                                                alt=""
-                                                width="40px"
-                                                height="40px"
-                                              />
-                                            </div>
-                                            <div className="col-lg-3 d-block">
-                                              <p className="my-auto text-start">
-                                                {seg.airline}
-                                              </p>
-                                              <p className="my-auto text-start">
-                                                {item.equipment}
-                                              </p>
-                                              <p className="my-auto text-start">
-                                                Class {seg.bookingClass}
-                                              </p>
-                                            </div>
-                                            <div className="col-lg-4">
-                                              <span className="float-start fw-bold">
-                                                {item.origin}
-                                                <strong className="ms-1">
-                                                  {item.departure.substr(11, 5)}
-                                                </strong>
-                                              </span>
-                                              <br></br>
-                                              <span className="float-start">
-                                                {moment(item.departure).format(
-                                                  "DD MMMM,yyyy, dddd"
-                                                )}
-                                              </span>
-                                              <br></br>
-                                              <h6 className="text-start">
-                                                {item.originName}
-                                              </h6>
-                                            </div>
-                                            <div className="col-lg-4">
-                                              <span className="float-start fw-bold">
-                                                {item.destination}
-                                                <strong className="ms-1">
-                                                  {item.arrival.substr(11, 5)}
-                                                </strong>
-                                              </span>
-                                              <br />
-                                              <span className="float-start">
-                                                {moment(item.arrival).format(
-                                                  "DD MMMM,yyyy, dddd"
-                                                )}
-                                              </span>
-                                              <br></br>
-                                              <h6 className="text-start">
-                                                {item.destinationName}
-                                              </h6>
+                                          </>
+                                        );
+                                      })
+                                    ) : (
+                                      <>
+                                        {/* <span>Segments</span> */}
+                                        {index !== 0 ? (
+                                          <div className="row my-2">
+                                            <div className="text-center fw-bold button-secondary-color py-1 rounded-3 text-white">
+                                              {" "}
+                                              Layover :&nbsp;
+                                              {layOver(
+                                                direction3.segments[index]
+                                                  ?.departure,
+                                                direction3.segments[index - 1]
+                                                  ?.arrival
+                                              )}
                                             </div>
                                           </div>
-                                        </>
-                                      );
-                                    })
-                                  ) : (
-                                    <>
-                                      {/* <span>Segments</span> */}
-                                      {index !== 0 ? (
-                                        <div className="row my-2">
-                                          <div className="text-center fw-bold button-secondary-color py-1 rounded-3 text-white">
-                                            {" "}
-                                            Layover :&nbsp;
-                                            {layOver(
-                                              direction3.segments[index]
-                                                ?.departure,
-                                              direction3.segments[index - 1]
-                                                ?.arrival
-                                            )}
+                                        ) : (
+                                          <></>
+                                        )}
+                                        <div className="row py-4 p-2 border align-items-center shadow">
+                                          <div className="col-lg-1">
+                                            <img
+                                              src={
+                                                environment.s3ArliensImage +
+                                                `${seg.airlineCode}.png`
+                                              }
+                                              alt=""
+                                              width="40px"
+                                              height="40px"
+                                            />
                                           </div>
-                                        </div>
-                                      ) : (
-                                        <></>
-                                      )}
-                                      <div className="row py-4 p-2 border align-items-center shadow">
-                                        <div className="col-lg-1">
-                                          <img
-                                            src={
-                                              environment.s3ArliensImage +
-                                              `${seg.airlineCode}.png`
-                                            }
-                                            alt=""
-                                            width="40px"
-                                            height="40px"
-                                          />
-                                        </div>
-                                        <div className="col-lg-3 d-block">
-                                          <p className="my-auto text-start">
-                                            {seg.airline}
-                                          </p>
-                                          <p className="my-auto text-start">
-                                            {seg.airlineCode}-{seg.flightNumber}{" "}
-                                            <span
-                                              style={{ fontSize: "13px" }}
-                                              className="fw-bold"
-                                            >
-                                              Class(
-                                              {brandedFares !== null &&
-                                              brandedFares !== undefined &&
-                                              brandedFares?.length > 0 ? (
-                                                <>
-                                                  {Object.keys(
-                                                    brandedFares[
-                                                      selectedBrandedFareIdx
-                                                    ].bookingClasses
-                                                  ).map((innerKey, idex) => {
-                                                    return (
-                                                      <>
-                                                        {idex ===
-                                                          index +
-                                                            direction0.segments
-                                                              .length +
-                                                            direction1.segments
-                                                              .length +
-                                                            direction2.segments
-                                                              .length && (
-                                                          <span>
-                                                            {
-                                                              brandedFares[
-                                                                selectedBrandedFareIdx
-                                                              ].bookingClasses[
-                                                                innerKey
-                                                              ]
-                                                            }
-                                                          </span>
-                                                        )}
-                                                      </>
-                                                    );
-                                                  })}
-                                                </>
-                                              ) : (
-                                                seg.bookingClass
-                                              )}
-                                              {seg.bookingCount > 0 && (
-                                                <>Seats({seg.bookingCount})</>
-                                              )}
-                                            </span>
-                                          </p>
-
-                                          <p className="my-auto text-start">
-                                            {seg.details[0].equipment}
-                                          </p>
-                                          <p className="my-auto text-start">
-                                            <span
-                                              style={{ fontSize: "13px" }}
-                                              className="fw-bold"
-                                            >
-                                              {brandedFares !== null &&
-                                              brandedFares !== undefined &&
-                                              brandedFares?.length > 0 ? (
-                                                <>
-                                                  {Object.keys(
-                                                    brandedFares[
-                                                      selectedBrandedFareIdx
-                                                    ].cabinClasses
-                                                  ).map((innerKey, idex) => {
-                                                    return (
-                                                      <>
-                                                        {idex ===
-                                                          index +
-                                                            direction0.segments
-                                                              .length +
-                                                            direction1.segments
-                                                              .length +
-                                                            direction2.segments
-                                                              .length && (
-                                                          <span>
-                                                            {brandedFares[
-                                                              selectedBrandedFareIdx
-                                                            ].cabinClasses[
-                                                              innerKey
-                                                            ] !== ""
-                                                              ? brandedFares[
+                                          <div className="col-lg-3 d-block">
+                                            <p className="my-auto text-start">
+                                              {seg.airline}
+                                            </p>
+                                            <p className="my-auto text-start">
+                                              {seg.airlineCode}-
+                                              {seg.flightNumber}{" "}
+                                              <span
+                                                style={{ fontSize: "13px" }}
+                                                className="fw-bold"
+                                              >
+                                                Class(
+                                                {brandedFares !== null &&
+                                                brandedFares !== undefined &&
+                                                brandedFares?.length > 0 ? (
+                                                  <>
+                                                    {Object.keys(
+                                                      brandedFares[
+                                                        selectedBrandedFareIdx
+                                                      ].bookingClasses
+                                                    ).map((innerKey, idex) => {
+                                                      return (
+                                                        <>
+                                                          {idex ===
+                                                            index +
+                                                              direction0
+                                                                .segments
+                                                                .length +
+                                                              direction1
+                                                                .segments
+                                                                .length +
+                                                              direction2
+                                                                .segments
+                                                                .length && (
+                                                            <span>
+                                                              {
+                                                                brandedFares[
                                                                   selectedBrandedFareIdx
-                                                                ].cabinClasses[
+                                                                ]
+                                                                  .bookingClasses[
                                                                   innerKey
                                                                 ]
-                                                              : searchData?.travelClass}
-                                                          </span>
-                                                        )}
-                                                      </>
-                                                    );
-                                                  })}
-                                                </>
-                                              ) : (
-                                                <>
-                                                  {seg.cabinClass
-                                                    ? seg.cabinClass
-                                                    : seg.serviceClass}
-                                                </>
+                                                              }
+                                                            </span>
+                                                          )}
+                                                        </>
+                                                      );
+                                                    })}
+                                                  </>
+                                                ) : (
+                                                  seg.bookingClass
+                                                )}
+                                                {seg.bookingCount > 0 && (
+                                                  <>Seats({seg.bookingCount})</>
+                                                )}
+                                              </span>
+                                            </p>
+
+                                            <p className="my-auto text-start">
+                                              {seg.details[0].equipment}
+                                            </p>
+                                            <p className="my-auto text-start">
+                                              <span
+                                                style={{ fontSize: "13px" }}
+                                                className="fw-bold"
+                                              >
+                                                {brandedFares !== null &&
+                                                brandedFares !== undefined &&
+                                                brandedFares?.length > 0 ? (
+                                                  <>
+                                                    {Object.keys(
+                                                      brandedFares[
+                                                        selectedBrandedFareIdx
+                                                      ].cabinClasses
+                                                    ).map((innerKey, idex) => {
+                                                      return (
+                                                        <>
+                                                          {idex ===
+                                                            index +
+                                                              direction0
+                                                                .segments
+                                                                .length +
+                                                              direction1
+                                                                .segments
+                                                                .length +
+                                                              direction2
+                                                                .segments
+                                                                .length && (
+                                                            <span>
+                                                              {brandedFares[
+                                                                selectedBrandedFareIdx
+                                                              ].cabinClasses[
+                                                                innerKey
+                                                              ] !== ""
+                                                                ? brandedFares[
+                                                                    selectedBrandedFareIdx
+                                                                  ]
+                                                                    .cabinClasses[
+                                                                    innerKey
+                                                                  ]
+                                                                : searchData?.travelClass}
+                                                            </span>
+                                                          )}
+                                                        </>
+                                                      );
+                                                    })}
+                                                  </>
+                                                ) : (
+                                                  <>
+                                                    {seg.cabinClass
+                                                      ? seg.cabinClass
+                                                      : seg.serviceClass}
+                                                  </>
+                                                )}
+                                              </span>
+                                            </p>
+                                          </div>
+                                          <div className="col-lg-4">
+                                            <span className="float-start fw-bold">
+                                              {seg.from}
+                                              <strong className="ms-1">
+                                                {seg.departure.substr(11, 5)}
+                                              </strong>
+                                            </span>
+                                            <br></br>
+                                            <span className="float-start">
+                                              {moment(seg.departure).format(
+                                                "DD MMMM,yyyy, dddd"
                                               )}
                                             </span>
-                                          </p>
+                                            <br></br>
+                                            <h6 className="text-start">
+                                              {seg.fromAirport}
+                                            </h6>
+                                          </div>
+                                          <div className="col-lg-4">
+                                            <span className="float-start fw-bold">
+                                              {seg.to}
+                                              <strong className="ms-1">
+                                                {seg.arrival.substr(11, 5)}
+                                              </strong>
+                                            </span>
+                                            <br />
+                                            <span className="float-start">
+                                              {moment(seg.arrival).format(
+                                                "DD MMMM,yyyy, dddd"
+                                              )}
+                                            </span>
+                                            <br></br>
+                                            <h6 className="text-start">
+                                              {seg.toAirport}
+                                            </h6>
+                                          </div>
                                         </div>
-                                        <div className="col-lg-4">
-                                          <span className="float-start fw-bold">
-                                            {seg.from}
-                                            <strong className="ms-1">
-                                              {seg.departure.substr(11, 5)}
-                                            </strong>
-                                          </span>
-                                          <br></br>
-                                          <span className="float-start">
-                                            {moment(seg.departure).format(
-                                              "DD MMMM,yyyy, dddd"
-                                            )}
-                                          </span>
-                                          <br></br>
-                                          <h6 className="text-start">
-                                            {seg.fromAirport}
-                                          </h6>
-                                        </div>
-                                        <div className="col-lg-4">
-                                          <span className="float-start fw-bold">
-                                            {seg.to}
-                                            <strong className="ms-1">
-                                              {seg.arrival.substr(11, 5)}
-                                            </strong>
-                                          </span>
-                                          <br />
-                                          <span className="float-start">
-                                            {moment(seg.arrival).format(
-                                              "DD MMMM,yyyy, dddd"
-                                            )}
-                                          </span>
-                                          <br></br>
-                                          <h6 className="text-start">
-                                            {seg.toAirport}
-                                          </h6>
-                                        </div>
-                                      </div>
-                                    </>
-                                  )}
-                                </div>
+                                      </>
+                                    )}
+                                  </div>
+                                </React.Fragment>
                               ))}
                             </>
                           ) : (
@@ -1738,337 +1930,390 @@ const ShowModal = ({
                           {direction4.segments !== undefined ? (
                             <>
                               {direction4.segments.map((seg, index) => (
-                                <div key={index}>
-                                  {index === 0 ? (
-                                    <div
-                                      className="row pt-2 p-2 border-bottom"
-                                      style={{ backgroundColor: "	white" }}
-                                    >
-                                      <div className="col-lg-3 text-start">
-                                        <span className="d-inline fs-6 fw-bold ms-1">
-                                          Departure,{" "}
-                                          {airports
-                                            .filter((f) => f.iata === seg.from)
-                                            .map((item) => item.city)}
-                                        </span>
+                                <React.Fragment key={index}>
+                                  {!direction4?.segments?.every(
+                                    (item) =>
+                                      item.airlineCode ===
+                                      direction4?.platingCarrierCode
+                                  ) &&
+                                    index === 0 && (
+                                      <div className="my-2 d-flex gap-2 align-items-start">
+                                        <i
+                                          className="fa fa-info-circle"
+                                          aria-hidden="true"
+                                        ></i>
+                                        <p style={{ fontSize: "13px" }}>
+                                          This flight includes a codeshare
+                                          segment. Bangladeshi passport holders
+                                          may need a transit visa for travel.
+                                          Please verify visa requirements based
+                                          on your nationality before booking
+                                          your ticket.
+                                        </p>
                                       </div>
-                                      <div className="col-lg-3">
-                                        <i className="fas fa-plane fa-sm"></i>
-                                      </div>
-                                      <div className="col-lg-3">
-                                        <span className="d-inline fs-6 fw-bold">
-                                          Arrival,{" "}
-                                          {airports
-                                            .filter(
-                                              (f) =>
-                                                f.iata ===
-                                                direction4.segments[
-                                                  direction4.segments.length - 1
-                                                ].to
-                                            )
-                                            .map((item) => item.city)}
-                                        </span>
-                                      </div>
-                                      <div className="col-lg-3 fs-6 fw-bold">
-                                        {/* <span>Duration: {seg.duration[0]}</span> */}
-                                        <span>
-                                          Duration :{" "}
-                                          {/* {totalFlightDuration(direction4.segments)} */}
-                                          {direction4.segments.length === 1
-                                            ? totalFlightDuration(
-                                                direction4.segments
+                                    )}
+                                  {direction4?.stops > 1 && index === 0 && (
+                                    <div className="my-2 d-flex gap-2 align-items-start">
+                                      <i
+                                        class="fa fa-info-circle"
+                                        aria-hidden="true"
+                                      ></i>
+                                      <p style={{ fontSize: "13px" }}>
+                                        This flight has multiple stopovers.
+                                        Please check the visa requirements for
+                                        each stop based on your nationality
+                                        before booking.
+                                      </p>
+                                    </div>
+                                  )}
+                                  <div key={index}>
+                                    {index === 0 ? (
+                                      <div
+                                        className="row pt-2 p-2 border-bottom"
+                                        style={{ backgroundColor: "	white" }}
+                                      >
+                                        <div className="col-lg-3 text-start">
+                                          <span className="d-inline fs-6 fw-bold ms-1">
+                                            Departure,{" "}
+                                            {airports
+                                              .filter(
+                                                (f) => f.iata === seg.from
                                               )
-                                            : direction4.segments.length === 2
-                                            ? addDurations([
-                                                totalFlightDuration(
+                                              .map((item) => item.city)}
+                                          </span>
+                                        </div>
+                                        <div className="col-lg-3">
+                                          <i className="fas fa-plane fa-sm"></i>
+                                        </div>
+                                        <div className="col-lg-3">
+                                          <span className="d-inline fs-6 fw-bold">
+                                            Arrival,{" "}
+                                            {airports
+                                              .filter(
+                                                (f) =>
+                                                  f.iata ===
+                                                  direction4.segments[
+                                                    direction4.segments.length -
+                                                      1
+                                                  ].to
+                                              )
+                                              .map((item) => item.city)}
+                                          </span>
+                                        </div>
+                                        <div className="col-lg-3 fs-6 fw-bold">
+                                          {/* <span>Duration: {seg.duration[0]}</span> */}
+                                          <span>
+                                            Duration :{" "}
+                                            {/* {totalFlightDuration(direction4.segments)} */}
+                                            {direction4.segments.length === 1
+                                              ? totalFlightDuration(
                                                   direction4.segments
-                                                ),
-                                                timeDuration(
-                                                  direction4.segments[index]
-                                                    .arrival,
-                                                  direction4.segments[index + 1]
-                                                    .departure
-                                                ),
-                                              ])
-                                            : direction4.segments.length === 3
-                                            ? addDurations([
-                                                totalFlightDuration(
-                                                  direction4.segments
-                                                ),
-                                                timeDuration(
-                                                  direction4.segments[index]
-                                                    .arrival,
-                                                  direction4.segments[index + 1]
-                                                    .departure
-                                                ),
-                                                timeDuration(
-                                                  direction4.segments[index + 1]
-                                                    .arrival,
-                                                  direction4.segments[index + 2]
-                                                    .departure
-                                                ),
-                                              ])
-                                            : ""}
-                                          {/* {addDurations([
+                                                )
+                                              : direction4.segments.length === 2
+                                              ? addDurations([
+                                                  totalFlightDuration(
+                                                    direction4.segments
+                                                  ),
+                                                  timeDuration(
+                                                    direction4.segments[index]
+                                                      .arrival,
+                                                    direction4.segments[
+                                                      index + 1
+                                                    ].departure
+                                                  ),
+                                                ])
+                                              : direction4.segments.length === 3
+                                              ? addDurations([
+                                                  totalFlightDuration(
+                                                    direction4.segments
+                                                  ),
+                                                  timeDuration(
+                                                    direction4.segments[index]
+                                                      .arrival,
+                                                    direction4.segments[
+                                                      index + 1
+                                                    ].departure
+                                                  ),
+                                                  timeDuration(
+                                                    direction4.segments[
+                                                      index + 1
+                                                    ].arrival,
+                                                    direction4.segments[
+                                                      index + 2
+                                                    ].departure
+                                                  ),
+                                                ])
+                                              : ""}
+                                            {/* {addDurations([
                                           totalFlightDuration(direction4.segments),
                                           timeDuration(
                                             direction4.segments[index].arrival,
                                             direction4.segments[index + 1].departure
                                           ),
                                         ])} */}
-                                        </span>
-                                        {direction4.segments.length > 1 && (
-                                          <Text
-                                            fontSize={"xs"}
-                                            fontWeight={200}
-                                          >
-                                            (including layover time)
-                                          </Text>
-                                        )}
-                                      </div>
-                                    </div>
-                                  ) : (
-                                    <></>
-                                  )}
-                                  {seg.details.length > 1 ? (
-                                    seg.details.map((item, idx) => {
-                                      return (
-                                        <>
-                                          {index === seg.details.length - 1 ? (
-                                            <></>
-                                          ) : seg.details.length > 1 ? (
-                                            <>
-                                              {idx === 0 ? (
-                                                <></>
-                                              ) : (
-                                                <>
-                                                  <div className="row my-2">
-                                                    <div className="text-center fw-bold button-secondary-color py-1 rounded-3 text-white">
-                                                      {" "}
-                                                      Layover : &nbsp;
-                                                      {layOver(
-                                                        seg.details[index + 1]
-                                                          ?.departure,
-                                                        seg.details[index]
-                                                          ?.arrival
-                                                      )}
-                                                    </div>
-                                                  </div>
-                                                </>
-                                              )}
-                                            </>
-                                          ) : (
-                                            <></>
+                                          </span>
+                                          {direction4.segments.length > 1 && (
+                                            <Text
+                                              fontSize={"xs"}
+                                              fontWeight={200}
+                                            >
+                                              (including layover time)
+                                            </Text>
                                           )}
-                                          {index === 0 ? (
-                                            <></>
-                                          ) : (
-                                            <div className="row my-2">
-                                              <div className="text-center fw-bold button-secondary-color py-1 rounded-3 text-white">
-                                                {" "}
-                                                Layover : &nbsp;
-                                                {layOver(
-                                                  seg.details[index]?.departure,
-                                                  seg.details[index - 1]
-                                                    ?.arrival
+                                        </div>
+                                      </div>
+                                    ) : (
+                                      <></>
+                                    )}
+                                    {seg.details.length > 1 ? (
+                                      seg.details.map((item, idx) => {
+                                        return (
+                                          <>
+                                            {index ===
+                                            seg.details.length - 1 ? (
+                                              <></>
+                                            ) : seg.details.length > 1 ? (
+                                              <>
+                                                {idx === 0 ? (
+                                                  <></>
+                                                ) : (
+                                                  <>
+                                                    <div className="row my-2">
+                                                      <div className="text-center fw-bold button-secondary-color py-1 rounded-3 text-white">
+                                                        {" "}
+                                                        Layover : &nbsp;
+                                                        {layOver(
+                                                          seg.details[index + 1]
+                                                            ?.departure,
+                                                          seg.details[index]
+                                                            ?.arrival
+                                                        )}
+                                                      </div>
+                                                    </div>
+                                                  </>
                                                 )}
+                                              </>
+                                            ) : (
+                                              <></>
+                                            )}
+                                            {index === 0 ? (
+                                              <></>
+                                            ) : (
+                                              <div className="row my-2">
+                                                <div className="text-center fw-bold button-secondary-color py-1 rounded-3 text-white">
+                                                  {" "}
+                                                  Layover : &nbsp;
+                                                  {layOver(
+                                                    seg.details[index]
+                                                      ?.departure,
+                                                    seg.details[index - 1]
+                                                      ?.arrival
+                                                  )}
+                                                </div>
+                                              </div>
+                                            )}
+                                            <div className="row py-4 p-2 border mb-2 align-items-center shadow">
+                                              <div className="col-lg-1">
+                                                <img
+                                                  src={
+                                                    environment.s3ArliensImage +
+                                                    `${seg.airlineCode}.png`
+                                                  }
+                                                  alt=""
+                                                  width="40px"
+                                                  height="40px"
+                                                />
+                                              </div>
+                                              <div className="col-lg-3 d-block">
+                                                <p className="my-auto text-start">
+                                                  {seg.airline}
+                                                </p>
+                                                <p className="my-auto text-start">
+                                                  {item.equipment}
+                                                </p>
+                                                <p className="my-auto text-start">
+                                                  Class {seg.bookingClass}
+                                                </p>
+                                              </div>
+                                              <div className="col-lg-4">
+                                                <span className="float-start fw-bold">
+                                                  {item.origin}
+                                                  <strong className="ms-1">
+                                                    {item.departure.substr(
+                                                      11,
+                                                      5
+                                                    )}
+                                                  </strong>
+                                                </span>
+                                                <br></br>
+                                                <span className="float-start">
+                                                  {moment(
+                                                    item.departure
+                                                  ).format(
+                                                    "DD MMMM,yyyy, dddd"
+                                                  )}
+                                                </span>
+                                                <br></br>
+                                                <h6 className="text-start">
+                                                  {item.originName}
+                                                </h6>
+                                              </div>
+                                              <div className="col-lg-4">
+                                                <span className="float-start fw-bold">
+                                                  {item.destination}
+                                                  <strong className="ms-1">
+                                                    {item.arrival.substr(11, 5)}
+                                                  </strong>
+                                                </span>
+                                                <br />
+                                                <span className="float-start">
+                                                  {moment(item.arrival).format(
+                                                    "DD MMMM,yyyy, dddd"
+                                                  )}
+                                                </span>
+                                                <br></br>
+                                                <h6 className="text-start">
+                                                  {item.destinationName}
+                                                </h6>
                                               </div>
                                             </div>
-                                          )}
-                                          <div className="row py-4 p-2 border mb-2 align-items-center shadow">
-                                            <div className="col-lg-1">
-                                              <img
-                                                src={
-                                                  environment.s3ArliensImage +
-                                                  `${seg.airlineCode}.png`
-                                                }
-                                                alt=""
-                                                width="40px"
-                                                height="40px"
-                                              />
-                                            </div>
-                                            <div className="col-lg-3 d-block">
-                                              <p className="my-auto text-start">
-                                                {seg.airline}
-                                              </p>
-                                              <p className="my-auto text-start">
-                                                {item.equipment}
-                                              </p>
-                                              <p className="my-auto text-start">
-                                                Class {seg.bookingClass}
-                                              </p>
-                                            </div>
-                                            <div className="col-lg-4">
-                                              <span className="float-start fw-bold">
-                                                {item.origin}
-                                                <strong className="ms-1">
-                                                  {item.departure.substr(11, 5)}
-                                                </strong>
-                                              </span>
-                                              <br></br>
-                                              <span className="float-start">
-                                                {moment(item.departure).format(
-                                                  "DD MMMM,yyyy, dddd"
-                                                )}
-                                              </span>
-                                              <br></br>
-                                              <h6 className="text-start">
-                                                {item.originName}
-                                              </h6>
-                                            </div>
-                                            <div className="col-lg-4">
-                                              <span className="float-start fw-bold">
-                                                {item.destination}
-                                                <strong className="ms-1">
-                                                  {item.arrival.substr(11, 5)}
-                                                </strong>
-                                              </span>
-                                              <br />
-                                              <span className="float-start">
-                                                {moment(item.arrival).format(
-                                                  "DD MMMM,yyyy, dddd"
-                                                )}
-                                              </span>
-                                              <br></br>
-                                              <h6 className="text-start">
-                                                {item.destinationName}
-                                              </h6>
+                                          </>
+                                        );
+                                      })
+                                    ) : (
+                                      <>
+                                        {/* <span>Segments</span> */}
+                                        {index !== 0 ? (
+                                          <div className="row my-2">
+                                            <div className="text-center fw-bold button-secondary-color py-1 rounded-3 text-white">
+                                              {" "}
+                                              Layover :&nbsp;
+                                              {layOver(
+                                                direction4.segments[index]
+                                                  ?.departure,
+                                                direction4.segments[index - 1]
+                                                  ?.arrival
+                                              )}
                                             </div>
                                           </div>
-                                        </>
-                                      );
-                                    })
-                                  ) : (
-                                    <>
-                                      {/* <span>Segments</span> */}
-                                      {index !== 0 ? (
-                                        <div className="row my-2">
-                                          <div className="text-center fw-bold button-secondary-color py-1 rounded-3 text-white">
-                                            {" "}
-                                            Layover :&nbsp;
-                                            {layOver(
-                                              direction4.segments[index]
-                                                ?.departure,
-                                              direction4.segments[index - 1]
-                                                ?.arrival
-                                            )}
+                                        ) : (
+                                          <></>
+                                        )}
+                                        <div className="row py-4 p-2 border align-items-center shadow">
+                                          <div className="col-lg-1">
+                                            <img
+                                              src={
+                                                environment.s3ArliensImage +
+                                                `${seg.airlineCode}.png`
+                                              }
+                                              alt=""
+                                              width="40px"
+                                              height="40px"
+                                            />
                                           </div>
-                                        </div>
-                                      ) : (
-                                        <></>
-                                      )}
-                                      <div className="row py-4 p-2 border align-items-center shadow">
-                                        <div className="col-lg-1">
-                                          <img
-                                            src={
-                                              environment.s3ArliensImage +
-                                              `${seg.airlineCode}.png`
-                                            }
-                                            alt=""
-                                            width="40px"
-                                            height="40px"
-                                          />
-                                        </div>
-                                        <div className="col-lg-3 d-block">
-                                          <p className="my-auto text-start">
-                                            {seg.airline}
-                                          </p>
-                                          <p className="my-auto text-start">
-                                            {seg.airlineCode}-{seg.flightNumber}{" "}
-                                            <span
-                                              style={{ fontSize: "13px" }}
-                                              className="fw-bold"
-                                            >
-                                              Class(
-                                              {brandedFares !== null &&
-                                              brandedFares !== undefined &&
-                                              brandedFares?.length > 0 ? (
-                                                <>
-                                                  {Object.keys(
-                                                    brandedFares[
-                                                      selectedBrandedFareIdx
-                                                    ].bookingClasses
-                                                  ).map((innerKey, index) => {
-                                                    return (
-                                                      <>
-                                                        {index === 4 && (
-                                                          <span>
-                                                            {
-                                                              brandedFares[
-                                                                selectedBrandedFareIdx
-                                                              ].bookingClasses[
-                                                                innerKey
-                                                              ]
-                                                            }
-                                                          </span>
-                                                        )}
-                                                      </>
-                                                    );
-                                                  })}
-                                                </>
-                                              ) : (
-                                                seg.bookingClass
-                                              )}
-                                              {seg.bookingCount > 0 && (
-                                                <>Seats({seg.bookingCount})</>
-                                              )}
-                                            </span>
-                                          </p>
+                                          <div className="col-lg-3 d-block">
+                                            <p className="my-auto text-start">
+                                              {seg.airline}
+                                            </p>
+                                            <p className="my-auto text-start">
+                                              {seg.airlineCode}-
+                                              {seg.flightNumber}{" "}
+                                              <span
+                                                style={{ fontSize: "13px" }}
+                                                className="fw-bold"
+                                              >
+                                                Class(
+                                                {brandedFares !== null &&
+                                                brandedFares !== undefined &&
+                                                brandedFares?.length > 0 ? (
+                                                  <>
+                                                    {Object.keys(
+                                                      brandedFares[
+                                                        selectedBrandedFareIdx
+                                                      ].bookingClasses
+                                                    ).map((innerKey, index) => {
+                                                      return (
+                                                        <>
+                                                          {index === 4 && (
+                                                            <span>
+                                                              {
+                                                                brandedFares[
+                                                                  selectedBrandedFareIdx
+                                                                ]
+                                                                  .bookingClasses[
+                                                                  innerKey
+                                                                ]
+                                                              }
+                                                            </span>
+                                                          )}
+                                                        </>
+                                                      );
+                                                    })}
+                                                  </>
+                                                ) : (
+                                                  seg.bookingClass
+                                                )}
+                                                {seg.bookingCount > 0 && (
+                                                  <>Seats({seg.bookingCount})</>
+                                                )}
+                                              </span>
+                                            </p>
 
-                                          <p className="my-auto text-start">
-                                            {seg.details[0].equipment}
-                                          </p>
-                                          <p className="my-auto text-start">
-                                            <span
-                                              style={{ fontSize: "13px" }}
-                                              className="fw-bold"
-                                            >
-                                              {seg.cabinClass
-                                                ? seg.cabinClass
-                                                : seg.serviceClass}
+                                            <p className="my-auto text-start">
+                                              {seg.details[0].equipment}
+                                            </p>
+                                            <p className="my-auto text-start">
+                                              <span
+                                                style={{ fontSize: "13px" }}
+                                                className="fw-bold"
+                                              >
+                                                {seg.cabinClass
+                                                  ? seg.cabinClass
+                                                  : seg.serviceClass}
+                                              </span>
+                                            </p>
+                                          </div>
+                                          <div className="col-lg-4">
+                                            <span className="float-start fw-bold">
+                                              {seg.from}
+                                              <strong className="ms-1">
+                                                {seg.departure.substr(11, 5)}
+                                              </strong>
                                             </span>
-                                          </p>
+                                            <br></br>
+                                            <span className="float-start">
+                                              {moment(seg.departure).format(
+                                                "DD MMMM,yyyy, dddd"
+                                              )}
+                                            </span>
+                                            <br></br>
+                                            <h6 className="text-start">
+                                              {seg.fromAirport}
+                                            </h6>
+                                          </div>
+                                          <div className="col-lg-4">
+                                            <span className="float-start fw-bold">
+                                              {seg.to}
+                                              <strong className="ms-1">
+                                                {seg.arrival.substr(11, 5)}
+                                              </strong>
+                                            </span>
+                                            <br />
+                                            <span className="float-start">
+                                              {moment(seg.arrival).format(
+                                                "DD MMMM,yyyy, dddd"
+                                              )}
+                                            </span>
+                                            <br></br>
+                                            <h6 className="text-start">
+                                              {seg.toAirport}
+                                            </h6>
+                                          </div>
                                         </div>
-                                        <div className="col-lg-4">
-                                          <span className="float-start fw-bold">
-                                            {seg.from}
-                                            <strong className="ms-1">
-                                              {seg.departure.substr(11, 5)}
-                                            </strong>
-                                          </span>
-                                          <br></br>
-                                          <span className="float-start">
-                                            {moment(seg.departure).format(
-                                              "DD MMMM,yyyy, dddd"
-                                            )}
-                                          </span>
-                                          <br></br>
-                                          <h6 className="text-start">
-                                            {seg.fromAirport}
-                                          </h6>
-                                        </div>
-                                        <div className="col-lg-4">
-                                          <span className="float-start fw-bold">
-                                            {seg.to}
-                                            <strong className="ms-1">
-                                              {seg.arrival.substr(11, 5)}
-                                            </strong>
-                                          </span>
-                                          <br />
-                                          <span className="float-start">
-                                            {moment(seg.arrival).format(
-                                              "DD MMMM,yyyy, dddd"
-                                            )}
-                                          </span>
-                                          <br></br>
-                                          <h6 className="text-start">
-                                            {seg.toAirport}
-                                          </h6>
-                                        </div>
-                                      </div>
-                                    </>
-                                  )}
-                                </div>
+                                      </>
+                                    )}
+                                  </div>
+                                </React.Fragment>
                               ))}
                             </>
                           ) : (
@@ -3747,10 +3992,10 @@ const ShowModal = ({
                         policies:
                       </h6>
                       <hr></hr>• Refund Amount= Received amount from customer -
-                      Refund Charge (As per Airline Policy + Triplover
+                      Refund Charge (As per Airline Policy + Triplover LLC
                       Convenience Fee).<br></br>• Date Change Amount= Date
                       change fee as per Airline + Difference of fare if any +
-                      Triplover Convenience Fee.
+                      Triplover LLC Convenience Fee.
                     </div>
                   </>
                 </div>

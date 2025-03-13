@@ -1051,192 +1051,6 @@ const BookConfirmModal = ({
             <></>
           )}
 
-          {comboFare?.item[1]?.brandedFares === null ? (
-            <tbody className="text-end">
-              {comboFare?.item[1]?.passengerFares.adt !== null ? (
-                <>
-                  <tr className="text-end">
-                    <td className="text-center">Adult</td>
-                    <td className="left">
-                      {comboFare?.item[1]?.passengerFares.adt.basePrice.toLocaleString(
-                        "en-US"
-                      )}
-                    </td>
-                    <td className="center">
-                      {comboFare?.item[1]?.passengerFares.adt.taxes.toLocaleString(
-                        "en-US"
-                      )}
-                    </td>
-                    <td className="right">
-                      {comboFare?.item[1]?.passengerFares.adt.discountPrice.toLocaleString(
-                        "en-US"
-                      )}
-                    </td>
-                    <td className="right">
-                      {comboFare?.item[1]?.passengerFares.adt.ait.toLocaleString(
-                        "en-US"
-                      )}
-                    </td>
-                    <td className="right">
-                      {comboFare?.item[1]?.passengerCounts.adt}
-                    </td>
-                    <td className="right fw-bold">
-                      {currency !== undefined ? currency : "AED"}{" "}
-                      {(
-                        comboFare?.item[1]?.passengerFares.adt.totalPrice *
-                        comboFare?.item[1]?.passengerCounts.adt
-                      ).toLocaleString("en-US")}
-                    </td>
-                  </tr>
-                </>
-              ) : (
-                <></>
-              )}
-
-              {comboFare?.item[1]?.passengerFares.chd !== null ? (
-                <>
-                  <tr>
-                    <td className="text-center">Child &gt; 5</td>
-                    <td className="left">
-                      {comboFare?.item[1]?.passengerFares.chd.basePrice.toLocaleString(
-                        "en-US"
-                      )}
-                    </td>
-                    <td className="center">
-                      {comboFare?.item[1]?.passengerFares.chd.taxes.toLocaleString(
-                        "en-US"
-                      )}
-                    </td>
-                    <td className="right">
-                      {comboFare?.item[1]?.passengerFares.chd.discountPrice.toLocaleString(
-                        "en-US"
-                      )}
-                    </td>
-                    <td className="right">
-                      {comboFare?.item[1]?.passengerFares.chd.ait.toLocaleString(
-                        "en-US"
-                      )}
-                    </td>
-                    <td className="right">
-                      {comboFare?.item[1]?.passengerCounts.chd}
-                    </td>
-                    <td className="right fw-bold">
-                      {currency !== undefined ? currency : "AED"}{" "}
-                      {(
-                        comboFare?.item[1]?.passengerFares.chd.totalPrice *
-                        comboFare?.item[1]?.passengerCounts.chd
-                      ).toLocaleString("en-US")}
-                    </td>
-                  </tr>
-                </>
-              ) : (
-                <></>
-              )}
-
-              {comboFare?.item[1]?.passengerFares.cnn !== null ? (
-                <>
-                  <tr>
-                    <td className="text-center">
-                      Child{" "}
-                      {comboFare?.item[1]?.passengerFares.chd === null ? (
-                        <></>
-                      ) : (
-                        <> &#60; 5</>
-                      )}
-                    </td>
-                    <td className="left">
-                      {comboFare?.item[1]?.passengerFares.cnn.basePrice.toLocaleString(
-                        "en-US"
-                      )}
-                    </td>
-                    <td className="center">
-                      {comboFare?.item[1]?.passengerFares.cnn.taxes.toLocaleString(
-                        "en-US"
-                      )}
-                    </td>
-                    <td className="right">
-                      {comboFare?.item[1]?.passengerFares.cnn.discountPrice.toLocaleString(
-                        "en-US"
-                      )}
-                    </td>
-                    <td className="right">
-                      {comboFare?.item[1]?.passengerFares.cnn.ait.toLocaleString(
-                        "en-US"
-                      )}
-                    </td>
-                    <td className="right">
-                      {comboFare?.item[1]?.passengerCounts.cnn}
-                    </td>
-                    <td className="right fw-bold">
-                      {currency !== undefined ? currency : "AED"}{" "}
-                      {(
-                        comboFare?.item[1]?.passengerFares.cnn.totalPrice *
-                        comboFare?.item[1]?.passengerCounts.cnn
-                      ).toLocaleString("en-US")}
-                    </td>
-                  </tr>
-                </>
-              ) : (
-                <></>
-              )}
-
-              {comboFare?.item[1]?.passengerFares.inf !== null ? (
-                <>
-                  <tr>
-                    <td className="text-center">Infant</td>
-                    <td className="left">
-                      {comboFare?.item[1]?.passengerFares.inf.basePrice.toLocaleString(
-                        "en-US"
-                      )}
-                    </td>
-                    <td className="center">
-                      {comboFare?.item[1]?.passengerFares.inf.taxes.toLocaleString(
-                        "en-US"
-                      )}
-                    </td>
-                    <td className="right">
-                      {comboFare?.item[1]?.passengerFares.inf.discountPrice.toLocaleString(
-                        "en-US"
-                      )}
-                    </td>
-                    <td className="right">
-                      {comboFare?.item[1]?.passengerFares.inf.ait.toLocaleString(
-                        "en-US"
-                      )}
-                    </td>
-                    <td className="right">
-                      {comboFare?.item[1]?.passengerCounts.inf}
-                    </td>
-                    <td className="right fw-bold">
-                      {currency !== undefined ? currency : "AED"}{" "}
-                      {(
-                        comboFare?.item[1]?.passengerFares.inf.totalPrice *
-                        comboFare?.item[1]?.passengerCounts.inf
-                      ).toLocaleString("en-US")}
-                    </td>
-                  </tr>
-                </>
-              ) : (
-                <></>
-              )}
-              <tr className="fw-bold">
-                <td colSpan={6} className="border-none">
-                  {comboFare?.departure[0]?.from} -{" "}
-                  {comboFare?.departure[0]?.to}
-                </td>
-                {/* <td>Total</td> */}
-                <td className="text-end">
-                  {currency !== undefined ? currency : "AED"}{" "}
-                  {(comboFare?.item[1]?.bookingComponents[0]?.totalPrice).toLocaleString(
-                    "en-US"
-                  )}
-                </td>
-              </tr>
-            </tbody>
-          ) : (
-            <></>
-          )}
-
           {comboFare?.item[0]?.brandedFares !== null &&
           comboFare?.item[0]?.brandedFares?.length > 0 ? (
             <tbody className="text-end">
@@ -1459,34 +1273,220 @@ const BookConfirmModal = ({
           ) : (
             <></>
           )}
+
+          {comboFare?.item[1]?.brandedFares === null ? (
+            <tbody className="text-end">
+              {comboFare?.item[1]?.passengerFares.adt !== null ? (
+                <>
+                  <tr className="text-end">
+                    <td className="text-center">Adult</td>
+                    <td className="left">
+                      {comboFare?.item[1]?.passengerFares.adt.basePrice.toLocaleString(
+                        "en-US"
+                      )}
+                    </td>
+                    <td className="center">
+                      {comboFare?.item[1]?.passengerFares.adt.taxes.toLocaleString(
+                        "en-US"
+                      )}
+                    </td>
+                    <td className="right">
+                      {comboFare?.item[1]?.passengerFares.adt.discountPrice.toLocaleString(
+                        "en-US"
+                      )}
+                    </td>
+                    <td className="right">
+                      {comboFare?.item[1]?.passengerFares.adt.ait.toLocaleString(
+                        "en-US"
+                      )}
+                    </td>
+                    <td className="right">
+                      {comboFare?.item[1]?.passengerCounts.adt}
+                    </td>
+                    <td className="right fw-bold">
+                      {currency !== undefined ? currency : "AED"}{" "}
+                      {(
+                        comboFare?.item[1]?.passengerFares.adt.totalPrice *
+                        comboFare?.item[1]?.passengerCounts.adt
+                      ).toLocaleString("en-US")}
+                    </td>
+                  </tr>
+                </>
+              ) : (
+                <></>
+              )}
+
+              {comboFare?.item[1]?.passengerFares.chd !== null ? (
+                <>
+                  <tr>
+                    <td className="text-center">Child &gt; 5</td>
+                    <td className="left">
+                      {comboFare?.item[1]?.passengerFares.chd.basePrice.toLocaleString(
+                        "en-US"
+                      )}
+                    </td>
+                    <td className="center">
+                      {comboFare?.item[1]?.passengerFares.chd.taxes.toLocaleString(
+                        "en-US"
+                      )}
+                    </td>
+                    <td className="right">
+                      {comboFare?.item[1]?.passengerFares.chd.discountPrice.toLocaleString(
+                        "en-US"
+                      )}
+                    </td>
+                    <td className="right">
+                      {comboFare?.item[1]?.passengerFares.chd.ait.toLocaleString(
+                        "en-US"
+                      )}
+                    </td>
+                    <td className="right">
+                      {comboFare?.item[1]?.passengerCounts.chd}
+                    </td>
+                    <td className="right fw-bold">
+                      {currency !== undefined ? currency : "AED"}{" "}
+                      {(
+                        comboFare?.item[1]?.passengerFares.chd.totalPrice *
+                        comboFare?.item[1]?.passengerCounts.chd
+                      ).toLocaleString("en-US")}
+                    </td>
+                  </tr>
+                </>
+              ) : (
+                <></>
+              )}
+
+              {comboFare?.item[1]?.passengerFares.cnn !== null ? (
+                <>
+                  <tr>
+                    <td className="text-center">
+                      Child{" "}
+                      {comboFare?.item[1]?.passengerFares.chd === null ? (
+                        <></>
+                      ) : (
+                        <> &#60; 5</>
+                      )}
+                    </td>
+                    <td className="left">
+                      {comboFare?.item[1]?.passengerFares.cnn.basePrice.toLocaleString(
+                        "en-US"
+                      )}
+                    </td>
+                    <td className="center">
+                      {comboFare?.item[1]?.passengerFares.cnn.taxes.toLocaleString(
+                        "en-US"
+                      )}
+                    </td>
+                    <td className="right">
+                      {comboFare?.item[1]?.passengerFares.cnn.discountPrice.toLocaleString(
+                        "en-US"
+                      )}
+                    </td>
+                    <td className="right">
+                      {comboFare?.item[1]?.passengerFares.cnn.ait.toLocaleString(
+                        "en-US"
+                      )}
+                    </td>
+                    <td className="right">
+                      {comboFare?.item[1]?.passengerCounts.cnn}
+                    </td>
+                    <td className="right fw-bold">
+                      {currency !== undefined ? currency : "AED"}{" "}
+                      {(
+                        comboFare?.item[1]?.passengerFares.cnn.totalPrice *
+                        comboFare?.item[1]?.passengerCounts.cnn
+                      ).toLocaleString("en-US")}
+                    </td>
+                  </tr>
+                </>
+              ) : (
+                <></>
+              )}
+
+              {comboFare?.item[1]?.passengerFares.inf !== null ? (
+                <>
+                  <tr>
+                    <td className="text-center">Infant</td>
+                    <td className="left">
+                      {comboFare?.item[1]?.passengerFares.inf.basePrice.toLocaleString(
+                        "en-US"
+                      )}
+                    </td>
+                    <td className="center">
+                      {comboFare?.item[1]?.passengerFares.inf.taxes.toLocaleString(
+                        "en-US"
+                      )}
+                    </td>
+                    <td className="right">
+                      {comboFare?.item[1]?.passengerFares.inf.discountPrice.toLocaleString(
+                        "en-US"
+                      )}
+                    </td>
+                    <td className="right">
+                      {comboFare?.item[1]?.passengerFares.inf.ait.toLocaleString(
+                        "en-US"
+                      )}
+                    </td>
+                    <td className="right">
+                      {comboFare?.item[1]?.passengerCounts.inf}
+                    </td>
+                    <td className="right fw-bold">
+                      {currency !== undefined ? currency : "AED"}{" "}
+                      {(
+                        comboFare?.item[1]?.passengerFares.inf.totalPrice *
+                        comboFare?.item[1]?.passengerCounts.inf
+                      ).toLocaleString("en-US")}
+                    </td>
+                  </tr>
+                </>
+              ) : (
+                <></>
+              )}
+              <tr className="fw-bold">
+                <td colSpan={6} className="border-none">
+                  {comboFare?.return[0]?.from} - {comboFare?.return[0]?.to}
+                </td>
+                {/* <td>Total</td> */}
+                <td className="text-end">
+                  {currency !== undefined ? currency : "AED"}{" "}
+                  {(comboFare?.item[1]?.bookingComponents[0]?.totalPrice).toLocaleString(
+                    "en-US"
+                  )}
+                </td>
+              </tr>
+            </tbody>
+          ) : (
+            <></>
+          )}
+
           {comboFare?.item[1]?.brandedFares !== null &&
           comboFare?.item[1]?.brandedFares?.length > 0 ? (
             <tbody className="text-end">
-              {comboFare?.item[1]?.brandedFares[comboFare.departureInx]
+              {comboFare?.item[1]?.brandedFares[comboFare.returnIdx]
                 ?.paxFareBreakDown.adt !== null ? (
                 <>
                   <tr className="text-end">
                     <td className="text-center">Adult</td>
                     <td className="left">
                       {comboFare?.item[1]?.brandedFares[
-                        comboFare.departureInx
+                        comboFare.returnIdx
                       ]?.paxFareBreakDown.adt.basePrice.toLocaleString("en-US")}
                     </td>
                     <td className="center">
                       {comboFare?.item[1]?.brandedFares[
-                        comboFare.departureInx
+                        comboFare.returnIdx
                       ]?.paxFareBreakDown.adt.taxes.toLocaleString("en-US")}
                     </td>
                     <td className="right">
                       {comboFare?.item[1]?.brandedFares[
-                        comboFare.departureInx
+                        comboFare.returnIdx
                       ]?.paxFareBreakDown.adt.discountPrice.toLocaleString(
                         "en-US"
                       )}
                     </td>
                     <td className="right">
                       {comboFare?.item[1]?.brandedFares[
-                        comboFare.departureInx
+                        comboFare.returnIdx
                       ]?.paxFareBreakDown.adt.ait.toLocaleString("en-US")}
                     </td>
                     <td className="right">
@@ -1495,7 +1495,7 @@ const BookConfirmModal = ({
                     <td className="right fw-bold">
                       {currency !== undefined ? currency : "AED"}{" "}
                       {(
-                        comboFare?.item[1]?.brandedFares[comboFare.departureInx]
+                        comboFare?.item[1]?.brandedFares[comboFare.returnIdx]
                           ?.paxFareBreakDown.adt.totalPrice *
                         comboFare?.item[0]?.passengerCounts.adt
                       ).toLocaleString("en-US")}
@@ -1506,31 +1506,31 @@ const BookConfirmModal = ({
                 <></>
               )}
 
-              {comboFare?.item[1]?.brandedFares[comboFare.departureInx]
+              {comboFare?.item[1]?.brandedFares[comboFare.returnIdx]
                 ?.paxFareBreakDown.chd !== null ? (
                 <>
                   <tr>
                     <td className="text-center">Child &gt; 5</td>
                     <td className="left">
                       {comboFare?.item[1]?.brandedFares[
-                        comboFare.departureInx
+                        comboFare.returnIdx
                       ]?.paxFareBreakDown.chd.basePrice.toLocaleString("en-US")}
                     </td>
                     <td className="center">
                       {comboFare?.item[1]?.brandedFares[
-                        comboFare.departureInx
+                        comboFare.returnIdx
                       ]?.paxFareBreakDown.chd.taxes.toLocaleString("en-US")}
                     </td>
                     <td className="right">
                       {comboFare?.item[1]?.brandedFares[
-                        comboFare.departureInx
+                        comboFare.returnIdx
                       ]?.paxFareBreakDown.chd.discountPrice.toLocaleString(
                         "en-US"
                       )}
                     </td>
                     <td className="right">
                       {comboFare?.item[1]?.brandedFares[
-                        comboFare.departureInx
+                        comboFare.returnIdx
                       ]?.paxFareBreakDown.chd.ait.toLocaleString("en-US")}
                     </td>
                     <td className="right">
@@ -1539,7 +1539,7 @@ const BookConfirmModal = ({
                     <td className="right fw-bold">
                       {currency !== undefined ? currency : "AED"}{" "}
                       {(
-                        comboFare?.item[1]?.brandedFares[comboFare.departureInx]
+                        comboFare?.item[1]?.brandedFares[comboFare.returnIdx]
                           ?.paxFareBreakDown.chd.totalPrice *
                         comboFare?.item[1]?.passengerCounts.chd
                       ).toLocaleString("en-US")}
@@ -1550,13 +1550,13 @@ const BookConfirmModal = ({
                 <></>
               )}
 
-              {comboFare?.item[1]?.brandedFares[comboFare.departureInx]
+              {comboFare?.item[1]?.brandedFares[comboFare.returnIdx]
                 ?.paxFareBreakDown.cnn !== null ? (
                 <>
                   <tr>
                     <td className="text-center">
                       Child{" "}
-                      {comboFare?.item[1]?.brandedFares[comboFare.departureInx]
+                      {comboFare?.item[1]?.brandedFares[comboFare.returnIdx]
                         ?.paxFareBreakDown.chd === null ? (
                         <></>
                       ) : (
@@ -1565,24 +1565,24 @@ const BookConfirmModal = ({
                     </td>
                     <td className="left">
                       {comboFare?.item[1]?.brandedFares[
-                        comboFare.departureInx
+                        comboFare.returnIdx
                       ]?.paxFareBreakDown.cnn.basePrice.toLocaleString("en-US")}
                     </td>
                     <td className="center">
                       {comboFare?.item[1]?.brandedFares[
-                        comboFare.departureInx
+                        comboFare.returnIdx
                       ]?.paxFareBreakDown.cnn.taxes.toLocaleString("en-US")}
                     </td>
                     <td className="right">
                       {comboFare?.item[1]?.brandedFares[
-                        comboFare.departureInx
+                        comboFare.returnIdx
                       ]?.paxFareBreakDown.cnn.discountPrice.toLocaleString(
                         "en-US"
                       )}
                     </td>
                     <td className="right">
                       {comboFare?.item[1]?.brandedFares[
-                        comboFare.departureInx
+                        comboFare.returnIdx
                       ]?.paxFareBreakDown.cnn.ait.toLocaleString("en-US")}
                     </td>
                     <td className="right">
@@ -1591,7 +1591,7 @@ const BookConfirmModal = ({
                     <td className="right fw-bold">
                       {currency !== undefined ? currency : "AED"}{" "}
                       {(
-                        comboFare?.item[1]?.brandedFares[comboFare.departureInx]
+                        comboFare?.item[1]?.brandedFares[comboFare.returnIdx]
                           ?.paxFareBreakDown.cnn.totalPrice *
                         comboFare?.item[1]?.passengerCounts.cnn
                       ).toLocaleString("en-US")}
@@ -1602,31 +1602,31 @@ const BookConfirmModal = ({
                 <></>
               )}
 
-              {comboFare?.item[1]?.brandedFares[comboFare.departureInx]
+              {comboFare?.item[1]?.brandedFares[comboFare.returnIdx]
                 ?.paxFareBreakDown.inf !== null ? (
                 <>
                   <tr>
                     <td className="text-center">Infant</td>
                     <td className="left">
                       {comboFare?.item[1]?.brandedFares[
-                        comboFare.departureInx
+                        comboFare.returnIdx
                       ]?.paxFareBreakDown.inf.basePrice.toLocaleString("en-US")}
                     </td>
                     <td className="center">
                       {comboFare?.item[1]?.brandedFares[
-                        comboFare.departureInx
+                        comboFare.returnIdx
                       ]?.paxFareBreakDown.inf.taxes.toLocaleString("en-US")}
                     </td>
                     <td className="right">
                       {comboFare?.item[1]?.brandedFares[
-                        comboFare.departureInx
+                        comboFare.returnIdx
                       ]?.paxFareBreakDown.inf.discountPrice.toLocaleString(
                         "en-US"
                       )}
                     </td>
                     <td className="right">
                       {comboFare?.item[1]?.brandedFares[
-                        comboFare.departureInx
+                        comboFare.returnIdx
                       ]?.paxFareBreakDown.inf.ait.toLocaleString("en-US")}
                     </td>
                     <td className="right">
@@ -1635,7 +1635,7 @@ const BookConfirmModal = ({
                     <td className="right fw-bold">
                       {currency !== undefined ? currency : "AED"}{" "}
                       {(
-                        comboFare?.item[1]?.brandedFares[comboFare.departureInx]
+                        comboFare?.item[1]?.brandedFares[comboFare.returnIdx]
                           ?.paxFareBreakDown.inf.totalPrice *
                         comboFare?.item[1]?.passengerCounts.inf
                       ).toLocaleString("en-US")}

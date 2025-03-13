@@ -26,8 +26,8 @@ const SuccessCancelBook = () => {
             <div className="row p-4">
               <div className="col-lg-12 text-center">
                 <h5 className="pt-4 fw-bold">Successfully cancel this booking. Thank You.</h5>
-                <hr></hr>
-                <button className="btn button-color my-3 text-white fw-bold" onClick={()=>handleSearch()}>
+                <hr className='my-2'></hr>
+                <button className="btn button-color my-3 text-white fw-bold border-radius" onClick={()=>handleSearch()}>
                   Search more
                 </button>
               </div>

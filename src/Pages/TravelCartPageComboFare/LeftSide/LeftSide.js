@@ -1050,7 +1050,7 @@ const LeftSide = ({
         timeout: 600000,
       })
         .then((response) => {
-          if (response.data !== null) {
+          if (response.data !== null && response.data !== "") {
             if (Array.isArray(response.data)) {
               if (
                 response.data[0].item2?.isSuccess &&

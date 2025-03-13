@@ -58,7 +58,7 @@ export const environment = {
   getFareRules: baseApiURL + "FareRules",
   getLastTicketTime: baseApiURL + "pnr",
   cancelBooking: baseApiURL + "Cancel",
-
+  cancelBookingCombo: baseApiURL + "Cancel/combo-cancel",
   getCalendarEventBooking: baseApiURL + "B2BDashboard/GetCalendarEventBooking",
 
   cityList: baseApiURL + "Dropdown/Cities",

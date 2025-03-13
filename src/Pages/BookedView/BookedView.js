@@ -51,6 +51,7 @@ import SideNavBar from "../SharePages/SideNavBar/SideNavBar";
 import { environment } from "../SharePages/Utility/environment";
 import {
   cancelBooking,
+  cancelBookingCombo,
   getGetCurrentUser,
   getLimit,
   getPartialPaymentInfo,
@@ -395,7 +396,7 @@ const BookedView = () => {
       pnr: "044NEV",
       bookingRefNumber: "044NEV",
       priceCodeRef:
-        "VExMMjEyNTE5MTQxMC02Mzc4ODk4NTIzMDUwOTg5ODR8MS0wLTB8VVNCYW5nbGE=",
+      "VExMMjEyNTE5MTQxMC02Mzc4ODk4NTIzMDUwOTg5ODR8MS0wLTB8VVNCYW5nbGE=",
       uniqueTransID: "TLL2125191410",
       itemCodeRef:
         "VExMMjEyNTE5MTQxMC02Mzc4ODk4NTA3OTM5MjQ0NzB8WERPTXxVU0JhbmdsYQ==",
@@ -477,7 +478,8 @@ const BookedView = () => {
     async function fetchOptions() {
       let payload = {
         ComboTicketRequests: [
-          JSON.parse(ticketingList?.comboSegmentInfo[0]?.referenceLog),JSON.parse(ticketingList?.comboSegmentInfo[1]?.referenceLog)
+          JSON.parse(ticketingList?.comboSegmentInfo[0]?.referenceLog),
+          JSON.parse(ticketingList?.comboSegmentInfo[1]?.referenceLog),
         ],
 
         IsPartialPayment: payment?.partialPayment === true ? true : false,
@@ -773,6 +775,44 @@ const BookedView = () => {
     fetchOptions();
   };
 
+
+  const handleCancelBookCombo = () => {
+    let payload = {
+      airCancelRequests: [
+        JSON.parse(ticketingList?.comboSegmentInfo[0]?.referenceLog),
+        JSON.parse(ticketingList?.comboSegmentInfo[1]?.referenceLog),
+      ],
+    };
+    onClose1();
+    setTitle("cancel booking");
+    setLoading(true);
+    async function fetchOptions() {
+      await cancelBookingCombo(payload).then((response) => {
+        if (
+          response.data[0].item1 !== null &&
+          response.data[0].item2?.isSuccess === true &&
+          response.data[0].item1?.isCancel === true &&
+          response.data[1].item1 !== null &&
+          response.data[1].item2?.isSuccess === true &&
+          response.data[1].item1?.isCancel === true
+        ) {
+          setLoading(false);
+          onClose1();
+          navigate("/cancelbooking");
+        } else {
+          setLoading(false);
+          $(".modal-backdrop").remove();
+          $("body").removeClass("modal-open");
+          $("body").removeAttr("style");
+          toast.error("Please try again!");
+          onClose1();
+        }
+      });
+    }
+    fetchOptions();
+  };
+
+
   // let uniqueChars = [...new Set(ticketingList.segments.a)];
 
   let newArr = [];
@@ -1023,7 +1063,16 @@ const BookedView = () => {
               <Button onClick={onClose1} colorScheme="red">
                 Cancel
               </Button>
-              <Button onClick={handleCancelBook} ml={3} colorScheme="teal">
+              <Button
+                onClick={
+                  ticketingList?.comboSegmentInfo?.length === 0
+                    ? handleCancelBook
+                    : handleCancelBookCombo
+                }
+                ml={3}
+                colorScheme="teal"
+              >
+
                 Confirm
               </Button>
             </AlertDialogFooter>

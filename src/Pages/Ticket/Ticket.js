@@ -6230,7 +6230,7 @@ const Ticket = () => {
       </div>
       {checkOperationCarrier(ticketingList?.segments) && (
         <div style={{ display: "none" }}>
-          {ticketingList?.comboSegmentInfo?.length > 0 && isValid ? (
+          {ticketingList?.comboSegmentInfo?.length > 0 && isValid && originalPDFFareData1 && originalPDFFareData2? (
             <div ref={pdfRef}>
               {ticketingList?.comboSegmentInfo?.map((item) =>
                 item.platingCarrier === "2A" ? (
@@ -6242,7 +6242,7 @@ const Ticket = () => {
                         ? ticketingList
                         : ticketingListReturn
                     }
-                    originalPDFFareData={originalPDFFareData1}
+                    originalPDFFareData={originalPDFFareData2}
                   />
                 ) : item.platingCarrier === "BS" ? (
                   <OriginalPdfBS
@@ -6253,7 +6253,7 @@ const Ticket = () => {
                         ? ticketingList
                         : ticketingListReturn
                     }
-                    originalPDFFareData={originalPDFFareData2}
+                    originalPDFFareData={originalPDFFareData1}
                   />
                 ) : null
               )}

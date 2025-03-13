@@ -145,6 +145,11 @@ export const cancelBooking = (payload) => {
   return axiosInstance.post(url, payload);
 };
 
+export const cancelBookingCombo = (payload) => {
+  let url = environment.cancelBookingCombo;
+  return axiosInstance.post(url, payload);
+};
+
 export const getPartialPaymentInfo = (utid) => {
   let url = environment.getPartialPaymentInformation + "?UniqueTransId=" + utid;
   return axiosInstance.get(url);

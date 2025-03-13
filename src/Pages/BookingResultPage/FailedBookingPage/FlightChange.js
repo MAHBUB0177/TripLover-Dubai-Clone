@@ -10,6 +10,7 @@ import "./FailedBookingPanel/FailedBookingPanel.css";
 
 const FlightChange = () => {
   const { loading } = useAuth();
+  const comboFare = JSON.parse(sessionStorage.getItem("comboFare"));
   return (
     <div>
       <Navbar></Navbar>
@@ -23,10 +24,29 @@ const FlightChange = () => {
               <div className="col-lg-12 text-center">
                 <h5 className="pt-4 fw-bold">Please try again</h5>
                 <p>This fare has been changed </p>
-                <p>
-                  Reference number :{" "}
-                  {JSON.parse(sessionStorage.getItem("uniqueTransID"))}{" "}
-                </p>
+                {JSON.parse(sessionStorage.getItem("uniqueTransID")) !==
+                null ? (
+                  <p>
+                    Reference number :{" "}
+                    {JSON.parse(sessionStorage.getItem("uniqueTransID"))}{" "}
+                  </p>
+                ) : (
+                  <>
+                    {comboFare !== null && (
+                      <>
+                        <p>
+                          Reference number :{" "}
+                          {comboFare && comboFare?.item[0]?.uniqueTransID}{" "}
+                        </p>
+                        <p>
+                          Reference number :{" "}
+                          {comboFare && comboFare?.item[0]?.uniqueTransID}{" "}
+                        </p>
+                      </>
+                    )}
+                  </>
+                )}
+
                 <div className="my-3">
                   <span className="text-danger fs-3">
                     <i

@@ -59,7 +59,7 @@ const CountdownWrapper = () => {
       // Render a completed state
       return (
         <Box
-          bg={"#7c04c0"}
+          bg={"#068B9F"}
           h={"100px"}
           w={"100%"}
           borderRadius={5}
@@ -97,7 +97,7 @@ const CountdownWrapper = () => {
       // Render a completed state
       return (
         <Box
-          bg={"#7c04c0"}
+          bg={"#068B9F"}
           h={"100px"}
           w={"100%"}
           borderRadius={5}
@@ -157,8 +157,8 @@ const CountdownWrapper = () => {
             <Link to="/search">
               <Button
                 color={"white"}
-                bg={"#7c04c0"}
-                _hover={"#7c04c0"}
+                bg={"#068b9f"}
+                _hover={"#068b9f"}
                 className="border-radius"
               >
                 Search Again
@@ -228,6 +228,44 @@ const ShowAllFlightComboFare = ({
     }, 2000);
   };
 
+  const [mainJsonData, setMainJsonData] = useState(null);
+
+  const combinedAirlines = [
+    ...(fetchFlighDeparture?.airlineFilters || []),
+    ...(fetchFlighReturn?.airlineFilters || [])
+  ];
+
+  useEffect(() => {
+    if (tripType === "Round Trip") {
+      if (
+        fetchFlighDeparture?.airSearchResponses?.length > 0 &&
+        fetchFlighReturn?.airSearchResponses?.length > 0
+      ) {
+        if (fetchFlighDeparture.isComboFare) {
+          setMainJsonData({
+            airlineFilters: Array.from(
+              combinedAirlines.reduce((map, airline) => {
+                map.set(airline.airlineCode, airline);
+                return map;
+              }, new Map()).values()
+            ),
+            minMaxPrice: {
+              minPrice: Math.min(
+                fetchFlighDeparture?.minMaxPrice?.minPrice,
+                fetchFlighReturn?.minMaxPrice?.minPrice
+              ),
+              maxPrice: Math.max(
+                fetchFlighDeparture?.minMaxPrice?.maxPrice,
+                fetchFlighReturn?.minMaxPrice?.maxPrice
+              ),
+            },
+            currency : "BDT"
+          });
+        }
+      }
+    }
+  }, [tripType, fetchFlighDeparture, fetchFlighReturn]);
+
   if (String(tripType) === String("One Way")) {
     if (fetchFlighData !== null) {
       mainJson = fetchFlighData;
@@ -241,10 +279,10 @@ const ShowAllFlightComboFare = ({
     } else {
       if (
         fetchFlighDeparture?.airSearchResponses?.length > 0 &&
-        fetchFlighReturn?.airSearchResponses?.length
+        fetchFlighReturn?.airSearchResponses?.length > 0
       ) {
         if (fetchFlighDeparture.isComboFare) {
-          mainJson = fetchFlighDeparture;
+          mainJson = mainJsonData;
           jsonData = fetchFlighDeparture.airSearchResponses;
           jsonDataReturn = fetchFlighReturn.airSearchResponses;
         }
@@ -850,8 +888,8 @@ const ShowAllFlightComboFare = ({
       );
       return priceFilter;
     } else if (change === "Quickest") {
-      let data = jsonData?.filter(
-        (flight) => flight?.directions[0][0]?.stops === 0
+      let data = jsonData?.sort(
+        (a, b) => a?.directions[0][0]?.stops - b?.directions[0][0]?.stops
       );
       return data;
     } else if (change === "Earliest") {
@@ -881,8 +919,8 @@ const ShowAllFlightComboFare = ({
       );
       return priceFilter;
     } else if (changeReturn === "Quickest") {
-      let data = jsonData?.filter(
-        (flight) => flight?.directions[0][0]?.stops === 0
+      let data = jsonData?.sort(
+        (a, b) => a?.directions[0][0]?.stops - b?.directions[0][0]?.stops
       );
       return data;
     } else if (changeReturn === "Earliest") {
@@ -1689,7 +1727,7 @@ const ShowAllFlightComboFare = ({
       <div className="container my-3 content-width">
         <div className="row py-4">
           <div className="col-lg-3 box-shadow bg-white custom-scrollbar pb-5 w-100 airlines-filter-position border-radius">
-            {/* <MemoCountdown /> */}
+            <MemoCountdown />
             <div className="col-lg-12 text-end py-2">
               {/* <button
                 className="btn btn-sm fw-bold button-color text-white border-radius"
@@ -1743,6 +1781,10 @@ const ShowAllFlightComboFare = ({
                           showMessageAfterDelay();
                           setIsFirstLoad(true);
                           setIsFirstLoadReturn(true);
+                          setSelectBgColor({
+                            departure: 0,
+                            return: 0,
+                          });
                         }}
                       >
                         <RangeSliderTrack bg="#e5d4b1">
@@ -1772,14 +1814,14 @@ const ShowAllFlightComboFare = ({
                       className="float-start fw-bold"
                       style={{ fontSize: "13px" }}
                     >
-                      MIN {currency !== undefined ? currency : "AED"}{" "}
+                      MIN {currency !== undefined ? currency : "BDT"}{" "}
                       {filterPrice[0].toLocaleString("en-US")}
                     </span>
                     <span
                       className="float-end fw-bold"
                       style={{ fontSize: "13px" }}
                     >
-                      MAX {currency !== undefined ? currency : "AED"}{" "}
+                      MAX {currency !== undefined ? currency : "BDT"}{" "}
                       {filterPrice[1].toLocaleString("en-US")}
                     </span>
                   </div>
@@ -1827,6 +1869,10 @@ const ShowAllFlightComboFare = ({
                             showMessageAfterDelay();
                             setIsFirstLoad(true);
                             setIsFirstLoadReturn(true);
+                            setSelectBgColor({
+                              departure: 0,
+                              return: 0,
+                            });
                           }}
                           defaultChecked={index === 0}
                         />
@@ -1958,6 +2004,10 @@ const ShowAllFlightComboFare = ({
                             showMessageAfterDelay();
                             setIsFirstLoad(true);
                             setIsFirstLoadReturn(true);
+                            setSelectBgColor({
+                              departure: 0,
+                              return: 0,
+                            });
                           }}
                           // defaultChecked={itemCkeck}
                         />
@@ -1979,7 +2029,7 @@ const ShowAllFlightComboFare = ({
                           className="fw-bold float-end"
                           style={{ fontSize: "13px" }}
                         >
-                          {currency !== undefined ? currency : "AED"}{" "}
+                          {currency !== undefined ? currency : "BDT"}{" "}
                           {item.minPrice.toLocaleString("en-US")}
                         </span>
                         <br></br>
@@ -1992,7 +2042,7 @@ const ShowAllFlightComboFare = ({
             <hr></hr>
 
             {/* Schedule filter section  */}
-            {/* <div className="container pb-3">
+            <div className="container pb-3">
               <div className="row px-2">
                 <div className="col-lg-6 mt-3">
                   <h6 className="float-start text-color fw-bold">Schedule</h6>
@@ -2012,7 +2062,37 @@ const ShowAllFlightComboFare = ({
                 <div className="row pb-3 px-2">
                   <div className="col-lg-12 mt-2">
                     <p className="border p-1 fw-bold rounded">Departing Time</p>
-                    
+                    {/* <div className="form-check mt-2">
+                        {departTime.map((item, index) => (
+                          <div
+                            key={index}
+                            className="d-flex align-items-center justify-content-between"
+                          >
+                            <input
+                              name="depart"
+                              className="form-check-input"
+                              type="checkbox"
+                              id={"depart" + index}
+                              onChange={(e) => {
+                                handleChangeForDepart(e, index);
+                                setShowMessage(false);
+                                showMessageAfterDelay();
+                              }}
+                            />
+                            <label
+                              className="form-check-label fw-bold px-5 my-1 py-1 border-radius"
+                              htmlFor={"depart" + index}
+                              style={{
+                                fontSize: "15px",
+                                border: "1px solid black",
+                              }}
+                            >
+                              {item.text}
+                            </label>{" "}
+                            <br></br>
+                          </div>
+                        ))}
+                      </div> */}
                     <div className="mt-2">
                       <div className="row">
                         {departTime.map((item, index) => (
@@ -2047,6 +2127,10 @@ const ShowAllFlightComboFare = ({
                                   showMessageAfterDelay();
                                   setIsFirstLoad(true);
                                   setIsFirstLoadReturn(true);
+                                  setSelectBgColor({
+                                    departure: 0,
+                                    return: 0,
+                                  });
                                 }}
                               />
                               <div
@@ -2123,9 +2207,18 @@ const ShowAllFlightComboFare = ({
                                   showMessageAfterDelay();
                                   setIsFirstLoad(true);
                                   setIsFirstLoadReturn(true);
+                                  setSelectBgColor({
+                                    departure: 0,
+                                    return: 0,
+                                  });
                                 }}
                               />
-                            
+                              {/* <img
+                            src={environment.s3ArliensImage + `${item.code}.png`}
+                            alt="airlineCode"
+                            width="35px"
+                            height="30px"
+                          /> */}
                               <div
                                 key={index}
                                 className="d-flex flex-column align-items-center justify-content-between"
@@ -2165,7 +2258,7 @@ const ShowAllFlightComboFare = ({
                 </div>
               </span>
             </div>
-            <hr></hr> */}
+            <hr></hr>
             {/* Refundable filter section  */}
             <div className="container pb-5">
               <div className="row px-2">
@@ -2202,6 +2295,10 @@ const ShowAllFlightComboFare = ({
                         showMessageAfterDelay();
                         setIsFirstLoad(true);
                         setIsFirstLoadReturn(true);
+                        setSelectBgColor({
+                          departure: 0,
+                          return: 0,
+                        });
                       }}
                     />
                     <label
@@ -2229,6 +2326,10 @@ const ShowAllFlightComboFare = ({
                         showMessageAfterDelay();
                         setIsFirstLoad(true);
                         setIsFirstLoadReturn(true);
+                        setSelectBgColor({
+                          departure: 0,
+                          return: 0,
+                        });
                       }}
                     />
                     <label
@@ -2253,14 +2354,14 @@ const ShowAllFlightComboFare = ({
               </div>
 
               <div className="col-lg-8 d-flex  justify-content-end align-items-center py-2">
-                {/* <a
+                <a
                   href="https://www.iatatravelcentre.com/passport-visa-health-travel-document-requirements.htm"
                   target="_blank"
                   className="fw-bold text-color  button-color text-white p-2 border-radius"
                   style={{ fontSize: "11px", width: "auto" }}
                 >
                   Check Visa Requirements
-                </a> */}
+                </a>
 
                 <div className="bg-white py-1 mx-lg-4">
                   <div class="dropdown float-end">
@@ -2464,7 +2565,7 @@ const ShowAllFlightComboFare = ({
                                   <Text fontWeight={400}>
                                     <span className="fw-bold">{item.code}</span>
                                     <br></br>
-                                    {item?.totalFlights} Flights <br></br> AED{" "}
+                                    {item?.totalFlights} Flights <br></br> BDT{" "}
                                     {parseInt(item?.minPrice)}
                                   </Text>
                                 </Box>
@@ -2988,7 +3089,7 @@ const ShowAllFlightComboFare = ({
                                 <>
                                   <div>
                                     <span className="fw-bold">
-                                      AED{" "}
+                                      BDT{" "}
                                       {comboFare?.item[0]?.brandedFares !== null
                                         ? comboFare?.item[0]?.brandedFares?.[
                                             comboFare?.departureInx
@@ -3004,7 +3105,7 @@ const ShowAllFlightComboFare = ({
                                       className="fw-bold"
                                       style={{ fontSize: "13px" }}
                                     >
-                                      AED{" "}
+                                      BDT{" "}
                                       {comboFare?.item[0]?.brandedFares !== null
                                         ? (
                                             comboFare?.item[0]?.brandedFares?.[
@@ -3028,7 +3129,7 @@ const ShowAllFlightComboFare = ({
                               ) : (
                                 <div>
                                   <span className="fw-bold">
-                                    AED{" "}
+                                    BDT{" "}
                                     {comboFare?.item[0]?.brandedFares !== null
                                       ? (
                                           comboFare?.item[0]?.brandedFares?.[
@@ -3124,7 +3225,7 @@ const ShowAllFlightComboFare = ({
                                 <>
                                   <div>
                                     <span className="fw-bold">
-                                      AED{" "}
+                                      BDT{" "}
                                       {comboFare?.item[1]?.brandedFares !== null
                                         ? comboFare?.item[1]?.brandedFares?.[
                                             comboFare?.returnIdx
@@ -3140,7 +3241,7 @@ const ShowAllFlightComboFare = ({
                                       className="fw-bold"
                                       style={{ fontSize: "13px" }}
                                     >
-                                      AED{" "}
+                                      BDT{" "}
                                       {comboFare?.item[1]?.brandedFares !== null
                                         ? (
                                             comboFare?.item[1]?.brandedFares?.[
@@ -3164,7 +3265,7 @@ const ShowAllFlightComboFare = ({
                               ) : (
                                 <div>
                                   <span className="fw-bold">
-                                    AED{" "}
+                                    BDT{" "}
                                     {comboFare?.item[1]?.brandedFares !== null
                                       ? (
                                           comboFare?.item[1]?.brandedFares?.[
@@ -3205,7 +3306,7 @@ const ShowAllFlightComboFare = ({
                             <>
                               <div>
                                 <span className="fw-bold">
-                                  AED{" "}
+                                  BDT{" "}
                                   {comboFare?.item[0]?.brandedFares !== null &&
                                   comboFare?.item[1]?.brandedFares !== null
                                     ? (
@@ -3254,7 +3355,7 @@ const ShowAllFlightComboFare = ({
                                   className="fw-bold"
                                   style={{ fontSize: "13px" }}
                                 >
-                                  AED{" "}
+                                  BDT{" "}
                                   {comboFare?.item[0]?.brandedFares !== null &&
                                   comboFare?.item[1]?.brandedFares !== null
                                     ? (
@@ -3321,7 +3422,7 @@ const ShowAllFlightComboFare = ({
                           ) : (
                             <div>
                               <span className="fw-bold">
-                                AED{" "}
+                                BDT{" "}
                                 {comboFare?.item[0]?.brandedFares !== null &&
                                 comboFare?.item[1]?.brandedFares !== null
                                   ? (
@@ -3519,69 +3620,75 @@ const ShowAllFlightComboFare = ({
         </Center>
       </ModalForm>
 
-      {Object.keys(comboFare?.departure).length !== 0 && (
-        <ModalForm isOpen={isOpen3} onClose={onClose3} size={"sm"}>
-          <Center>
-            <div className="p-3">
-              <h5
-                className="p-2 rounded text-danger my-1 fw-bold text-center"
-                style={{ fontSize: "13px" }}
-              >
-                Time difference between two flight is: <br></br>
-                <span className="fw-bold fs-4">
-                  {moment
-                    .utc(
-                      moment
-                        .duration(
-                          moment(
-                            comboFare?.return[comboFare?.groupReturnIndex]
-                              ?.segments[0].departure
-                          ).diff(
+      {comboFare?.departure !== null &&
+        comboFare?.departure !== undefined &&
+        comboFare?.return !== null &&
+        comboFare?.return !== undefined &&
+        Object.keys(comboFare?.departure)?.length !== 0 &&
+        Object.keys(comboFare?.return)?.length !== 0 && (
+          <ModalForm isOpen={isOpen3} onClose={onClose3} size={"sm"}>
+            <Center>
+              <div className="p-3">
+                <h5
+                  className="p-2 rounded text-danger my-1 fw-bold text-center"
+                  style={{ fontSize: "13px" }}
+                >
+                  Time difference between two flight is: <br></br>
+                  <span className="fw-bold fs-4">
+                    {moment
+                      .utc(
+                        moment
+                          .duration(
                             moment(
-                              comboFare?.departure[comboFare?.groupDepartIndex]
-                                .segments[
+                              comboFare?.return[comboFare?.groupReturnIndex]
+                                ?.segments[0].departure
+                            ).diff(
+                              moment(
                                 comboFare?.departure[
                                   comboFare?.groupDepartIndex
-                                ].segments.length - 1
-                              ].arrival
+                                ].segments[
+                                  comboFare?.departure[
+                                    comboFare?.groupDepartIndex
+                                  ].segments.length - 1
+                                ].arrival
+                              ),
+                              "minute"
                             ),
-                            "minute"
-                          ),
-                          "minutes"
-                        )
-                        .asMilliseconds()
-                    )
-                    .format("H[h] m[m]")}
-                </span>
-                <br></br>
-                Please select confirm button for continue.
-              </h5>
+                            "minutes"
+                          )
+                          .asMilliseconds()
+                      )
+                      .format("H[h] m[m]")}
+                  </span>
+                  <br></br>
+                  Please select confirm button for continue.
+                </h5>
 
-              <div className="mt-1 d-flex gap-2 justify-content-center">
-                <button
-                  type="button"
-                  className="btn button-color text-white border-radius"
-                  onClick={() => {
-                    onClose3();
-                    handleConfirmBtnClick();
-                  }}
-                >
-                  Confirm
-                </button>
-                <button
-                  type="button"
-                  className="btn bg-danger text-white border-radius"
-                  onClick={() => {
-                    onClose3();
-                  }}
-                >
-                  Cancel
-                </button>
+                <div className="mt-1 d-flex gap-2 justify-content-center">
+                  <button
+                    type="button"
+                    className="btn button-color text-white border-radius"
+                    onClick={() => {
+                      onClose3();
+                      handleConfirmBtnClick();
+                    }}
+                  >
+                    Confirm
+                  </button>
+                  <button
+                    type="button"
+                    className="btn bg-danger text-white border-radius"
+                    onClick={() => {
+                      onClose3();
+                    }}
+                  >
+                    Cancel
+                  </button>
+                </div>
               </div>
-            </div>
-          </Center>
-        </ModalForm>
-      )}
+            </Center>
+          </ModalForm>
+        )}
     </div>
   );
 };

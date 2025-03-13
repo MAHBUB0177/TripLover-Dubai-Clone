@@ -33,12 +33,12 @@ const FlightDetails = ({
   return (
     <div>
       <Modal
-        size="1000px"
+        size={"4xl"}
         isOpen={isOpen}
-        trapFocus={false}
+        // trapFocus={false}
         onClose={onClose}
-        closeOnOverlayClick={false}
-        isCentered
+        // closeOnOverlayClick={false}
+        // isCentered
       >
         <ModalOverlay />
         <ModalContent w="1000px">
