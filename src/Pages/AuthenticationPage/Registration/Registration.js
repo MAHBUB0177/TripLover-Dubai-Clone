@@ -22,18 +22,20 @@ import airlines5 from "../../../images/landing/airlines-5.png";
 import airlines6 from "../../../images/landing/airlines-6.png";
 import { nanoid } from "nanoid";
 import { fileUpload } from "../../../common/allApi";
+import { Partners } from "../../SharePages/Footer/Partners";
+import Service from "../../SharePages/Footer/Service";
 
 const Registration = () => {
   const navigate = useNavigate();
-  let [countryName, setCountryName] = useState("Bangladesh");
+  let [countryName, setCountryName] = useState("United Arab Emirates");
   let [zoneList, setZoneList] = useState([]);
-  let [agentDialCode, setAgentDialCode] = useState("+88");
+  let [agentDialCode, setAgentDialCode] = useState("+971");
   let [agentName, setAgentName] = useState("");
   const [lastName, setLastName] = useState("");
   let [agentPhoneNo, setAgentPhoneNo] = useState("");
   let [agentEmail, setAgentEmail] = useState("");
   let [agentAddress, setAgentAddress] = useState("");
-  let [userDialCode, setUserDialCode] = useState("+88");
+  let [userDialCode, setUserDialCode] = useState("+971");
   let [userFullName, setUserFullName] = useState("");
   let [userPhoneNo, setUserPhoneNo] = useState("");
   let [userEmail, setUserEmail] = useState("");
@@ -66,9 +68,14 @@ const Registration = () => {
       setCityList(response.data);
     }
   };
+  // useEffect(() => {
+  //   getZoneData("Bangladesh");
+  //   getCityData("Bangladesh");
+  // }, []);
+
   useEffect(() => {
-    getZoneData("Bangladesh");
-    getCityData("Bangladesh");
+    getZoneData("United Arab Emirates");
+    getCityData("United Arab Emirates");
   }, []);
   const handleCountryChange = (e) => {
     setCountryName(e.target.value);
@@ -836,29 +843,11 @@ const Registration = () => {
         gap={5}
         key={nanoid()}
       >
-        <Divider orientation="horizontal" color={"gray"} w="500px" />
-        <Text fontSize={"18px"} fontWeight="700px">
-          Key Airline Partner
-        </Text>
-        <Divider orientation="horizontal" color={"gray"} w="500px" />
+        
       </Flex>
 
-        <Center pb="60px">
-          <Flex py="50px" flexWrap={"wrap"} justifyContent={"center"} gap={8}>
-            {topAirlinesData.map((item) => (
-              <Center
-                key={nanoid()}
-                border="1px solid #E8E8E8"
-                borderRadius="8px"
-                h="100px"
-                w="200px"
-                bg="backgroundVariant"
-              >
-                <Image src={item.img} alt="airlines1" w="150px" />
-              </Center>
-            ))}
-          </Flex>
-        </Center>
+           <Partners />
+           <Service />
       </VStack>
       <Footer></Footer>
     </>

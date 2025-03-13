@@ -38,9 +38,7 @@ const Service = () => {
             mr="50px"
             key={nanoid()}
           >
-            Triplover is one of the leading online travel agencies in the
-            country. Triplover is revolutionizing the way you book travel
-            services to make travel easier for people of all ages.
+            First Trip is one of the leading online travel agencies in the country. First Trip is revolutionizing the way you book travel services to make travel easier for people of all ages.
           </Text>
         </Box>
 

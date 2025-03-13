@@ -1,4 +1,4 @@
-import { Box, Divider, Flex, Image, Text } from "@chakra-ui/react";
+import { Box, Center, Divider, Flex, Image, Text } from "@chakra-ui/react";
 import React from "react";
 import { nanoid } from "nanoid";
 
@@ -45,21 +45,23 @@ export const Partners = () => {
         </Text>
         <Divider orientation="horizontal" color={"gray"} w="500px" />
       </Flex>
-      <Flex mb={"60px"} justifyContent="space-between" key={nanoid()}>
-        {airlines.map((item) => {
-          return (
-            <Box bg="pink" minW="170px" maxW="282px" h="80px">
-              <Image
-                src={item.image}
-                alt="logo"
-                objectFit="cover"
-                width={"100%"}
-                height={"100%"}
-              />
-            </Box>
-          );
-        })}
-      </Flex>
+        <Center pb="60px">
+                <Flex py="50px" flexWrap={"wrap"} justifyContent={"center"} gap={8}>
+                  {airlines.map((item) => (
+                    <Center
+                      key={nanoid()}
+                      border="1px solid #E8E8E8"
+                      borderRadius="8px"
+                      h="100px"
+                      w="200px"
+                      bg="backgroundVariant"
+                    >
+                      <Image src={item.image} alt="airlines1" w="150px" />
+                  
+                    </Center>
+                  ))}
+                </Flex>
+              </Center>
       <Divider orientation="horizontal" color={"gray"} w="100%" />
     </Box>
   );
