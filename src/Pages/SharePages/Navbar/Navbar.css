@@ -1,0 +1,18 @@
+@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@300&display=swap');
+
+.dropdown .nav-link span{
+    color: #02046a;
+}
+
+.search-input{
+    width: 150px;
+}
+
+.search-input::-webkit-input-placeholder {
+    font-size: 14px;
+}
+
+.account-manager{
+    font-family: 'Rubik', sans-serif;
+    font-size: 15px;
+}

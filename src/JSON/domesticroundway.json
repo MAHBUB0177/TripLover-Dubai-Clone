@@ -1,0 +1,3248 @@
+[
+    {
+        "totalPrice": "AED56227",
+        "basePrice": "USD540.00",
+        "eqivqlBasePrice": "AED45809",
+        "taxes": "AED10418",
+        "platingCarrier": "BG",
+        "refundable": "true",
+        "directions": [
+            [
+                {
+                    "from": "DAC",
+                    "to": "AUH",
+                    "platingCarrier": "BG",
+                    "segments": [
+                        {
+                            "from": "DAC",
+                            "to": "AUH",
+                            "group": 0,
+                            "departure": "2022-03-11T22:30:00.000+06:00",
+                            "arrival": "2022-03-12T02:20:00.000+04:00",
+                            "airline": "BG",
+                            "flightNumber": "27",
+                            "uapi_segment_ref": "QAaGi8+pWDKAYwZEBAAAAA==",
+                            "uapiSegmentReference": "QAaGi8+pWDKAYwZEBAAAAA==",
+                            "details": [
+                                {
+                                    "origin": "DAC",
+                                    "originTerminal": "2",
+                                    "destination": "AUH",
+                                    "destinationTerminal": "1",
+                                    "departure": "2022-03-11T22:30:00.000+06:00",
+                                    "flightTime": "350",
+                                    "travelTime": "350",
+                                    "equipment": "788"
+                                }
+                            ],
+                            "serviceClass": "Economy",
+                            "plane": [
+                                "788"
+                            ],
+                            "duration": [
+                                "350"
+                            ],
+                            "techStops": [],
+                            "bookingClass": "K",
+                            "bookingCount": "3",
+                            "baggage": [
+                                {
+                                    "units": "kilograms",
+                                    "amount": 30
+                                }
+                            ],
+                            "fareBasisCode": "KBD6M"
+                        }
+                    ]
+                }
+            ],
+            [
+                {
+                    "from": "AUH",
+                    "to": "DAC",
+                    "platingCarrier": "BG",
+                    "segments": [
+                        {
+                            "from": "AUH",
+                            "to": "DAC",
+                            "group": 1,
+                            "departure": "2022-03-25T03:45:00.000+04:00",
+                            "arrival": "2022-03-25T12:05:00.000+06:00",
+                            "airline": "BG",
+                            "flightNumber": "128",
+                            "uapi_segment_ref": "QAaGi8+pWDKAawZEBAAAAA==",
+                            "uapiSegmentReference": "QAaGi8+pWDKAawZEBAAAAA==",
+                            "details": [
+                                {
+                                    "origin": "AUH",
+                                    "originTerminal": "1",
+                                    "destination": "CGP",
+                                    "destinationTerminal": "1",
+                                    "departure": "2022-03-25T03:45:00.000+04:00",
+                                    "flightTime": "275",
+                                    "travelTime": "380",
+                                    "equipment": "788"
+                                },
+                                {
+                                    "origin": "CGP",
+                                    "originTerminal": "1",
+                                    "destination": "DAC",
+                                    "destinationTerminal": "2",
+                                    "departure": "2022-03-25T11:20:00.000+06:00",
+                                    "flightTime": "45",
+                                    "travelTime": "380",
+                                    "equipment": "788"
+                                }
+                            ],
+                            "serviceClass": "Economy",
+                            "plane": [
+                                "788",
+                                "788"
+                            ],
+                            "duration": [
+                                "275",
+                                "45"
+                            ],
+                            "techStops": [
+                                "CGP"
+                            ],
+                            "bookingClass": "K",
+                            "bookingCount": "7",
+                            "baggage": [
+                                {
+                                    "units": "kilograms",
+                                    "amount": 40
+                                }
+                            ],
+                            "fareBasisCode": "KBD6M"
+                        }
+                    ]
+                }
+            ]
+        ],
+        "bookingComponents": [
+            {
+                "totalPrice": "AED56227",
+                "basePrice": "USD540.00",
+                "taxes": "AED10418",
+                "uapi_fare_reference": "QAaGi8+pWDKA70ZEBAAAAA=="
+            }
+        ],
+        "passengerFares": {
+            "ADT": {
+                "totalPrice": "AED56227",
+                "basePrice": "USD540.00",
+                "equivalentBasePrice": "AED45809",
+                "taxes": "AED10418"
+            }
+        },
+        "passengerCounts": {
+            "ADT": 1
+        }
+    },
+    {
+        "totalPrice": "AED66915",
+        "basePrice": "USD666.00",
+        "eqivqlBasePrice": "AED56497",
+        "taxes": "AED10418",
+        "platingCarrier": "EK",
+        "refundable": "true",
+        "directions": [
+            [
+                {
+                    "from": "DAC",
+                    "to": "AUH",
+                    "platingCarrier": "EK",
+                    "segments": [
+                        {
+                            "from": "DAC",
+                            "to": "DXB",
+                            "group": 0,
+                            "departure": "2022-03-11T18:40:00.000+06:00",
+                            "arrival": "2022-03-11T22:10:00.000+04:00",
+                            "airline": "EK",
+                            "flightNumber": "587",
+                            "uapi_segment_ref": "QAaGi8+pWDKAdwZEBAAAAA==",
+                            "uapiSegmentReference": "QAaGi8+pWDKAdwZEBAAAAA==",
+                            "details": [
+                                {
+                                    "origin": "DAC",
+                                    "destination": "DXB",
+                                    "destinationTerminal": "3",
+                                    "departure": "2022-03-11T18:40:00.000+06:00",
+                                    "flightTime": "330",
+                                    "travelTime": "755",
+                                    "equipment": "77W"
+                                }
+                            ],
+                            "serviceClass": "Economy",
+                            "plane": [
+                                "77W"
+                            ],
+                            "duration": [
+                                "330"
+                            ],
+                            "techStops": [],
+                            "bookingClass": "K",
+                            "bookingCount": "9",
+                            "baggage": [
+                                {
+                                    "units": "kilograms",
+                                    "amount": 30
+                                }
+                            ],
+                            "fareBasisCode": "KEXESBD1"
+                        },
+                        {
+                            "from": "DXB",
+                            "to": "ZVJ",
+                            "group": 0,
+                            "departure": "2022-03-12T03:00:00.000+04:00",
+                            "arrival": "2022-03-12T05:15:00.000+04:00",
+                            "airline": "EK",
+                            "flightNumber": "7003",
+                            "uapi_segment_ref": "QAaGi8+pWDKAfwZEBAAAAA==",
+                            "uapiSegmentReference": "QAaGi8+pWDKAfwZEBAAAAA==",
+                            "details": [
+                                {
+                                    "origin": "DXB",
+                                    "originTerminal": "3",
+                                    "destination": "ZVJ",
+                                    "departure": "2022-03-12T03:00:00.000+04:00",
+                                    "flightTime": "135",
+                                    "travelTime": "755",
+                                    "equipment": "BUS"
+                                }
+                            ],
+                            "serviceClass": "Economy",
+                            "plane": [
+                                "BUS"
+                            ],
+                            "duration": [
+                                "135"
+                            ],
+                            "techStops": [],
+                            "bookingClass": "K",
+                            "bookingCount": "9",
+                            "baggage": [
+                                {
+                                    "units": "kilograms",
+                                    "amount": 30
+                                }
+                            ],
+                            "fareBasisCode": "KEXESBD1"
+                        }
+                    ]
+                },
+                {
+                    "from": "DAC",
+                    "to": "AUH",
+                    "platingCarrier": "EK",
+                    "segments": [
+                        {
+                            "from": "DAC",
+                            "to": "DXB",
+                            "group": 0,
+                            "departure": "2022-03-11T22:40:00.000+06:00",
+                            "arrival": "2022-03-12T02:10:00.000+04:00",
+                            "airline": "EK",
+                            "flightNumber": "585",
+                            "uapi_segment_ref": "QAaGi8+pWDKAhwZEBAAAAA==",
+                            "uapiSegmentReference": "QAaGi8+pWDKAhwZEBAAAAA==",
+                            "details": [
+                                {
+                                    "origin": "DAC",
+                                    "destination": "DXB",
+                                    "destinationTerminal": "3",
+                                    "departure": "2022-03-11T22:40:00.000+06:00",
+                                    "flightTime": "330",
+                                    "travelTime": "935",
+                                    "equipment": "77W"
+                                }
+                            ],
+                            "serviceClass": "Economy",
+                            "plane": [
+                                "77W"
+                            ],
+                            "duration": [
+                                "330"
+                            ],
+                            "techStops": [],
+                            "bookingClass": "K",
+                            "bookingCount": "9",
+                            "baggage": [
+                                {
+                                    "units": "kilograms",
+                                    "amount": 30
+                                }
+                            ],
+                            "fareBasisCode": "KEXESBD1"
+                        },
+                        {
+                            "from": "DXB",
+                            "to": "ZVJ",
+                            "group": 0,
+                            "departure": "2022-03-12T10:00:00.000+04:00",
+                            "arrival": "2022-03-12T12:15:00.000+04:00",
+                            "airline": "EK",
+                            "flightNumber": "7009",
+                            "uapi_segment_ref": "QAaGi8+pWDKAjwZEBAAAAA==",
+                            "uapiSegmentReference": "QAaGi8+pWDKAjwZEBAAAAA==",
+                            "details": [
+                                {
+                                    "origin": "DXB",
+                                    "originTerminal": "3",
+                                    "destination": "ZVJ",
+                                    "departure": "2022-03-12T10:00:00.000+04:00",
+                                    "flightTime": "135",
+                                    "travelTime": "935",
+                                    "equipment": "BUS"
+                                }
+                            ],
+                            "serviceClass": "Economy",
+                            "plane": [
+                                "BUS"
+                            ],
+                            "duration": [
+                                "135"
+                            ],
+                            "techStops": [],
+                            "bookingClass": "K",
+                            "bookingCount": "9",
+                            "baggage": [
+                                {
+                                    "units": "kilograms",
+                                    "amount": 30
+                                }
+                            ],
+                            "fareBasisCode": "KEXESBD1"
+                        }
+                    ]
+                }
+            ],
+            [
+                {
+                    "from": "AUH",
+                    "to": "DAC",
+                    "platingCarrier": "EK",
+                    "segments": [
+                        {
+                            "from": "ZVJ",
+                            "to": "DXB",
+                            "group": 1,
+                            "departure": "2022-03-25T03:00:00.000+04:00",
+                            "arrival": "2022-03-25T05:00:00.000+04:00",
+                            "airline": "EK",
+                            "flightNumber": "7006",
+                            "uapi_segment_ref": "QAaGi8+pWDKAlwZEBAAAAA==",
+                            "uapiSegmentReference": "QAaGi8+pWDKAlwZEBAAAAA==",
+                            "details": [
+                                {
+                                    "origin": "ZVJ",
+                                    "destination": "DXB",
+                                    "destinationTerminal": "3",
+                                    "departure": "2022-03-25T03:00:00.000+04:00",
+                                    "flightTime": "120",
+                                    "travelTime": "715",
+                                    "equipment": "BUS"
+                                }
+                            ],
+                            "serviceClass": "Economy",
+                            "plane": [
+                                "BUS"
+                            ],
+                            "duration": [
+                                "120"
+                            ],
+                            "techStops": [],
+                            "bookingClass": "K",
+                            "bookingCount": "9",
+                            "baggage": [
+                                {
+                                    "units": "kilograms",
+                                    "amount": 30
+                                }
+                            ],
+                            "fareBasisCode": "KEXESBD1"
+                        },
+                        {
+                            "from": "DXB",
+                            "to": "DAC",
+                            "group": 1,
+                            "departure": "2022-03-25T10:30:00.000+04:00",
+                            "arrival": "2022-03-25T16:55:00.000+06:00",
+                            "airline": "EK",
+                            "flightNumber": "586",
+                            "uapi_segment_ref": "QAaGi8+pWDKAnwZEBAAAAA==",
+                            "uapiSegmentReference": "QAaGi8+pWDKAnwZEBAAAAA==",
+                            "details": [
+                                {
+                                    "origin": "DXB",
+                                    "originTerminal": "3",
+                                    "destination": "DAC",
+                                    "departure": "2022-03-25T10:30:00.000+04:00",
+                                    "flightTime": "265",
+                                    "travelTime": "715",
+                                    "equipment": "77W"
+                                }
+                            ],
+                            "serviceClass": "Economy",
+                            "plane": [
+                                "77W"
+                            ],
+                            "duration": [
+                                "265"
+                            ],
+                            "techStops": [],
+                            "bookingClass": "K",
+                            "bookingCount": "9",
+                            "baggage": [
+                                {
+                                    "units": "kilograms",
+                                    "amount": 30
+                                }
+                            ],
+                            "fareBasisCode": "KEXESBD1"
+                        }
+                    ]
+                },
+                {
+                    "from": "AUH",
+                    "to": "DAC",
+                    "platingCarrier": "EK",
+                    "segments": [
+                        {
+                            "from": "ZVJ",
+                            "to": "DXB",
+                            "group": 1,
+                            "departure": "2022-03-25T03:00:00.000+04:00",
+                            "arrival": "2022-03-25T05:00:00.000+04:00",
+                            "airline": "EK",
+                            "flightNumber": "7006",
+                            "uapi_segment_ref": "QAaGi8+pWDKAlwZEBAAAAA==",
+                            "uapiSegmentReference": "QAaGi8+pWDKAlwZEBAAAAA==",
+                            "details": [
+                                {
+                                    "origin": "ZVJ",
+                                    "destination": "DXB",
+                                    "destinationTerminal": "3",
+                                    "departure": "2022-03-25T03:00:00.000+04:00",
+                                    "flightTime": "120",
+                                    "travelTime": "715",
+                                    "equipment": "BUS"
+                                }
+                            ],
+                            "serviceClass": "Economy",
+                            "plane": [
+                                "BUS"
+                            ],
+                            "duration": [
+                                "120"
+                            ],
+                            "techStops": [],
+                            "bookingClass": "K",
+                            "bookingCount": "9",
+                            "baggage": [
+                                {
+                                    "units": "kilograms",
+                                    "amount": 30
+                                }
+                            ],
+                            "fareBasisCode": "KEXESBD1"
+                        },
+                        {
+                            "from": "DXB",
+                            "to": "DAC",
+                            "group": 1,
+                            "departure": "2022-03-25T14:50:00.000+04:00",
+                            "arrival": "2022-03-25T21:05:00.000+06:00",
+                            "airline": "EK",
+                            "flightNumber": "584",
+                            "uapi_segment_ref": "QAaGi8+pWDKApwZEBAAAAA==",
+                            "uapiSegmentReference": "QAaGi8+pWDKApwZEBAAAAA==",
+                            "details": [
+                                {
+                                    "origin": "DXB",
+                                    "originTerminal": "3",
+                                    "destination": "DAC",
+                                    "departure": "2022-03-25T14:50:00.000+04:00",
+                                    "flightTime": "255",
+                                    "travelTime": "965",
+                                    "equipment": "77W"
+                                }
+                            ],
+                            "serviceClass": "Economy",
+                            "plane": [
+                                "77W"
+                            ],
+                            "duration": [
+                                "255"
+                            ],
+                            "techStops": [],
+                            "bookingClass": "K",
+                            "bookingCount": "9",
+                            "baggage": [
+                                {
+                                    "units": "kilograms",
+                                    "amount": 30
+                                }
+                            ],
+                            "fareBasisCode": "KEXESBD1"
+                        }
+                    ]
+                },
+                {
+                    "from": "AUH",
+                    "to": "DAC",
+                    "platingCarrier": "EK",
+                    "segments": [
+                        {
+                            "from": "ZVJ",
+                            "to": "DXB",
+                            "group": 1,
+                            "departure": "2022-03-25T03:00:00.000+04:00",
+                            "arrival": "2022-03-25T05:00:00.000+04:00",
+                            "airline": "EK",
+                            "flightNumber": "7006",
+                            "uapi_segment_ref": "QAaGi8+pWDKAlwZEBAAAAA==",
+                            "uapiSegmentReference": "QAaGi8+pWDKAlwZEBAAAAA==",
+                            "details": [
+                                {
+                                    "origin": "ZVJ",
+                                    "destination": "DXB",
+                                    "destinationTerminal": "3",
+                                    "departure": "2022-03-25T03:00:00.000+04:00",
+                                    "flightTime": "120",
+                                    "travelTime": "715",
+                                    "equipment": "BUS"
+                                }
+                            ],
+                            "serviceClass": "Economy",
+                            "plane": [
+                                "BUS"
+                            ],
+                            "duration": [
+                                "120"
+                            ],
+                            "techStops": [],
+                            "bookingClass": "K",
+                            "bookingCount": "9",
+                            "baggage": [
+                                {
+                                    "units": "kilograms",
+                                    "amount": 30
+                                }
+                            ],
+                            "fareBasisCode": "KEXESBD1"
+                        },
+                        {
+                            "from": "DXB",
+                            "to": "DAC",
+                            "group": 1,
+                            "departure": "2022-03-26T01:45:00.000+04:00",
+                            "arrival": "2022-03-26T08:10:00.000+06:00",
+                            "airline": "EK",
+                            "flightNumber": "582",
+                            "uapi_segment_ref": "QAaGi8+pWDKArwZEBAAAAA==",
+                            "uapiSegmentReference": "QAaGi8+pWDKArwZEBAAAAA==",
+                            "details": [
+                                {
+                                    "origin": "DXB",
+                                    "originTerminal": "3",
+                                    "destination": "DAC",
+                                    "departure": "2022-03-26T01:45:00.000+04:00",
+                                    "flightTime": "265",
+                                    "travelTime": "1630",
+                                    "equipment": "77W"
+                                }
+                            ],
+                            "serviceClass": "Economy",
+                            "plane": [
+                                "77W"
+                            ],
+                            "duration": [
+                                "265"
+                            ],
+                            "techStops": [],
+                            "bookingClass": "K",
+                            "bookingCount": "9",
+                            "baggage": [
+                                {
+                                    "units": "kilograms",
+                                    "amount": 30
+                                }
+                            ],
+                            "fareBasisCode": "KEXESBD1"
+                        }
+                    ]
+                }
+            ]
+        ],
+        "bookingComponents": [
+            {
+                "totalPrice": "AED66915",
+                "basePrice": "USD666.00",
+                "taxes": "AED10418",
+                "uapi_fare_reference": "QAaGi8+pWDKA80ZEBAAAAA=="
+            }
+        ],
+        "passengerFares": {
+            "ADT": {
+                "totalPrice": "AED66915",
+                "basePrice": "USD666.00",
+                "equivalentBasePrice": "AED56497",
+                "taxes": "AED10418"
+            }
+        },
+        "passengerCounts": {
+            "ADT": 1
+        }
+    },
+    {
+        "totalPrice": "AED71433",
+        "basePrice": "USD699.00",
+        "eqivqlBasePrice": "AED59297",
+        "taxes": "AED12136",
+        "platingCarrier": "QR",
+        "refundable": "true",
+        "directions": [
+            [
+                {
+                    "from": "DAC",
+                    "to": "AUH",
+                    "platingCarrier": "QR",
+                    "segments": [
+                        {
+                            "from": "DAC",
+                            "to": "DOH",
+                            "group": 0,
+                            "departure": "2022-03-11T10:45:00.000+06:00",
+                            "arrival": "2022-03-11T13:40:00.000+03:00",
+                            "airline": "QR",
+                            "flightNumber": "641",
+                            "uapi_segment_ref": "QAaGi8+pWDKAtwZEBAAAAA==",
+                            "uapiSegmentReference": "QAaGi8+pWDKAtwZEBAAAAA==",
+                            "details": [
+                                {
+                                    "origin": "DAC",
+                                    "originTerminal": "1",
+                                    "destination": "DOH",
+                                    "departure": "2022-03-11T10:45:00.000+06:00",
+                                    "flightTime": "355",
+                                    "travelTime": "825",
+                                    "equipment": "333"
+                                }
+                            ],
+                            "serviceClass": "Economy",
+                            "plane": [
+                                "333"
+                            ],
+                            "duration": [
+                                "355"
+                            ],
+                            "techStops": [],
+                            "bookingClass": "N",
+                            "bookingCount": "9",
+                            "baggage": [
+                                {
+                                    "units": "kilograms",
+                                    "amount": 25
+                                }
+                            ],
+                            "fareBasisCode": "NJR4R1RW"
+                        },
+                        {
+                            "from": "DOH",
+                            "to": "AUH",
+                            "group": 0,
+                            "departure": "2022-03-11T20:25:00.000+03:00",
+                            "arrival": "2022-03-11T22:30:00.000+04:00",
+                            "airline": "QR",
+                            "flightNumber": "1054",
+                            "uapi_segment_ref": "QAaGi8+pWDKAvwZEBAAAAA==",
+                            "uapiSegmentReference": "QAaGi8+pWDKAvwZEBAAAAA==",
+                            "details": [
+                                {
+                                    "origin": "DOH",
+                                    "destination": "AUH",
+                                    "destinationTerminal": "1",
+                                    "departure": "2022-03-11T20:25:00.000+03:00",
+                                    "flightTime": "65",
+                                    "travelTime": "825",
+                                    "equipment": "333"
+                                }
+                            ],
+                            "serviceClass": "Economy",
+                            "plane": [
+                                "333"
+                            ],
+                            "duration": [
+                                "65"
+                            ],
+                            "techStops": [],
+                            "bookingClass": "N",
+                            "bookingCount": "9",
+                            "baggage": [
+                                {
+                                    "units": "kilograms",
+                                    "amount": 25
+                                }
+                            ],
+                            "fareBasisCode": "NJR4R1RW"
+                        }
+                    ]
+                }
+            ],
+            [
+                {
+                    "from": "AUH",
+                    "to": "DAC",
+                    "platingCarrier": "QR",
+                    "segments": [
+                        {
+                            "from": "AUH",
+                            "to": "DOH",
+                            "group": 1,
+                            "departure": "2022-03-25T05:50:00.000+04:00",
+                            "arrival": "2022-03-25T05:55:00.000+03:00",
+                            "airline": "QR",
+                            "flightNumber": "1041",
+                            "uapi_segment_ref": "QAaGi8+pWDKAxwZEBAAAAA==",
+                            "uapiSegmentReference": "QAaGi8+pWDKAxwZEBAAAAA==",
+                            "details": [
+                                {
+                                    "origin": "AUH",
+                                    "originTerminal": "1",
+                                    "destination": "DOH",
+                                    "departure": "2022-03-25T05:50:00.000+04:00",
+                                    "flightTime": "65",
+                                    "travelTime": "530",
+                                    "equipment": "333"
+                                }
+                            ],
+                            "serviceClass": "Economy",
+                            "plane": [
+                                "333"
+                            ],
+                            "duration": [
+                                "65"
+                            ],
+                            "techStops": [],
+                            "bookingClass": "N",
+                            "bookingCount": "9",
+                            "baggage": [
+                                {
+                                    "units": "kilograms",
+                                    "amount": 25
+                                }
+                            ],
+                            "fareBasisCode": "NJR4R1RX"
+                        },
+                        {
+                            "from": "DOH",
+                            "to": "DAC",
+                            "group": 1,
+                            "departure": "2022-03-25T08:50:00.000+03:00",
+                            "arrival": "2022-03-25T16:40:00.000+06:00",
+                            "airline": "QR",
+                            "flightNumber": "634",
+                            "uapi_segment_ref": "QAaGi8+pWDKAzwZEBAAAAA==",
+                            "uapiSegmentReference": "QAaGi8+pWDKAzwZEBAAAAA==",
+                            "details": [
+                                {
+                                    "origin": "DOH",
+                                    "destination": "DAC",
+                                    "destinationTerminal": "1",
+                                    "departure": "2022-03-25T08:50:00.000+03:00",
+                                    "flightTime": "290",
+                                    "travelTime": "530",
+                                    "equipment": "77W"
+                                }
+                            ],
+                            "serviceClass": "Economy",
+                            "plane": [
+                                "77W"
+                            ],
+                            "duration": [
+                                "290"
+                            ],
+                            "techStops": [],
+                            "bookingClass": "N",
+                            "bookingCount": "9",
+                            "baggage": [
+                                {
+                                    "units": "kilograms",
+                                    "amount": 25
+                                }
+                            ],
+                            "fareBasisCode": "NJR4R1RX"
+                        }
+                    ]
+                },
+                {
+                    "from": "AUH",
+                    "to": "DAC",
+                    "platingCarrier": "QR",
+                    "segments": [
+                        {
+                            "from": "AUH",
+                            "to": "DOH",
+                            "group": 1,
+                            "departure": "2022-03-25T05:50:00.000+04:00",
+                            "arrival": "2022-03-25T05:55:00.000+03:00",
+                            "airline": "QR",
+                            "flightNumber": "1041",
+                            "uapi_segment_ref": "QAaGi8+pWDKAxwZEBAAAAA==",
+                            "uapiSegmentReference": "QAaGi8+pWDKAxwZEBAAAAA==",
+                            "details": [
+                                {
+                                    "origin": "AUH",
+                                    "originTerminal": "1",
+                                    "destination": "DOH",
+                                    "departure": "2022-03-25T05:50:00.000+04:00",
+                                    "flightTime": "65",
+                                    "travelTime": "530",
+                                    "equipment": "333"
+                                }
+                            ],
+                            "serviceClass": "Economy",
+                            "plane": [
+                                "333"
+                            ],
+                            "duration": [
+                                "65"
+                            ],
+                            "techStops": [],
+                            "bookingClass": "N",
+                            "bookingCount": "9",
+                            "baggage": [
+                                {
+                                    "units": "kilograms",
+                                    "amount": 25
+                                }
+                            ],
+                            "fareBasisCode": "NJR4R1RX"
+                        },
+                        {
+                            "from": "DOH",
+                            "to": "DAC",
+                            "group": 1,
+                            "departure": "2022-03-25T13:40:00.000+03:00",
+                            "arrival": "2022-03-25T21:30:00.000+06:00",
+                            "airline": "QR",
+                            "flightNumber": "638",
+                            "uapi_segment_ref": "QAaGi8+pWDKA1wZEBAAAAA==",
+                            "uapiSegmentReference": "QAaGi8+pWDKA1wZEBAAAAA==",
+                            "details": [
+                                {
+                                    "origin": "DOH",
+                                    "destination": "DAC",
+                                    "destinationTerminal": "1",
+                                    "departure": "2022-03-25T13:40:00.000+03:00",
+                                    "flightTime": "290",
+                                    "travelTime": "820",
+                                    "equipment": "333"
+                                }
+                            ],
+                            "serviceClass": "Economy",
+                            "plane": [
+                                "333"
+                            ],
+                            "duration": [
+                                "290"
+                            ],
+                            "techStops": [],
+                            "bookingClass": "N",
+                            "bookingCount": "9",
+                            "baggage": [
+                                {
+                                    "units": "kilograms",
+                                    "amount": 25
+                                }
+                            ],
+                            "fareBasisCode": "NJR4R1RX"
+                        }
+                    ]
+                }
+            ]
+        ],
+        "bookingComponents": [
+            {
+                "totalPrice": "AED71433",
+                "basePrice": "USD699.00",
+                "taxes": "AED12136",
+                "uapi_fare_reference": "QAaGi8+pWDKA90ZEBAAAAA=="
+            }
+        ],
+        "passengerFares": {
+            "ADT": {
+                "totalPrice": "AED71433",
+                "basePrice": "USD699.00",
+                "equivalentBasePrice": "AED59297",
+                "taxes": "AED12136"
+            }
+        },
+        "passengerCounts": {
+            "ADT": 1
+        }
+    },
+    {
+        "totalPrice": "AED71738",
+        "basePrice": "USD699.00",
+        "eqivqlBasePrice": "AED59297",
+        "taxes": "AED12441",
+        "platingCarrier": "QR",
+        "refundable": "true",
+        "directions": [
+            [
+                {
+                    "from": "DAC",
+                    "to": "AUH",
+                    "platingCarrier": "QR",
+                    "segments": [
+                        {
+                            "from": "DAC",
+                            "to": "DOH",
+                            "group": 0,
+                            "departure": "2022-03-11T10:45:00.000+06:00",
+                            "arrival": "2022-03-11T13:40:00.000+03:00",
+                            "airline": "QR",
+                            "flightNumber": "641",
+                            "uapi_segment_ref": "QAaGi8+pWDKAtwZEBAAAAA==",
+                            "uapiSegmentReference": "QAaGi8+pWDKAtwZEBAAAAA==",
+                            "details": [
+                                {
+                                    "origin": "DAC",
+                                    "originTerminal": "1",
+                                    "destination": "DOH",
+                                    "departure": "2022-03-11T10:45:00.000+06:00",
+                                    "flightTime": "355",
+                                    "travelTime": "825",
+                                    "equipment": "333"
+                                }
+                            ],
+                            "serviceClass": "Economy",
+                            "plane": [
+                                "333"
+                            ],
+                            "duration": [
+                                "355"
+                            ],
+                            "techStops": [],
+                            "bookingClass": "N",
+                            "bookingCount": "9",
+                            "baggage": [
+                                {
+                                    "units": "kilograms",
+                                    "amount": 25
+                                }
+                            ],
+                            "fareBasisCode": "NJR4R1RW"
+                        },
+                        {
+                            "from": "DOH",
+                            "to": "AUH",
+                            "group": 0,
+                            "departure": "2022-03-11T20:25:00.000+03:00",
+                            "arrival": "2022-03-11T22:30:00.000+04:00",
+                            "airline": "QR",
+                            "flightNumber": "1054",
+                            "uapi_segment_ref": "QAaGi8+pWDKAvwZEBAAAAA==",
+                            "uapiSegmentReference": "QAaGi8+pWDKAvwZEBAAAAA==",
+                            "details": [
+                                {
+                                    "origin": "DOH",
+                                    "destination": "AUH",
+                                    "destinationTerminal": "1",
+                                    "departure": "2022-03-11T20:25:00.000+03:00",
+                                    "flightTime": "65",
+                                    "travelTime": "825",
+                                    "equipment": "333"
+                                }
+                            ],
+                            "serviceClass": "Economy",
+                            "plane": [
+                                "333"
+                            ],
+                            "duration": [
+                                "65"
+                            ],
+                            "techStops": [],
+                            "bookingClass": "N",
+                            "bookingCount": "9",
+                            "baggage": [
+                                {
+                                    "units": "kilograms",
+                                    "amount": 25
+                                }
+                            ],
+                            "fareBasisCode": "NJR4R1RW"
+                        }
+                    ]
+                }
+            ],
+            [
+                {
+                    "from": "AUH",
+                    "to": "DAC",
+                    "platingCarrier": "QR",
+                    "segments": [
+                        {
+                            "from": "AUH",
+                            "to": "DOH",
+                            "group": 1,
+                            "departure": "2022-03-25T05:50:00.000+04:00",
+                            "arrival": "2022-03-25T05:55:00.000+03:00",
+                            "airline": "QR",
+                            "flightNumber": "1041",
+                            "uapi_segment_ref": "QAaGi8+pWDKAxwZEBAAAAA==",
+                            "uapiSegmentReference": "QAaGi8+pWDKAxwZEBAAAAA==",
+                            "details": [
+                                {
+                                    "origin": "AUH",
+                                    "originTerminal": "1",
+                                    "destination": "DOH",
+                                    "departure": "2022-03-25T05:50:00.000+04:00",
+                                    "flightTime": "65",
+                                    "travelTime": "530",
+                                    "equipment": "333"
+                                }
+                            ],
+                            "serviceClass": "Economy",
+                            "plane": [
+                                "333"
+                            ],
+                            "duration": [
+                                "65"
+                            ],
+                            "techStops": [],
+                            "bookingClass": "N",
+                            "bookingCount": "9",
+                            "baggage": [
+                                {
+                                    "units": "kilograms",
+                                    "amount": 25
+                                }
+                            ],
+                            "fareBasisCode": "NJR4R1RX"
+                        },
+                        {
+                            "from": "DOH",
+                            "to": "DAC",
+                            "group": 1,
+                            "departure": "2022-03-26T01:25:00.000+03:00",
+                            "arrival": "2022-03-26T09:15:00.000+06:00",
+                            "airline": "QR",
+                            "flightNumber": "640",
+                            "uapi_segment_ref": "QAaGi8+pWDKA3wZEBAAAAA==",
+                            "uapiSegmentReference": "QAaGi8+pWDKA3wZEBAAAAA==",
+                            "details": [
+                                {
+                                    "origin": "DOH",
+                                    "destination": "DAC",
+                                    "destinationTerminal": "1",
+                                    "departure": "2022-03-26T01:25:00.000+03:00",
+                                    "flightTime": "290",
+                                    "travelTime": "1525",
+                                    "equipment": "333"
+                                }
+                            ],
+                            "serviceClass": "Economy",
+                            "plane": [
+                                "333"
+                            ],
+                            "duration": [
+                                "290"
+                            ],
+                            "techStops": [],
+                            "bookingClass": "N",
+                            "bookingCount": "9",
+                            "baggage": [
+                                {
+                                    "units": "kilograms",
+                                    "amount": 25
+                                }
+                            ],
+                            "fareBasisCode": "NJR4R1RX"
+                        }
+                    ]
+                }
+            ]
+        ],
+        "bookingComponents": [
+            {
+                "totalPrice": "AED71738",
+                "basePrice": "USD699.00",
+                "taxes": "AED12441",
+                "uapi_fare_reference": "QAaGi8+pWDKAU1ZEBAAAAA=="
+            }
+        ],
+        "passengerFares": {
+            "ADT": {
+                "totalPrice": "AED71738",
+                "basePrice": "USD699.00",
+                "equivalentBasePrice": "AED59297",
+                "taxes": "AED12441"
+            }
+        },
+        "passengerCounts": {
+            "ADT": 1
+        }
+    },
+    {
+        "totalPrice": "AED75059",
+        "basePrice": "USD762.00",
+        "eqivqlBasePrice": "AED64641",
+        "taxes": "AED10418",
+        "platingCarrier": "EY",
+        "refundable": "true",
+        "directions": [
+            [
+                {
+                    "from": "DAC",
+                    "to": "AUH",
+                    "platingCarrier": "EY",
+                    "segments": [
+                        {
+                            "from": "DAC",
+                            "to": "CMB",
+                            "group": 0,
+                            "departure": "2022-03-11T10:45:00.000+06:00",
+                            "arrival": "2022-03-11T13:40:00.000+05:30",
+                            "airline": "EY",
+                            "flightNumber": "7169",
+                            "uapi_segment_ref": "QAaGi8+pWDKA5wZEBAAAAA==",
+                            "uapiSegmentReference": "QAaGi8+pWDKA5wZEBAAAAA==",
+                            "details": [
+                                {
+                                    "origin": "DAC",
+                                    "originTerminal": "1",
+                                    "destination": "CMB",
+                                    "departure": "2022-03-11T10:45:00.000+06:00",
+                                    "flightTime": "205",
+                                    "travelTime": "1260",
+                                    "equipment": "333"
+                                }
+                            ],
+                            "serviceClass": "Economy",
+                            "plane": [
+                                "333"
+                            ],
+                            "duration": [
+                                "205"
+                            ],
+                            "techStops": [],
+                            "bookingClass": "K",
+                            "bookingCount": "4",
+                            "baggage": [
+                                {
+                                    "units": "kilograms",
+                                    "amount": 35
+                                }
+                            ],
+                            "fareBasisCode": "KC2BD"
+                        },
+                        {
+                            "from": "CMB",
+                            "to": "AUH",
+                            "group": 0,
+                            "departure": "2022-03-12T02:35:00.000+05:30",
+                            "arrival": "2022-03-12T05:45:00.000+04:00",
+                            "airline": "EY",
+                            "flightNumber": "265",
+                            "uapi_segment_ref": "QAaGi8+pWDKA7wZEBAAAAA==",
+                            "uapiSegmentReference": "QAaGi8+pWDKA7wZEBAAAAA==",
+                            "details": [
+                                {
+                                    "origin": "CMB",
+                                    "destination": "AUH",
+                                    "destinationTerminal": "1",
+                                    "departure": "2022-03-12T02:35:00.000+05:30",
+                                    "flightTime": "280",
+                                    "travelTime": "1260",
+                                    "equipment": "789"
+                                }
+                            ],
+                            "serviceClass": "Economy",
+                            "plane": [
+                                "789"
+                            ],
+                            "duration": [
+                                "280"
+                            ],
+                            "techStops": [],
+                            "bookingClass": "K",
+                            "bookingCount": "9",
+                            "baggage": [
+                                {
+                                    "units": "kilograms",
+                                    "amount": 35
+                                }
+                            ],
+                            "fareBasisCode": "KC2BD"
+                        }
+                    ]
+                }
+            ],
+            [
+                {
+                    "from": "AUH",
+                    "to": "DAC",
+                    "platingCarrier": "EY",
+                    "segments": [
+                        {
+                            "from": "AUH",
+                            "to": "CMB",
+                            "group": 1,
+                            "departure": "2022-03-25T19:25:00.000+04:00",
+                            "arrival": "2022-03-26T01:15:00.000+05:30",
+                            "airline": "EY",
+                            "flightNumber": "264",
+                            "uapi_segment_ref": "QAaGi8+pWDKA9wZEBAAAAA==",
+                            "uapiSegmentReference": "QAaGi8+pWDKA9wZEBAAAAA==",
+                            "details": [
+                                {
+                                    "origin": "AUH",
+                                    "originTerminal": "3",
+                                    "destination": "CMB",
+                                    "departure": "2022-03-25T19:25:00.000+04:00",
+                                    "flightTime": "260",
+                                    "travelTime": "725",
+                                    "equipment": "789"
+                                }
+                            ],
+                            "serviceClass": "Economy",
+                            "plane": [
+                                "789"
+                            ],
+                            "duration": [
+                                "260"
+                            ],
+                            "techStops": [],
+                            "bookingClass": "Q",
+                            "bookingCount": "9",
+                            "baggage": [
+                                {
+                                    "units": "kilograms",
+                                    "amount": 35
+                                }
+                            ],
+                            "fareBasisCode": "QC2BD"
+                        },
+                        {
+                            "from": "CMB",
+                            "to": "DAC",
+                            "group": 1,
+                            "departure": "2022-03-26T05:45:00.000+05:30",
+                            "arrival": "2022-03-26T09:30:00.000+06:00",
+                            "airline": "UL",
+                            "flightNumber": "199",
+                            "uapi_segment_ref": "QAaGi8+pWDKA/wZEBAAAAA==",
+                            "uapiSegmentReference": "QAaGi8+pWDKA/wZEBAAAAA==",
+                            "details": [
+                                {
+                                    "origin": "CMB",
+                                    "destination": "DAC",
+                                    "destinationTerminal": "1",
+                                    "departure": "2022-03-26T05:45:00.000+05:30",
+                                    "flightTime": "195",
+                                    "travelTime": "725",
+                                    "equipment": "332"
+                                }
+                            ],
+                            "serviceClass": "Economy",
+                            "plane": [
+                                "332"
+                            ],
+                            "duration": [
+                                "195"
+                            ],
+                            "techStops": [],
+                            "bookingClass": "Q",
+                            "bookingCount": "7",
+                            "baggage": [
+                                {
+                                    "units": "kilograms",
+                                    "amount": 35
+                                }
+                            ],
+                            "fareBasisCode": "QC2BD"
+                        }
+                    ]
+                }
+            ]
+        ],
+        "bookingComponents": [
+            {
+                "totalPrice": "AED75059",
+                "basePrice": "USD762.00",
+                "taxes": "AED10418",
+                "uapi_fare_reference": "QAaGi8+pWDKAV1ZEBAAAAA=="
+            }
+        ],
+        "passengerFares": {
+            "ADT": {
+                "totalPrice": "AED75059",
+                "basePrice": "USD762.00",
+                "equivalentBasePrice": "AED64641",
+                "taxes": "AED10418"
+            }
+        },
+        "passengerCounts": {
+            "ADT": 1
+        }
+    },
+    {
+        "totalPrice": "AED77795",
+        "basePrice": "USD774.00",
+        "eqivqlBasePrice": "AED65659",
+        "taxes": "AED12136",
+        "platingCarrier": "QR",
+        "refundable": "true",
+        "directions": [
+            [
+                {
+                    "from": "DAC",
+                    "to": "AUH",
+                    "platingCarrier": "QR",
+                    "segments": [
+                        {
+                            "from": "DAC",
+                            "to": "DOH",
+                            "group": 0,
+                            "departure": "2022-03-11T10:45:00.000+06:00",
+                            "arrival": "2022-03-11T13:40:00.000+03:00",
+                            "airline": "QR",
+                            "flightNumber": "641",
+                            "uapi_segment_ref": "QAaGi8+pWDKAtwZEBAAAAA==",
+                            "uapiSegmentReference": "QAaGi8+pWDKAtwZEBAAAAA==",
+                            "details": [
+                                {
+                                    "origin": "DAC",
+                                    "originTerminal": "1",
+                                    "destination": "DOH",
+                                    "departure": "2022-03-11T10:45:00.000+06:00",
+                                    "flightTime": "355",
+                                    "travelTime": "825",
+                                    "equipment": "333"
+                                }
+                            ],
+                            "serviceClass": "Economy",
+                            "plane": [
+                                "333"
+                            ],
+                            "duration": [
+                                "355"
+                            ],
+                            "techStops": [],
+                            "bookingClass": "S",
+                            "bookingCount": "9",
+                            "baggage": [
+                                {
+                                    "units": "kilograms",
+                                    "amount": 30
+                                }
+                            ],
+                            "fareBasisCode": "SJR4R1SW"
+                        },
+                        {
+                            "from": "DOH",
+                            "to": "AUH",
+                            "group": 0,
+                            "departure": "2022-03-11T20:25:00.000+03:00",
+                            "arrival": "2022-03-11T22:30:00.000+04:00",
+                            "airline": "QR",
+                            "flightNumber": "1054",
+                            "uapi_segment_ref": "QAaGi8+pWDKAvwZEBAAAAA==",
+                            "uapiSegmentReference": "QAaGi8+pWDKAvwZEBAAAAA==",
+                            "details": [
+                                {
+                                    "origin": "DOH",
+                                    "destination": "AUH",
+                                    "destinationTerminal": "1",
+                                    "departure": "2022-03-11T20:25:00.000+03:00",
+                                    "flightTime": "65",
+                                    "travelTime": "825",
+                                    "equipment": "333"
+                                }
+                            ],
+                            "serviceClass": "Economy",
+                            "plane": [
+                                "333"
+                            ],
+                            "duration": [
+                                "65"
+                            ],
+                            "techStops": [],
+                            "bookingClass": "S",
+                            "bookingCount": "9",
+                            "baggage": [
+                                {
+                                    "units": "kilograms",
+                                    "amount": 30
+                                }
+                            ],
+                            "fareBasisCode": "SJR4R1SW"
+                        }
+                    ]
+                }
+            ],
+            [
+                {
+                    "from": "AUH",
+                    "to": "DAC",
+                    "platingCarrier": "QR",
+                    "segments": [
+                        {
+                            "from": "AUH",
+                            "to": "DOH",
+                            "group": 1,
+                            "departure": "2022-03-25T05:50:00.000+04:00",
+                            "arrival": "2022-03-25T05:55:00.000+03:00",
+                            "airline": "QR",
+                            "flightNumber": "1041",
+                            "uapi_segment_ref": "QAaGi8+pWDKAxwZEBAAAAA==",
+                            "uapiSegmentReference": "QAaGi8+pWDKAxwZEBAAAAA==",
+                            "details": [
+                                {
+                                    "origin": "AUH",
+                                    "originTerminal": "1",
+                                    "destination": "DOH",
+                                    "departure": "2022-03-25T05:50:00.000+04:00",
+                                    "flightTime": "65",
+                                    "travelTime": "530",
+                                    "equipment": "333"
+                                }
+                            ],
+                            "serviceClass": "Economy",
+                            "plane": [
+                                "333"
+                            ],
+                            "duration": [
+                                "65"
+                            ],
+                            "techStops": [],
+                            "bookingClass": "S",
+                            "bookingCount": "9",
+                            "baggage": [
+                                {
+                                    "units": "kilograms",
+                                    "amount": 30
+                                }
+                            ],
+                            "fareBasisCode": "SJR4R1SX"
+                        },
+                        {
+                            "from": "DOH",
+                            "to": "DAC",
+                            "group": 1,
+                            "departure": "2022-03-25T08:50:00.000+03:00",
+                            "arrival": "2022-03-25T16:40:00.000+06:00",
+                            "airline": "QR",
+                            "flightNumber": "634",
+                            "uapi_segment_ref": "QAaGi8+pWDKAzwZEBAAAAA==",
+                            "uapiSegmentReference": "QAaGi8+pWDKAzwZEBAAAAA==",
+                            "details": [
+                                {
+                                    "origin": "DOH",
+                                    "destination": "DAC",
+                                    "destinationTerminal": "1",
+                                    "departure": "2022-03-25T08:50:00.000+03:00",
+                                    "flightTime": "290",
+                                    "travelTime": "530",
+                                    "equipment": "77W"
+                                }
+                            ],
+                            "serviceClass": "Economy",
+                            "plane": [
+                                "77W"
+                            ],
+                            "duration": [
+                                "290"
+                            ],
+                            "techStops": [],
+                            "bookingClass": "S",
+                            "bookingCount": "9",
+                            "baggage": [
+                                {
+                                    "units": "kilograms",
+                                    "amount": 30
+                                }
+                            ],
+                            "fareBasisCode": "SJR4R1SX"
+                        }
+                    ]
+                },
+                {
+                    "from": "AUH",
+                    "to": "DAC",
+                    "platingCarrier": "QR",
+                    "segments": [
+                        {
+                            "from": "AUH",
+                            "to": "DOH",
+                            "group": 1,
+                            "departure": "2022-03-25T05:50:00.000+04:00",
+                            "arrival": "2022-03-25T05:55:00.000+03:00",
+                            "airline": "QR",
+                            "flightNumber": "1041",
+                            "uapi_segment_ref": "QAaGi8+pWDKAxwZEBAAAAA==",
+                            "uapiSegmentReference": "QAaGi8+pWDKAxwZEBAAAAA==",
+                            "details": [
+                                {
+                                    "origin": "AUH",
+                                    "originTerminal": "1",
+                                    "destination": "DOH",
+                                    "departure": "2022-03-25T05:50:00.000+04:00",
+                                    "flightTime": "65",
+                                    "travelTime": "530",
+                                    "equipment": "333"
+                                }
+                            ],
+                            "serviceClass": "Economy",
+                            "plane": [
+                                "333"
+                            ],
+                            "duration": [
+                                "65"
+                            ],
+                            "techStops": [],
+                            "bookingClass": "S",
+                            "bookingCount": "9",
+                            "baggage": [
+                                {
+                                    "units": "kilograms",
+                                    "amount": 30
+                                }
+                            ],
+                            "fareBasisCode": "SJR4R1SX"
+                        },
+                        {
+                            "from": "DOH",
+                            "to": "DAC",
+                            "group": 1,
+                            "departure": "2022-03-25T13:40:00.000+03:00",
+                            "arrival": "2022-03-25T21:30:00.000+06:00",
+                            "airline": "QR",
+                            "flightNumber": "638",
+                            "uapi_segment_ref": "QAaGi8+pWDKA1wZEBAAAAA==",
+                            "uapiSegmentReference": "QAaGi8+pWDKA1wZEBAAAAA==",
+                            "details": [
+                                {
+                                    "origin": "DOH",
+                                    "destination": "DAC",
+                                    "destinationTerminal": "1",
+                                    "departure": "2022-03-25T13:40:00.000+03:00",
+                                    "flightTime": "290",
+                                    "travelTime": "820",
+                                    "equipment": "333"
+                                }
+                            ],
+                            "serviceClass": "Economy",
+                            "plane": [
+                                "333"
+                            ],
+                            "duration": [
+                                "290"
+                            ],
+                            "techStops": [],
+                            "bookingClass": "S",
+                            "bookingCount": "9",
+                            "baggage": [
+                                {
+                                    "units": "kilograms",
+                                    "amount": 30
+                                }
+                            ],
+                            "fareBasisCode": "SJR4R1SX"
+                        }
+                    ]
+                }
+            ]
+        ],
+        "bookingComponents": [
+            {
+                "totalPrice": "AED77795",
+                "basePrice": "USD774.00",
+                "taxes": "AED12136",
+                "uapi_fare_reference": "QAaGi8+pWDKAu1ZEBAAAAA=="
+            }
+        ],
+        "passengerFares": {
+            "ADT": {
+                "totalPrice": "AED77795",
+                "basePrice": "USD774.00",
+                "equivalentBasePrice": "AED65659",
+                "taxes": "AED12136"
+            }
+        },
+        "passengerCounts": {
+            "ADT": 1
+        }
+    },
+    {
+        "totalPrice": "AED78100",
+        "basePrice": "USD774.00",
+        "eqivqlBasePrice": "AED65659",
+        "taxes": "AED12441",
+        "platingCarrier": "QR",
+        "refundable": "true",
+        "directions": [
+            [
+                {
+                    "from": "DAC",
+                    "to": "AUH",
+                    "platingCarrier": "QR",
+                    "segments": [
+                        {
+                            "from": "DAC",
+                            "to": "DOH",
+                            "group": 0,
+                            "departure": "2022-03-11T10:45:00.000+06:00",
+                            "arrival": "2022-03-11T13:40:00.000+03:00",
+                            "airline": "QR",
+                            "flightNumber": "641",
+                            "uapi_segment_ref": "QAaGi8+pWDKAtwZEBAAAAA==",
+                            "uapiSegmentReference": "QAaGi8+pWDKAtwZEBAAAAA==",
+                            "details": [
+                                {
+                                    "origin": "DAC",
+                                    "originTerminal": "1",
+                                    "destination": "DOH",
+                                    "departure": "2022-03-11T10:45:00.000+06:00",
+                                    "flightTime": "355",
+                                    "travelTime": "825",
+                                    "equipment": "333"
+                                }
+                            ],
+                            "serviceClass": "Economy",
+                            "plane": [
+                                "333"
+                            ],
+                            "duration": [
+                                "355"
+                            ],
+                            "techStops": [],
+                            "bookingClass": "S",
+                            "bookingCount": "9",
+                            "baggage": [
+                                {
+                                    "units": "kilograms",
+                                    "amount": 30
+                                }
+                            ],
+                            "fareBasisCode": "SJR4R1SW"
+                        },
+                        {
+                            "from": "DOH",
+                            "to": "AUH",
+                            "group": 0,
+                            "departure": "2022-03-11T20:25:00.000+03:00",
+                            "arrival": "2022-03-11T22:30:00.000+04:00",
+                            "airline": "QR",
+                            "flightNumber": "1054",
+                            "uapi_segment_ref": "QAaGi8+pWDKAvwZEBAAAAA==",
+                            "uapiSegmentReference": "QAaGi8+pWDKAvwZEBAAAAA==",
+                            "details": [
+                                {
+                                    "origin": "DOH",
+                                    "destination": "AUH",
+                                    "destinationTerminal": "1",
+                                    "departure": "2022-03-11T20:25:00.000+03:00",
+                                    "flightTime": "65",
+                                    "travelTime": "825",
+                                    "equipment": "333"
+                                }
+                            ],
+                            "serviceClass": "Economy",
+                            "plane": [
+                                "333"
+                            ],
+                            "duration": [
+                                "65"
+                            ],
+                            "techStops": [],
+                            "bookingClass": "S",
+                            "bookingCount": "9",
+                            "baggage": [
+                                {
+                                    "units": "kilograms",
+                                    "amount": 30
+                                }
+                            ],
+                            "fareBasisCode": "SJR4R1SW"
+                        }
+                    ]
+                }
+            ],
+            [
+                {
+                    "from": "AUH",
+                    "to": "DAC",
+                    "platingCarrier": "QR",
+                    "segments": [
+                        {
+                            "from": "AUH",
+                            "to": "DOH",
+                            "group": 1,
+                            "departure": "2022-03-25T05:50:00.000+04:00",
+                            "arrival": "2022-03-25T05:55:00.000+03:00",
+                            "airline": "QR",
+                            "flightNumber": "1041",
+                            "uapi_segment_ref": "QAaGi8+pWDKAxwZEBAAAAA==",
+                            "uapiSegmentReference": "QAaGi8+pWDKAxwZEBAAAAA==",
+                            "details": [
+                                {
+                                    "origin": "AUH",
+                                    "originTerminal": "1",
+                                    "destination": "DOH",
+                                    "departure": "2022-03-25T05:50:00.000+04:00",
+                                    "flightTime": "65",
+                                    "travelTime": "530",
+                                    "equipment": "333"
+                                }
+                            ],
+                            "serviceClass": "Economy",
+                            "plane": [
+                                "333"
+                            ],
+                            "duration": [
+                                "65"
+                            ],
+                            "techStops": [],
+                            "bookingClass": "S",
+                            "bookingCount": "9",
+                            "baggage": [
+                                {
+                                    "units": "kilograms",
+                                    "amount": 30
+                                }
+                            ],
+                            "fareBasisCode": "SJR4R1SX"
+                        },
+                        {
+                            "from": "DOH",
+                            "to": "DAC",
+                            "group": 1,
+                            "departure": "2022-03-26T01:25:00.000+03:00",
+                            "arrival": "2022-03-26T09:15:00.000+06:00",
+                            "airline": "QR",
+                            "flightNumber": "640",
+                            "uapi_segment_ref": "QAaGi8+pWDKA3wZEBAAAAA==",
+                            "uapiSegmentReference": "QAaGi8+pWDKA3wZEBAAAAA==",
+                            "details": [
+                                {
+                                    "origin": "DOH",
+                                    "destination": "DAC",
+                                    "destinationTerminal": "1",
+                                    "departure": "2022-03-26T01:25:00.000+03:00",
+                                    "flightTime": "290",
+                                    "travelTime": "1525",
+                                    "equipment": "333"
+                                }
+                            ],
+                            "serviceClass": "Economy",
+                            "plane": [
+                                "333"
+                            ],
+                            "duration": [
+                                "290"
+                            ],
+                            "techStops": [],
+                            "bookingClass": "S",
+                            "bookingCount": "9",
+                            "baggage": [
+                                {
+                                    "units": "kilograms",
+                                    "amount": 30
+                                }
+                            ],
+                            "fareBasisCode": "SJR4R1SX"
+                        }
+                    ]
+                }
+            ]
+        ],
+        "bookingComponents": [
+            {
+                "totalPrice": "AED78100",
+                "basePrice": "USD774.00",
+                "taxes": "AED12441",
+                "uapi_fare_reference": "QAaGi8+pWDKAF2ZEBAAAAA=="
+            }
+        ],
+        "passengerFares": {
+            "ADT": {
+                "totalPrice": "AED78100",
+                "basePrice": "USD774.00",
+                "equivalentBasePrice": "AED65659",
+                "taxes": "AED12441"
+            }
+        },
+        "passengerCounts": {
+            "ADT": 1
+        }
+    },
+    {
+        "totalPrice": "AED109161",
+        "basePrice": "USD1164.00",
+        "eqivqlBasePrice": "AED98743",
+        "taxes": "AED10418",
+        "platingCarrier": "EY",
+        "refundable": "true",
+        "directions": [
+            [
+                {
+                    "from": "DAC",
+                    "to": "AUH",
+                    "platingCarrier": "EY",
+                    "segments": [
+                        {
+                            "from": "DAC",
+                            "to": "AUH",
+                            "group": 0,
+                            "departure": "2022-03-11T17:30:00.000+06:00",
+                            "arrival": "2022-03-11T21:00:00.000+04:00",
+                            "airline": "EY",
+                            "flightNumber": "245",
+                            "uapi_segment_ref": "QAaGi8+pWDKABxZEBAAAAA==",
+                            "uapiSegmentReference": "QAaGi8+pWDKABxZEBAAAAA==",
+                            "details": [
+                                {
+                                    "origin": "DAC",
+                                    "destination": "AUH",
+                                    "destinationTerminal": "1",
+                                    "departure": "2022-03-11T17:30:00.000+06:00",
+                                    "flightTime": "330",
+                                    "travelTime": "330",
+                                    "equipment": "77W"
+                                }
+                            ],
+                            "serviceClass": "Economy",
+                            "plane": [
+                                "77W"
+                            ],
+                            "duration": [
+                                "330"
+                            ],
+                            "techStops": [],
+                            "bookingClass": "Y",
+                            "bookingCount": "9",
+                            "baggage": [
+                                {
+                                    "units": "kilograms",
+                                    "amount": 35
+                                }
+                            ],
+                            "fareBasisCode": "YF2BD"
+                        }
+                    ]
+                }
+            ],
+            [
+                {
+                    "from": "AUH",
+                    "to": "DAC",
+                    "platingCarrier": "EY",
+                    "segments": [
+                        {
+                            "from": "AUH",
+                            "to": "CMB",
+                            "group": 1,
+                            "departure": "2022-03-25T19:25:00.000+04:00",
+                            "arrival": "2022-03-26T01:15:00.000+05:30",
+                            "airline": "EY",
+                            "flightNumber": "264",
+                            "uapi_segment_ref": "QAaGi8+pWDKA9wZEBAAAAA==",
+                            "uapiSegmentReference": "QAaGi8+pWDKA9wZEBAAAAA==",
+                            "details": [
+                                {
+                                    "origin": "AUH",
+                                    "originTerminal": "3",
+                                    "destination": "CMB",
+                                    "departure": "2022-03-25T19:25:00.000+04:00",
+                                    "flightTime": "260",
+                                    "travelTime": "725",
+                                    "equipment": "789"
+                                }
+                            ],
+                            "serviceClass": "Economy",
+                            "plane": [
+                                "789"
+                            ],
+                            "duration": [
+                                "260"
+                            ],
+                            "techStops": [],
+                            "bookingClass": "Q",
+                            "bookingCount": "9",
+                            "baggage": [
+                                {
+                                    "units": "kilograms",
+                                    "amount": 35
+                                }
+                            ],
+                            "fareBasisCode": "QC2BD"
+                        },
+                        {
+                            "from": "CMB",
+                            "to": "DAC",
+                            "group": 1,
+                            "departure": "2022-03-26T05:45:00.000+05:30",
+                            "arrival": "2022-03-26T09:30:00.000+06:00",
+                            "airline": "UL",
+                            "flightNumber": "199",
+                            "uapi_segment_ref": "QAaGi8+pWDKA/wZEBAAAAA==",
+                            "uapiSegmentReference": "QAaGi8+pWDKA/wZEBAAAAA==",
+                            "details": [
+                                {
+                                    "origin": "CMB",
+                                    "destination": "DAC",
+                                    "destinationTerminal": "1",
+                                    "departure": "2022-03-26T05:45:00.000+05:30",
+                                    "flightTime": "195",
+                                    "travelTime": "725",
+                                    "equipment": "332"
+                                }
+                            ],
+                            "serviceClass": "Economy",
+                            "plane": [
+                                "332"
+                            ],
+                            "duration": [
+                                "195"
+                            ],
+                            "techStops": [],
+                            "bookingClass": "Q",
+                            "bookingCount": "7",
+                            "baggage": [
+                                {
+                                    "units": "kilograms",
+                                    "amount": 35
+                                }
+                            ],
+                            "fareBasisCode": "QC2BD"
+                        }
+                    ]
+                }
+            ]
+        ],
+        "bookingComponents": [
+            {
+                "totalPrice": "AED109161",
+                "basePrice": "USD1164.00",
+                "taxes": "AED10418",
+                "uapi_fare_reference": "QAaGi8+pWDKAn1ZEBAAAAA=="
+            }
+        ],
+        "passengerFares": {
+            "ADT": {
+                "totalPrice": "AED109161",
+                "basePrice": "USD1164.00",
+                "equivalentBasePrice": "AED98743",
+                "taxes": "AED10418"
+            }
+        },
+        "passengerCounts": {
+            "ADT": 1
+        }
+    },
+    {
+        "totalPrice": "AED116710",
+        "basePrice": "USD1253.00",
+        "eqivqlBasePrice": "AED106292",
+        "taxes": "AED10418",
+        "platingCarrier": "EK",
+        "refundable": "true",
+        "directions": [
+            [
+                {
+                    "from": "DAC",
+                    "to": "AUH",
+                    "platingCarrier": "EK",
+                    "segments": [
+                        {
+                            "from": "DAC",
+                            "to": "DXB",
+                            "group": 0,
+                            "departure": "2022-03-11T18:40:00.000+06:00",
+                            "arrival": "2022-03-11T22:10:00.000+04:00",
+                            "airline": "EK",
+                            "flightNumber": "587",
+                            "uapi_segment_ref": "QAaGi8+pWDKAdwZEBAAAAA==",
+                            "uapiSegmentReference": "QAaGi8+pWDKAdwZEBAAAAA==",
+                            "details": [
+                                {
+                                    "origin": "DAC",
+                                    "destination": "DXB",
+                                    "destinationTerminal": "3",
+                                    "departure": "2022-03-11T18:40:00.000+06:00",
+                                    "flightTime": "330",
+                                    "travelTime": "755",
+                                    "equipment": "77W"
+                                }
+                            ],
+                            "serviceClass": "Economy",
+                            "plane": [
+                                "77W"
+                            ],
+                            "duration": [
+                                "330"
+                            ],
+                            "techStops": [],
+                            "bookingClass": "R",
+                            "bookingCount": "9",
+                            "baggage": [
+                                {
+                                    "units": "kilograms",
+                                    "amount": 35
+                                }
+                            ],
+                            "fareBasisCode": "RRXRFBD1"
+                        },
+                        {
+                            "from": "DXB",
+                            "to": "ZVJ",
+                            "group": 0,
+                            "departure": "2022-03-12T03:00:00.000+04:00",
+                            "arrival": "2022-03-12T05:15:00.000+04:00",
+                            "airline": "EK",
+                            "flightNumber": "7003",
+                            "uapi_segment_ref": "QAaGi8+pWDKAfwZEBAAAAA==",
+                            "uapiSegmentReference": "QAaGi8+pWDKAfwZEBAAAAA==",
+                            "details": [
+                                {
+                                    "origin": "DXB",
+                                    "originTerminal": "3",
+                                    "destination": "ZVJ",
+                                    "departure": "2022-03-12T03:00:00.000+04:00",
+                                    "flightTime": "135",
+                                    "travelTime": "755",
+                                    "equipment": "BUS"
+                                }
+                            ],
+                            "serviceClass": "Economy",
+                            "plane": [
+                                "BUS"
+                            ],
+                            "duration": [
+                                "135"
+                            ],
+                            "techStops": [],
+                            "bookingClass": "R",
+                            "bookingCount": "9",
+                            "baggage": [
+                                {
+                                    "units": "kilograms",
+                                    "amount": 35
+                                }
+                            ],
+                            "fareBasisCode": "RRXRFBD1"
+                        }
+                    ]
+                },
+                {
+                    "from": "DAC",
+                    "to": "AUH",
+                    "platingCarrier": "EK",
+                    "segments": [
+                        {
+                            "from": "DAC",
+                            "to": "DXB",
+                            "group": 0,
+                            "departure": "2022-03-11T22:40:00.000+06:00",
+                            "arrival": "2022-03-12T02:10:00.000+04:00",
+                            "airline": "EK",
+                            "flightNumber": "585",
+                            "uapi_segment_ref": "QAaGi8+pWDKAhwZEBAAAAA==",
+                            "uapiSegmentReference": "QAaGi8+pWDKAhwZEBAAAAA==",
+                            "details": [
+                                {
+                                    "origin": "DAC",
+                                    "destination": "DXB",
+                                    "destinationTerminal": "3",
+                                    "departure": "2022-03-11T22:40:00.000+06:00",
+                                    "flightTime": "330",
+                                    "travelTime": "935",
+                                    "equipment": "77W"
+                                }
+                            ],
+                            "serviceClass": "Economy",
+                            "plane": [
+                                "77W"
+                            ],
+                            "duration": [
+                                "330"
+                            ],
+                            "techStops": [],
+                            "bookingClass": "R",
+                            "bookingCount": "9",
+                            "baggage": [
+                                {
+                                    "units": "kilograms",
+                                    "amount": 35
+                                }
+                            ],
+                            "fareBasisCode": "RRXRFBD1"
+                        },
+                        {
+                            "from": "DXB",
+                            "to": "ZVJ",
+                            "group": 0,
+                            "departure": "2022-03-12T10:00:00.000+04:00",
+                            "arrival": "2022-03-12T12:15:00.000+04:00",
+                            "airline": "EK",
+                            "flightNumber": "7009",
+                            "uapi_segment_ref": "QAaGi8+pWDKAjwZEBAAAAA==",
+                            "uapiSegmentReference": "QAaGi8+pWDKAjwZEBAAAAA==",
+                            "details": [
+                                {
+                                    "origin": "DXB",
+                                    "originTerminal": "3",
+                                    "destination": "ZVJ",
+                                    "departure": "2022-03-12T10:00:00.000+04:00",
+                                    "flightTime": "135",
+                                    "travelTime": "935",
+                                    "equipment": "BUS"
+                                }
+                            ],
+                            "serviceClass": "Economy",
+                            "plane": [
+                                "BUS"
+                            ],
+                            "duration": [
+                                "135"
+                            ],
+                            "techStops": [],
+                            "bookingClass": "R",
+                            "bookingCount": "9",
+                            "baggage": [
+                                {
+                                    "units": "kilograms",
+                                    "amount": 35
+                                }
+                            ],
+                            "fareBasisCode": "RRXRFBD1"
+                        }
+                    ]
+                }
+            ],
+            [
+                {
+                    "from": "AUH",
+                    "to": "DAC",
+                    "platingCarrier": "EK",
+                    "segments": [
+                        {
+                            "from": "ZVJ",
+                            "to": "DXB",
+                            "group": 1,
+                            "departure": "2022-03-25T03:00:00.000+04:00",
+                            "arrival": "2022-03-25T05:00:00.000+04:00",
+                            "airline": "EK",
+                            "flightNumber": "7006",
+                            "uapi_segment_ref": "QAaGi8+pWDKAlwZEBAAAAA==",
+                            "uapiSegmentReference": "QAaGi8+pWDKAlwZEBAAAAA==",
+                            "details": [
+                                {
+                                    "origin": "ZVJ",
+                                    "destination": "DXB",
+                                    "destinationTerminal": "3",
+                                    "departure": "2022-03-25T03:00:00.000+04:00",
+                                    "flightTime": "120",
+                                    "travelTime": "715",
+                                    "equipment": "BUS"
+                                }
+                            ],
+                            "serviceClass": "Economy",
+                            "plane": [
+                                "BUS"
+                            ],
+                            "duration": [
+                                "120"
+                            ],
+                            "techStops": [],
+                            "bookingClass": "R",
+                            "bookingCount": "9",
+                            "baggage": [
+                                {
+                                    "units": "kilograms",
+                                    "amount": 35
+                                }
+                            ],
+                            "fareBasisCode": "RRXRFBD1"
+                        },
+                        {
+                            "from": "DXB",
+                            "to": "DAC",
+                            "group": 1,
+                            "departure": "2022-03-25T10:30:00.000+04:00",
+                            "arrival": "2022-03-25T16:55:00.000+06:00",
+                            "airline": "EK",
+                            "flightNumber": "586",
+                            "uapi_segment_ref": "QAaGi8+pWDKAnwZEBAAAAA==",
+                            "uapiSegmentReference": "QAaGi8+pWDKAnwZEBAAAAA==",
+                            "details": [
+                                {
+                                    "origin": "DXB",
+                                    "originTerminal": "3",
+                                    "destination": "DAC",
+                                    "departure": "2022-03-25T10:30:00.000+04:00",
+                                    "flightTime": "265",
+                                    "travelTime": "715",
+                                    "equipment": "77W"
+                                }
+                            ],
+                            "serviceClass": "Economy",
+                            "plane": [
+                                "77W"
+                            ],
+                            "duration": [
+                                "265"
+                            ],
+                            "techStops": [],
+                            "bookingClass": "R",
+                            "bookingCount": "9",
+                            "baggage": [
+                                {
+                                    "units": "kilograms",
+                                    "amount": 35
+                                }
+                            ],
+                            "fareBasisCode": "RRXRFBD1"
+                        }
+                    ]
+                },
+                {
+                    "from": "AUH",
+                    "to": "DAC",
+                    "platingCarrier": "EK",
+                    "segments": [
+                        {
+                            "from": "ZVJ",
+                            "to": "DXB",
+                            "group": 1,
+                            "departure": "2022-03-25T03:00:00.000+04:00",
+                            "arrival": "2022-03-25T05:00:00.000+04:00",
+                            "airline": "EK",
+                            "flightNumber": "7006",
+                            "uapi_segment_ref": "QAaGi8+pWDKAlwZEBAAAAA==",
+                            "uapiSegmentReference": "QAaGi8+pWDKAlwZEBAAAAA==",
+                            "details": [
+                                {
+                                    "origin": "ZVJ",
+                                    "destination": "DXB",
+                                    "destinationTerminal": "3",
+                                    "departure": "2022-03-25T03:00:00.000+04:00",
+                                    "flightTime": "120",
+                                    "travelTime": "715",
+                                    "equipment": "BUS"
+                                }
+                            ],
+                            "serviceClass": "Economy",
+                            "plane": [
+                                "BUS"
+                            ],
+                            "duration": [
+                                "120"
+                            ],
+                            "techStops": [],
+                            "bookingClass": "R",
+                            "bookingCount": "9",
+                            "baggage": [
+                                {
+                                    "units": "kilograms",
+                                    "amount": 35
+                                }
+                            ],
+                            "fareBasisCode": "RRXRFBD1"
+                        },
+                        {
+                            "from": "DXB",
+                            "to": "DAC",
+                            "group": 1,
+                            "departure": "2022-03-25T14:50:00.000+04:00",
+                            "arrival": "2022-03-25T21:05:00.000+06:00",
+                            "airline": "EK",
+                            "flightNumber": "584",
+                            "uapi_segment_ref": "QAaGi8+pWDKApwZEBAAAAA==",
+                            "uapiSegmentReference": "QAaGi8+pWDKApwZEBAAAAA==",
+                            "details": [
+                                {
+                                    "origin": "DXB",
+                                    "originTerminal": "3",
+                                    "destination": "DAC",
+                                    "departure": "2022-03-25T14:50:00.000+04:00",
+                                    "flightTime": "255",
+                                    "travelTime": "965",
+                                    "equipment": "77W"
+                                }
+                            ],
+                            "serviceClass": "Economy",
+                            "plane": [
+                                "77W"
+                            ],
+                            "duration": [
+                                "255"
+                            ],
+                            "techStops": [],
+                            "bookingClass": "R",
+                            "bookingCount": "9",
+                            "baggage": [
+                                {
+                                    "units": "kilograms",
+                                    "amount": 35
+                                }
+                            ],
+                            "fareBasisCode": "RRXRFBD1"
+                        }
+                    ]
+                },
+                {
+                    "from": "AUH",
+                    "to": "DAC",
+                    "platingCarrier": "EK",
+                    "segments": [
+                        {
+                            "from": "ZVJ",
+                            "to": "DXB",
+                            "group": 1,
+                            "departure": "2022-03-25T03:00:00.000+04:00",
+                            "arrival": "2022-03-25T05:00:00.000+04:00",
+                            "airline": "EK",
+                            "flightNumber": "7006",
+                            "uapi_segment_ref": "QAaGi8+pWDKAlwZEBAAAAA==",
+                            "uapiSegmentReference": "QAaGi8+pWDKAlwZEBAAAAA==",
+                            "details": [
+                                {
+                                    "origin": "ZVJ",
+                                    "destination": "DXB",
+                                    "destinationTerminal": "3",
+                                    "departure": "2022-03-25T03:00:00.000+04:00",
+                                    "flightTime": "120",
+                                    "travelTime": "715",
+                                    "equipment": "BUS"
+                                }
+                            ],
+                            "serviceClass": "Economy",
+                            "plane": [
+                                "BUS"
+                            ],
+                            "duration": [
+                                "120"
+                            ],
+                            "techStops": [],
+                            "bookingClass": "R",
+                            "bookingCount": "9",
+                            "baggage": [
+                                {
+                                    "units": "kilograms",
+                                    "amount": 35
+                                }
+                            ],
+                            "fareBasisCode": "RRXRFBD1"
+                        },
+                        {
+                            "from": "DXB",
+                            "to": "DAC",
+                            "group": 1,
+                            "departure": "2022-03-26T01:45:00.000+04:00",
+                            "arrival": "2022-03-26T08:10:00.000+06:00",
+                            "airline": "EK",
+                            "flightNumber": "582",
+                            "uapi_segment_ref": "QAaGi8+pWDKArwZEBAAAAA==",
+                            "uapiSegmentReference": "QAaGi8+pWDKArwZEBAAAAA==",
+                            "details": [
+                                {
+                                    "origin": "DXB",
+                                    "originTerminal": "3",
+                                    "destination": "DAC",
+                                    "departure": "2022-03-26T01:45:00.000+04:00",
+                                    "flightTime": "265",
+                                    "travelTime": "1630",
+                                    "equipment": "77W"
+                                }
+                            ],
+                            "serviceClass": "Economy",
+                            "plane": [
+                                "77W"
+                            ],
+                            "duration": [
+                                "265"
+                            ],
+                            "techStops": [],
+                            "bookingClass": "R",
+                            "bookingCount": "9",
+                            "baggage": [
+                                {
+                                    "units": "kilograms",
+                                    "amount": 35
+                                }
+                            ],
+                            "fareBasisCode": "RRXRFBD1"
+                        }
+                    ]
+                }
+            ]
+        ],
+        "bookingComponents": [
+            {
+                "totalPrice": "AED116710",
+                "basePrice": "USD1253.00",
+                "taxes": "AED10418",
+                "uapi_fare_reference": "QAaGi8+pWDKAt1ZEBAAAAA=="
+            }
+        ],
+        "passengerFares": {
+            "ADT": {
+                "totalPrice": "AED116710",
+                "basePrice": "USD1253.00",
+                "equivalentBasePrice": "AED106292",
+                "taxes": "AED10418"
+            }
+        },
+        "passengerCounts": {
+            "ADT": 1
+        }
+    },
+    {
+        "totalPrice": "AED117219",
+        "basePrice": "USD1259.00",
+        "eqivqlBasePrice": "AED106801",
+        "taxes": "AED10418",
+        "platingCarrier": "EY",
+        "refundable": "true",
+        "directions": [
+            [
+                {
+                    "from": "DAC",
+                    "to": "AUH",
+                    "platingCarrier": "EY",
+                    "segments": [
+                        {
+                            "from": "DAC",
+                            "to": "CMB",
+                            "group": 0,
+                            "departure": "2022-03-11T10:45:00.000+06:00",
+                            "arrival": "2022-03-11T13:40:00.000+05:30",
+                            "airline": "EY",
+                            "flightNumber": "7169",
+                            "uapi_segment_ref": "QAaGi8+pWDKA5wZEBAAAAA==",
+                            "uapiSegmentReference": "QAaGi8+pWDKA5wZEBAAAAA==",
+                            "details": [
+                                {
+                                    "origin": "DAC",
+                                    "originTerminal": "1",
+                                    "destination": "CMB",
+                                    "departure": "2022-03-11T10:45:00.000+06:00",
+                                    "flightTime": "205",
+                                    "travelTime": "1260",
+                                    "equipment": "333"
+                                }
+                            ],
+                            "serviceClass": "Economy",
+                            "plane": [
+                                "333"
+                            ],
+                            "duration": [
+                                "205"
+                            ],
+                            "techStops": [],
+                            "bookingClass": "K",
+                            "bookingCount": "4",
+                            "baggage": [
+                                {
+                                    "units": "kilograms",
+                                    "amount": 35
+                                }
+                            ],
+                            "fareBasisCode": "KC2BD"
+                        },
+                        {
+                            "from": "CMB",
+                            "to": "AUH",
+                            "group": 0,
+                            "departure": "2022-03-12T02:35:00.000+05:30",
+                            "arrival": "2022-03-12T05:45:00.000+04:00",
+                            "airline": "EY",
+                            "flightNumber": "265",
+                            "uapi_segment_ref": "QAaGi8+pWDKA7wZEBAAAAA==",
+                            "uapiSegmentReference": "QAaGi8+pWDKA7wZEBAAAAA==",
+                            "details": [
+                                {
+                                    "origin": "CMB",
+                                    "destination": "AUH",
+                                    "destinationTerminal": "1",
+                                    "departure": "2022-03-12T02:35:00.000+05:30",
+                                    "flightTime": "280",
+                                    "travelTime": "1260",
+                                    "equipment": "789"
+                                }
+                            ],
+                            "serviceClass": "Economy",
+                            "plane": [
+                                "789"
+                            ],
+                            "duration": [
+                                "280"
+                            ],
+                            "techStops": [],
+                            "bookingClass": "K",
+                            "bookingCount": "9",
+                            "baggage": [
+                                {
+                                    "units": "kilograms",
+                                    "amount": 35
+                                }
+                            ],
+                            "fareBasisCode": "KC2BD"
+                        }
+                    ]
+                }
+            ],
+            [
+                {
+                    "from": "AUH",
+                    "to": "DAC",
+                    "platingCarrier": "EY",
+                    "segments": [
+                        {
+                            "from": "AUH",
+                            "to": "DAC",
+                            "group": 1,
+                            "departure": "2022-03-25T09:30:00.000+04:00",
+                            "arrival": "2022-03-25T15:55:00.000+06:00",
+                            "airline": "EY",
+                            "flightNumber": "240",
+                            "uapi_segment_ref": "QAaGi8+pWDKADxZEBAAAAA==",
+                            "uapiSegmentReference": "QAaGi8+pWDKADxZEBAAAAA==",
+                            "details": [
+                                {
+                                    "origin": "AUH",
+                                    "originTerminal": "3",
+                                    "destination": "DAC",
+                                    "departure": "2022-03-25T09:30:00.000+04:00",
+                                    "flightTime": "265",
+                                    "travelTime": "265",
+                                    "equipment": "77W"
+                                }
+                            ],
+                            "serviceClass": "Economy",
+                            "plane": [
+                                "77W"
+                            ],
+                            "duration": [
+                                "265"
+                            ],
+                            "techStops": [],
+                            "bookingClass": "Y",
+                            "bookingCount": "9",
+                            "baggage": [
+                                {
+                                    "units": "kilograms",
+                                    "amount": 35
+                                }
+                            ],
+                            "fareBasisCode": "YF2BD"
+                        }
+                    ]
+                }
+            ]
+        ],
+        "bookingComponents": [
+            {
+                "totalPrice": "AED117219",
+                "basePrice": "USD1259.00",
+                "taxes": "AED10418",
+                "uapi_fare_reference": "QAaGi8+pWDKAo1ZEBAAAAA=="
+            }
+        ],
+        "passengerFares": {
+            "ADT": {
+                "totalPrice": "AED117219",
+                "basePrice": "USD1259.00",
+                "equivalentBasePrice": "AED106801",
+                "taxes": "AED10418"
+            }
+        },
+        "passengerCounts": {
+            "ADT": 1
+        }
+    },
+    {
+        "totalPrice": "AED151321",
+        "basePrice": "USD1661.00",
+        "eqivqlBasePrice": "AED140903",
+        "taxes": "AED10418",
+        "platingCarrier": "EY",
+        "refundable": "true",
+        "directions": [
+            [
+                {
+                    "from": "DAC",
+                    "to": "AUH",
+                    "platingCarrier": "EY",
+                    "segments": [
+                        {
+                            "from": "DAC",
+                            "to": "AUH",
+                            "group": 0,
+                            "departure": "2022-03-11T17:30:00.000+06:00",
+                            "arrival": "2022-03-11T21:00:00.000+04:00",
+                            "airline": "EY",
+                            "flightNumber": "245",
+                            "uapi_segment_ref": "QAaGi8+pWDKABxZEBAAAAA==",
+                            "uapiSegmentReference": "QAaGi8+pWDKABxZEBAAAAA==",
+                            "details": [
+                                {
+                                    "origin": "DAC",
+                                    "destination": "AUH",
+                                    "destinationTerminal": "1",
+                                    "departure": "2022-03-11T17:30:00.000+06:00",
+                                    "flightTime": "330",
+                                    "travelTime": "330",
+                                    "equipment": "77W"
+                                }
+                            ],
+                            "serviceClass": "Economy",
+                            "plane": [
+                                "77W"
+                            ],
+                            "duration": [
+                                "330"
+                            ],
+                            "techStops": [],
+                            "bookingClass": "Y",
+                            "bookingCount": "9",
+                            "baggage": [
+                                {
+                                    "units": "kilograms",
+                                    "amount": 35
+                                }
+                            ],
+                            "fareBasisCode": "YF2BD"
+                        }
+                    ]
+                }
+            ],
+            [
+                {
+                    "from": "AUH",
+                    "to": "DAC",
+                    "platingCarrier": "EY",
+                    "segments": [
+                        {
+                            "from": "AUH",
+                            "to": "DAC",
+                            "group": 1,
+                            "departure": "2022-03-25T09:30:00.000+04:00",
+                            "arrival": "2022-03-25T15:55:00.000+06:00",
+                            "airline": "EY",
+                            "flightNumber": "240",
+                            "uapi_segment_ref": "QAaGi8+pWDKADxZEBAAAAA==",
+                            "uapiSegmentReference": "QAaGi8+pWDKADxZEBAAAAA==",
+                            "details": [
+                                {
+                                    "origin": "AUH",
+                                    "originTerminal": "3",
+                                    "destination": "DAC",
+                                    "departure": "2022-03-25T09:30:00.000+04:00",
+                                    "flightTime": "265",
+                                    "travelTime": "265",
+                                    "equipment": "77W"
+                                }
+                            ],
+                            "serviceClass": "Economy",
+                            "plane": [
+                                "77W"
+                            ],
+                            "duration": [
+                                "265"
+                            ],
+                            "techStops": [],
+                            "bookingClass": "Y",
+                            "bookingCount": "9",
+                            "baggage": [
+                                {
+                                    "units": "kilograms",
+                                    "amount": 35
+                                }
+                            ],
+                            "fareBasisCode": "YF2BD"
+                        }
+                    ]
+                }
+            ]
+        ],
+        "bookingComponents": [
+            {
+                "totalPrice": "AED151321",
+                "basePrice": "USD1661.00",
+                "taxes": "AED10418",
+                "uapi_fare_reference": "QAaGi8+pWDKAp1ZEBAAAAA=="
+            }
+        ],
+        "passengerFares": {
+            "ADT": {
+                "totalPrice": "AED151321",
+                "basePrice": "USD1661.00",
+                "equivalentBasePrice": "AED140903",
+                "taxes": "AED10418"
+            }
+        },
+        "passengerCounts": {
+            "ADT": 1
+        }
+    },
+    {
+        "totalPrice": "AED211381",
+        "basePrice": "USD2369.00",
+        "eqivqlBasePrice": "AED200963",
+        "taxes": "AED10418",
+        "platingCarrier": "EY",
+        "refundable": "true",
+        "directions": [
+            [
+                {
+                    "from": "DAC",
+                    "to": "AUH",
+                    "platingCarrier": "EY",
+                    "segments": [
+                        {
+                            "from": "DAC",
+                            "to": "AUH",
+                            "group": 0,
+                            "departure": "2022-03-11T17:30:00.000+06:00",
+                            "arrival": "2022-03-11T21:00:00.000+04:00",
+                            "airline": "EY",
+                            "flightNumber": "245",
+                            "uapi_segment_ref": "QAaGi8+pWDKABxZEBAAAAA==",
+                            "uapiSegmentReference": "QAaGi8+pWDKABxZEBAAAAA==",
+                            "details": [
+                                {
+                                    "origin": "DAC",
+                                    "destination": "AUH",
+                                    "destinationTerminal": "1",
+                                    "departure": "2022-03-11T17:30:00.000+06:00",
+                                    "flightTime": "330",
+                                    "travelTime": "330",
+                                    "equipment": "77W"
+                                }
+                            ],
+                            "serviceClass": "Economy",
+                            "plane": [
+                                "77W"
+                            ],
+                            "duration": [
+                                "330"
+                            ],
+                            "techStops": [],
+                            "bookingClass": "Y",
+                            "bookingCount": "9",
+                            "baggage": [
+                                {
+                                    "units": "kilograms",
+                                    "amount": 35
+                                }
+                            ],
+                            "fareBasisCode": "YF2RT"
+                        }
+                    ]
+                }
+            ],
+            [
+                {
+                    "from": "AUH",
+                    "to": "DAC",
+                    "platingCarrier": "EY",
+                    "segments": [
+                        {
+                            "from": "AUH",
+                            "to": "DAC",
+                            "group": 1,
+                            "departure": "2022-03-25T03:45:00.000+04:00",
+                            "arrival": "2022-03-25T12:05:00.000+06:00",
+                            "airline": "BG",
+                            "flightNumber": "128",
+                            "uapi_segment_ref": "QAaGi8+pWDKAawZEBAAAAA==",
+                            "uapiSegmentReference": "QAaGi8+pWDKAawZEBAAAAA==",
+                            "details": [
+                                {
+                                    "origin": "AUH",
+                                    "originTerminal": "1",
+                                    "destination": "CGP",
+                                    "destinationTerminal": "1",
+                                    "departure": "2022-03-25T03:45:00.000+04:00",
+                                    "flightTime": "275",
+                                    "travelTime": "380",
+                                    "equipment": "788"
+                                },
+                                {
+                                    "origin": "CGP",
+                                    "originTerminal": "1",
+                                    "destination": "DAC",
+                                    "destinationTerminal": "2",
+                                    "departure": "2022-03-25T11:20:00.000+06:00",
+                                    "flightTime": "45",
+                                    "travelTime": "380",
+                                    "equipment": "788"
+                                }
+                            ],
+                            "serviceClass": "Economy",
+                            "plane": [
+                                "788",
+                                "788"
+                            ],
+                            "duration": [
+                                "275",
+                                "45"
+                            ],
+                            "techStops": [
+                                "CGP"
+                            ],
+                            "bookingClass": "Y",
+                            "bookingCount": "7",
+                            "baggage": [
+                                {
+                                    "units": "kilograms",
+                                    "amount": 40
+                                }
+                            ],
+                            "fareBasisCode": "YRT"
+                        }
+                    ]
+                }
+            ]
+        ],
+        "bookingComponents": [
+            {
+                "totalPrice": "AED211381",
+                "basePrice": "USD2369.00",
+                "taxes": "AED10418",
+                "uapi_fare_reference": "QAaGi8+pWDKAq1ZEBAAAAA=="
+            }
+        ],
+        "passengerFares": {
+            "ADT": {
+                "totalPrice": "AED211381",
+                "basePrice": "USD2369.00",
+                "equivalentBasePrice": "AED200963",
+                "taxes": "AED10418"
+            }
+        },
+        "passengerCounts": {
+            "ADT": 1
+        }
+    },
+    {
+        "totalPrice": "AED211381",
+        "basePrice": "USD2369.00",
+        "eqivqlBasePrice": "AED200963",
+        "taxes": "AED10418",
+        "platingCarrier": "EY",
+        "refundable": "true",
+        "directions": [
+            [
+                {
+                    "from": "DAC",
+                    "to": "AUH",
+                    "platingCarrier": "EY",
+                    "segments": [
+                        {
+                            "from": "DAC",
+                            "to": "AUH",
+                            "group": 0,
+                            "departure": "2022-03-11T22:30:00.000+06:00",
+                            "arrival": "2022-03-12T02:20:00.000+04:00",
+                            "airline": "BG",
+                            "flightNumber": "27",
+                            "uapi_segment_ref": "QAaGi8+pWDKAYwZEBAAAAA==",
+                            "uapiSegmentReference": "QAaGi8+pWDKAYwZEBAAAAA==",
+                            "details": [
+                                {
+                                    "origin": "DAC",
+                                    "originTerminal": "2",
+                                    "destination": "AUH",
+                                    "destinationTerminal": "1",
+                                    "departure": "2022-03-11T22:30:00.000+06:00",
+                                    "flightTime": "350",
+                                    "travelTime": "350",
+                                    "equipment": "788"
+                                }
+                            ],
+                            "serviceClass": "Economy",
+                            "plane": [
+                                "788"
+                            ],
+                            "duration": [
+                                "350"
+                            ],
+                            "techStops": [],
+                            "bookingClass": "Y",
+                            "bookingCount": "7",
+                            "baggage": [
+                                {
+                                    "units": "kilograms",
+                                    "amount": 30
+                                }
+                            ],
+                            "fareBasisCode": "YRT"
+                        }
+                    ]
+                }
+            ],
+            [
+                {
+                    "from": "AUH",
+                    "to": "DAC",
+                    "platingCarrier": "EY",
+                    "segments": [
+                        {
+                            "from": "AUH",
+                            "to": "DAC",
+                            "group": 1,
+                            "departure": "2022-03-25T09:30:00.000+04:00",
+                            "arrival": "2022-03-25T15:55:00.000+06:00",
+                            "airline": "EY",
+                            "flightNumber": "240",
+                            "uapi_segment_ref": "QAaGi8+pWDKADxZEBAAAAA==",
+                            "uapiSegmentReference": "QAaGi8+pWDKADxZEBAAAAA==",
+                            "details": [
+                                {
+                                    "origin": "AUH",
+                                    "originTerminal": "3",
+                                    "destination": "DAC",
+                                    "departure": "2022-03-25T09:30:00.000+04:00",
+                                    "flightTime": "265",
+                                    "travelTime": "265",
+                                    "equipment": "77W"
+                                }
+                            ],
+                            "serviceClass": "Economy",
+                            "plane": [
+                                "77W"
+                            ],
+                            "duration": [
+                                "265"
+                            ],
+                            "techStops": [],
+                            "bookingClass": "Y",
+                            "bookingCount": "9",
+                            "baggage": [
+                                {
+                                    "units": "kilograms",
+                                    "amount": 35
+                                }
+                            ],
+                            "fareBasisCode": "YF2RT"
+                        }
+                    ]
+                }
+            ]
+        ],
+        "bookingComponents": [
+            {
+                "totalPrice": "AED211381",
+                "basePrice": "USD2369.00",
+                "taxes": "AED10418",
+                "uapi_fare_reference": "QAaGi8+pWDKAr1ZEBAAAAA=="
+            }
+        ],
+        "passengerFares": {
+            "ADT": {
+                "totalPrice": "AED211381",
+                "basePrice": "USD2369.00",
+                "equivalentBasePrice": "AED200963",
+                "taxes": "AED10418"
+            }
+        },
+        "passengerCounts": {
+            "ADT": 1
+        }
+    },
+    {
+        "totalPrice": "AED245758",
+        "basePrice": "USD2411.00",
+        "eqivqlBasePrice": "AED204526",
+        "taxes": "AED41232",
+        "platingCarrier": "TK",
+        "refundable": "true",
+        "directions": [
+            [
+                {
+                    "from": "DAC",
+                    "to": "AUH",
+                    "platingCarrier": "TK",
+                    "segments": [
+                        {
+                            "from": "DAC",
+                            "to": "IST",
+                            "group": 0,
+                            "departure": "2022-03-11T23:30:00.000+06:00",
+                            "arrival": "2022-03-12T05:40:00.000+03:00",
+                            "airline": "TK",
+                            "flightNumber": "723",
+                            "uapi_segment_ref": "QAaGi8+pWDKAFxZEBAAAAA==",
+                            "uapiSegmentReference": "QAaGi8+pWDKAFxZEBAAAAA==",
+                            "details": [
+                                {
+                                    "origin": "DAC",
+                                    "destination": "IST",
+                                    "departure": "2022-03-11T23:30:00.000+06:00",
+                                    "flightTime": "550",
+                                    "travelTime": "1385",
+                                    "equipment": "333"
+                                }
+                            ],
+                            "serviceClass": "Economy",
+                            "plane": [
+                                "333"
+                            ],
+                            "duration": [
+                                "550"
+                            ],
+                            "techStops": [],
+                            "bookingClass": "B",
+                            "bookingCount": "9",
+                            "baggage": [
+                                {
+                                    "units": "kilograms",
+                                    "amount": 30
+                                }
+                            ],
+                            "fareBasisCode": "BFRT"
+                        },
+                        {
+                            "from": "IST",
+                            "to": "AUH",
+                            "group": 0,
+                            "departure": "2022-03-12T15:20:00.000+03:00",
+                            "arrival": "2022-03-12T20:35:00.000+04:00",
+                            "airline": "TK",
+                            "flightNumber": "8050",
+                            "uapi_segment_ref": "QAaGi8+pWDKAHxZEBAAAAA==",
+                            "uapiSegmentReference": "QAaGi8+pWDKAHxZEBAAAAA==",
+                            "details": [
+                                {
+                                    "origin": "IST",
+                                    "destination": "AUH",
+                                    "destinationTerminal": "3",
+                                    "departure": "2022-03-12T15:20:00.000+03:00",
+                                    "flightTime": "255",
+                                    "travelTime": "1385",
+                                    "equipment": "789"
+                                }
+                            ],
+                            "serviceClass": "Economy",
+                            "plane": [
+                                "789"
+                            ],
+                            "duration": [
+                                "255"
+                            ],
+                            "techStops": [],
+                            "bookingClass": "B",
+                            "bookingCount": "4",
+                            "baggage": [
+                                {
+                                    "units": "kilograms",
+                                    "amount": 30
+                                }
+                            ],
+                            "fareBasisCode": "BFRT"
+                        }
+                    ]
+                },
+                {
+                    "from": "DAC",
+                    "to": "AUH",
+                    "platingCarrier": "TK",
+                    "segments": [
+                        {
+                            "from": "DAC",
+                            "to": "IST",
+                            "group": 0,
+                            "departure": "2022-03-11T22:30:00.000+06:00",
+                            "arrival": "2022-03-12T04:40:00.000+03:00",
+                            "airline": "TK",
+                            "flightNumber": "713",
+                            "uapi_segment_ref": "QAaGi8+pWDKAJxZEBAAAAA==",
+                            "uapiSegmentReference": "QAaGi8+pWDKAJxZEBAAAAA==",
+                            "details": [
+                                {
+                                    "origin": "DAC",
+                                    "destination": "IST",
+                                    "departure": "2022-03-11T22:30:00.000+06:00",
+                                    "flightTime": "550",
+                                    "travelTime": "1445",
+                                    "equipment": "333"
+                                }
+                            ],
+                            "serviceClass": "Economy",
+                            "plane": [
+                                "333"
+                            ],
+                            "duration": [
+                                "550"
+                            ],
+                            "techStops": [],
+                            "bookingClass": "B",
+                            "bookingCount": "1",
+                            "baggage": [
+                                {
+                                    "units": "kilograms",
+                                    "amount": 30
+                                }
+                            ],
+                            "fareBasisCode": "BFRT"
+                        },
+                        {
+                            "from": "IST",
+                            "to": "AUH",
+                            "group": 0,
+                            "departure": "2022-03-12T15:20:00.000+03:00",
+                            "arrival": "2022-03-12T20:35:00.000+04:00",
+                            "airline": "TK",
+                            "flightNumber": "8050",
+                            "uapi_segment_ref": "QAaGi8+pWDKAHxZEBAAAAA==",
+                            "uapiSegmentReference": "QAaGi8+pWDKAHxZEBAAAAA==",
+                            "details": [
+                                {
+                                    "origin": "IST",
+                                    "destination": "AUH",
+                                    "destinationTerminal": "3",
+                                    "departure": "2022-03-12T15:20:00.000+03:00",
+                                    "flightTime": "255",
+                                    "travelTime": "1385",
+                                    "equipment": "789"
+                                }
+                            ],
+                            "serviceClass": "Economy",
+                            "plane": [
+                                "789"
+                            ],
+                            "duration": [
+                                "255"
+                            ],
+                            "techStops": [],
+                            "bookingClass": "B",
+                            "bookingCount": "1",
+                            "baggage": [
+                                {
+                                    "units": "kilograms",
+                                    "amount": 30
+                                }
+                            ],
+                            "fareBasisCode": "BFRT"
+                        }
+                    ]
+                }
+            ],
+            [
+                {
+                    "from": "AUH",
+                    "to": "DAC",
+                    "platingCarrier": "TK",
+                    "segments": [
+                        {
+                            "from": "AUH",
+                            "to": "IST",
+                            "group": 1,
+                            "departure": "2022-03-25T10:00:00.000+04:00",
+                            "arrival": "2022-03-25T13:55:00.000+03:00",
+                            "airline": "TK",
+                            "flightNumber": "8051",
+                            "uapi_segment_ref": "QAaGi8+pWDKALxZEBAAAAA==",
+                            "uapiSegmentReference": "QAaGi8+pWDKALxZEBAAAAA==",
+                            "details": [
+                                {
+                                    "origin": "AUH",
+                                    "originTerminal": "3",
+                                    "destination": "IST",
+                                    "departure": "2022-03-25T10:00:00.000+04:00",
+                                    "flightTime": "295",
+                                    "travelTime": "1455",
+                                    "equipment": "789"
+                                }
+                            ],
+                            "serviceClass": "Economy",
+                            "plane": [
+                                "789"
+                            ],
+                            "duration": [
+                                "295"
+                            ],
+                            "techStops": [],
+                            "bookingClass": "H",
+                            "bookingCount": "4",
+                            "baggage": [
+                                {
+                                    "units": "kilograms",
+                                    "amount": 30
+                                }
+                            ],
+                            "fareBasisCode": "HF1XEX"
+                        },
+                        {
+                            "from": "IST",
+                            "to": "DAC",
+                            "group": 1,
+                            "departure": "2022-03-26T01:55:00.000+03:00",
+                            "arrival": "2022-03-26T12:15:00.000+06:00",
+                            "airline": "TK",
+                            "flightNumber": "722",
+                            "uapi_segment_ref": "QAaGi8+pWDKANxZEBAAAAA==",
+                            "uapiSegmentReference": "QAaGi8+pWDKANxZEBAAAAA==",
+                            "details": [
+                                {
+                                    "origin": "IST",
+                                    "destination": "DAC",
+                                    "departure": "2022-03-26T01:55:00.000+03:00",
+                                    "flightTime": "440",
+                                    "travelTime": "1455",
+                                    "equipment": "333"
+                                }
+                            ],
+                            "serviceClass": "Economy",
+                            "plane": [
+                                "333"
+                            ],
+                            "duration": [
+                                "440"
+                            ],
+                            "techStops": [],
+                            "bookingClass": "H",
+                            "bookingCount": "9",
+                            "baggage": [
+                                {
+                                    "units": "kilograms",
+                                    "amount": 30
+                                }
+                            ],
+                            "fareBasisCode": "HF1XEX"
+                        }
+                    ]
+                }
+            ]
+        ],
+        "bookingComponents": [
+            {
+                "totalPrice": "AED245758",
+                "basePrice": "USD2411.00",
+                "taxes": "AED41232",
+                "uapi_fare_reference": "QAaGi8+pWDKAs1ZEBAAAAA=="
+            }
+        ],
+        "passengerFares": {
+            "ADT": {
+                "totalPrice": "AED245758",
+                "basePrice": "USD2411.00",
+                "equivalentBasePrice": "AED204526",
+                "taxes": "AED41232"
+            }
+        },
+        "passengerCounts": {
+            "ADT": 1
+        }
+    }
+  ]

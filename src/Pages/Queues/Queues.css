@@ -1,0 +1,61 @@
+.table > :not(:last-child) > :last-child > * {
+  border-bottom-color: #dee2e6;
+}
+
+#menu-standard {
+  float: right;
+}
+
+#menu-standard li {
+  float: left;
+  padding-left: 5px;
+}
+
+ul {
+  list-style-type: none;
+}
+
+th,
+td {
+  white-space: nowrap;
+}
+
+.btn-primary {
+  background-color: blue;
+  border: 0;
+}
+
+.btn-primary:hover {
+  background-color: black;
+}
+
+.table {
+  table-layout: auto;
+}
+
+th {
+  width: 10%;
+}
+
+.tableFixHead {
+  overflow: auto;
+  height: 500px;
+}
+.tableFixHead thead th {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+
+.bg-secondary th {
+  background-color: #f0f2f5;
+  color: #1f2d3d;
+}
+
+.custom-selected-tab {
+  background-color: #e587ce2e;
+  color: #7C04C0;
+}
+.custom-border-selected-tab {
+  border-bottom: 4px solid #7C04C0;
+}

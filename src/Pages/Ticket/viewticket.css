@@ -1,0 +1,12 @@
+
+  .break-avoid {
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+  }
+  
+  
+  .page-break {
+    page-break-before: always !important;
+    break-before: always !important;
+  }
+  

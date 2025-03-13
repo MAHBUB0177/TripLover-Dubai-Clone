@@ -1,0 +1,84 @@
+.passenger-pack {
+    background-color: #fff;
+    z-index: 11;
+    width: 240px;
+    padding: 16px;
+    margin: 5px;
+    border: 1px solid #eaeaea;
+    box-shadow: 0 1px 3px 0 rgb(60 64 67 / 30%), 0 4px 8px 3px rgb(60 64 67 / 15%);
+    -webkit-box-shadow: 0 1px 3px 0 rgb(60 64 67 / 30%),
+      0 4px 8px 3px rgb(60 64 67 / 15%);
+    border: 1px solid transparent;
+    -webkit-border-radius: 4px;
+    border-radius: 4px;
+  }
+  
+  .adult {
+    font: 400 12px/16px Roboto, Arial, sans-serif;
+    letter-spacing: 0.3px;
+    color: #5f6368;
+  }
+  
+  .done-btn {
+    color: #1967d2;
+    border: none;
+    background: transparent;
+    font-weight: 600;
+    font-family: "Open Sans", Roboto, Arial, sans-serif;
+    font-size: 0.875rem;
+    letter-spacing: 0.0107142857em;
+    text-transform: none;
+  }
+  
+  /* autocomplete-location */
+  
+  .autocomplete-wrapper {
+    position: relative;
+  }
+  
+  .autocomplete-results {
+    position: absolute;
+    background: white;
+    z-index: 1;
+    top: 100%;
+    left: 0;
+    font-size: 15px;
+    border-top-width: 0;
+    border-bottom-color: #ccc;
+    box-shadow: 
+      0 5px 10px rgba(0, 0, 0, 0.2);
+  }
+  
+  .autocomplete-result {
+    padding: 12px 15px;
+    border-bottom: solid 1px #eee;
+    width: 345px;
+    cursor: pointer;
+  }
+  
+  .autocomplete-result:hover{
+      background-color: rgba(194, 199, 194, 0.274);
+  }
+  
+  .autocomplete-result:last-child {
+    border-bottom-width: 0;
+  }
+  
+  .autocomplete-location {
+    color: blue;
+    margin-top: -4%;
+    font-size: 14px;
+    font-weight: bold;
+  }
+  /* autocomplete-location */
+  
+  .search-panel-bg{
+    background-image: url('../../../images/bgImage/14-146888_world-background-wallpaper.jpg');
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+  }
+  

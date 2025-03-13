@@ -1,0 +1,22 @@
+@import "../../../node_modules/@syncfusion/ej2-base/styles/material.css";
+ @import "../../../node_modules/@syncfusion/ej2-buttons/styles/material.css";
+@import "../../../node_modules/@syncfusion/ej2-inputs/styles/material.css";
+@import "../../../node_modules/@syncfusion/ej2-react-dropdowns/styles/material.css"; 
+
+/* .nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link {
+    color: #f6f7f9;
+    background-color: #02046a;
+    border-color: #dee2e6 #dee2e6 #fff;
+}
+
+.nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.active {
+    color: #f6f7f9;
+    background-color: #ed5c2b;
+    border-color: #dee2e6 #dee2e6 #fff;
+} */
+
+/* .modal-dialog {
+    max-width: 80em !important;
+    margin: 1.75rem auto;
+    margin-top: 10em;
+  } */

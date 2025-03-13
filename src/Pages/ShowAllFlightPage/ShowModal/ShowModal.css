@@ -1,0 +1,8 @@
+.modal-dialog {
+    max-width: 900px;
+    margin: 1.75rem auto;
+  }
+
+.dissolve .active {
+  background-color: #e1e1e1;
+}

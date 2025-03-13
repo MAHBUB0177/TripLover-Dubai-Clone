@@ -1,0 +1,44 @@
+.card {
+  border-radius: 0px;
+}
+
+.titel-width {
+  width: 40%;
+}
+
+.form-label {
+  font-size: 14px;
+}
+
+.font-size-checkbok {
+  font-size: 15px;
+}
+span::after {
+  padding-left: 5px;
+}
+
+input:invalid + .validation::after {
+  color: red;
+  content: "Input Empty or Invalid!";
+}
+
+/* input:valid + .validation::after {
+content: "✓";
+} */
+
+.position-relative {
+  position: relative;
+}
+
+.popup-info {
+  position: absolute;
+  top: 90%; /* Position below the input field */
+  left: 0;
+  width: 100%; /* Match the parent container's width */
+  background: #f9f9f9; /* Light background for contrast */
+  border: 1px solid #ccc; /* Border for better visibility */
+  padding: 10px;
+  z-index: 10; /* Ensure it overlays other content */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional shadow for depth */
+  border-radius: 4px; /* Rounded corners */
+}

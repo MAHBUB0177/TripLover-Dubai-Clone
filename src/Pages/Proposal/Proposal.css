@@ -1,0 +1,24 @@
+tbody{
+    background-color: white;
+}
+
+.thead__color{
+  background-color: #e6e6e6;
+}
+
+
+.box-proposal {
+    display: none;
+    position: absolute;
+    top: 92%;
+    left: 24%;
+    color: #02046a;
+    padding: 5px;
+    z-index: 1000;
+    /* border: 1px solid black; */
+  }
+  
+  .briefcase:hover+.box-proposal {
+    display: block;
+    z-index: 1000;
+  }

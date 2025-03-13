@@ -1,0 +1,38 @@
+.brand-link{
+    color: white !important;
+    border-bottom: 1px solid #ffffff !important;
+}
+
+.form-control-sidebar{
+    background-color: #ffffff !important;
+    border: 1px solid #1741c1 !important;
+    color: #fff !important
+}
+
+.btn-sidebar{
+    background-color: #ffffff !important;
+    border: 1px solid #1741c1 !important;
+    color: #1741c1 !important;
+}
+
+/* .nav-sidebar .nav-item .nav-link{
+    color: white !important;
+} */
+
+.nav-sidebar .nav-item .nav-link{
+    color: #78797a !important;
+}
+
+
+.fa-minus:before{
+    font-size: 10px!important;
+}
+
+.nav__link__font__size{
+   font-size: 13px!important;
+   padding: 0px 10px 3px 16px;
+}
+
+.active__color a .nav-icon+p{
+    color: #aa8439;
+}

@@ -1,0 +1,140 @@
+/* .modify-search{
+    background-image: url("../../../images/bgImage/Half-Crop.jpg");
+} */
+
+/* icon animation */
+.rotate {
+  -moz-transition: all 0.5s linear;
+  -webkit-transition: all 0.5s linear;
+  transition: all 0.5s linear;
+}
+.rotate.down {
+  -moz-transform: rotate(180deg);
+  -webkit-transform: rotate(180deg);
+  transform: rotate(180deg);
+}
+
+/* icon animation for click button */
+.rotate-click {
+  -moz-transition: all 0.5s linear;
+  -webkit-transition: all 0.5s linear;
+  transition: all 0.5s linear;
+}
+.rotate-click.down {
+  -moz-transform: rotate(180deg);
+  -webkit-transform: rotate(180deg);
+  transform: rotate(180deg);
+}
+
+/* .box-shadow{
+  box-shadow: 0 5px 15px rgba(213, 213, 213, 0.08);
+  background-color: rgba(172, 171, 171, 0.05);
+} */
+
+/* .left-side{
+  position: sticky;
+  top: 0
+} */
+
+.custom-scrollbar {
+  height: 300px;
+  width: 300px;
+
+  overflow: auto;
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+  /* Customize the main scrollbar styles */
+  width: 5px; /* Adjust the width as needed */
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  /* Customize the scrollbar track */
+  background-color: #f1f1f1; /* Change to desired color */
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  /* Customize the scrollbar thumb */
+  background-color: #7C04C0; /* Change to desired color */
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  /* Customize the scrollbar thumb on hover */
+  background-color: #7C04C0; /* Change to desired color */
+}
+
+.custom-scrollbar-combo {
+  height: 300px;
+  overflow: auto;
+}
+
+.custom-scrollbar-combo::-webkit-scrollbar {
+  /* Customize the main scrollbar styles */
+  width: 5px; /* Adjust the width as needed */
+}
+
+.custom-scrollbar-combo::-webkit-scrollbar-track {
+  /* Customize the scrollbar track */
+  background-color: #f1f1f1; /* Change to desired color */
+}
+
+.custom-scrollbar-combo::-webkit-scrollbar-thumb {
+  /* Customize the scrollbar thumb */
+  background-color: #7C04C0; /* Change to desired color */
+}
+
+.custom-scrollbar-combo::-webkit-scrollbar-thumb:hover {
+  /* Customize the scrollbar thumb on hover */
+  background-color: #7C04C0; /* Change to desired color */
+}
+
+
+.chakra-slider {
+  padding-top: 0px !important;
+  padding-bottom: 0px !important;
+  margin-bottom: 8px;
+  margin-top: 8px;
+}
+
+.airlines-filter-position {
+  height: 100%;
+  position: sticky;
+  top: 9%;
+  max-height: 100vh;
+  overflow-y: auto;
+}
+
+.dome-shape {
+  width: 100%;
+  height: 100px; /* Half the width to form a dome */
+  border-radius: 100px 100px 5px 5px; /* Dome shape */
+  margin: 10px auto; /* Center the div horizontally */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid lightgray;
+  /* color: white; */
+  font-size: 18px;
+}
+.round-checkbox {
+  width: 20px; /* Adjust size */
+  height: 20px; /* Keep width and height equal for a perfect circle */
+  border-radius: 50% !important; /* Makes the checkbox round */
+  border: 2px solid; /* Optional: Customize border color */
+  background-color: white; /* Default background */
+  appearance: none; /* Remove default checkbox styling */
+  outline: none; /* Remove outline */
+  cursor: pointer; /* Add a pointer cursor */
+  transition: background-color 0.3s, border-color 0.3s; /* Add transition for effect */
+}
+
+.round-checkbox:checked {
+  background-color: #007bff; /* Color when checked */
+  border-color: #0056b3; /* Optional: Change border color when checked */
+}
+
+@media (max-width: 1024px) {
+  .airlines-filter-position {
+    position: static; /* or any other style to disable stickiness */
+  }
+}

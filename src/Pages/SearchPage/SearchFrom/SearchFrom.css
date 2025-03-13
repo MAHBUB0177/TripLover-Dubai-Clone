@@ -1,0 +1,30 @@
+.shadow-for-search {
+    /* box-shadow: 0px 3px 15px rgba(0, 0, 0, 0.436); */
+    /* background-color: rgb(172, 171, 171); */
+
+}
+
+.dropdown-item:hover {
+    background-color: #02046a17;
+}
+
+.swap {
+    position: absolute;
+    top: 57%;
+    right: 32.6%;
+    z-index: 1;
+}
+
+
+.icon {
+    background-color: white;
+    padding: 5px;
+    border: 1px solid rgba(112, 112, 112, 0.582);
+    border-radius: 30px;
+    box-shadow: 0 0 15px 4px rgba(255, 254, 254, 0.12);
+}
+
+
+.tripType_bg_color {
+    background-color: #ed7f22;
+}

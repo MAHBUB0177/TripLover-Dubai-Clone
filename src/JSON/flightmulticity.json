@@ -1,0 +1,1956 @@
+{
+    "item1": {
+        "airSearchResponses": [
+            {
+                "uniqueTransID": "USB1048760617",
+                "itemCodeRef": "VVNCMTA0ODc2MDYxNy02Mzc4NTcyMTkzNzA5Mjc3MjB8b0tIenRBL3BXREtBNjZWS0FBQUFBQT09fFVhcGlHYWxpbGVv",
+                "totalPrice": 490893.0,
+                "basePrice": 258485.0,
+                "eqivqlBasePrice": 3041.0,
+                "taxes": 232408.0,
+                "platingCarrierName": "Turkish Airlines",
+                "platingCarrier": "TK",
+                "refundable": false,
+                "directions": [
+                    [
+                        {
+                            "from": "DAC",
+                            "to": "DXB",
+                            "fromAirport": "Hazrat Shahjalal International Airport",
+                            "toAirport": "Dubai International Airport",
+                            "platingCarrierCode": "TK",
+                            "platingCarrierName": "Turkish Airlines",
+                            "stops": 1,
+                            "segments": [
+                                {
+                                    "from": "DAC",
+                                    "fromAirport": "Hazrat Shahjalal International Airport",
+                                    "to": "IST",
+                                    "toAirport": "Istanbul Airport",
+                                    "group": 0,
+                                    "departure": "2022-04-22 23:00:00",
+                                    "arrival": "2022-04-23 04:25:00",
+                                    "airline": "Turkish Airlines",
+                                    "flightNumber": "723",
+                                    "segmentCodeRef": "b0tIenRBL3BXREtBeTNWS0FBQUFBQT09fG9LSHp0QS9wV0RLQXMzVktBQUFBQUE9PXxvS0h6dEEvcFdES0F5MlZLQUFBQUFBPT0=",
+                                    "details": [
+                                        {
+                                            "origin": "DAC",
+                                            "originName": "Hazrat Shahjalal International Airport",
+                                            "originTerminal": null,
+                                            "destination": "IST",
+                                            "destinationName": "Istanbul Airport",
+                                            "destinationTerminal": null,
+                                            "departure": "2022-04-22 23:00:00",
+                                            "flightTime": "8h 25m",
+                                            "travelTime": "1d 3h 25m",
+                                            "equipment": "Airbus-333"
+                                        }
+                                    ],
+                                    "serviceClass": "Economy",
+                                    "plane": [
+                                        "333"
+                                    ],
+                                    "duration": [
+                                        "8h 25m"
+                                    ],
+                                    "techStops": [
+                                        0
+                                    ],
+                                    "bookingClass": "T",
+                                    "bookingCount": "9",
+                                    "baggage": [
+                                        {
+                                            "units": "Kilograms",
+                                            "amount": 2.0
+                                        }
+                                    ],
+                                    "fareBasisCode": "TF2XPX",
+                                    "airlineCode": "TK"
+                                },
+                                {
+                                    "from": "IST",
+                                    "fromAirport": "Istanbul Airport",
+                                    "to": "DXB",
+                                    "toAirport": "Dubai International Airport",
+                                    "group": 0,
+                                    "departure": "2022-04-23 19:05:00",
+                                    "arrival": "2022-04-24 00:25:00",
+                                    "airline": "Turkish Airlines",
+                                    "flightNumber": "760",
+                                    "segmentCodeRef": "b0tIenRBL3BXREtBeTNWS0FBQUFBQT09fG9LSHp0QS9wV0RLQXMzVktBQUFBQUE9PXxvS0h6dEEvcFdES0EwMlZLQUFBQUFBPT0=",
+                                    "details": [
+                                        {
+                                            "origin": "IST",
+                                            "originName": "Istanbul Airport",
+                                            "originTerminal": null,
+                                            "destination": "DXB",
+                                            "destinationName": "Dubai International Airport",
+                                            "destinationTerminal": "1",
+                                            "departure": "2022-04-23 19:05:00",
+                                            "flightTime": "4h 20m",
+                                            "travelTime": "1d 3h 25m",
+                                            "equipment": "Boeing-77W"
+                                        }
+                                    ],
+                                    "serviceClass": "Economy",
+                                    "plane": [
+                                        "77W"
+                                    ],
+                                    "duration": [
+                                        "4h 20m"
+                                    ],
+                                    "techStops": [
+                                        0
+                                    ],
+                                    "bookingClass": "T",
+                                    "bookingCount": "9",
+                                    "baggage": [
+                                        {
+                                            "units": "Kilograms",
+                                            "amount": 2.0
+                                        }
+                                    ],
+                                    "fareBasisCode": "TF2XPX",
+                                    "airlineCode": "TK"
+                                }
+                            ]
+                        },
+                        {
+                            "from": "DAC",
+                            "to": "DXB",
+                            "fromAirport": "Hazrat Shahjalal International Airport",
+                            "toAirport": "Dubai International Airport",
+                            "platingCarrierCode": "TK",
+                            "platingCarrierName": "Turkish Airlines",
+                            "stops": 1,
+                            "segments": [
+                                {
+                                    "from": "DAC",
+                                    "fromAirport": "Hazrat Shahjalal International Airport",
+                                    "to": "IST",
+                                    "toAirport": "Istanbul Airport",
+                                    "group": 0,
+                                    "departure": "2022-04-22 22:00:00",
+                                    "arrival": "2022-04-23 03:35:00",
+                                    "airline": "Turkish Airlines",
+                                    "flightNumber": "713",
+                                    "segmentCodeRef": "b0tIenRBL3BXREtBeTNWS0FBQUFBQT09fG9LSHp0QS9wV0RLQXYzVktBQUFBQUE9PXxvS0h6dEEvcFdES0EyMlZLQUFBQUFBPT0=",
+                                    "details": [
+                                        {
+                                            "origin": "DAC",
+                                            "originName": "Hazrat Shahjalal International Airport",
+                                            "originTerminal": null,
+                                            "destination": "IST",
+                                            "destinationName": "Istanbul Airport",
+                                            "destinationTerminal": null,
+                                            "departure": "2022-04-22 22:00:00",
+                                            "flightTime": "8h 35m",
+                                            "travelTime": "1d 4h 25m",
+                                            "equipment": "Airbus-333"
+                                        }
+                                    ],
+                                    "serviceClass": "Economy",
+                                    "plane": [
+                                        "333"
+                                    ],
+                                    "duration": [
+                                        "8h 35m"
+                                    ],
+                                    "techStops": [
+                                        0
+                                    ],
+                                    "bookingClass": "T",
+                                    "bookingCount": "9",
+                                    "baggage": [
+                                        {
+                                            "units": "Kilograms",
+                                            "amount": 2.0
+                                        }
+                                    ],
+                                    "fareBasisCode": "TF2XPX",
+                                    "airlineCode": "TK"
+                                },
+                                {
+                                    "from": "IST",
+                                    "fromAirport": "Istanbul Airport",
+                                    "to": "DXB",
+                                    "toAirport": "Dubai International Airport",
+                                    "group": 0,
+                                    "departure": "2022-04-23 19:05:00",
+                                    "arrival": "2022-04-24 00:25:00",
+                                    "airline": "Turkish Airlines",
+                                    "flightNumber": "760",
+                                    "segmentCodeRef": "b0tIenRBL3BXREtBeTNWS0FBQUFBQT09fG9LSHp0QS9wV0RLQXYzVktBQUFBQUE9PXxvS0h6dEEvcFdES0EwMlZLQUFBQUFBPT0=",
+                                    "details": [
+                                        {
+                                            "origin": "IST",
+                                            "originName": "Istanbul Airport",
+                                            "originTerminal": null,
+                                            "destination": "DXB",
+                                            "destinationName": "Dubai International Airport",
+                                            "destinationTerminal": "1",
+                                            "departure": "2022-04-23 19:05:00",
+                                            "flightTime": "4h 20m",
+                                            "travelTime": "1d 3h 25m",
+                                            "equipment": "Boeing-77W"
+                                        }
+                                    ],
+                                    "serviceClass": "Economy",
+                                    "plane": [
+                                        "77W"
+                                    ],
+                                    "duration": [
+                                        "4h 20m"
+                                    ],
+                                    "techStops": [
+                                        0
+                                    ],
+                                    "bookingClass": "T",
+                                    "bookingCount": "9",
+                                    "baggage": [
+                                        {
+                                            "units": "Kilograms",
+                                            "amount": 2.0
+                                        }
+                                    ],
+                                    "fareBasisCode": "TF2XPX",
+                                    "airlineCode": "TK"
+                                }
+                            ]
+                        }
+                    ],
+                    [
+                        {
+                            "from": "DXB",
+                            "to": "NYC",
+                            "fromAirport": "Dubai International Airport",
+                            "toAirport": "All Airports",
+                            "platingCarrierCode": "TK",
+                            "platingCarrierName": "Turkish Airlines",
+                            "stops": 1,
+                            "segments": [
+                                {
+                                    "from": "DXB",
+                                    "fromAirport": "Dubai International Airport",
+                                    "to": "IST",
+                                    "toAirport": "Istanbul Airport",
+                                    "group": 1,
+                                    "departure": "2022-04-26 10:20:00",
+                                    "arrival": "2022-04-26 13:55:00",
+                                    "airline": "Turkish Airlines",
+                                    "flightNumber": "759",
+                                    "segmentCodeRef": "b0tIenRBL3BXREtBMjNWS0FBQUFBQT09fG9LSHp0QS9wV0RLQXozVktBQUFBQUE9PXxvS0h6dEEvcFdES0E0MlZLQUFBQUFBPT0=",
+                                    "details": [
+                                        {
+                                            "origin": "DXB",
+                                            "originName": "Dubai International Airport",
+                                            "originTerminal": "1",
+                                            "destination": "IST",
+                                            "destinationName": "Istanbul Airport",
+                                            "destinationTerminal": null,
+                                            "departure": "2022-04-26 10:20:00",
+                                            "flightTime": "4h 35m",
+                                            "travelTime": "20h 0m",
+                                            "equipment": "Boeing-789"
+                                        }
+                                    ],
+                                    "serviceClass": "Economy",
+                                    "plane": [
+                                        "789"
+                                    ],
+                                    "duration": [
+                                        "4h 35m"
+                                    ],
+                                    "techStops": [
+                                        0
+                                    ],
+                                    "bookingClass": "Q",
+                                    "bookingCount": "9",
+                                    "baggage": [
+                                        {
+                                            "units": "Kilograms",
+                                            "amount": 2.0
+                                        }
+                                    ],
+                                    "fareBasisCode": "QS2XPX",
+                                    "airlineCode": "TK"
+                                },
+                                {
+                                    "from": "IST",
+                                    "fromAirport": "Istanbul Airport",
+                                    "to": "EWR",
+                                    "toAirport": "Newark Liberty International Airport",
+                                    "group": 1,
+                                    "departure": "2022-04-26 18:35:00",
+                                    "arrival": "2022-04-26 22:20:00",
+                                    "airline": "Turkish Airlines",
+                                    "flightNumber": "29",
+                                    "segmentCodeRef": "b0tIenRBL3BXREtBMjNWS0FBQUFBQT09fG9LSHp0QS9wV0RLQXozVktBQUFBQUE9PXxvS0h6dEEvcFdES0E2MlZLQUFBQUFBPT0=",
+                                    "details": [
+                                        {
+                                            "origin": "IST",
+                                            "originName": "Istanbul Airport",
+                                            "originTerminal": null,
+                                            "destination": "EWR",
+                                            "destinationName": "Newark Liberty International Airport",
+                                            "destinationTerminal": null,
+                                            "departure": "2022-04-26 18:35:00",
+                                            "flightTime": "10h 45m",
+                                            "travelTime": "20h 0m",
+                                            "equipment": "Airbus-333"
+                                        }
+                                    ],
+                                    "serviceClass": "Economy",
+                                    "plane": [
+                                        "333"
+                                    ],
+                                    "duration": [
+                                        "10h 45m"
+                                    ],
+                                    "techStops": [
+                                        0
+                                    ],
+                                    "bookingClass": "L",
+                                    "bookingCount": "6",
+                                    "baggage": [
+                                        {
+                                            "units": "Kilograms",
+                                            "amount": 2.0
+                                        }
+                                    ],
+                                    "fareBasisCode": "LLT3PC",
+                                    "airlineCode": "TK"
+                                }
+                            ]
+                        }
+                    ],
+                    [
+                        {
+                            "from": "NYC",
+                            "to": "SIN",
+                            "fromAirport": "All Airports",
+                            "toAirport": "Singapore Changi Airport",
+                            "platingCarrierCode": "TK",
+                            "platingCarrierName": "Turkish Airlines",
+                            "stops": 1,
+                            "segments": [
+                                {
+                                    "from": "JFK",
+                                    "fromAirport": "John F Kennedy International Airport",
+                                    "to": "IST",
+                                    "toAirport": "Istanbul Airport",
+                                    "group": 2,
+                                    "departure": "2022-04-29 23:55:00",
+                                    "arrival": "2022-04-30 16:30:00",
+                                    "airline": "Turkish Airlines",
+                                    "flightNumber": "12",
+                                    "segmentCodeRef": "b0tIenRBL3BXREtBNjNWS0FBQUFBQT09fG9LSHp0QS9wV0RLQTMzVktBQUFBQUE9PXxvS0h6dEEvcFdES0E4MlZLQUFBQUFBPT0=",
+                                    "details": [
+                                        {
+                                            "origin": "JFK",
+                                            "originName": "John F Kennedy International Airport",
+                                            "originTerminal": "1",
+                                            "destination": "IST",
+                                            "destinationName": "Istanbul Airport",
+                                            "destinationTerminal": null,
+                                            "departure": "2022-04-29 23:55:00",
+                                            "flightTime": "9h 35m",
+                                            "travelTime": "1d 5h 35m",
+                                            "equipment": "Boeing-77W"
+                                        }
+                                    ],
+                                    "serviceClass": "Economy",
+                                    "plane": [
+                                        "77W"
+                                    ],
+                                    "duration": [
+                                        "9h 35m"
+                                    ],
+                                    "techStops": [
+                                        0
+                                    ],
+                                    "bookingClass": "V",
+                                    "bookingCount": "9",
+                                    "baggage": [
+                                        {
+                                            "units": "Kilograms",
+                                            "amount": 2.0
+                                        }
+                                    ],
+                                    "fareBasisCode": "VLT3PC",
+                                    "airlineCode": "TK"
+                                },
+                                {
+                                    "from": "IST",
+                                    "fromAirport": "Istanbul Airport",
+                                    "to": "SIN",
+                                    "toAirport": "Singapore Changi Airport",
+                                    "group": 2,
+                                    "departure": "2022-05-01 01:45:00",
+                                    "arrival": "2022-05-01 17:30:00",
+                                    "airline": "Turkish Airlines",
+                                    "flightNumber": "54",
+                                    "segmentCodeRef": "b0tIenRBL3BXREtBNjNWS0FBQUFBQT09fG9LSHp0QS9wV0RLQTMzVktBQUFBQUE9PXxvS0h6dEEvcFdES0ErMlZLQUFBQUFBPT0=",
+                                    "details": [
+                                        {
+                                            "origin": "IST",
+                                            "originName": "Istanbul Airport",
+                                            "originTerminal": null,
+                                            "destination": "SIN",
+                                            "destinationName": "Singapore Changi Airport",
+                                            "destinationTerminal": "1",
+                                            "departure": "2022-05-01 01:45:00",
+                                            "flightTime": "10h 45m",
+                                            "travelTime": "1d 5h 35m",
+                                            "equipment": "Boeing-77W"
+                                        }
+                                    ],
+                                    "serviceClass": "Economy",
+                                    "plane": [
+                                        "77W"
+                                    ],
+                                    "duration": [
+                                        "10h 45m"
+                                    ],
+                                    "techStops": [
+                                        0
+                                    ],
+                                    "bookingClass": "Q",
+                                    "bookingCount": "9",
+                                    "baggage": [
+                                        {
+                                            "units": "Kilograms",
+                                            "amount": 2.0
+                                        }
+                                    ],
+                                    "fareBasisCode": "QS2XPX",
+                                    "airlineCode": "TK"
+                                }
+                            ]
+                        }
+                    ]
+                ],
+                "bookingComponents": [
+                    {
+                        "totalPrice": 490893.0,
+                        "basePrice": 258485.0,
+                        "taxes": 232408.0,
+                        "fareReference": "oKHztA/pWDKAU3VKAAAAAA==,oKHztA/pWDKA93VKAAAAAA=="
+                    }
+                ],
+                "passengerFares": {
+                    "adt": {
+                        "totalPrice": 172146.0,
+                        "basePrice": 94010.0,
+                        "equivalentBasePrice": 1106.0,
+                        "taxes": 78136.0,
+                        "taxesBreakdown": [
+                            {
+                                "category": "BD",
+                                "amount": 500.0
+                            },
+                            {
+                                "category": "OW",
+                                "amount": 3000.0
+                            },
+                            {
+                                "category": "P7",
+                                "amount": 850.0
+                            },
+                            {
+                                "category": "P8",
+                                "amount": 850.0
+                            },
+                            {
+                                "category": "UT",
+                                "amount": 4000.0
+                            },
+                            {
+                                "category": "TR",
+                                "amount": 1401.0
+                            },
+                            {
+                                "category": "AE",
+                                "amount": 1736.0
+                            },
+                            {
+                                "category": "F6",
+                                "amount": 810.0
+                            },
+                            {
+                                "category": "TP",
+                                "amount": 116.0
+                            },
+                            {
+                                "category": "ZR",
+                                "amount": 232.0
+                            },
+                            {
+                                "category": "AY",
+                                "amount": 476.0
+                            },
+                            {
+                                "category": "US",
+                                "amount": 3350.0
+                            },
+                            {
+                                "category": "XA",
+                                "amount": 337.0
+                            },
+                            {
+                                "category": "XF",
+                                "amount": 383.0
+                            },
+                            {
+                                "category": "XY",
+                                "amount": 595.0
+                            },
+                            {
+                                "category": "YC",
+                                "amount": 520.0
+                            },
+                            {
+                                "category": "E5",
+                                "amount": 330.0
+                            },
+                            {
+                                "category": "YR",
+                                "amount": 58650.0
+                            }
+                        ]
+                    },
+                    "cnn": {
+                        "totalPrice": 146601.0,
+                        "basePrice": 70465.0,
+                        "equivalentBasePrice": 829.0,
+                        "taxes": 76136.0,
+                        "taxesBreakdown": [
+                            {
+                                "category": "BD",
+                                "amount": 500.0
+                            },
+                            {
+                                "category": "OW",
+                                "amount": 3000.0
+                            },
+                            {
+                                "category": "P7",
+                                "amount": 850.0
+                            },
+                            {
+                                "category": "P8",
+                                "amount": 850.0
+                            },
+                            {
+                                "category": "UT",
+                                "amount": 2000.0
+                            },
+                            {
+                                "category": "TR",
+                                "amount": 1401.0
+                            },
+                            {
+                                "category": "AE",
+                                "amount": 1736.0
+                            },
+                            {
+                                "category": "F6",
+                                "amount": 810.0
+                            },
+                            {
+                                "category": "TP",
+                                "amount": 116.0
+                            },
+                            {
+                                "category": "ZR",
+                                "amount": 232.0
+                            },
+                            {
+                                "category": "AY",
+                                "amount": 476.0
+                            },
+                            {
+                                "category": "US",
+                                "amount": 3350.0
+                            },
+                            {
+                                "category": "XA",
+                                "amount": 337.0
+                            },
+                            {
+                                "category": "XF",
+                                "amount": 383.0
+                            },
+                            {
+                                "category": "XY",
+                                "amount": 595.0
+                            },
+                            {
+                                "category": "YC",
+                                "amount": 520.0
+                            },
+                            {
+                                "category": "E5",
+                                "amount": 330.0
+                            },
+                            {
+                                "category": "YR",
+                                "amount": 58650.0
+                            }
+                        ]
+                    },
+                    "inf": null,
+                    "ins": null
+                },
+                "passengerCounts": {
+                    "cnn": 1,
+                    "inf": 0,
+                    "adt": 2,
+                    "ins": 0
+                },
+                "bookable": true
+            },
+            {
+                "uniqueTransID": "USB1048760617",
+                "itemCodeRef": "VVNCMTA0ODc2MDYxNy02Mzc4NTcyMTkzNzA5Mjc3MjB8b0tIenRBL3BXREtBNzZWS0FBQUFBQT09fFVhcGlHYWxpbGVv",
+                "totalPrice": 1857070.0,
+                "basePrice": 1741650.0,
+                "eqivqlBasePrice": 20490.0,
+                "taxes": 115420.0,
+                "platingCarrierName": "Turkish Airlines",
+                "platingCarrier": "TK",
+                "refundable": true,
+                "directions": [
+                    [
+                        {
+                            "from": "DAC",
+                            "to": "DXB",
+                            "fromAirport": "Hazrat Shahjalal International Airport",
+                            "toAirport": "Dubai International Airport",
+                            "platingCarrierCode": "TK",
+                            "platingCarrierName": "Turkish Airlines",
+                            "stops": 1,
+                            "segments": [
+                                {
+                                    "from": "DAC",
+                                    "fromAirport": "Hazrat Shahjalal International Airport",
+                                    "to": "SIN",
+                                    "toAirport": "Singapore Changi Airport",
+                                    "group": 0,
+                                    "departure": "2022-04-22 22:40:00",
+                                    "arrival": "2022-04-23 04:50:00",
+                                    "airline": "Singapore Airlines",
+                                    "flightNumber": "447",
+                                    "segmentCodeRef": "b0tIenRBL3BXREtBeTNWS0FBQUFBQT09fG9LSHp0QS9wV0RLQWQ1VktBQUFBQUE9PXxvS0h6dEEvcFdES0FBM1ZLQUFBQUFBPT0=",
+                                    "details": [
+                                        {
+                                            "origin": "DAC",
+                                            "originName": "Hazrat Shahjalal International Airport",
+                                            "originTerminal": "2",
+                                            "destination": "SIN",
+                                            "destinationName": "Singapore Changi Airport",
+                                            "destinationTerminal": "0",
+                                            "departure": "2022-04-22 22:40:00",
+                                            "flightTime": "4h 10m",
+                                            "travelTime": "21h 45m",
+                                            "equipment": "Airbus-359"
+                                        }
+                                    ],
+                                    "serviceClass": "Economy",
+                                    "plane": [
+                                        "359"
+                                    ],
+                                    "duration": [
+                                        "4h 10m"
+                                    ],
+                                    "techStops": [
+                                        0
+                                    ],
+                                    "bookingClass": "Y",
+                                    "bookingCount": "9",
+                                    "baggage": [
+                                        {
+                                            "units": "Kilograms",
+                                            "amount": 2.0
+                                        }
+                                    ],
+                                    "fareBasisCode": "YIFSQ",
+                                    "airlineCode": "SQ"
+                                },
+                                {
+                                    "from": "SIN",
+                                    "fromAirport": "Singapore Changi Airport",
+                                    "to": "DXB",
+                                    "toAirport": "Dubai International Airport",
+                                    "group": 0,
+                                    "departure": "2022-04-23 15:10:00",
+                                    "arrival": "2022-04-23 18:25:00",
+                                    "airline": "Singapore Airlines",
+                                    "flightNumber": "494",
+                                    "segmentCodeRef": "b0tIenRBL3BXREtBeTNWS0FBQUFBQT09fG9LSHp0QS9wV0RLQWQ1VktBQUFBQUE9PXxvS0h6dEEvcFdES0FDM1ZLQUFBQUFBPT0=",
+                                    "details": [
+                                        {
+                                            "origin": "SIN",
+                                            "originName": "Singapore Changi Airport",
+                                            "originTerminal": "3",
+                                            "destination": "DXB",
+                                            "destinationName": "Dubai International Airport",
+                                            "destinationTerminal": "1",
+                                            "departure": "2022-04-23 15:10:00",
+                                            "flightTime": "7h 15m",
+                                            "travelTime": "21h 45m",
+                                            "equipment": "Airbus-359"
+                                        }
+                                    ],
+                                    "serviceClass": "Economy",
+                                    "plane": [
+                                        "359"
+                                    ],
+                                    "duration": [
+                                        "7h 15m"
+                                    ],
+                                    "techStops": [
+                                        0
+                                    ],
+                                    "bookingClass": "Y",
+                                    "bookingCount": "9",
+                                    "baggage": [
+                                        {
+                                            "units": "Kilograms",
+                                            "amount": 2.0
+                                        }
+                                    ],
+                                    "fareBasisCode": "YIFSQ",
+                                    "airlineCode": "SQ"
+                                }
+                            ]
+                        }
+                    ],
+                    [
+                        {
+                            "from": "DXB",
+                            "to": "NYC",
+                            "fromAirport": "Dubai International Airport",
+                            "toAirport": "All Airports",
+                            "platingCarrierCode": "TK",
+                            "platingCarrierName": "Turkish Airlines",
+                            "stops": 1,
+                            "segments": [
+                                {
+                                    "from": "DXB",
+                                    "fromAirport": "Dubai International Airport",
+                                    "to": "IST",
+                                    "toAirport": "Istanbul Airport",
+                                    "group": 1,
+                                    "departure": "2022-04-26 02:05:00",
+                                    "arrival": "2022-04-26 05:45:00",
+                                    "airline": "Turkish Airlines",
+                                    "flightNumber": "761",
+                                    "segmentCodeRef": "b0tIenRBL3BXREtBMjNWS0FBQUFBQT09fG9LSHp0QS9wV0RLQWc1VktBQUFBQUE9PXxvS0h6dEEvcFdES0FFM1ZLQUFBQUFBPT0=",
+                                    "details": [
+                                        {
+                                            "origin": "DXB",
+                                            "originName": "Dubai International Airport",
+                                            "originTerminal": "1",
+                                            "destination": "IST",
+                                            "destinationName": "Istanbul Airport",
+                                            "destinationTerminal": null,
+                                            "departure": "2022-04-26 02:05:00",
+                                            "flightTime": "4h 40m",
+                                            "travelTime": "17h 0m",
+                                            "equipment": "Boeing-77W"
+                                        }
+                                    ],
+                                    "serviceClass": "Economy",
+                                    "plane": [
+                                        "77W"
+                                    ],
+                                    "duration": [
+                                        "4h 40m"
+                                    ],
+                                    "techStops": [
+                                        0
+                                    ],
+                                    "bookingClass": "T",
+                                    "bookingCount": "9",
+                                    "baggage": [
+                                        {
+                                            "units": "Kilograms",
+                                            "amount": 2.0
+                                        }
+                                    ],
+                                    "fareBasisCode": "YIFSQ",
+                                    "airlineCode": "TK"
+                                },
+                                {
+                                    "from": "IST",
+                                    "fromAirport": "Istanbul Airport",
+                                    "to": "JFK",
+                                    "toAirport": "John F Kennedy International Airport",
+                                    "group": 1,
+                                    "departure": "2022-04-26 07:40:00",
+                                    "arrival": "2022-04-26 11:05:00",
+                                    "airline": "Turkish Airlines",
+                                    "flightNumber": "3",
+                                    "segmentCodeRef": "b0tIenRBL3BXREtBMjNWS0FBQUFBQT09fG9LSHp0QS9wV0RLQWc1VktBQUFBQUE9PXxvS0h6dEEvcFdES0FHM1ZLQUFBQUFBPT0=",
+                                    "details": [
+                                        {
+                                            "origin": "IST",
+                                            "originName": "Istanbul Airport",
+                                            "originTerminal": null,
+                                            "destination": "JFK",
+                                            "destinationName": "John F Kennedy International Airport",
+                                            "destinationTerminal": "1",
+                                            "departure": "2022-04-26 07:40:00",
+                                            "flightTime": "10h 25m",
+                                            "travelTime": "17h 0m",
+                                            "equipment": "Boeing-77W"
+                                        }
+                                    ],
+                                    "serviceClass": "Economy",
+                                    "plane": [
+                                        "77W"
+                                    ],
+                                    "duration": [
+                                        "10h 25m"
+                                    ],
+                                    "techStops": [
+                                        0
+                                    ],
+                                    "bookingClass": "T",
+                                    "bookingCount": "9",
+                                    "baggage": [
+                                        {
+                                            "units": "Kilograms",
+                                            "amount": 2.0
+                                        }
+                                    ],
+                                    "fareBasisCode": "YIFSQ",
+                                    "airlineCode": "TK"
+                                }
+                            ]
+                        },
+                        {
+                            "from": "DXB",
+                            "to": "NYC",
+                            "fromAirport": "Dubai International Airport",
+                            "toAirport": "All Airports",
+                            "platingCarrierCode": "TK",
+                            "platingCarrierName": "Turkish Airlines",
+                            "stops": 1,
+                            "segments": [
+                                {
+                                    "from": "DXB",
+                                    "fromAirport": "Dubai International Airport",
+                                    "to": "IST",
+                                    "toAirport": "Istanbul Airport",
+                                    "group": 1,
+                                    "departure": "2022-04-26 07:40:00",
+                                    "arrival": "2022-04-26 11:15:00",
+                                    "airline": "Turkish Airlines",
+                                    "flightNumber": "763",
+                                    "segmentCodeRef": "b0tIenRBL3BXREtBMjNWS0FBQUFBQT09fG9LSHp0QS9wV0RLQWo1VktBQUFBQUE9PXxvS0h6dEEvcFdES0FJM1ZLQUFBQUFBPT0=",
+                                    "details": [
+                                        {
+                                            "origin": "DXB",
+                                            "originName": "Dubai International Airport",
+                                            "originTerminal": "1",
+                                            "destination": "IST",
+                                            "destinationName": "Istanbul Airport",
+                                            "destinationTerminal": null,
+                                            "departure": "2022-04-26 07:40:00",
+                                            "flightTime": "4h 35m",
+                                            "travelTime": "17h 35m",
+                                            "equipment": "Boeing-77W"
+                                        }
+                                    ],
+                                    "serviceClass": "Economy",
+                                    "plane": [
+                                        "77W"
+                                    ],
+                                    "duration": [
+                                        "4h 35m"
+                                    ],
+                                    "techStops": [
+                                        0
+                                    ],
+                                    "bookingClass": "S",
+                                    "bookingCount": "9",
+                                    "baggage": [
+                                        {
+                                            "units": "Kilograms",
+                                            "amount": 2.0
+                                        }
+                                    ],
+                                    "fareBasisCode": "YIFSQ",
+                                    "airlineCode": "TK"
+                                },
+                                {
+                                    "from": "IST",
+                                    "fromAirport": "Istanbul Airport",
+                                    "to": "JFK",
+                                    "toAirport": "John F Kennedy International Airport",
+                                    "group": 1,
+                                    "departure": "2022-04-26 13:30:00",
+                                    "arrival": "2022-04-26 17:15:00",
+                                    "airline": "Turkish Airlines",
+                                    "flightNumber": "1",
+                                    "segmentCodeRef": "b0tIenRBL3BXREtBMjNWS0FBQUFBQT09fG9LSHp0QS9wV0RLQWo1VktBQUFBQUE9PXxvS0h6dEEvcFdES0FLM1ZLQUFBQUFBPT0=",
+                                    "details": [
+                                        {
+                                            "origin": "IST",
+                                            "originName": "Istanbul Airport",
+                                            "originTerminal": null,
+                                            "destination": "JFK",
+                                            "destinationName": "John F Kennedy International Airport",
+                                            "destinationTerminal": "1",
+                                            "departure": "2022-04-26 13:30:00",
+                                            "flightTime": "10h 45m",
+                                            "travelTime": "17h 35m",
+                                            "equipment": "Boeing-77W"
+                                        }
+                                    ],
+                                    "serviceClass": "Economy",
+                                    "plane": [
+                                        "77W"
+                                    ],
+                                    "duration": [
+                                        "10h 45m"
+                                    ],
+                                    "techStops": [
+                                        0
+                                    ],
+                                    "bookingClass": "S",
+                                    "bookingCount": "9",
+                                    "baggage": [
+                                        {
+                                            "units": "Kilograms",
+                                            "amount": 2.0
+                                        }
+                                    ],
+                                    "fareBasisCode": "YIFSQ",
+                                    "airlineCode": "TK"
+                                }
+                            ]
+                        },
+                        {
+                            "from": "DXB",
+                            "to": "NYC",
+                            "fromAirport": "Dubai International Airport",
+                            "toAirport": "All Airports",
+                            "platingCarrierCode": "TK",
+                            "platingCarrierName": "Turkish Airlines",
+                            "stops": 1,
+                            "segments": [
+                                {
+                                    "from": "DXB",
+                                    "fromAirport": "Dubai International Airport",
+                                    "to": "IST",
+                                    "toAirport": "Istanbul Airport",
+                                    "group": 1,
+                                    "departure": "2022-04-26 10:20:00",
+                                    "arrival": "2022-04-26 13:55:00",
+                                    "airline": "Turkish Airlines",
+                                    "flightNumber": "759",
+                                    "segmentCodeRef": "b0tIenRBL3BXREtBMjNWS0FBQUFBQT09fG9LSHp0QS9wV0RLQW01VktBQUFBQUE9PXxvS0h6dEEvcFdES0E0MlZLQUFBQUFBPT0=",
+                                    "details": [
+                                        {
+                                            "origin": "DXB",
+                                            "originName": "Dubai International Airport",
+                                            "originTerminal": "1",
+                                            "destination": "IST",
+                                            "destinationName": "Istanbul Airport",
+                                            "destinationTerminal": null,
+                                            "departure": "2022-04-26 10:20:00",
+                                            "flightTime": "4h 35m",
+                                            "travelTime": "20h 0m",
+                                            "equipment": "Boeing-789"
+                                        }
+                                    ],
+                                    "serviceClass": "Economy",
+                                    "plane": [
+                                        "789"
+                                    ],
+                                    "duration": [
+                                        "4h 35m"
+                                    ],
+                                    "techStops": [
+                                        0
+                                    ],
+                                    "bookingClass": "V",
+                                    "bookingCount": "9",
+                                    "baggage": [
+                                        {
+                                            "units": "Kilograms",
+                                            "amount": 2.0
+                                        }
+                                    ],
+                                    "fareBasisCode": "YIFSQ",
+                                    "airlineCode": "TK"
+                                },
+                                {
+                                    "from": "IST",
+                                    "fromAirport": "Istanbul Airport",
+                                    "to": "JFK",
+                                    "toAirport": "John F Kennedy International Airport",
+                                    "group": 1,
+                                    "departure": "2022-04-26 18:30:00",
+                                    "arrival": "2022-04-26 22:15:00",
+                                    "airline": "Turkish Airlines",
+                                    "flightNumber": "11",
+                                    "segmentCodeRef": "b0tIenRBL3BXREtBMjNWS0FBQUFBQT09fG9LSHp0QS9wV0RLQW01VktBQUFBQUE9PXxvS0h6dEEvcFdES0FNM1ZLQUFBQUFBPT0=",
+                                    "details": [
+                                        {
+                                            "origin": "IST",
+                                            "originName": "Istanbul Airport",
+                                            "originTerminal": null,
+                                            "destination": "JFK",
+                                            "destinationName": "John F Kennedy International Airport",
+                                            "destinationTerminal": "1",
+                                            "departure": "2022-04-26 18:30:00",
+                                            "flightTime": "10h 45m",
+                                            "travelTime": "19h 55m",
+                                            "equipment": "Boeing-77W"
+                                        }
+                                    ],
+                                    "serviceClass": "Economy",
+                                    "plane": [
+                                        "77W"
+                                    ],
+                                    "duration": [
+                                        "10h 45m"
+                                    ],
+                                    "techStops": [
+                                        0
+                                    ],
+                                    "bookingClass": "V",
+                                    "bookingCount": "9",
+                                    "baggage": [
+                                        {
+                                            "units": "Kilograms",
+                                            "amount": 2.0
+                                        }
+                                    ],
+                                    "fareBasisCode": "YIFSQ",
+                                    "airlineCode": "TK"
+                                }
+                            ]
+                        },
+                        {
+                            "from": "DXB",
+                            "to": "NYC",
+                            "fromAirport": "Dubai International Airport",
+                            "toAirport": "All Airports",
+                            "platingCarrierCode": "TK",
+                            "platingCarrierName": "Turkish Airlines",
+                            "stops": 1,
+                            "segments": [
+                                {
+                                    "from": "DXB",
+                                    "fromAirport": "Dubai International Airport",
+                                    "to": "IST",
+                                    "toAirport": "Istanbul Airport",
+                                    "group": 1,
+                                    "departure": "2022-04-26 10:20:00",
+                                    "arrival": "2022-04-26 13:55:00",
+                                    "airline": "Turkish Airlines",
+                                    "flightNumber": "759",
+                                    "segmentCodeRef": "b0tIenRBL3BXREtBMjNWS0FBQUFBQT09fG9LSHp0QS9wV0RLQXA1VktBQUFBQUE9PXxvS0h6dEEvcFdES0E0MlZLQUFBQUFBPT0=",
+                                    "details": [
+                                        {
+                                            "origin": "DXB",
+                                            "originName": "Dubai International Airport",
+                                            "originTerminal": "1",
+                                            "destination": "IST",
+                                            "destinationName": "Istanbul Airport",
+                                            "destinationTerminal": null,
+                                            "departure": "2022-04-26 10:20:00",
+                                            "flightTime": "4h 35m",
+                                            "travelTime": "20h 0m",
+                                            "equipment": "Boeing-789"
+                                        }
+                                    ],
+                                    "serviceClass": "Economy",
+                                    "plane": [
+                                        "789"
+                                    ],
+                                    "duration": [
+                                        "4h 35m"
+                                    ],
+                                    "techStops": [
+                                        0
+                                    ],
+                                    "bookingClass": "T",
+                                    "bookingCount": "9",
+                                    "baggage": [
+                                        {
+                                            "units": "Kilograms",
+                                            "amount": 2.0
+                                        }
+                                    ],
+                                    "fareBasisCode": "YIFSQ",
+                                    "airlineCode": "TK"
+                                },
+                                {
+                                    "from": "IST",
+                                    "fromAirport": "Istanbul Airport",
+                                    "to": "JFK",
+                                    "toAirport": "John F Kennedy International Airport",
+                                    "group": 1,
+                                    "departure": "2022-04-27 07:40:00",
+                                    "arrival": "2022-04-27 11:05:00",
+                                    "airline": "Turkish Airlines",
+                                    "flightNumber": "3",
+                                    "segmentCodeRef": "b0tIenRBL3BXREtBMjNWS0FBQUFBQT09fG9LSHp0QS9wV0RLQXA1VktBQUFBQUE9PXxvS0h6dEEvcFdES0FPM1ZLQUFBQUFBPT0=",
+                                    "details": [
+                                        {
+                                            "origin": "IST",
+                                            "originName": "Istanbul Airport",
+                                            "originTerminal": null,
+                                            "destination": "JFK",
+                                            "destinationName": "John F Kennedy International Airport",
+                                            "destinationTerminal": "1",
+                                            "departure": "2022-04-27 07:40:00",
+                                            "flightTime": "10h 25m",
+                                            "travelTime": "1d 8h 45m",
+                                            "equipment": "Boeing-77W"
+                                        }
+                                    ],
+                                    "serviceClass": "Economy",
+                                    "plane": [
+                                        "77W"
+                                    ],
+                                    "duration": [
+                                        "10h 25m"
+                                    ],
+                                    "techStops": [
+                                        0
+                                    ],
+                                    "bookingClass": "T",
+                                    "bookingCount": "9",
+                                    "baggage": [
+                                        {
+                                            "units": "Kilograms",
+                                            "amount": 2.0
+                                        }
+                                    ],
+                                    "fareBasisCode": "YIFSQ",
+                                    "airlineCode": "TK"
+                                }
+                            ]
+                        }
+                    ],
+                    [
+                        {
+                            "from": "NYC",
+                            "to": "SIN",
+                            "fromAirport": "All Airports",
+                            "toAirport": "Singapore Changi Airport",
+                            "platingCarrierCode": "TK",
+                            "platingCarrierName": "Turkish Airlines",
+                            "stops": 1,
+                            "segments": [
+                                {
+                                    "from": "JFK",
+                                    "fromAirport": "John F Kennedy International Airport",
+                                    "to": "SIN",
+                                    "toAirport": "Singapore Changi Airport",
+                                    "group": 2,
+                                    "departure": "2022-04-29 20:55:00",
+                                    "arrival": "2022-05-01 06:50:00",
+                                    "airline": "Singapore Airlines",
+                                    "flightNumber": "25",
+                                    "segmentCodeRef": "b0tIenRBL3BXREtBNjNWS0FBQUFBQT09fG9LSHp0QS9wV0RLQXM1VktBQUFBQUE9PXxvS0h6dEEvcFdES0FRM1ZLQUFBQUFBPT0=",
+                                    "details": [
+                                        {
+                                            "origin": "JFK",
+                                            "originName": "John F Kennedy International Airport",
+                                            "originTerminal": "4",
+                                            "destination": "FRA",
+                                            "destinationName": "Frankfurt am Main Airport",
+                                            "destinationTerminal": "1",
+                                            "departure": "2022-04-29 20:55:00",
+                                            "flightTime": "7h 45m",
+                                            "travelTime": "21h 55m",
+                                            "equipment": "Airbus-388"
+                                        },
+                                        {
+                                            "origin": "FRA",
+                                            "originName": "Frankfurt am Main Airport",
+                                            "originTerminal": "1",
+                                            "destination": "SIN",
+                                            "destinationName": "Singapore Changi Airport",
+                                            "destinationTerminal": "0",
+                                            "departure": "2022-04-30 12:30:00",
+                                            "flightTime": "12h 20m",
+                                            "travelTime": "21h 55m",
+                                            "equipment": "Airbus-388"
+                                        }
+                                    ],
+                                    "serviceClass": "Economy",
+                                    "plane": [
+                                        "388"
+                                    ],
+                                    "duration": [
+                                        "21h 55m"
+                                    ],
+                                    "techStops": [
+                                        1
+                                    ],
+                                    "bookingClass": "Y",
+                                    "bookingCount": "9",
+                                    "baggage": [
+                                        {
+                                            "units": "Kilograms",
+                                            "amount": 2.0
+                                        }
+                                    ],
+                                    "fareBasisCode": "YIFSQ",
+                                    "airlineCode": "SQ"
+                                }
+                            ]
+                        }
+                    ]
+                ],
+                "bookingComponents": [
+                    {
+                        "totalPrice": 1857070.0,
+                        "basePrice": 1741650.0,
+                        "taxes": 115420.0,
+                        "fareReference": "oKHztA/pWDKAH5VKAAAAAA==,oKHztA/pWDKAQ6VKAAAAAA=="
+                    }
+                ],
+                "passengerFares": {
+                    "adt": {
+                        "totalPrice": 672475.0,
+                        "basePrice": 633335.0,
+                        "equivalentBasePrice": 7451.0,
+                        "taxes": 39140.0,
+                        "taxesBreakdown": [
+                            {
+                                "category": "BD",
+                                "amount": 500.0
+                            },
+                            {
+                                "category": "OW",
+                                "amount": 3000.0
+                            },
+                            {
+                                "category": "P7",
+                                "amount": 850.0
+                            },
+                            {
+                                "category": "P8",
+                                "amount": 850.0
+                            },
+                            {
+                                "category": "UT",
+                                "amount": 4000.0
+                            },
+                            {
+                                "category": "L7",
+                                "amount": 188.0
+                            },
+                            {
+                                "category": "SG",
+                                "amount": 376.0
+                            },
+                            {
+                                "category": "AE",
+                                "amount": 1736.0
+                            },
+                            {
+                                "category": "F6",
+                                "amount": 810.0
+                            },
+                            {
+                                "category": "TP",
+                                "amount": 116.0
+                            },
+                            {
+                                "category": "ZR",
+                                "amount": 232.0
+                            },
+                            {
+                                "category": "TR",
+                                "amount": 467.0
+                            },
+                            {
+                                "category": "AY",
+                                "amount": 476.0
+                            },
+                            {
+                                "category": "US",
+                                "amount": 3350.0
+                            },
+                            {
+                                "category": "XA",
+                                "amount": 337.0
+                            },
+                            {
+                                "category": "XF",
+                                "amount": 383.0
+                            },
+                            {
+                                "category": "XY",
+                                "amount": 595.0
+                            },
+                            {
+                                "category": "YC",
+                                "amount": 520.0
+                            },
+                            {
+                                "category": "RA",
+                                "amount": 2089.0
+                            },
+                            {
+                                "category": "E5",
+                                "amount": 330.0
+                            },
+                            {
+                                "category": "YR",
+                                "amount": 17935.0
+                            }
+                        ]
+                    },
+                    "cnn": {
+                        "totalPrice": 512120.0,
+                        "basePrice": 474980.0,
+                        "equivalentBasePrice": 5588.0,
+                        "taxes": 37140.0,
+                        "taxesBreakdown": [
+                            {
+                                "category": "BD",
+                                "amount": 500.0
+                            },
+                            {
+                                "category": "OW",
+                                "amount": 3000.0
+                            },
+                            {
+                                "category": "P7",
+                                "amount": 850.0
+                            },
+                            {
+                                "category": "P8",
+                                "amount": 850.0
+                            },
+                            {
+                                "category": "UT",
+                                "amount": 2000.0
+                            },
+                            {
+                                "category": "L7",
+                                "amount": 188.0
+                            },
+                            {
+                                "category": "SG",
+                                "amount": 376.0
+                            },
+                            {
+                                "category": "AE",
+                                "amount": 1736.0
+                            },
+                            {
+                                "category": "F6",
+                                "amount": 810.0
+                            },
+                            {
+                                "category": "TP",
+                                "amount": 116.0
+                            },
+                            {
+                                "category": "ZR",
+                                "amount": 232.0
+                            },
+                            {
+                                "category": "TR",
+                                "amount": 467.0
+                            },
+                            {
+                                "category": "AY",
+                                "amount": 476.0
+                            },
+                            {
+                                "category": "US",
+                                "amount": 3350.0
+                            },
+                            {
+                                "category": "XA",
+                                "amount": 337.0
+                            },
+                            {
+                                "category": "XF",
+                                "amount": 383.0
+                            },
+                            {
+                                "category": "XY",
+                                "amount": 595.0
+                            },
+                            {
+                                "category": "YC",
+                                "amount": 520.0
+                            },
+                            {
+                                "category": "RA",
+                                "amount": 2089.0
+                            },
+                            {
+                                "category": "E5",
+                                "amount": 330.0
+                            },
+                            {
+                                "category": "YR",
+                                "amount": 17935.0
+                            }
+                        ]
+                    },
+                    "inf": null,
+                    "ins": null
+                },
+                "passengerCounts": {
+                    "cnn": 1,
+                    "inf": 0,
+                    "adt": 2,
+                    "ins": 0
+                },
+                "bookable": true
+            },
+            {
+                "uniqueTransID": "USB1048760617",
+                "itemCodeRef": "VVNCMTA0ODc2MDYxNy02Mzc4NTcyMTkzNzA5Mjc3MjB8b0tIenRBL3BXREtBODZWS0FBQUFBQT09fFVhcGlHYWxpbGVv",
+                "totalPrice": 1857070.0,
+                "basePrice": 1741650.0,
+                "eqivqlBasePrice": 20490.0,
+                "taxes": 115420.0,
+                "platingCarrierName": "Turkish Airlines",
+                "platingCarrier": "TK",
+                "refundable": true,
+                "directions": [
+                    [
+                        {
+                            "from": "DAC",
+                            "to": "DXB",
+                            "fromAirport": "Hazrat Shahjalal International Airport",
+                            "toAirport": "Dubai International Airport",
+                            "platingCarrierCode": "TK",
+                            "platingCarrierName": "Turkish Airlines",
+                            "stops": 1,
+                            "segments": [
+                                {
+                                    "from": "DAC",
+                                    "fromAirport": "Hazrat Shahjalal International Airport",
+                                    "to": "SIN",
+                                    "toAirport": "Singapore Changi Airport",
+                                    "group": 0,
+                                    "departure": "2022-04-22 22:40:00",
+                                    "arrival": "2022-04-23 04:50:00",
+                                    "airline": "Singapore Airlines",
+                                    "flightNumber": "447",
+                                    "segmentCodeRef": "b0tIenRBL3BXREtBeTNWS0FBQUFBQT09fG9LSHp0QS9wV0RLQSs0VktBQUFBQUE9PXxvS0h6dEEvcFdES0FBM1ZLQUFBQUFBPT0=",
+                                    "details": [
+                                        {
+                                            "origin": "DAC",
+                                            "originName": "Hazrat Shahjalal International Airport",
+                                            "originTerminal": "2",
+                                            "destination": "SIN",
+                                            "destinationName": "Singapore Changi Airport",
+                                            "destinationTerminal": "0",
+                                            "departure": "2022-04-22 22:40:00",
+                                            "flightTime": "4h 10m",
+                                            "travelTime": "21h 45m",
+                                            "equipment": "Airbus-359"
+                                        }
+                                    ],
+                                    "serviceClass": "Economy",
+                                    "plane": [
+                                        "359"
+                                    ],
+                                    "duration": [
+                                        "4h 10m"
+                                    ],
+                                    "techStops": [
+                                        0
+                                    ],
+                                    "bookingClass": "Y",
+                                    "bookingCount": "9",
+                                    "baggage": [
+                                        {
+                                            "units": "Kilograms",
+                                            "amount": 2.0
+                                        }
+                                    ],
+                                    "fareBasisCode": "YIFSQ",
+                                    "airlineCode": "SQ"
+                                },
+                                {
+                                    "from": "SIN",
+                                    "fromAirport": "Singapore Changi Airport",
+                                    "to": "DXB",
+                                    "toAirport": "Dubai International Airport",
+                                    "group": 0,
+                                    "departure": "2022-04-23 15:10:00",
+                                    "arrival": "2022-04-23 18:25:00",
+                                    "airline": "Singapore Airlines",
+                                    "flightNumber": "494",
+                                    "segmentCodeRef": "b0tIenRBL3BXREtBeTNWS0FBQUFBQT09fG9LSHp0QS9wV0RLQSs0VktBQUFBQUE9PXxvS0h6dEEvcFdES0FDM1ZLQUFBQUFBPT0=",
+                                    "details": [
+                                        {
+                                            "origin": "SIN",
+                                            "originName": "Singapore Changi Airport",
+                                            "originTerminal": "3",
+                                            "destination": "DXB",
+                                            "destinationName": "Dubai International Airport",
+                                            "destinationTerminal": "1",
+                                            "departure": "2022-04-23 15:10:00",
+                                            "flightTime": "7h 15m",
+                                            "travelTime": "21h 45m",
+                                            "equipment": "Airbus-359"
+                                        }
+                                    ],
+                                    "serviceClass": "Economy",
+                                    "plane": [
+                                        "359"
+                                    ],
+                                    "duration": [
+                                        "7h 15m"
+                                    ],
+                                    "techStops": [
+                                        0
+                                    ],
+                                    "bookingClass": "Y",
+                                    "bookingCount": "9",
+                                    "baggage": [
+                                        {
+                                            "units": "Kilograms",
+                                            "amount": 2.0
+                                        }
+                                    ],
+                                    "fareBasisCode": "YIFSQ",
+                                    "airlineCode": "SQ"
+                                }
+                            ]
+                        }
+                    ],
+                    [
+                        {
+                            "from": "DXB",
+                            "to": "NYC",
+                            "fromAirport": "Dubai International Airport",
+                            "toAirport": "All Airports",
+                            "platingCarrierCode": "TK",
+                            "platingCarrierName": "Turkish Airlines",
+                            "stops": 1,
+                            "segments": [
+                                {
+                                    "from": "DXB",
+                                    "fromAirport": "Dubai International Airport",
+                                    "to": "IST",
+                                    "toAirport": "Istanbul Airport",
+                                    "group": 1,
+                                    "departure": "2022-04-26 10:20:00",
+                                    "arrival": "2022-04-26 13:55:00",
+                                    "airline": "Turkish Airlines",
+                                    "flightNumber": "759",
+                                    "segmentCodeRef": "b0tIenRBL3BXREtBMjNWS0FBQUFBQT09fG9LSHp0QS9wV0RLQUI1VktBQUFBQUE9PXxvS0h6dEEvcFdES0E0MlZLQUFBQUFBPT0=",
+                                    "details": [
+                                        {
+                                            "origin": "DXB",
+                                            "originName": "Dubai International Airport",
+                                            "originTerminal": "1",
+                                            "destination": "IST",
+                                            "destinationName": "Istanbul Airport",
+                                            "destinationTerminal": null,
+                                            "departure": "2022-04-26 10:20:00",
+                                            "flightTime": "4h 35m",
+                                            "travelTime": "20h 0m",
+                                            "equipment": "Boeing-789"
+                                        }
+                                    ],
+                                    "serviceClass": "Economy",
+                                    "plane": [
+                                        "789"
+                                    ],
+                                    "duration": [
+                                        "4h 35m"
+                                    ],
+                                    "techStops": [
+                                        0
+                                    ],
+                                    "bookingClass": "L",
+                                    "bookingCount": "6",
+                                    "baggage": [
+                                        {
+                                            "units": "Kilograms",
+                                            "amount": 2.0
+                                        }
+                                    ],
+                                    "fareBasisCode": "YIFSQ",
+                                    "airlineCode": "TK"
+                                },
+                                {
+                                    "from": "IST",
+                                    "fromAirport": "Istanbul Airport",
+                                    "to": "EWR",
+                                    "toAirport": "Newark Liberty International Airport",
+                                    "group": 1,
+                                    "departure": "2022-04-26 18:35:00",
+                                    "arrival": "2022-04-26 22:20:00",
+                                    "airline": "Turkish Airlines",
+                                    "flightNumber": "29",
+                                    "segmentCodeRef": "b0tIenRBL3BXREtBMjNWS0FBQUFBQT09fG9LSHp0QS9wV0RLQUI1VktBQUFBQUE9PXxvS0h6dEEvcFdES0E2MlZLQUFBQUFBPT0=",
+                                    "details": [
+                                        {
+                                            "origin": "IST",
+                                            "originName": "Istanbul Airport",
+                                            "originTerminal": null,
+                                            "destination": "EWR",
+                                            "destinationName": "Newark Liberty International Airport",
+                                            "destinationTerminal": null,
+                                            "departure": "2022-04-26 18:35:00",
+                                            "flightTime": "10h 45m",
+                                            "travelTime": "20h 0m",
+                                            "equipment": "Airbus-333"
+                                        }
+                                    ],
+                                    "serviceClass": "Economy",
+                                    "plane": [
+                                        "333"
+                                    ],
+                                    "duration": [
+                                        "10h 45m"
+                                    ],
+                                    "techStops": [
+                                        0
+                                    ],
+                                    "bookingClass": "L",
+                                    "bookingCount": "6",
+                                    "baggage": [
+                                        {
+                                            "units": "Kilograms",
+                                            "amount": 2.0
+                                        }
+                                    ],
+                                    "fareBasisCode": "YIFSQ",
+                                    "airlineCode": "TK"
+                                }
+                            ]
+                        }
+                    ],
+                    [
+                        {
+                            "from": "NYC",
+                            "to": "SIN",
+                            "fromAirport": "All Airports",
+                            "toAirport": "Singapore Changi Airport",
+                            "platingCarrierCode": "TK",
+                            "platingCarrierName": "Turkish Airlines",
+                            "stops": 1,
+                            "segments": [
+                                {
+                                    "from": "JFK",
+                                    "fromAirport": "John F Kennedy International Airport",
+                                    "to": "SIN",
+                                    "toAirport": "Singapore Changi Airport",
+                                    "group": 2,
+                                    "departure": "2022-04-29 20:55:00",
+                                    "arrival": "2022-05-01 06:50:00",
+                                    "airline": "Singapore Airlines",
+                                    "flightNumber": "25",
+                                    "segmentCodeRef": "b0tIenRBL3BXREtBNjNWS0FBQUFBQT09fG9LSHp0QS9wV0RLQUU1VktBQUFBQUE9PXxvS0h6dEEvcFdES0FRM1ZLQUFBQUFBPT0=",
+                                    "details": [
+                                        {
+                                            "origin": "JFK",
+                                            "originName": "John F Kennedy International Airport",
+                                            "originTerminal": "4",
+                                            "destination": "FRA",
+                                            "destinationName": "Frankfurt am Main Airport",
+                                            "destinationTerminal": "1",
+                                            "departure": "2022-04-29 20:55:00",
+                                            "flightTime": "7h 45m",
+                                            "travelTime": "21h 55m",
+                                            "equipment": "Airbus-388"
+                                        },
+                                        {
+                                            "origin": "FRA",
+                                            "originName": "Frankfurt am Main Airport",
+                                            "originTerminal": "1",
+                                            "destination": "SIN",
+                                            "destinationName": "Singapore Changi Airport",
+                                            "destinationTerminal": "0",
+                                            "departure": "2022-04-30 12:30:00",
+                                            "flightTime": "12h 20m",
+                                            "travelTime": "21h 55m",
+                                            "equipment": "Airbus-388"
+                                        }
+                                    ],
+                                    "serviceClass": "Economy",
+                                    "plane": [
+                                        "388"
+                                    ],
+                                    "duration": [
+                                        "21h 55m"
+                                    ],
+                                    "techStops": [
+                                        1
+                                    ],
+                                    "bookingClass": "Y",
+                                    "bookingCount": "9",
+                                    "baggage": [
+                                        {
+                                            "units": "Kilograms",
+                                            "amount": 2.0
+                                        }
+                                    ],
+                                    "fareBasisCode": "YIFSQ",
+                                    "airlineCode": "SQ"
+                                }
+                            ]
+                        }
+                    ]
+                ],
+                "bookingComponents": [
+                    {
+                        "totalPrice": 1857070.0,
+                        "basePrice": 1741650.0,
+                        "taxes": 115420.0,
+                        "fareReference": "oKHztA/pWDKAm4VKAAAAAA==,oKHztA/pWDKAv5VKAAAAAA=="
+                    }
+                ],
+                "passengerFares": {
+                    "adt": {
+                        "totalPrice": 672475.0,
+                        "basePrice": 633335.0,
+                        "equivalentBasePrice": 7451.0,
+                        "taxes": 39140.0,
+                        "taxesBreakdown": [
+                            {
+                                "category": "BD",
+                                "amount": 500.0
+                            },
+                            {
+                                "category": "OW",
+                                "amount": 3000.0
+                            },
+                            {
+                                "category": "P7",
+                                "amount": 850.0
+                            },
+                            {
+                                "category": "P8",
+                                "amount": 850.0
+                            },
+                            {
+                                "category": "UT",
+                                "amount": 4000.0
+                            },
+                            {
+                                "category": "L7",
+                                "amount": 188.0
+                            },
+                            {
+                                "category": "SG",
+                                "amount": 376.0
+                            },
+                            {
+                                "category": "AE",
+                                "amount": 1736.0
+                            },
+                            {
+                                "category": "F6",
+                                "amount": 810.0
+                            },
+                            {
+                                "category": "TP",
+                                "amount": 116.0
+                            },
+                            {
+                                "category": "ZR",
+                                "amount": 232.0
+                            },
+                            {
+                                "category": "TR",
+                                "amount": 467.0
+                            },
+                            {
+                                "category": "AY",
+                                "amount": 476.0
+                            },
+                            {
+                                "category": "US",
+                                "amount": 3350.0
+                            },
+                            {
+                                "category": "XA",
+                                "amount": 337.0
+                            },
+                            {
+                                "category": "XF",
+                                "amount": 383.0
+                            },
+                            {
+                                "category": "XY",
+                                "amount": 595.0
+                            },
+                            {
+                                "category": "YC",
+                                "amount": 520.0
+                            },
+                            {
+                                "category": "RA",
+                                "amount": 2089.0
+                            },
+                            {
+                                "category": "E5",
+                                "amount": 330.0
+                            },
+                            {
+                                "category": "YR",
+                                "amount": 17935.0
+                            }
+                        ]
+                    },
+                    "cnn": {
+                        "totalPrice": 512120.0,
+                        "basePrice": 474980.0,
+                        "equivalentBasePrice": 5588.0,
+                        "taxes": 37140.0,
+                        "taxesBreakdown": [
+                            {
+                                "category": "BD",
+                                "amount": 500.0
+                            },
+                            {
+                                "category": "OW",
+                                "amount": 3000.0
+                            },
+                            {
+                                "category": "P7",
+                                "amount": 850.0
+                            },
+                            {
+                                "category": "P8",
+                                "amount": 850.0
+                            },
+                            {
+                                "category": "UT",
+                                "amount": 2000.0
+                            },
+                            {
+                                "category": "L7",
+                                "amount": 188.0
+                            },
+                            {
+                                "category": "SG",
+                                "amount": 376.0
+                            },
+                            {
+                                "category": "AE",
+                                "amount": 1736.0
+                            },
+                            {
+                                "category": "F6",
+                                "amount": 810.0
+                            },
+                            {
+                                "category": "TP",
+                                "amount": 116.0
+                            },
+                            {
+                                "category": "ZR",
+                                "amount": 232.0
+                            },
+                            {
+                                "category": "TR",
+                                "amount": 467.0
+                            },
+                            {
+                                "category": "AY",
+                                "amount": 476.0
+                            },
+                            {
+                                "category": "US",
+                                "amount": 3350.0
+                            },
+                            {
+                                "category": "XA",
+                                "amount": 337.0
+                            },
+                            {
+                                "category": "XF",
+                                "amount": 383.0
+                            },
+                            {
+                                "category": "XY",
+                                "amount": 595.0
+                            },
+                            {
+                                "category": "YC",
+                                "amount": 520.0
+                            },
+                            {
+                                "category": "RA",
+                                "amount": 2089.0
+                            },
+                            {
+                                "category": "E5",
+                                "amount": 330.0
+                            },
+                            {
+                                "category": "YR",
+                                "amount": 17935.0
+                            }
+                        ]
+                    },
+                    "inf": null,
+                    "ins": null
+                },
+                "passengerCounts": {
+                    "cnn": 1,
+                    "inf": 0,
+                    "adt": 2,
+                    "ins": 0
+                },
+                "bookable": true
+            }
+        ],
+        "airlineFilters": [
+            {
+                "airlineCode": "TK",
+                "airlineName": "Turkish Airlines",
+                "totalFlights": 3,
+                "minPrice": 490893.0
+            }
+        ],
+        "minMaxPrice": {
+            "minPrice": 490893.0,
+            "maxPrice": 1857070.0
+        },
+        "stops": [
+            1
+        ]
+    },
+    "item2": [
+        {
+            "apiRef": 1,
+            "uniqueTransID": "USB1048760617",
+            "isSuccess": false,
+            "requestTime": "16-Apr-2022 04:05:36 PM",
+            "responseTime": "16-Apr-2022 04:05:41 PM",
+            "conversionTime": "16-Apr-2022 04:05:41 PM",
+            "timeTicks": 637857219369302988,
+            "message": null
+        },
+        {
+            "apiRef": 2,
+            "uniqueTransID": "USB1048760617",
+            "isSuccess": true,
+            "requestTime": "16-Apr-2022 04:05:37 PM",
+            "responseTime": "16-Apr-2022 04:05:53 PM",
+            "conversionTime": "16-Apr-2022 04:05:53 PM",
+            "timeTicks": 637857219370927720,
+            "message": null
+        }
+    ]
+}
