@@ -95,6 +95,7 @@ const BookedView = () => {
   let [totalPriceEdited, setTotalPriceEdited] = useState(0);
   let [isFareHide, setIsFareHide] = useState(false);
   let [lastTicketTime, setLastTicketTime] = useState("");
+  let [fareValidationTime, setFareValidationTime] = useState("");
   let [lastTicketTimeReturn, setLastTicketTimeReturn] = useState("");
   let [isLoading, setIsLoading] = useState(false);
   let [isFareChange, setIsFareChange] = useState(false);
@@ -300,6 +301,7 @@ const BookedView = () => {
         setTicketingList(response.data);
       }
       setLastTicketTime(response?.data?.ticketInfo?.lastTicketingTime);
+      setFareValidationTime(response?.data?.ticketInfo?.fareValidationTime)
       // alert(ticketingList[0].uniqueTransID)
       handleGetPassengerList(
         response.data.data[0].passengerIds,
@@ -1656,7 +1658,17 @@ const BookedView = () => {
                                                 {lastTicketTime !== "" &&
                                                 lastTicketTime !== null &&
                                                 lastTicketTime !== undefined ? (
-                                                  lastTicketTime
+                                                  <>
+                                                   <p>Ticketing Time: {lastTicketTime}</p>
+                                                   {/* {
+                                                    fareValidationTime !== "" &&
+                                                    fareValidationTime !== null &&
+                                                    fareValidationTime !== undefined ?
+                                                    <p>Fare Validity: {fareValidationTime}</p> : ''
+                                                   } */}
+                                                   
+                                                  </>
+                                                
                                                 ) : (
                                                   <>
                                                     <a

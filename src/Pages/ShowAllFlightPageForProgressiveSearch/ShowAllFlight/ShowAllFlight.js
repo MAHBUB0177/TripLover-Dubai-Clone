@@ -953,6 +953,14 @@ const ShowAllFlight = ({
       Math.floor(mainJson?.minMaxPrice?.minPrice),
       Math.ceil(mainJson?.minMaxPrice?.maxPrice),
     ]);
+
+       // Reset the baggage array to uncheck all items
+  setBaggageArr((prevItems) =>
+    prevItems.map((item) => ({
+      ...item,
+      isClicked: false,
+    }))
+  );
     setArrivalTime(defaultArrivalTime);
     setDepartTime(defaultDepartTime);
     setFareTypeState(fareTypeList);

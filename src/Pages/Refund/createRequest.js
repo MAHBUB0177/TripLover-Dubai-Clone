@@ -411,8 +411,9 @@ const GetRefund = () => {
                               <th>Select</th>
                               <th>Date</th>
                               <th>LegWise Route</th>
-                              <th>Destination</th>
                               <th>Origin</th>
+                              <th>Destination</th>
+                         
                             </tr>
                           </thead>
 
@@ -442,8 +443,8 @@ const GetRefund = () => {
                                     </span>
                                   </td>
                                   <td>{item.legWiseRoute}</td>
-                                  <td>{item.destination}</td>
                                   <td>{item.origin}</td>
+                                  <td>{item.destination}</td>
                                 </tr>
                               ))}
                           </tbody>
@@ -496,7 +497,7 @@ const GetRefund = () => {
                               )
                         }
                       >
-                        Go Quotation
+                        Get Quotation
                       </Button>
                     </Box>
                   </div>

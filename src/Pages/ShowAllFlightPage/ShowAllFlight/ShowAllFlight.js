@@ -638,6 +638,7 @@ const ShowAllFlight = ({
 //baggage filter functionality
 const stopsFilterArr = stopsFilter(quickFilter, radioname);
 const [baggageArr, setBaggageArr] = useState(findBaggageList(stopsFilterArr));
+console.log(baggageArr,'baggageArr===========')
 
 
 const baggageFilterArr = baggageFilter(stopsFilterArr, baggageArr);
@@ -856,6 +857,14 @@ const handleChangeForDepartBaggage = (e, index) => {
       Math.floor(mainJson?.minMaxPrice?.minPrice),
       Math.ceil(mainJson?.minMaxPrice?.maxPrice),
     ]);
+
+    // Reset the baggage array to uncheck all items
+  setBaggageArr((prevItems) =>
+    prevItems.map((item) => ({
+      ...item,
+      isClicked: false,
+    }))
+  );
     setArrivalTime(defaultArrivalTime);
     setDepartTime(defaultDepartTime);
     setRadioName(0);
