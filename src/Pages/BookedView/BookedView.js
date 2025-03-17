@@ -818,12 +818,17 @@ const BookedView = () => {
   // let uniqueChars = [...new Set(ticketingList.segments.a)];
 
   let newArr = [];
+  let newArrReturn = [];
   ticketingList?.segments?.forEach((item) => {
     if (!newArr.includes(item.airlinePNRs)) {
       newArr.push(item.airlinePNRs);
     }
   });
-
+  ticketingListReturn?.segments?.forEach((item) => {
+    if (!newArrReturn.includes(item.airlinePNRs)) {
+      newArrReturn.push(item.airlinePNRs);
+    }
+  });
   const [isDownloading, setIsDownloading] = useState(false);
   const handleDownloadPdf = async () => {
     setPartialData(true);
@@ -2972,7 +2977,10 @@ const BookedView = () => {
                                             Airline PNR
                                           </td>
                                           <td colSpan={3}>
-                                            {newArr?.map((item) => {
+                                            {/* {newArr?.map((item) => {
+                                              return <span>{item}</span>;
+                                            })} */}
+                                            {newArrReturn?.map((item) => {
                                               return <span>{item}</span>;
                                             })}
                                           </td>
@@ -5155,7 +5163,10 @@ const BookedView = () => {
                                               Airline PNR
                                             </td>
                                             <td colSpan={3}>
-                                              {newArr?.map((item) => {
+                                              {/* {newArr?.map((item) => {
+                                                return <span>{item}</span>;
+                                              })} */}
+                                               {newArrReturn?.map((item) => {
                                                 return <span>{item}</span>;
                                               })}
                                             </td>

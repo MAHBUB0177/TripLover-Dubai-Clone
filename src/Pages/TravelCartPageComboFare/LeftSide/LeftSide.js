@@ -1141,6 +1141,7 @@ const LeftSide = ({
               }
             }
           } else {
+            sessionStorage.setItem("uniqueTransID", JSON.stringify(null));
             setLoading(false);
             toast.error(response.data.item2.message);
             navigate("/farechange");
@@ -1148,6 +1149,7 @@ const LeftSide = ({
         })
         .catch((err) => {
           setLoading(false);
+          sessionStorage.setItem("uniqueTransID", JSON.stringify(null));
           navigate("/farechange");
         });
     }
@@ -1201,11 +1203,13 @@ const LeftSide = ({
           } else {
             setLoading(false);
             toast.error("Booking Failed! please try again.");
+            sessionStorage.setItem("uniqueTransID", JSON.stringify(null));
             navigate("/failedbooking");
           }
         })
         .catch((err) => {
           setLoading(false);
+          sessionStorage.setItem("uniqueTransID", JSON.stringify(null));
           navigate("/failedbooking");
         });
     }

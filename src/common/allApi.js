@@ -888,3 +888,14 @@ export const requestComboTicket = (payload) => {
   let url = environment.comboTicket;
   return axiosInstance.post(url, payload);
 };
+
+
+export const bookingcodes = (payload) => {
+  let url = environment.bookingcodes;
+  return axiosInstance.post(url,payload)
+} 
+
+export const validateCheck = (payload) => {
+  let url = environment.validateCheck;
+  return axiosInstance.post(url,payload)
+} 

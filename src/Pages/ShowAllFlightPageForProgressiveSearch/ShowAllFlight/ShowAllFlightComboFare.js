@@ -259,7 +259,7 @@ const ShowAllFlightComboFare = ({
                 fetchFlighReturn?.minMaxPrice?.maxPrice
               ),
             },
-            currency : "BDT"
+            currency : "AED"
           });
         }
       }

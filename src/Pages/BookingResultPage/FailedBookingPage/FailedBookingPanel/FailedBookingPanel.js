@@ -34,7 +34,7 @@ const FailedBookingPanel = () => {
                         </p>
                         <p>
                           Reference number :{" "}
-                          {comboFare && comboFare?.item[0]?.uniqueTransID}{" "}
+                          {comboFare && comboFare?.item[1]?.uniqueTransID}{" "}
                         </p>
                       </>
                     )}

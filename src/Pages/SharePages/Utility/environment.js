@@ -8,8 +8,8 @@
 // const baseURL = "https://api.Triplover.com/";
 
 
-// const baseURL = "https://dev-webapi.travelchamp.com/";
-const baseURL = "http://13.229.80.34:92/";
+const baseURL = "https://dev-webapi.travelchamp.com/";
+// const baseURL = "http://13.229.80.34:92/";
 // const baseURL = "http://18.138.98.64:210/";
 // const newSearch = "https://dev-webapi.Triplover.com/api/search";
 const newSearch = "http://13.229.80.34:96/api/Search/";
@@ -32,6 +32,8 @@ export const environment = {
   locationURL: baseApiURL,
   paymentGatewayLink: "https://b2b.Triplover.com/payment?",
   ProgressiveSearch: newSearch + "Progressive",
+  bookingcodes: newSearch + "bookingcodes",
+  validateCheck: newSearch + "validate",
   s3URL: "https://tcluploaddocument.s3.ap-southeast-1.amazonaws.com/",
   s3ArliensImage:
     "https://tcluploaddocument.s3.ap-southeast-1.amazonaws.com/AirlineLogos/",
@@ -259,7 +261,7 @@ export const environment = {
   requestVoid: baseApiURL + "FlightExchangeVoid/RequestVoid",
   getVoidRequestAccept:
     baseApiURL + "FlightExchangeVoid/VoidQuotationAcceptReject",
-  isProgressiveSearch: true,
+  isProgressiveSearch: false,
 
   getBasicInfoForReissueRequest:
     baseApiURL + "FlightExchangeReissue/GetBasicInfoForReissueRequest",
