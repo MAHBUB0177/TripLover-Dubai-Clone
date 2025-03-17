@@ -37,6 +37,8 @@ const ShowModal = ({
   selectedBrandedFareIdx,
   notes,
 }) => {
+
+  console.log(direction0,'direction0=============')
   const searchData = JSON.parse(sessionStorage.getItem("Database"));
   const ImageUrlD =
     environment.s3ArliensImage + `${direction0.platingCarrierCode}.png`;
