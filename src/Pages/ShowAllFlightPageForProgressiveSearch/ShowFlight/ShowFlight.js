@@ -782,6 +782,7 @@ const ShowFlight = (props) => {
     onClose: onClose4,
   } = useDisclosure();
   const [bookingClasses, setBookingClasses] = useState({});
+  console.log(bookingClasses,'bookingClasses=========')
   const btnRef = React.useRef();
 
   const handleChangeBookingClass = async () => {
@@ -912,6 +913,7 @@ const ShowFlight = (props) => {
   };
 
   const [newBookingClassRes, setNewBookingClassRes] = useState({});
+  console.log(newBookingClassRes,'newBookingClassRes===')
   const handleGetFare = async () => {
     try {
       let payload = {

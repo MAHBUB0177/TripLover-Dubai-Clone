@@ -108,6 +108,7 @@ const LeftSide = ({
     sessionStorage.getItem("extraBaggageAllowedPTC")
   );
   const fullObj = JSON.parse(sessionStorage.getItem("fullObj"));
+  console.log(fullObj,'fullObj===============')
   const brandedFareSelectedIdx = JSON.parse(
     sessionStorage.getItem("brandedFareSelectedIdx")
   );

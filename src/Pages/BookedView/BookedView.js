@@ -298,14 +298,14 @@ const BookedView = () => {
         }
       } else {
         setJourneyType("ONWARD");
-        setTicketingList(response.data);
+        setTicketingList(response?.data);
       }
       setLastTicketTime(response?.data?.ticketInfo?.lastTicketingTime);
       setFareValidationTime(response?.data?.ticketInfo?.fareValidationTime)
       // alert(ticketingList[0].uniqueTransID)
       handleGetPassengerList(
-        response.data.data[0].passengerIds,
-        response.data.data[0].uniqueTransID
+        response?.data?.data[0]?.passengerIds,
+        response?.data?.data[0]?.uniqueTransID
       );
       handleGetSegmentList(response.data.data[0].uniqueTransID);
       sessionStorage.setItem(
