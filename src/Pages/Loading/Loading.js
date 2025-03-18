@@ -46,7 +46,7 @@ const Loading = ({ flag, loading,originCode,destinationCode,tripType }) => {
               <div class="text-center my-4">
                 {flag === 0 ? (
                   <>
-                    <p className="fw-bold text-center pt-2" style={{fontSize:"12px"}}>
+                    <p className="fw-bold text-center pt-2" style={{fontSize:"12px",color:'#7C04C0' }}>
                       Getting The Best Deals From Airlines...
                     </p>
                     <img
@@ -55,7 +55,7 @@ const Loading = ({ flag, loading,originCode,destinationCode,tripType }) => {
                       alt="fly plan"
                       width={"60%"}
                     />
-                    <h6 className="text-center fw-bold my-3">
+                    <h6 className="text-center fw-bold my-3" style={{color:'#7C04C0' }}>
                       {originCode[0]}
                       {tripType === "One Way" ? (
                         <span class="mx-2">
@@ -70,7 +70,7 @@ const Loading = ({ flag, loading,originCode,destinationCode,tripType }) => {
                     </h6>
                     <span
                       className="text-center my-2"
-                      style={{ fontSize: "12px" }}
+                      style={{ fontSize: "12px",color:'#7C04C0' }}
                     >
                       {searchData.qtyList.Adult > 0
                         ? "Adults " + searchData.qtyList.Adult
