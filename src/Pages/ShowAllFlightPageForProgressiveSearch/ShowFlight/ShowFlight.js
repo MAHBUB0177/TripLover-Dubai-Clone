@@ -27,20 +27,26 @@ import {
   Box,
   Button,
   Center,
+  Drawer,
+  DrawerBody,
+  DrawerCloseButton,
+  DrawerContent,
+  DrawerHeader,
+  DrawerOverlay,
   Modal,
   ModalBody,
   ModalCloseButton,
   ModalContent,
   ModalHeader,
   ModalOverlay,
-  Popover,
-  PopoverArrow,
-  PopoverBody,
-  PopoverCloseButton,
-  PopoverContent,
-  PopoverHeader,
-  PopoverTrigger,
-  Portal,
+  // Popover,
+  // PopoverArrow,
+  // PopoverBody,
+  // PopoverCloseButton,
+  // PopoverContent,
+  // PopoverHeader,
+  // PopoverTrigger,
+  // Portal,
   Text,
   Tooltip,
   useDisclosure,
@@ -55,6 +61,9 @@ import { FaChevronCircleDown } from "react-icons/fa";
 import { FaChevronCircleUp } from "react-icons/fa";
 import { TbBrandBooking } from "react-icons/tb";
 import { GiWaterRecycling } from "react-icons/gi";
+import { bookingcodes, validateCheck } from "../../../common/allApi";
+import ShowFlightDataRbd from "./ShowFlightDataRbd";
+
 
 const ShowFlight = (props) => {
   const [grandTotal, setGrandTotal] = useState();
@@ -765,6 +774,246 @@ const ShowFlight = (props) => {
     });
     sessionStorage.setItem("checkList", JSON.stringify(updatedList));
   }, [selectedBrandedFareIdx]);
+
+
+  const {
+    isOpen: isOpen4,
+    onOpen: onOpen4,
+    onClose: onClose4,
+  } = useDisclosure();
+  const [bookingClasses, setBookingClasses] = useState({});
+  const btnRef = React.useRef();
+
+  const handleChangeBookingClass = async () => {
+    let bookingClassNames = [];
+    try {
+      let payload = {
+        itemCodeRef: itemCodeRef,
+        uniqueTransId: uniqueTransID,
+        itemCodeDetail: null,
+        tripRequests: [],
+      };
+      if (Object.keys(direction0).length > 0) {
+        let segmentRefs = [];
+        let bookingClass = [];
+        direction0.segments.map((i) => segmentRefs.push(i.segmentCodeRef));
+        direction0.segments.map((i) =>
+          bookingClass.push({
+            rbd: i.bookingClass,
+            segmentRef: i.segmentCodeRef,
+          })
+        );
+        bookingClassNames.push(bookingClass);
+        payload.tripRequests.push({
+          segmentRefs: segmentRefs,
+        });
+      }
+      if (Object.keys(direction1).length > 0) {
+        let segmentRefs = [];
+        let bookingClass = [];
+        direction1.segments.map((i) => segmentRefs.push(i.segmentCodeRef));
+        direction1.segments.map((i) =>
+          bookingClass.push({
+            rbd: i.bookingClass,
+            segmentRef: i.segmentCodeRef,
+          })
+        );
+        bookingClassNames.push(bookingClass);
+        payload.tripRequests.push({
+          segmentRefs: segmentRefs,
+        });
+      }
+      if (Object.keys(direction2).length > 0) {
+        let segmentRefs = [];
+        let bookingClass = [];
+        direction2.segments.map((i) => segmentRefs.push(i.segmentCodeRef));
+        direction2.segments.map((i) =>
+          bookingClass.push({
+            rbd: i.bookingClass,
+            segmentRef: i.segmentCodeRef,
+          })
+        );
+        bookingClassNames.push(bookingClass);
+        payload.tripRequests.push({
+          segmentRefs: segmentRefs,
+        });
+      }
+      if (Object.keys(direction3).length > 0) {
+        let segmentRefs = [];
+        let bookingClass = [];
+        direction3.segments.map((i) => segmentRefs.push(i.segmentCodeRef));
+        direction3.segments.map((i) =>
+          bookingClass.push({
+            rbd: i.bookingClass,
+            segmentRef: i.segmentCodeRef,
+          })
+        );
+        bookingClassNames.push(bookingClass);
+        payload.tripRequests.push({
+          segmentRefs: segmentRefs,
+        });
+      }
+      if (Object.keys(direction4).length > 0) {
+        let segmentRefs = [];
+        let bookingClass = [];
+        direction4.segments.map((i) => segmentRefs.push(i.segmentCodeRef));
+        direction4.segments.map((i) =>
+          bookingClass.push({
+            rbd: i.bookingClass,
+            segmentRef: i.segmentCodeRef,
+          })
+        );
+        bookingClassNames.push(bookingClass);
+        payload.tripRequests.push({
+          segmentRefs: segmentRefs,
+        });
+      }
+      if (Object.keys(direction5).length > 0) {
+        let segmentRefs = [];
+        let bookingClass = [];
+        direction5.segments.map((i) => segmentRefs.push(i.segmentCodeRef));
+        direction5.segments.map((i) =>
+          bookingClassNames.push({
+            rbd: i.bookingClass,
+            segmentRef: i.segmentCodeRef,
+          })
+        );
+        bookingClassNames.push(bookingClass);
+        payload.tripRequests.push({
+          segmentRefs: segmentRefs,
+        });
+      }
+      if (Object.keys(direction0).length > 0) {
+      }
+      setSelectedNames(bookingClassNames);
+      const response = await bookingcodes(payload);
+      if (response.data) {
+        setBookingClasses(response.data);
+        onOpen4();
+      }
+    } catch (e) {
+      toast.error("Please try again.");
+    }
+  };
+
+  const [selectedNames, setSelectedNames] = useState([]);
+
+  const handleSelect = (rbd, index, segIndex) => {
+    const updatedNames = [...selectedNames];
+    if (updatedNames[index]?.[segIndex]?.rbd === rbd) {
+      updatedNames[index][segIndex] = null;
+    } else {
+      updatedNames[index][segIndex] = {
+        ...updatedNames[index][segIndex],
+        rbd: rbd,
+      };
+    }
+    setSelectedNames(updatedNames);
+  };
+
+  const [newBookingClassRes, setNewBookingClassRes] = useState({});
+  const handleGetFare = async () => {
+    try {
+      let payload = {
+        uniqueTransID: uniqueTransID,
+        itemCodeRef: itemCodeRef,
+        segmentList: selectedNames,
+      };
+      const response = await validateCheck(payload);
+      setNewBookingClassRes(response?.data);
+    } catch (e) {
+      toast.error("Please try again.");
+    }
+  };
+
+  const handleNewBookingClassBookBtn = () => {
+    sessionStorage.setItem("fullObj", JSON.stringify(newBookingClassRes));
+    sessionStorage.setItem(
+      "uniqueTransID",
+      JSON.stringify(newBookingClassRes?.uniqueTransID)
+    );
+    sessionStorage.setItem(
+      "bookable",
+      JSON.stringify(newBookingClassRes?.bookable)
+    );
+    sessionStorage.setItem(
+      "itemCodeRef",
+      JSON.stringify(newBookingClassRes?.itemCodeRef)
+    );
+    sessionStorage.setItem(
+      "direction0",
+      JSON.stringify(newBookingClassRes?.directions[0][0])
+    );
+    sessionStorage.setItem(
+      "direction1",
+      JSON.stringify(
+        newBookingClassRes?.directions?.length > 1
+          ? newBookingClassRes?.directions[1][0]
+          : []
+      )
+    );
+    sessionStorage.setItem(
+      "direction2",
+      JSON.stringify(
+        newBookingClassRes?.directions?.length > 2
+          ? newBookingClassRes?.directions[2][0]
+          : []
+      )
+    );
+    sessionStorage.setItem(
+      "direction3",
+      JSON.stringify(
+        newBookingClassRes?.directions?.length > 3
+          ? newBookingClassRes?.directions[3][0]
+          : []
+      )
+    );
+    sessionStorage.setItem(
+      "direction4",
+      JSON.stringify(
+        newBookingClassRes?.directions?.length > 4
+          ? newBookingClassRes?.directions[4][0]
+          : []
+      )
+    );
+    sessionStorage.setItem(
+      "direction5",
+      JSON.stringify(
+        newBookingClassRes?.directions?.length > 5
+          ? newBookingClassRes?.directions[5][0]
+          : []
+      )
+    );
+    sessionStorage.setItem(
+      "totalPrice",
+      JSON.stringify(
+        newBookingClassRes?.brandedFares !== null &&
+          newBookingClassRes?.brandedFares !== undefined &&
+          newBookingClassRes?.brandedFares?.length > 0
+          ? newBookingClassRes?.brandedFares[selectedBrandedFareIdx]?.totalFare
+          : newBookingClassRes?.totalPrice
+      )
+    );
+    sessionStorage.setItem(
+      "passengerFares",
+      JSON.stringify(newBookingClassRes?.passengerFares)
+    );
+    sessionStorage.setItem(
+      "passengerCounts",
+      JSON.stringify(newBookingClassRes?.passengerCounts)
+    );
+    sessionStorage.setItem(
+      "bookingComponents",
+      JSON.stringify(newBookingClassRes?.bookingComponents)
+    );
+    sessionStorage.setItem(
+      "refundable",
+      JSON.stringify(newBookingClassRes?.refundable)
+    );
+    navigate("/travellcart");
+  };
+
+
   return (
     <>
       <>
@@ -3696,12 +3945,26 @@ const ShowFlight = (props) => {
               </span>
             </h6> */}
             <span
-              className="btn btn-sm w-100 fw-bold border-radius button-color px-2 text-white font-size"
+              className="btn btn-sm w-100 fw-bold border-radius button-color px-2 text-white font-size mb-1"
               style={{ cursor: "pointer" }}
               onClick={() => onOpen3()}
             >
               Price Breakdown
             </span>
+
+            <span
+              className="btn btn-sm w-100 fw-bold border-radius button-color px-2 text-white font-size"
+              style={{ cursor: "pointer" }}
+              onClick={() => {
+                handleChangeBookingClass();
+                setNewBookingClassRes({});
+              }}
+              ref={btnRef}
+              colorScheme="teal"
+            >
+              Change Booking Class
+            </span>
+
             {/* <p className="text-color text-center font-size">
               {refundable === true ? "Refundable" : "Non-Refundable"}
             </p> */}
@@ -6089,6 +6352,190 @@ const ShowFlight = (props) => {
           </ModalBody>
         </ModalContent>
       </Modal>
+
+      {/* //change booking class */}
+      <Drawer
+        isOpen={isOpen4}
+        placement="right"
+        onClose={onClose4}
+        finalFocusRef={btnRef}
+        size={"xl"}
+      >
+        <DrawerOverlay />
+        <DrawerContent>
+          <DrawerCloseButton />
+          <DrawerHeader>Change Booking Class</DrawerHeader>
+
+          <DrawerBody>
+            <div className="px-2">
+              {bookingClasses?.journey?.map((item, index) => (
+                <div key={index}>
+                  {item?.segments?.map((segment, segIndex) => (
+                    <React.Fragment key={segIndex}>
+                      {/* Rendering airlineCode */}
+                      <div className="d-flex justify-content-between align-items-center w-100 my-3">
+                        <div className="d-flex gap-3">
+                          <img
+                            src={
+                              environment.s3ArliensImage +
+                              `${directions?.[index]?.[0]?.segments?.[segIndex]?.airlineCode}.png`
+                            }
+                            alt="Airline logo"
+                            width="40px"
+                            height="40px"
+                            className="mb-1 rounded-2"
+                          />
+                          <div>
+                            <p className="fw-bold">
+                              {
+                                directions?.[index]?.[0]?.segments?.[segIndex]
+                                  ?.airline
+                              }
+                            </p>
+                            <p style={{ fontSize: "12px" }}>
+                              {
+                                directions?.[index]?.[0]?.segments?.[segIndex]
+                                  ?.details?.[0]?.equipment
+                              }
+                            </p>
+                          </div>
+                        </div>
+                        <div className="fs-5 fw-bold">
+                          {directions?.[index]?.[0]?.segments?.[
+                            segIndex
+                          ]?.departure?.substr(11, 5)}
+                        </div>
+                        <div className="fs-5 fw-bold">
+                          {directions?.[index]?.[0]?.segments?.[
+                            segIndex
+                          ]?.arrival?.substr(11, 5)}
+                        </div>
+                        <div className="fs-5 fw-bold">
+                          {
+                            directions?.[index]?.[0]?.segments?.[segIndex]
+                              ?.duration?.[0]
+                          }
+                        </div>
+                      </div>
+
+                      {/* Mapping booking classes */}
+                      <div
+                        className="d-flex py-2 px-3"
+                        style={{ backgroundColor: "#d1d8df" }}
+                      >
+                        {segment?.bookingClasses?.map((name, subIndex) => {
+                          const totalItems =
+                            item?.segments?.[0]?.bookingClasses?.length;
+                          return (
+                            <div key={subIndex}>
+                              <button
+                                className={
+                                  selectedNames[index]?.[segIndex]?.rbd ===
+                                  name?.bookingClassName
+                                    ? "button-secondary-color rounded p-2 m-1 text-white"
+                                    : "bg-light rounded p-2 m-1"
+                                }
+                                style={{ cursor: "pointer" }}
+                                onClick={() =>
+                                  handleSelect(
+                                    name?.bookingClassName,
+                                    index,
+                                    segIndex
+                                  )
+                                }
+                                disabled={
+                                  selectedNames[index]?.[segIndex]?.rbd ===
+                                  name?.bookingClassName
+                                }
+                              >
+                                {name?.bookingClassName} {name?.seatCount}
+                                {subIndex === totalItems - 1 && <br />}
+                              </button>
+                            </div>
+                          );
+                        })}
+                      </div>
+                    </React.Fragment>
+                  ))}
+                </div>
+              ))}
+
+              <div className="d-flex justify-content-end my-3">
+                <button
+                  type="submit"
+                  className="btn button-color text-white fw-bold w-auto border-radius"
+                  onClick={handleGetFare}
+                >
+                  {" "}
+                  Get Fare
+                </button>
+              </div>
+              {Object.keys(newBookingClassRes).length !== 0 && (
+                <div className="d-flex justify-content-end my-3">
+                  <button
+                    type="submit"
+                    className="btn button-color text-white fw-bold w-auto border-radius"
+                    onClick={handleNewBookingClassBookBtn}
+                  >
+                    {" "}
+                    Book Now
+                  </button>
+                </div>
+              )}
+            </div>
+
+            {Object.keys(newBookingClassRes).length !== 0 && (
+              <ShowFlightDataRbd
+                flightType={flightType}
+                direction0={newBookingClassRes?.directions[0][0]}
+                direction1={
+                  newBookingClassRes?.directions?.length > 1
+                    ? newBookingClassRes?.directions[1][0]
+                    : []
+                }
+                direction2={
+                  newBookingClassRes?.directions?.length > 2
+                    ? newBookingClassRes?.directions[2][0]
+                    : []
+                }
+                direction3={
+                  newBookingClassRes?.directions?.length > 3
+                    ? newBookingClassRes?.directions[3][0]
+                    : []
+                }
+                direction4={
+                  newBookingClassRes?.directions?.length > 4
+                    ? newBookingClassRes?.directions[4][0]
+                    : []
+                }
+                direction5={
+                  newBookingClassRes?.directions?.length > 5
+                    ? newBookingClassRes?.directions[5][0]
+                    : []
+                }
+                totalPrice={newBookingClassRes.totalPrice}
+                bookingComponents={newBookingClassRes.bookingComponents}
+                refundable={newBookingClassRes.refundable}
+                uniqueTransID={newBookingClassRes.uniqueTransID}
+                itemCodeRef={newBookingClassRes.itemCodeRef}
+                passengerCounts={newBookingClassRes.passengerCounts}
+                passengerFares={newBookingClassRes.passengerFares}
+                currency={newBookingClassRes.currency}
+                brandedFares={newBookingClassRes.brandedFares}
+                selectedBrandedFareIdx={selectedBrandedFareIdx}
+              />
+            )}
+          </DrawerBody>
+
+          {/* <DrawerFooter>
+            <Button variant='outline' mr={3} onClick={onClose}>
+              Cancel
+            </Button>
+            <Button colorScheme='blue'>Save</Button>
+          </DrawerFooter> */}
+        </DrawerContent>
+      </Drawer>
+
     </>
   );
 };

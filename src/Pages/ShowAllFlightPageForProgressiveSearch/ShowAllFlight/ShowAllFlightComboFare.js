@@ -2,6 +2,12 @@ import {
   Box,
   Button,
   Center,
+  Drawer,
+  DrawerBody,
+  DrawerCloseButton,
+  DrawerContent,
+  DrawerHeader,
+  DrawerOverlay,
   Flex,
   HStack,
   Icon,
@@ -19,7 +25,7 @@ import {
 import $ from "jquery";
 import React, { useEffect, useRef, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { ToastContainer } from "react-toastify";
+import { toast, ToastContainer } from "react-toastify";
 import useAuth from "../../../hooks/useAuth";
 import Loading from "../../Loading/Loading";
 import NoDataFoundPage from "../../NoDataFoundPage/NoDataFoundPage/NoDataFoundPage";
@@ -50,6 +56,9 @@ import Card from "../DomesticFlightCard/card";
 import FlightDetails from "../DomesticFlightCard/flightDetails";
 import BrandedFareForCombo from "../DomesticFlightCard/brandedFare";
 import { IoMdWarning } from "react-icons/io";
+import ShowFlightDataRbd from "../ShowFlight/ShowFlightDataRbd";
+import { bookingcodes, validateCheck } from "../../../common/allApi";
+import ShowFlightDataRbdReturn from "../ShowFlight/ShowFlightDataRbdReturn";
 
 const CountdownWrapper = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -232,7 +241,7 @@ const ShowAllFlightComboFare = ({
 
   const combinedAirlines = [
     ...(fetchFlighDeparture?.airlineFilters || []),
-    ...(fetchFlighReturn?.airlineFilters || [])
+    ...(fetchFlighReturn?.airlineFilters || []),
   ];
 
   useEffect(() => {
@@ -244,10 +253,12 @@ const ShowAllFlightComboFare = ({
         if (fetchFlighDeparture.isComboFare) {
           setMainJsonData({
             airlineFilters: Array.from(
-              combinedAirlines.reduce((map, airline) => {
-                map.set(airline.airlineCode, airline);
-                return map;
-              }, new Map()).values()
+              combinedAirlines
+                .reduce((map, airline) => {
+                  map.set(airline.airlineCode, airline);
+                  return map;
+                }, new Map())
+                .values()
             ),
             minMaxPrice: {
               minPrice: Math.min(
@@ -259,7 +270,7 @@ const ShowAllFlightComboFare = ({
                 fetchFlighReturn?.minMaxPrice?.maxPrice
               ),
             },
-            currency : "AED"
+            currency: "BDT",
           });
         }
       }
@@ -1719,6 +1730,182 @@ const ShowAllFlightComboFare = ({
       setIsFirstLoadReturn(false);
     }
   }, [flightsDataReturn, isFirstLoadReturn, loading]);
+
+  // RBD CHANGED
+  const {
+    isOpen: isOpen5,
+    onOpen: onOpen5,
+    onClose: onClose5,
+  } = useDisclosure();
+  const [bookingClasses, setBookingClasses] = useState({});
+  const [bookingClassesReturn, setBookingClassesReturn] = useState({});
+  const btnRef = React.useRef();
+
+  const handleChangeBookingClass = async () => {
+    let bookingClassNames = [];
+    try {
+      let payload = {
+        itemCodeRef: comboFare?.item[0]?.itemCodeRef,
+        uniqueTransId: comboFare?.item[0]?.uniqueTransID,
+        itemCodeDetail: null,
+        tripRequests: [],
+      };
+      if (comboFare?.departure.length > 0) {
+        let segmentRefs = [];
+        let bookingClass = [];
+        comboFare?.departure[0].segments.map((i) =>
+          segmentRefs.push(i.segmentCodeRef)
+        );
+        comboFare?.departure[0].segments.map((i) =>
+          bookingClass.push({
+            rbd: i.bookingClass,
+            segmentRef: i.segmentCodeRef,
+          })
+        );
+        bookingClassNames.push(bookingClass);
+        payload.tripRequests.push({
+          segmentRefs: segmentRefs,
+        });
+      }
+      setSelectedNames(bookingClassNames);
+      const response = await bookingcodes(payload);
+      if (response.data) {
+        setBookingClasses(response.data);
+        onOpen5();
+      }
+    } catch (e) {
+      toast.error("Please try again.");
+    }
+  };
+  const handleChangeBookingClassReturn = async () => {
+    let bookingClassNames = [];
+    try {
+      let payload = {
+        itemCodeRef: comboFare?.item[1]?.itemCodeRef,
+        uniqueTransId: comboFare?.item[1]?.uniqueTransID,
+        itemCodeDetail: null,
+        tripRequests: [],
+      };
+
+      if (comboFare?.return.length > 0) {
+        let segmentRefs = [];
+        let bookingClass = [];
+        comboFare?.return[0]?.segments.map((i) =>
+          segmentRefs.push(i.segmentCodeRef)
+        );
+        comboFare?.return[0]?.segments.map((i) =>
+          bookingClass.push({
+            rbd: i.bookingClass,
+            segmentRef: i.segmentCodeRef,
+          })
+        );
+        bookingClassNames.push(bookingClass);
+        payload.tripRequests.push({
+          segmentRefs: segmentRefs,
+        });
+      }
+      setSelectedNamesReturn(bookingClassNames);
+      const response = await bookingcodes(payload);
+      if (response.data) {
+        setBookingClassesReturn(response.data);
+        // onOpen4();
+      }
+    } catch (e) {
+      toast.error("Please try again.");
+    }
+  };
+
+  const [selectedNames, setSelectedNames] = useState([]);
+  const [selectedNamesReturn, setSelectedNamesReturn] = useState([]);
+
+  const handleSelect = (rbd, index, segIndex) => {
+    const updatedNames = [...selectedNames];
+    if (updatedNames[index]?.[segIndex]?.rbd === rbd) {
+      updatedNames[index][segIndex] = null;
+    } else {
+      updatedNames[index][segIndex] = {
+        ...updatedNames[index][segIndex],
+        rbd: rbd,
+      };
+    }
+    setSelectedNames(updatedNames);
+  };
+
+  const handleSelectReturnRBD = (rbd, index, segIndex) => {
+    const updatedNames = [...selectedNamesReturn];
+    if (updatedNames[index]?.[segIndex]?.rbd === rbd) {
+      updatedNames[index][segIndex] = null;
+    } else {
+      updatedNames[index][segIndex] = {
+        ...updatedNames[index][segIndex],
+        rbd: rbd,
+      };
+    }
+    setSelectedNamesReturn(updatedNames);
+  };
+
+  const [newBookingClassRes, setNewBookingClassRes] = useState({});
+  const [newBookingClassResReturn, setNewBookingClassResReturn] = useState({});
+
+  const handleGetFare = async () => {
+    try {
+      let payload = {
+        uniqueTransID: comboFare?.item[0]?.uniqueTransID,
+        itemCodeRef: comboFare?.item[0]?.itemCodeRef,
+        segmentList: selectedNames,
+      };
+      const response = await validateCheck(payload);
+      setNewBookingClassRes(response?.data);
+    } catch (e) {
+      toast.error("Please try again.");
+    }
+  };
+
+  const handleGetFareReturn = async () => {
+    try {
+      let payload = {
+        uniqueTransID: comboFare?.item[1]?.uniqueTransID,
+        itemCodeRef: comboFare?.item[1]?.itemCodeRef,
+        segmentList: selectedNamesReturn,
+      };
+      const response = await validateCheck(payload);
+      setNewBookingClassResReturn(response?.data);
+    } catch (e) {
+      toast.error("Please try again.");
+    }
+  };
+
+  const handleNewBookingClassBookBtn = () => {
+   sessionStorage.setItem(
+      "direction0",
+      JSON.stringify(newBookingClassRes?.directions[0][0])
+    );
+    sessionStorage.setItem(
+      "direction0",
+      JSON.stringify(newBookingClassResReturn?.directions[0][0])
+    );
+    let obj = {
+      item: [newBookingClassRes, newBookingClassResReturn],
+      departure: [newBookingClassRes?.directions[0][0]],
+      departureInx: 0,
+      return: [newBookingClassResReturn?.directions[0][0]],
+      returnIdx: 0,
+      groupDepartIndex: 0,
+      groupReturnIndex: 0,
+    };
+
+    sessionStorage.setItem("direction2", JSON.stringify([]));
+    sessionStorage.setItem("direction3", JSON.stringify([]));
+    sessionStorage.setItem("direction4", JSON.stringify([]));
+    sessionStorage.setItem("direction5", JSON.stringify([]));
+    sessionStorage.setItem("comboFare", JSON.stringify(obj));
+    sessionStorage.setItem(
+      "bookable",
+      JSON.stringify(newBookingClassResReturn?.bookable)
+    );
+    navigate("/travellcartcombofare");
+  };
+
   return (
     <div>
       <ToastContainer position="bottom-right" autoClose={1500} />
@@ -1814,14 +2001,14 @@ const ShowAllFlightComboFare = ({
                       className="float-start fw-bold"
                       style={{ fontSize: "13px" }}
                     >
-                      MIN {currency !== undefined ? currency : "AED"}{" "}
+                      MIN {currency !== undefined ? currency : "BDT"}{" "}
                       {filterPrice[0].toLocaleString("en-US")}
                     </span>
                     <span
                       className="float-end fw-bold"
                       style={{ fontSize: "13px" }}
                     >
-                      MAX {currency !== undefined ? currency : "AED"}{" "}
+                      MAX {currency !== undefined ? currency : "BDT"}{" "}
                       {filterPrice[1].toLocaleString("en-US")}
                     </span>
                   </div>
@@ -2029,7 +2216,7 @@ const ShowAllFlightComboFare = ({
                           className="fw-bold float-end"
                           style={{ fontSize: "13px" }}
                         >
-                          {currency !== undefined ? currency : "AED"}{" "}
+                          {currency !== undefined ? currency : "BDT"}{" "}
                           {item.minPrice.toLocaleString("en-US")}
                         </span>
                         <br></br>
@@ -2565,7 +2752,7 @@ const ShowAllFlightComboFare = ({
                                   <Text fontWeight={400}>
                                     <span className="fw-bold">{item.code}</span>
                                     <br></br>
-                                    {item?.totalFlights} Flights <br></br> AED{" "}
+                                    {item?.totalFlights} Flights <br></br> BDT{" "}
                                     {parseInt(item?.minPrice)}
                                   </Text>
                                 </Box>
@@ -3089,7 +3276,7 @@ const ShowAllFlightComboFare = ({
                                 <>
                                   <div>
                                     <span className="fw-bold">
-                                      AED{" "}
+                                      BDT{" "}
                                       {comboFare?.item[0]?.brandedFares !== null
                                         ? comboFare?.item[0]?.brandedFares?.[
                                             comboFare?.departureInx
@@ -3105,7 +3292,7 @@ const ShowAllFlightComboFare = ({
                                       className="fw-bold"
                                       style={{ fontSize: "13px" }}
                                     >
-                                      AED{" "}
+                                      BDT{" "}
                                       {comboFare?.item[0]?.brandedFares !== null
                                         ? (
                                             comboFare?.item[0]?.brandedFares?.[
@@ -3129,7 +3316,7 @@ const ShowAllFlightComboFare = ({
                               ) : (
                                 <div>
                                   <span className="fw-bold">
-                                    AED{" "}
+                                    BDT{" "}
                                     {comboFare?.item[0]?.brandedFares !== null
                                       ? (
                                           comboFare?.item[0]?.brandedFares?.[
@@ -3225,7 +3412,7 @@ const ShowAllFlightComboFare = ({
                                 <>
                                   <div>
                                     <span className="fw-bold">
-                                      AED{" "}
+                                      BDT{" "}
                                       {comboFare?.item[1]?.brandedFares !== null
                                         ? comboFare?.item[1]?.brandedFares?.[
                                             comboFare?.returnIdx
@@ -3241,7 +3428,7 @@ const ShowAllFlightComboFare = ({
                                       className="fw-bold"
                                       style={{ fontSize: "13px" }}
                                     >
-                                      AED{" "}
+                                      BDT{" "}
                                       {comboFare?.item[1]?.brandedFares !== null
                                         ? (
                                             comboFare?.item[1]?.brandedFares?.[
@@ -3265,7 +3452,7 @@ const ShowAllFlightComboFare = ({
                               ) : (
                                 <div>
                                   <span className="fw-bold">
-                                    AED{" "}
+                                    BDT{" "}
                                     {comboFare?.item[1]?.brandedFares !== null
                                       ? (
                                           comboFare?.item[1]?.brandedFares?.[
@@ -3306,7 +3493,7 @@ const ShowAllFlightComboFare = ({
                             <>
                               <div>
                                 <span className="fw-bold">
-                                  AED{" "}
+                                  BDT{" "}
                                   {comboFare?.item[0]?.brandedFares !== null &&
                                   comboFare?.item[1]?.brandedFares !== null
                                     ? (
@@ -3355,7 +3542,7 @@ const ShowAllFlightComboFare = ({
                                   className="fw-bold"
                                   style={{ fontSize: "13px" }}
                                 >
-                                  AED{" "}
+                                  BDT{" "}
                                   {comboFare?.item[0]?.brandedFares !== null &&
                                   comboFare?.item[1]?.brandedFares !== null
                                     ? (
@@ -3422,7 +3609,7 @@ const ShowAllFlightComboFare = ({
                           ) : (
                             <div>
                               <span className="fw-bold">
-                                AED{" "}
+                                BDT{" "}
                                 {comboFare?.item[0]?.brandedFares !== null &&
                                 comboFare?.item[1]?.brandedFares !== null
                                   ? (
@@ -3489,6 +3676,20 @@ const ShowAllFlightComboFare = ({
                         >
                           BOOK NOW
                         </button>
+                        <div
+                          className="btn btn-sm btn-danger w-auto fw-bold border-radius px-2 text-white font-size mt-1"
+                          style={{ cursor: "pointer" }}
+                          onClick={() => {
+                            handleChangeBookingClass();
+                            handleChangeBookingClassReturn();
+                            setNewBookingClassRes({});
+                            setNewBookingClassResReturn({});
+                          }}
+                          ref={btnRef}
+                          colorScheme="teal"
+                        >
+                          Change Booking Class
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -3689,6 +3890,319 @@ const ShowAllFlightComboFare = ({
             </Center>
           </ModalForm>
         )}
+
+      <Drawer
+        isOpen={isOpen5}
+        placement="right"
+        onClose={onClose5}
+        finalFocusRef={btnRef}
+        size={"xl"}
+      >
+        <DrawerOverlay />
+        <DrawerContent>
+          <DrawerCloseButton />
+          <DrawerHeader>Change Booking Class</DrawerHeader>
+
+          <DrawerBody>
+            <div>
+              <div className="px-2">
+                {bookingClasses?.journey?.map((item, index) => (
+                  <div key={index}>
+                    {item?.segments?.map((segment, segIndex) => (
+                      <React.Fragment key={segIndex}>
+                        <div className="d-flex justify-content-between align-items-center w-100 my-3">
+                          <div className="d-flex gap-3">
+                            <img
+                              src={
+                                environment.s3ArliensImage +
+                                `${comboFare?.item[0]?.directions?.[index]?.[0]?.segments?.[segIndex]?.airlineCode}.png`
+                              }
+                              alt="Airline logo"
+                              width="40px"
+                              height="40px"
+                              className="mb-1 rounded-2"
+                            />
+                            <div>
+                              <p className="fw-bold">
+                                {
+                                  comboFare?.item[0]?.directions?.[index]?.[0]
+                                    ?.segments?.[segIndex]?.airline
+                                }
+                              </p>
+                              <p style={{ fontSize: "12px" }}>
+                                {
+                                  comboFare?.item[0]?.directions?.[index]?.[0]
+                                    ?.segments?.[segIndex]?.details?.[0]
+                                    ?.equipment
+                                }
+                              </p>
+                            </div>
+                          </div>
+                          <div className="fs-5 fw-bold">
+                            {comboFare?.item[0]?.directions?.[
+                              index
+                            ]?.[0]?.segments?.[segIndex]?.departure?.substr(
+                              11,
+                              5
+                            )}
+                          </div>
+                          <div className="fs-5 fw-bold">
+                            {comboFare?.item[0]?.directions?.[
+                              index
+                            ]?.[0]?.segments?.[segIndex]?.arrival?.substr(
+                              11,
+                              5
+                            )}
+                          </div>
+                          <div className="fs-5 fw-bold">
+                            {
+                              comboFare?.item[0]?.directions?.[index]?.[0]
+                                ?.segments?.[segIndex]?.duration?.[0]
+                            }
+                          </div>
+                        </div>
+
+                        <div
+                          className="d-flex py-2 px-3"
+                          style={{ backgroundColor: "#d1d8df" }}
+                        >
+                          {segment?.bookingClasses?.map((name, subIndex) => {
+                            const totalItems =
+                              item?.segments?.[0]?.bookingClasses?.length;
+                            return (
+                              <div key={subIndex}>
+                                <button
+                                  className={
+                                    selectedNames[index]?.[segIndex]?.rbd ===
+                                    name?.bookingClassName
+                                      ? "button-secondary-color rounded p-2 m-1 text-white"
+                                      : "bg-light rounded p-2 m-1"
+                                  }
+                                  style={{ cursor: "pointer" }}
+                                  onClick={() =>
+                                    handleSelect(
+                                      name?.bookingClassName,
+                                      index,
+                                      segIndex
+                                    )
+                                  }
+                                  disabled={
+                                    selectedNames[index]?.[segIndex]?.rbd ===
+                                    name?.bookingClassName
+                                  }
+                                >
+                                  {name?.bookingClassName} {name?.seatCount}
+                                  {subIndex === totalItems - 1 && <br />}
+                                </button>
+                              </div>
+                            );
+                          })}
+                        </div>
+                      </React.Fragment>
+                    ))}
+                  </div>
+                ))}
+
+                {bookingClassesReturn?.journey?.map((item, index) => (
+                  <div key={index}>
+                    {item?.segments?.map((segment, segIndex) => (
+                      <React.Fragment key={segIndex}>
+                        <div className="d-flex justify-content-between align-items-center w-100 my-3">
+                          <div className="d-flex gap-3">
+                            <img
+                              src={
+                                environment.s3ArliensImage +
+                                `${comboFare?.item[1]?.directions?.[index]?.[0]?.segments?.[segIndex]?.airlineCode}.png`
+                              }
+                              alt="Airline logo"
+                              width="40px"
+                              height="40px"
+                              className="mb-1 rounded-2"
+                            />
+                            <div>
+                              <p className="fw-bold">
+                                {
+                                  comboFare?.item[1]?.directions?.[index]?.[0]
+                                    ?.segments?.[segIndex]?.airline
+                                }
+                              </p>
+                              <p style={{ fontSize: "12px" }}>
+                                {
+                                  comboFare?.item[1]?.directions?.[index]?.[0]
+                                    ?.segments?.[segIndex]?.details?.[0]
+                                    ?.equipment
+                                }
+                              </p>
+                            </div>
+                          </div>
+                          <div className="fs-5 fw-bold">
+                            {comboFare?.item[1]?.directions?.[
+                              index
+                            ]?.[0]?.segments?.[segIndex]?.departure?.substr(
+                              11,
+                              5
+                            )}
+                          </div>
+                          <div className="fs-5 fw-bold">
+                            {comboFare?.item[1]?.directions?.[
+                              index
+                            ]?.[0]?.segments?.[segIndex]?.arrival?.substr(
+                              11,
+                              5
+                            )}
+                          </div>
+                          <div className="fs-5 fw-bold">
+                            {
+                              comboFare?.item[1]?.directions?.[index]?.[0]
+                                ?.segments?.[segIndex]?.duration?.[0]
+                            }
+                          </div>
+                        </div>
+
+                        <div
+                          className="d-flex py-2 px-3"
+                          style={{ backgroundColor: "#d1d8df" }}
+                        >
+                          {segment?.bookingClasses?.map((name, subIndex) => {
+                            const totalItems =
+                              item?.segments?.[0]?.bookingClasses?.length;
+                            return (
+                              <div key={subIndex}>
+                                <button
+                                  className={
+                                    selectedNamesReturn[index]?.[segIndex]
+                                      ?.rbd === name?.bookingClassName
+                                      ? "button-secondary-color rounded p-2 m-1 text-white"
+                                      : "bg-light rounded p-2 m-1"
+                                  }
+                                  style={{ cursor: "pointer" }}
+                                  onClick={() =>
+                                    handleSelectReturnRBD(
+                                      name?.bookingClassName,
+                                      index,
+                                      segIndex
+                                    )
+                                  }
+                                  disabled={
+                                    selectedNamesReturn[index]?.[segIndex]
+                                      ?.rbd === name?.bookingClassName
+                                  }
+                                >
+                                  {name?.bookingClassName} {name?.seatCount}
+                                  {subIndex === totalItems - 1 && <br />}
+                                </button>
+                              </div>
+                            );
+                          })}
+                        </div>
+                      </React.Fragment>
+                    ))}
+                  </div>
+                ))}
+
+                <div className="d-flex justify-content-end my-3">
+                  <button
+                    type="submit"
+                    className="btn button-color text-white fw-bold w-auto border-radius"
+                    onClick={() => {
+                      handleGetFare();
+                      handleGetFareReturn();
+                    }}
+                  >
+                    {" "}
+                    Get Fare
+                  </button>
+                </div>
+                {Object.keys(newBookingClassRes).length !== 0 && (
+                  <div className="d-flex justify-content-end my-3">
+                    <button
+                      type="submit"
+                      className="btn button-color text-white fw-bold w-auto border-radius"
+                      onClick={handleNewBookingClassBookBtn}
+                    >
+                      {" "}
+                      Book Now
+                    </button>
+                  </div>
+                )}
+              </div>
+            </div>
+
+            {Object.keys(newBookingClassRes).length !== 0 &&
+              Object.keys(newBookingClassResReturn).length !== 0 && (
+                <div>
+                  <div className="mb-5">
+                    <ShowFlightDataRbd
+                      flightType={
+                        newBookingClassRes?.directions?.length === 1
+                          ? "One Way"
+                          : "Round Trip"
+                      }
+                      direction0={newBookingClassRes?.directions[0][0]}
+                      direction1={
+                        newBookingClassRes?.directions?.length > 1
+                          ? newBookingClassRes?.directions[1][0]
+                          : []
+                      }
+                      direction2={[]}
+                      direction3={[]}
+                      direction4={[]}
+                      direction5={[]}
+                      totalPrice={newBookingClassRes.totalPrice}
+                      bookingComponents={newBookingClassRes.bookingComponents}
+                      refundable={newBookingClassRes.refundable}
+                      uniqueTransID={newBookingClassRes.uniqueTransID}
+                      itemCodeRef={newBookingClassRes.itemCodeRef}
+                      passengerCounts={newBookingClassRes.passengerCounts}
+                      passengerFares={newBookingClassRes.passengerFares}
+                      currency={newBookingClassRes.currency}
+                      brandedFares={newBookingClassRes.brandedFares}
+                      selectedBrandedFareIdx={0}
+                    />
+                  </div>
+                  <div className="mb-5">
+                    <ShowFlightDataRbdReturn
+                      flightType={
+                        newBookingClassResReturn?.directions?.length === 1
+                          ? "One Way"
+                          : "Round Trip"
+                      }
+                      direction0={newBookingClassResReturn?.directions[0][0]}
+                      direction1={
+                        newBookingClassResReturn?.directions?.length > 1
+                          ? newBookingClassResReturn?.directions[1][0]
+                          : []
+                      }
+                      direction2={[]}
+                      direction3={[]}
+                      direction4={[]}
+                      direction5={[]}
+                      totalPrice={newBookingClassResReturn.totalPrice}
+                      bookingComponents={
+                        newBookingClassResReturn.bookingComponents
+                      }
+                      refundable={newBookingClassResReturn.refundable}
+                      uniqueTransID={newBookingClassResReturn.uniqueTransID}
+                      itemCodeRef={newBookingClassResReturn.itemCodeRef}
+                      passengerCounts={newBookingClassResReturn.passengerCounts}
+                      passengerFares={newBookingClassResReturn.passengerFares}
+                      currency={newBookingClassResReturn.currency}
+                      brandedFares={newBookingClassResReturn.brandedFares}
+                      selectedBrandedFareIdx={0}
+                    />
+                  </div>
+                </div>
+              )}
+          </DrawerBody>
+
+          {/* <DrawerFooter>
+                    <Button variant='outline' mr={3} onClick={onClose}>
+                      Cancel
+                    </Button>
+                    <Button colorScheme='blue'>Save</Button>
+                  </DrawerFooter> */}
+        </DrawerContent>
+      </Drawer>
     </div>
   );
 };
