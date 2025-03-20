@@ -201,40 +201,47 @@ const Navbar = () => {
     GetTopNotificationList();
   }, []);
 
-  const handelViewTicket = (item) => {
-    if (item?.isRead === false) {
-      marknotificationasread(item.id).then((res) => {
-        GetTopNotificationList();
-        if (item?.noticeType === 4) {
-          navigate(
-            "/bookedview?utid=" + item?.reference + "&sts=" + "Confirmed",
-            "_blank"
-          );
-        } else if (item?.noticeType === 10) {
-          navigate(
-            "/ticket?utid=" + item?.reference + "&sts=" + "Confirmed",
-            "_blank"
-          );
-        } else if (
-          item?.noticeType === 1 ||
-          item?.noticeType === 2 ||
-          item?.noticeType === 3
-        ) {
-          navigate("/balance");
-        } else if (item?.noticeType === 18 || item?.noticeType === 19) {
-          navigate("/support");
-        } else if (
-          item?.noticeType === 23 ||
-          item?.noticeType === 25 ||
-          item?.noticeType === 26
-        ) {
-          navigate("/ledger");
-        } else if (item?.noticeType === 24) {
-          navigate("/invoiceview?utid=" + item?.reference, "_blank");
-        }
+ const handelViewTicket = (item) => {
+     if (item?.isRead === false) {
+       marknotificationasread(item.id).then((res) => {
+         GetTopNotificationList();
+        //  getNotificationList(currentPageNumber);
+       });
+     }
+     if (item?.noticeType === 4) {
+       navigate(
+         "/bookedview?utid=" + item?.reference + "&sts=" + "Confirmed",
+         "_blank"
+       );
+     } else if (item?.noticeType === 10) {
+       navigate(
+         "/ticket?utid=" + item?.reference + "&sts=" + "Confirmed",
+         "_blank"
+       );
+     } else if (
+       item?.noticeType === 1 ||
+       item?.noticeType === 2 ||
+       item?.noticeType === 3
+     ) {
+       navigate("/balance");
+     } else if (item?.noticeType === 18 || item?.noticeType === 19) {
+       navigate("/support");
+     } else if (
+       item?.noticeType === 23 ||
+       item?.noticeType === 25 ||
+       item?.noticeType === 26
+     ) {
+      //  navigate("/ledger");
+       navigate("/all-Report", {
+        state: {
+          navigate: "ledger",
+          status: "AccountLedger",
+        },
       });
-    }
-  };
+     } else if (item?.noticeType === 24) {
+       navigate("/invoiceview?utid=" + item?.reference, "_blank");
+     }
+   };
   const notificate = JSON.parse(localStorage.getItem("notificationCount"));
 
   const [isOpenM, setIsOpenM] = useState(false);
@@ -550,8 +557,9 @@ const Navbar = () => {
                             }}
                             key={index}
                           >
-                            <Link to="#" className="dropdown-item">
-                              <div className="d-flex justify-content-start gap-2">
+                            {/* <Link to="#" className="dropdown-item"> */}
+                            
+                              <div className="d-flex justify-content-start gap-2 px-2 dropdown-item">
                                 <div className="">
                                   <p style={{ marginTop: "3px" }}>
                                     <MdOutlineNotifications
@@ -575,7 +583,7 @@ const Navbar = () => {
                                   </p>
                                 </div>
                               </div>
-                            </Link>
+                            {/* </Link> */}
                             <div className="dropdown-divider"></div>
                           </div>
                         );
@@ -724,8 +732,8 @@ const Navbar = () => {
                                   }}
                                   key={index}
                                 >
-                                  <Link to="#" className="dropdown-item">
-                                    <div className="d-flex">
+                                  {/* <Link to="#" className="dropdown-item"> */}
+                                    <div className="d-flex px-2 dropdown-item">
                                       <p style={{ marginTop: "3px" }}>
                                         <MdOutlineNotifications
                                           style={{
@@ -749,7 +757,7 @@ const Navbar = () => {
                                     >
                                       {item.message.substring(0, 40)}...{" "}
                                     </p>
-                                  </Link>
+                                  {/* </Link> */}
                                   <div className="dropdown-divider"></div>
                                 </div>
                               );

@@ -46,6 +46,7 @@ const ShowAllFlightPageForProgressive = () => {
   );
 
   const { state } = useLocation();
+  console.log(state,'state+++++++++++++++++++++++++')
   const {
     origin,
     destination,

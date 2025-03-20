@@ -6,8 +6,10 @@ import Footer from "../SharePages/Footer/Footer";
 import SalesReport from "./SalesReport/SalesReport";
 import Ledger from "../Ledger/Ledger";
 import CreditNotes from "../CreditNotes/CreditNotes";
+import { useLocation } from "react-router-dom";
 
 const AllReport = () => {
+    const location = useLocation();
   const [idxD, setIdxD] = useState("SalesReport");
   let onStatusChange = (statusId) => {
     setIdxD(statusId);
@@ -15,6 +17,12 @@ const AllReport = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
+
+    useEffect(() => {
+      if (location?.state?.navigate === "ledger") {
+        setIdxD("AccountLedger");
+      }
+    }, [location?.state]);
   return (
     <div>
       <Navbar></Navbar>
