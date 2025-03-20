@@ -63,6 +63,7 @@ import { TbBrandBooking } from "react-icons/tb";
 import { GiWaterRecycling } from "react-icons/gi";
 import { bookingcodes, validateCheck } from "../../../common/allApi";
 import ShowFlightDataRbd from "./ShowFlightDataRbd";
+import TableLoader from "../../../component/tableLoader";
 
 
 const ShowFlight = (props) => {
@@ -913,8 +914,10 @@ const ShowFlight = (props) => {
   };
 
   const [newBookingClassRes, setNewBookingClassRes] = useState({});
-  console.log(newBookingClassRes,'newBookingClassRes===')
+  const [newBookingClassResLoader, setNewBookingClassResLoader] =
+    useState(false);
   const handleGetFare = async () => {
+    setNewBookingClassResLoader(true);
     try {
       let payload = {
         uniqueTransID: uniqueTransID,
@@ -923,8 +926,10 @@ const ShowFlight = (props) => {
       };
       const response = await validateCheck(payload);
       setNewBookingClassRes(response?.data);
+      setNewBookingClassResLoader(false);
     } catch (e) {
       toast.error("Please try again.");
+      setNewBookingClassResLoader(false);
     }
   };
 
@@ -3954,18 +3959,20 @@ const ShowFlight = (props) => {
               Price Breakdown
             </span>
 
-            <span
-              className="btn btn-sm w-100 fw-bold border-radius button-color px-2 text-white font-size"
-              style={{ cursor: "pointer" }}
-              onClick={() => {
-                handleChangeBookingClass();
-                setNewBookingClassRes({});
-              }}
-              ref={btnRef}
-              colorScheme="teal"
-            >
-              Change Booking Class
-            </span>
+            {props?.data?.rbdChangeAllowed && (
+              <span
+                className="btn btn-sm w-100 fw-bold border-radius button-color px-2 text-white font-size"
+                style={{ cursor: "pointer" }}
+                onClick={() => {
+                  handleChangeBookingClass();
+                  setNewBookingClassRes({});
+                }}
+                ref={btnRef}
+                colorScheme="teal"
+              >
+                Change Booking Class
+              </span>
+            )}
 
             {/* <p className="text-color text-center font-size">
               {refundable === true ? "Refundable" : "Non-Refundable"}
@@ -6467,6 +6474,7 @@ const ShowFlight = (props) => {
                   type="submit"
                   className="btn button-color text-white fw-bold w-auto border-radius"
                   onClick={handleGetFare}
+                  disabled={newBookingClassResLoader && true}
                 >
                   {" "}
                   Get Fare
@@ -6486,46 +6494,52 @@ const ShowFlight = (props) => {
               )}
             </div>
 
-            {Object.keys(newBookingClassRes).length !== 0 && (
-              <ShowFlightDataRbd
-                flightType={flightType}
-                direction0={newBookingClassRes?.directions[0][0]}
-                direction1={
-                  newBookingClassRes?.directions?.length > 1
-                    ? newBookingClassRes?.directions[1][0]
-                    : []
-                }
-                direction2={
-                  newBookingClassRes?.directions?.length > 2
-                    ? newBookingClassRes?.directions[2][0]
-                    : []
-                }
-                direction3={
-                  newBookingClassRes?.directions?.length > 3
-                    ? newBookingClassRes?.directions[3][0]
-                    : []
-                }
-                direction4={
-                  newBookingClassRes?.directions?.length > 4
-                    ? newBookingClassRes?.directions[4][0]
-                    : []
-                }
-                direction5={
-                  newBookingClassRes?.directions?.length > 5
-                    ? newBookingClassRes?.directions[5][0]
-                    : []
-                }
-                totalPrice={newBookingClassRes.totalPrice}
-                bookingComponents={newBookingClassRes.bookingComponents}
-                refundable={newBookingClassRes.refundable}
-                uniqueTransID={newBookingClassRes.uniqueTransID}
-                itemCodeRef={newBookingClassRes.itemCodeRef}
-                passengerCounts={newBookingClassRes.passengerCounts}
-                passengerFares={newBookingClassRes.passengerFares}
-                currency={newBookingClassRes.currency}
-                brandedFares={newBookingClassRes.brandedFares}
-                selectedBrandedFareIdx={selectedBrandedFareIdx}
-              />
+            {newBookingClassResLoader ? (
+              <TableLoader />
+            ) : (
+              <>
+                {Object.keys(newBookingClassRes).length !== 0 && (
+                  <ShowFlightDataRbd
+                    flightType={flightType}
+                    direction0={newBookingClassRes?.directions[0][0]}
+                    direction1={
+                      newBookingClassRes?.directions?.length > 1
+                        ? newBookingClassRes?.directions[1][0]
+                        : []
+                    }
+                    direction2={
+                      newBookingClassRes?.directions?.length > 2
+                        ? newBookingClassRes?.directions[2][0]
+                        : []
+                    }
+                    direction3={
+                      newBookingClassRes?.directions?.length > 3
+                        ? newBookingClassRes?.directions[3][0]
+                        : []
+                    }
+                    direction4={
+                      newBookingClassRes?.directions?.length > 4
+                        ? newBookingClassRes?.directions[4][0]
+                        : []
+                    }
+                    direction5={
+                      newBookingClassRes?.directions?.length > 5
+                        ? newBookingClassRes?.directions[5][0]
+                        : []
+                    }
+                    totalPrice={newBookingClassRes.totalPrice}
+                    bookingComponents={newBookingClassRes.bookingComponents}
+                    refundable={newBookingClassRes.refundable}
+                    uniqueTransID={newBookingClassRes.uniqueTransID}
+                    itemCodeRef={newBookingClassRes.itemCodeRef}
+                    passengerCounts={newBookingClassRes.passengerCounts}
+                    passengerFares={newBookingClassRes.passengerFares}
+                    currency={newBookingClassRes.currency}
+                    brandedFares={newBookingClassRes.brandedFares}
+                    selectedBrandedFareIdx={selectedBrandedFareIdx}
+                  />
+                )}
+              </>
             )}
           </DrawerBody>
 

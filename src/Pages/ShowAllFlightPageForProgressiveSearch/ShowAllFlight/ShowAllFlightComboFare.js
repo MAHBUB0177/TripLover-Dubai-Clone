@@ -59,6 +59,7 @@ import { IoMdWarning } from "react-icons/io";
 import ShowFlightDataRbd from "../ShowFlight/ShowFlightDataRbd";
 import { bookingcodes, validateCheck } from "../../../common/allApi";
 import ShowFlightDataRbdReturn from "../ShowFlight/ShowFlightDataRbdReturn";
+import TableLoader from "../../../component/tableLoader";
 
 const CountdownWrapper = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -1808,7 +1809,7 @@ const ShowAllFlightComboFare = ({
       const response = await bookingcodes(payload);
       if (response.data) {
         setBookingClassesReturn(response.data);
-        // onOpen4();
+        onOpen5();
       }
     } catch (e) {
       toast.error("Please try again.");
@@ -1846,8 +1847,14 @@ const ShowAllFlightComboFare = ({
 
   const [newBookingClassRes, setNewBookingClassRes] = useState({});
   const [newBookingClassResReturn, setNewBookingClassResReturn] = useState({});
+  const [newBookingClassResLoader, setNewBookingClassResLoader] =
+    useState(false);
+  const [newBookingClassResLoaderReturn, setNewBookingClassResLoaderReturn] =
+    useState(false);
+  const [getFareBtnClick, setGetFareBtnClick] = useState(false);
 
   const handleGetFare = async () => {
+    setNewBookingClassResLoader(true);
     try {
       let payload = {
         uniqueTransID: comboFare?.item[0]?.uniqueTransID,
@@ -1856,12 +1863,15 @@ const ShowAllFlightComboFare = ({
       };
       const response = await validateCheck(payload);
       setNewBookingClassRes(response?.data);
+      setNewBookingClassResLoader(false);
     } catch (e) {
       toast.error("Please try again.");
+      setNewBookingClassResLoader(false);
     }
   };
 
   const handleGetFareReturn = async () => {
+    setNewBookingClassResLoaderReturn(true);
     try {
       let payload = {
         uniqueTransID: comboFare?.item[1]?.uniqueTransID,
@@ -1870,25 +1880,50 @@ const ShowAllFlightComboFare = ({
       };
       const response = await validateCheck(payload);
       setNewBookingClassResReturn(response?.data);
+      setNewBookingClassResLoaderReturn(false);
     } catch (e) {
       toast.error("Please try again.");
+      setNewBookingClassResLoaderReturn(false);
     }
   };
 
   const handleNewBookingClassBookBtn = () => {
-   sessionStorage.setItem(
-      "direction0",
-      JSON.stringify(newBookingClassRes?.directions[0][0])
-    );
     sessionStorage.setItem(
       "direction0",
-      JSON.stringify(newBookingClassResReturn?.directions[0][0])
+      JSON.stringify(
+        Object.keys(newBookingClassRes).length !== 0
+          ? newBookingClassRes?.directions[0][0]
+          : comboFare?.departure[0]
+      )
+    );
+    sessionStorage.setItem(
+      "direction1",
+      JSON.stringify(
+        Object.keys(newBookingClassResReturn).length !== 0
+          ? newBookingClassResReturn?.directions[0][0]
+          : comboFare?.return[0]
+      )
     );
     let obj = {
-      item: [newBookingClassRes, newBookingClassResReturn],
-      departure: [newBookingClassRes?.directions[0][0]],
+      item: [
+        Object.keys(newBookingClassRes).length !== 0
+          ? newBookingClassRes
+          : comboFare?.item[0],
+        Object.keys(newBookingClassResReturn).length !== 0
+          ? newBookingClassResReturn
+          : comboFare?.item[1],
+      ],
+      departure: [
+        Object.keys(newBookingClassRes).length !== 0
+          ? newBookingClassRes?.directions[0][0]
+          : comboFare?.departure[0],
+      ],
       departureInx: 0,
-      return: [newBookingClassResReturn?.directions[0][0]],
+      return: [
+        Object.keys(newBookingClassResReturn).length !== 0
+          ? newBookingClassResReturn?.directions[0][0]
+          : comboFare?.return[0],
+      ],
       returnIdx: 0,
       groupDepartIndex: 0,
       groupReturnIndex: 0,
@@ -1901,7 +1936,12 @@ const ShowAllFlightComboFare = ({
     sessionStorage.setItem("comboFare", JSON.stringify(obj));
     sessionStorage.setItem(
       "bookable",
-      JSON.stringify(newBookingClassResReturn?.bookable)
+      JSON.stringify(
+        Object.keys(newBookingClassRes).length !== 0
+          ? newBookingClassRes.bookable
+          : Object.keys(newBookingClassResReturn).length !== 0 &&
+              newBookingClassResReturn.bookable
+      )
     );
     navigate("/travellcartcombofare");
   };
@@ -1914,7 +1954,7 @@ const ShowAllFlightComboFare = ({
       <div className="container my-3 content-width">
         <div className="row py-4">
           <div className="col-lg-3 box-shadow bg-white custom-scrollbar pb-5 w-100 airlines-filter-position border-radius">
-            <MemoCountdown />
+            {/* <MemoCountdown /> */}
             <div className="col-lg-12 text-end py-2">
               {/* <button
                 className="btn btn-sm fw-bold button-color text-white border-radius"
@@ -3676,20 +3716,31 @@ const ShowAllFlightComboFare = ({
                         >
                           BOOK NOW
                         </button>
-                        <div
-                          className="btn btn-sm btn-danger w-auto fw-bold border-radius px-2 text-white font-size mt-1"
-                          style={{ cursor: "pointer" }}
-                          onClick={() => {
-                            handleChangeBookingClass();
-                            handleChangeBookingClassReturn();
-                            setNewBookingClassRes({});
-                            setNewBookingClassResReturn({});
-                          }}
-                          ref={btnRef}
-                          colorScheme="teal"
-                        >
-                          Change Booking Class
-                        </div>
+                        {comboFare?.item?.some(
+                          (item) => item.rbdChangeAllowed === true
+                        ) && (
+                          <div
+                            className="btn btn-sm btn-danger w-auto fw-bold border-radius px-2 text-white font-size mt-1"
+                            style={{ cursor: "pointer" }}
+                            onClick={() => {
+                              if (comboFare?.item[0]?.rbdChangeAllowed) {
+                                handleChangeBookingClass();
+                              }
+                              if (comboFare?.item[1]?.rbdChangeAllowed) {
+                                handleChangeBookingClassReturn();
+                              }
+                              setNewBookingClassRes({});
+                              setBookingClasses({});
+                              setBookingClassesReturn({});
+                              setNewBookingClassResReturn({});
+                              setGetFareBtnClick(false);
+                            }}
+                            ref={btnRef}
+                            colorScheme="teal"
+                          >
+                            Change Booking Class
+                          </div>
+                        )}
                       </div>
                     </div>
                   </div>
@@ -4105,32 +4156,58 @@ const ShowAllFlightComboFare = ({
                     type="submit"
                     className="btn button-color text-white fw-bold w-auto border-radius"
                     onClick={() => {
+                      setGetFareBtnClick(true);
                       handleGetFare();
                       handleGetFareReturn();
                     }}
+                    disabled={newBookingClassResLoader && true}
                   >
                     {" "}
                     Get Fare
                   </button>
                 </div>
-                {Object.keys(newBookingClassRes).length !== 0 && (
-                  <div className="d-flex justify-content-end my-3">
-                    <button
-                      type="submit"
-                      className="btn button-color text-white fw-bold w-auto border-radius"
-                      onClick={handleNewBookingClassBookBtn}
-                    >
-                      {" "}
-                      Book Now
-                    </button>
-                  </div>
-                )}
+                {!newBookingClassResLoader &&
+                  !newBookingClassResLoaderReturn &&
+                  (Object.keys(newBookingClassRes).length !== 0 ||
+                    Object.keys(newBookingClassResReturn).length !== 0) && (
+                    <div className="d-flex justify-content-end align-items-center my-3">
+                      <div className="mx-2 fw-bold">
+                        AED{" "}
+                        {newBookingClassRes?.totalPrice &&
+                        newBookingClassResReturn.totalPrice
+                          ? newBookingClassRes.totalPrice +
+                            newBookingClassResReturn?.totalPrice
+                          : Object.keys(newBookingClassRes).length === 0 &&
+                            newBookingClassResReturn.totalPrice
+                          ? comboFare?.item[0]?.totalPrice +
+                            newBookingClassResReturn.totalPrice
+                          : Object.keys(newBookingClassResReturn).length ===
+                              0 &&
+                            newBookingClassRes.totalPrice &&
+                            comboFare?.item[1]?.totalPrice +
+                              newBookingClassRes.totalPrice}
+                      </div>
+
+                      <button
+                        type="submit"
+                        className="btn button-color text-white fw-bold w-auto border-radius"
+                        onClick={handleNewBookingClassBookBtn}
+                      >
+                        {" "}
+                        Book Now
+                      </button>
+                    </div>
+                  )}
               </div>
             </div>
 
-            {Object.keys(newBookingClassRes).length !== 0 &&
-              Object.keys(newBookingClassResReturn).length !== 0 && (
-                <div>
+            {newBookingClassResLoader || newBookingClassResLoaderReturn ? (
+              <>
+                <TableLoader />
+              </>
+            ) : (
+              <>
+                {Object.keys(newBookingClassRes).length !== 0 ? (
                   <div className="mb-5">
                     <ShowFlightDataRbd
                       flightType={
@@ -4160,39 +4237,61 @@ const ShowAllFlightComboFare = ({
                       selectedBrandedFareIdx={0}
                     />
                   </div>
-                  <div className="mb-5">
-                    <ShowFlightDataRbdReturn
-                      flightType={
-                        newBookingClassResReturn?.directions?.length === 1
-                          ? "One Way"
-                          : "Round Trip"
-                      }
-                      direction0={newBookingClassResReturn?.directions[0][0]}
-                      direction1={
-                        newBookingClassResReturn?.directions?.length > 1
-                          ? newBookingClassResReturn?.directions[1][0]
-                          : []
-                      }
-                      direction2={[]}
-                      direction3={[]}
-                      direction4={[]}
-                      direction5={[]}
-                      totalPrice={newBookingClassResReturn.totalPrice}
-                      bookingComponents={
-                        newBookingClassResReturn.bookingComponents
-                      }
-                      refundable={newBookingClassResReturn.refundable}
-                      uniqueTransID={newBookingClassResReturn.uniqueTransID}
-                      itemCodeRef={newBookingClassResReturn.itemCodeRef}
-                      passengerCounts={newBookingClassResReturn.passengerCounts}
-                      passengerFares={newBookingClassResReturn.passengerFares}
-                      currency={newBookingClassResReturn.currency}
-                      brandedFares={newBookingClassResReturn.brandedFares}
-                      selectedBrandedFareIdx={0}
-                    />
+                ) : (
+                  <>
+                    {getFareBtnClick && (
+                      <div className="mb-5">
+                        Sorry, No fare found for this onward journey.
+                      </div>
+                    )}
+                  </>
+                )}
+                {Object.keys(newBookingClassResReturn).length !== 0 &&
+                getFareBtnClick ? (
+                  <div>
+                    <div className="mb-5">
+                      <ShowFlightDataRbdReturn
+                        flightType={
+                          newBookingClassResReturn?.directions?.length === 1
+                            ? "One Way"
+                            : "Round Trip"
+                        }
+                        direction0={newBookingClassResReturn?.directions[0][0]}
+                        direction1={
+                          newBookingClassResReturn?.directions?.length > 1
+                            ? newBookingClassResReturn?.directions[1][0]
+                            : []
+                        }
+                        direction2={[]}
+                        direction3={[]}
+                        direction4={[]}
+                        direction5={[]}
+                        totalPrice={newBookingClassResReturn.totalPrice}
+                        bookingComponents={
+                          newBookingClassResReturn.bookingComponents
+                        }
+                        refundable={newBookingClassResReturn.refundable}
+                        uniqueTransID={newBookingClassResReturn.uniqueTransID}
+                        itemCodeRef={newBookingClassResReturn.itemCodeRef}
+                        passengerCounts={
+                          newBookingClassResReturn.passengerCounts
+                        }
+                        passengerFares={newBookingClassResReturn.passengerFares}
+                        currency={newBookingClassResReturn.currency}
+                        brandedFares={newBookingClassResReturn.brandedFares}
+                        selectedBrandedFareIdx={0}
+                      />
+                    </div>
                   </div>
-                </div>
-              )}
+                ) : (
+                  <>
+                    {getFareBtnClick && (
+                      <div>Sorry, No fare found for this return journey.</div>
+                    )}
+                  </>
+                )}
+              </>
+            )}
           </DrawerBody>
 
           {/* <DrawerFooter>
