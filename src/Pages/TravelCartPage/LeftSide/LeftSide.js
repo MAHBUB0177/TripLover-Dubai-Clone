@@ -108,7 +108,6 @@ const LeftSide = ({
     sessionStorage.getItem("extraBaggageAllowedPTC")
   );
   const fullObj = JSON.parse(sessionStorage.getItem("fullObj"));
-  console.log(fullObj,'fullObj===============')
   const brandedFareSelectedIdx = JSON.parse(
     sessionStorage.getItem("brandedFareSelectedIdx")
   );
@@ -389,19 +388,19 @@ const LeftSide = ({
           if (flag === 1) {
             setAdult((ob) =>
               produce(ob, (v) => {
-                v[index].progress = percentCompleted;
+                v[index].visaProgress = percentCompleted;
               })
             );
           } else if (flag === 2) {
             setChild((ob) =>
               produce(ob, (v) => {
-                v[index].progress = percentCompleted;
+                v[index].visaProgress = percentCompleted;
               })
             );
           } else if (flag === 3) {
             setInfant((ob) =>
               produce(ob, (v) => {
-                v[index].progress = percentCompleted;
+                v[index].visaProgress = percentCompleted;
               })
             );
           }
@@ -615,6 +614,7 @@ const LeftSide = ({
       type: "adt",
       isQuickPassenger: false,
       progress: 0,
+      visaProgress:0
     };
     adultList.push(newObj);
   }
@@ -650,6 +650,7 @@ const LeftSide = ({
       type: "cnn",
       isQuickPassenger: false,
       progress: 0,
+      visaProgress:0
     };
     childList.push(newObj);
   }
@@ -770,6 +771,7 @@ const LeftSide = ({
       type: "inf",
       isQuickPassenger: false,
       progress: 0,
+      visaProgress:0
     };
     infantList.push(newObj);
   }
@@ -3597,12 +3599,12 @@ const LeftSide = ({
                                   />
                                 )} */}
 
-                              {adult[index].progress > 0 && (
+                              {adult[index].visaProgress > 0 && (
                                   <div className="progress-container mt-1">
                                     <div
                                       className="progress-bar"
                                       style={{
-                                        width: `${adult[index].progress}%`,
+                                        width: `${adult[index].visaProgress}%`,
                                       }}
                                     >
                                       {/* <span className="progress-text">{progress}%</span> */}
@@ -4973,12 +4975,12 @@ const LeftSide = ({
                                   />
                                 )} */}
 
-                              {child[index].progress > 0 && (
+                              {child[index].visaProgress > 0 && (
                                   <div className="progress-container mt-1">
                                     <div
                                       className="progress-bar"
                                       style={{
-                                        width: `${child[index].progress}%`,
+                                        width: `${child[index].visaProgress}%`,
                                       }}
                                     >
                                       {/* <span className="progress-text">{progress}%</span> */}
@@ -6170,12 +6172,12 @@ const LeftSide = ({
                                   />
                                 )} */}
 
-                              {infant[index].progress > 0 && (
+                              {infant[index].visaProgress > 0 && (
                                   <div className="progress-container mt-1">
                                     <div
                                       className="progress-bar"
                                       style={{
-                                        width: `${infant[index].progress}%`,
+                                        width: `${infant[index].visaProgress}%`,
                                       }}
                                     >
                                       {/* <span className="progress-text">{progress}%</span> */}

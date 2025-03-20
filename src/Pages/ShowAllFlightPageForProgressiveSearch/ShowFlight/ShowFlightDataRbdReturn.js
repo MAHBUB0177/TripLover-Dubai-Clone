@@ -2298,7 +2298,7 @@ const ShowFlightDataRbdReturn = ({
                               </td>
                               <td className="right">{passengerCounts.adt}</td>
                               <td className="right fw-bold">
-                                {currency !== undefined ? currency : "BDT"}{" "}
+                                {currency !== undefined ? currency : "AED"}{" "}
                                 {(
                                   brandedFares[selectedBrandedFareIdx]
                                     ?.paxFareBreakDown.adt.totalPrice *
@@ -2346,7 +2346,7 @@ const ShowFlightDataRbdReturn = ({
                               </td>
                               <td className="right">{passengerCounts.chd}</td>
                               <td className="right fw-bold">
-                                {currency !== undefined ? currency : "BDT"}{" "}
+                                {currency !== undefined ? currency : "AED"}{" "}
                                 {(
                                   brandedFares[selectedBrandedFareIdx]
                                     ?.paxFareBreakDown.chd.totalPrice *
@@ -2402,7 +2402,7 @@ const ShowFlightDataRbdReturn = ({
                               </td>
                               <td className="right">{passengerCounts.cnn}</td>
                               <td className="right fw-bold">
-                                {currency !== undefined ? currency : "BDT"}{" "}
+                                {currency !== undefined ? currency : "AED"}{" "}
                                 {(
                                   brandedFares[selectedBrandedFareIdx]
                                     ?.paxFareBreakDown.cnn.totalPrice *
@@ -2450,7 +2450,7 @@ const ShowFlightDataRbdReturn = ({
                               </td>
                               <td className="right">{passengerCounts.inf}</td>
                               <td className="right fw-bold">
-                                {currency !== undefined ? currency : "BDT"}{" "}
+                                {currency !== undefined ? currency : "AED"}{" "}
                                 {(
                                   brandedFares[selectedBrandedFareIdx]
                                     ?.paxFareBreakDown.inf.totalPrice *
@@ -2466,7 +2466,7 @@ const ShowFlightDataRbdReturn = ({
                           <td colSpan={5} className="border-none"></td>
                           <td>Grand Total</td>
                           <td className="text-end">
-                            {currency !== undefined ? currency : "BDT"}{" "}
+                            {currency !== undefined ? currency : "AED"}{" "}
                             {brandedFares[selectedBrandedFareIdx]
                               ?.paxFareBreakDown.adt !== null &&
                               (
@@ -2518,7 +2518,7 @@ const ShowFlightDataRbdReturn = ({
                               </td>
                               <td className="right">{passengerCounts.adt}</td>
                               <td className="right fw-bold">
-                                {currency !== undefined ? currency : "BDT"}{" "}
+                                {currency !== undefined ? currency : "AED"}{" "}
                                 {(
                                   passengerFares.adt.totalPrice *
                                   passengerCounts.adt
@@ -2554,7 +2554,7 @@ const ShowFlightDataRbdReturn = ({
                               </td>
                               <td className="right">{passengerCounts.chd}</td>
                               <td className="right fw-bold">
-                                {currency !== undefined ? currency : "BDT"}{" "}
+                                {currency !== undefined ? currency : "AED"}{" "}
                                 {(
                                   passengerFares.chd.totalPrice *
                                   passengerCounts.chd
@@ -2597,7 +2597,7 @@ const ShowFlightDataRbdReturn = ({
                               </td>
                               <td className="right">{passengerCounts.cnn}</td>
                               <td className="right fw-bold">
-                                {currency !== undefined ? currency : "BDT"}{" "}
+                                {currency !== undefined ? currency : "AED"}{" "}
                                 {(
                                   passengerFares.cnn.totalPrice *
                                   passengerCounts.cnn
@@ -2633,7 +2633,7 @@ const ShowFlightDataRbdReturn = ({
                               </td>
                               <td className="right">{passengerCounts.inf}</td>
                               <td className="right fw-bold">
-                                {currency !== undefined ? currency : "BDT"}{" "}
+                                {currency !== undefined ? currency : "AED"}{" "}
                                 {(
                                   passengerFares.inf.totalPrice *
                                   passengerCounts.inf
@@ -2648,7 +2648,7 @@ const ShowFlightDataRbdReturn = ({
                           <td colSpan={5} className="border-none"></td>
                           <td>Grand Total</td>
                           <td>
-                            {currency !== undefined ? currency : "BDT"}{" "}
+                            {currency !== undefined ? currency : "AED"}{" "}
                             {bookingComponents[0].totalPrice.toLocaleString(
                               "en-US"
                             )}
@@ -3497,9 +3497,9 @@ const ShowFlightDataRbdReturn = ({
                 Refund or Date Change can be done as per the following policies:
               </h6>
               <hr></hr>• Refund Amount= Received amount from customer - Refund
-              Charge (As per Airline Policy + TravelChamp Convenience Fee).
+              Charge (As per Airline Policy + Triplover LLC Convenience Fee).
               <br></br>• Date Change Amount= Date change fee as per Airline +
-              Difference of fare if any + TravelChamp Convenience Fee.
+              Difference of fare if any + Triplover LLC Convenience Fee.
             </div>
           </>
         </div>

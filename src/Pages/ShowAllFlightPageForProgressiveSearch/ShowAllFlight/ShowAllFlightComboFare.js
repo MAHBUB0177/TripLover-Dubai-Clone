@@ -270,7 +270,7 @@ const ShowAllFlightComboFare = ({
                 fetchFlighReturn?.minMaxPrice?.maxPrice
               ),
             },
-            currency: "BDT",
+            currency: "AED",
           });
         }
       }
@@ -2001,14 +2001,14 @@ const ShowAllFlightComboFare = ({
                       className="float-start fw-bold"
                       style={{ fontSize: "13px" }}
                     >
-                      MIN {currency !== undefined ? currency : "BDT"}{" "}
+                      MIN {currency !== undefined ? currency : "AED"}{" "}
                       {filterPrice[0].toLocaleString("en-US")}
                     </span>
                     <span
                       className="float-end fw-bold"
                       style={{ fontSize: "13px" }}
                     >
-                      MAX {currency !== undefined ? currency : "BDT"}{" "}
+                      MAX {currency !== undefined ? currency : "AED"}{" "}
                       {filterPrice[1].toLocaleString("en-US")}
                     </span>
                   </div>
@@ -2216,7 +2216,7 @@ const ShowAllFlightComboFare = ({
                           className="fw-bold float-end"
                           style={{ fontSize: "13px" }}
                         >
-                          {currency !== undefined ? currency : "BDT"}{" "}
+                          {currency !== undefined ? currency : "AED"}{" "}
                           {item.minPrice.toLocaleString("en-US")}
                         </span>
                         <br></br>
@@ -2752,7 +2752,7 @@ const ShowAllFlightComboFare = ({
                                   <Text fontWeight={400}>
                                     <span className="fw-bold">{item.code}</span>
                                     <br></br>
-                                    {item?.totalFlights} Flights <br></br> BDT{" "}
+                                    {item?.totalFlights} Flights <br></br> AED{" "}
                                     {parseInt(item?.minPrice)}
                                   </Text>
                                 </Box>
@@ -3276,7 +3276,7 @@ const ShowAllFlightComboFare = ({
                                 <>
                                   <div>
                                     <span className="fw-bold">
-                                      BDT{" "}
+                                      AED{" "}
                                       {comboFare?.item[0]?.brandedFares !== null
                                         ? comboFare?.item[0]?.brandedFares?.[
                                             comboFare?.departureInx
@@ -3292,7 +3292,7 @@ const ShowAllFlightComboFare = ({
                                       className="fw-bold"
                                       style={{ fontSize: "13px" }}
                                     >
-                                      BDT{" "}
+                                      AED{" "}
                                       {comboFare?.item[0]?.brandedFares !== null
                                         ? (
                                             comboFare?.item[0]?.brandedFares?.[
@@ -3316,7 +3316,7 @@ const ShowAllFlightComboFare = ({
                               ) : (
                                 <div>
                                   <span className="fw-bold">
-                                    BDT{" "}
+                                    AED{" "}
                                     {comboFare?.item[0]?.brandedFares !== null
                                       ? (
                                           comboFare?.item[0]?.brandedFares?.[
@@ -3412,7 +3412,7 @@ const ShowAllFlightComboFare = ({
                                 <>
                                   <div>
                                     <span className="fw-bold">
-                                      BDT{" "}
+                                      AED{" "}
                                       {comboFare?.item[1]?.brandedFares !== null
                                         ? comboFare?.item[1]?.brandedFares?.[
                                             comboFare?.returnIdx
@@ -3428,7 +3428,7 @@ const ShowAllFlightComboFare = ({
                                       className="fw-bold"
                                       style={{ fontSize: "13px" }}
                                     >
-                                      BDT{" "}
+                                      AED{" "}
                                       {comboFare?.item[1]?.brandedFares !== null
                                         ? (
                                             comboFare?.item[1]?.brandedFares?.[
@@ -3452,7 +3452,7 @@ const ShowAllFlightComboFare = ({
                               ) : (
                                 <div>
                                   <span className="fw-bold">
-                                    BDT{" "}
+                                    AED{" "}
                                     {comboFare?.item[1]?.brandedFares !== null
                                       ? (
                                           comboFare?.item[1]?.brandedFares?.[
@@ -3493,7 +3493,7 @@ const ShowAllFlightComboFare = ({
                             <>
                               <div>
                                 <span className="fw-bold">
-                                  BDT{" "}
+                                  AED{" "}
                                   {comboFare?.item[0]?.brandedFares !== null &&
                                   comboFare?.item[1]?.brandedFares !== null
                                     ? (
@@ -3542,7 +3542,7 @@ const ShowAllFlightComboFare = ({
                                   className="fw-bold"
                                   style={{ fontSize: "13px" }}
                                 >
-                                  BDT{" "}
+                                  AED{" "}
                                   {comboFare?.item[0]?.brandedFares !== null &&
                                   comboFare?.item[1]?.brandedFares !== null
                                     ? (
@@ -3609,7 +3609,7 @@ const ShowAllFlightComboFare = ({
                           ) : (
                             <div>
                               <span className="fw-bold">
-                                BDT{" "}
+                                AED{" "}
                                 {comboFare?.item[0]?.brandedFares !== null &&
                                 comboFare?.item[1]?.brandedFares !== null
                                   ? (
