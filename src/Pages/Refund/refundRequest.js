@@ -333,7 +333,9 @@ const RefundRequest = () => {
                           >
                             <Text fontWeight={600}>Total Ticket Price</Text>
                             {summary?.hasQuotation ? (
-                              <Text>{summary?.totalPrice}AED</Text>
+                              <Text>AED{summary?.totalPrice.toLocaleString(
+                                "en-US"
+                              )}</Text>
                             ) : (
                               <Text color={"red"}>Waiting for Quotation</Text>
                             )}
@@ -347,7 +349,9 @@ const RefundRequest = () => {
                             <Text fontWeight={600}>Airlines Penalty</Text>
 
                             {summary?.hasQuotation ? (
-                              <Text>{summary?.totalAirlineFee}AED</Text>
+                              <Text>AED{summary?.totalAirlineFee.toLocaleString(
+                                "en-US"
+                              )}</Text>
                             ) : (
                               <Text color={"red"}>Waiting for Quotation</Text>
                             )}
@@ -361,7 +365,9 @@ const RefundRequest = () => {
                             <Text fontWeight={600}>Service Charge</Text>
 
                             {summary?.hasQuotation ? (
-                              <Text>{summary?.totalServiceCharge}AED</Text>
+                              <Text>AED{summary?.totalServiceCharge.toLocaleString(
+                                "en-US"
+                              )}</Text>
                             ) : (
                               <Text color={"red"}>Waiting for Quotation</Text>
                             )}
@@ -376,7 +382,9 @@ const RefundRequest = () => {
                             <Text fontWeight={600}>Total Refund Charge</Text>
 
                             {summary?.hasQuotation ? (
-                              <Text>{summary?.totalRefundCharge}AED</Text>
+                              <Text>AED{summary?.totalRefundCharge.toLocaleString(
+                                "en-US"
+                              )}</Text>
                             ) : (
                               <Text color={"red"}>Waiting for Quotation</Text>
                             )}
@@ -393,7 +401,9 @@ const RefundRequest = () => {
                                 Total Non Refundable Amount
                               </Text>
 
-                              <Text>{summary?.totalNonRefundable}AED</Text>
+                              <Text>AED{summary?.totalNonRefundable.toLocaleString(
+                                "en-US"
+                              )}</Text>
                             </Flex>
                           </div>
                         )}
@@ -406,7 +416,9 @@ const RefundRequest = () => {
                             <Text fontWeight={600}>Acc. Refundable</Text>
 
                             {summary?.hasQuotation ? (
-                              <Text>{summary?.totalRefundable}AED</Text>
+                              <Text>AED{summary?.totalRefundable.toLocaleString(
+                                "en-US"
+                              )}</Text>
                             ) : (
                               <Text color={"red"}>Waiting for Quotation</Text>
                             )}
