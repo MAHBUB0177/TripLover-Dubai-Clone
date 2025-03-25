@@ -100,6 +100,7 @@ const ShowFlight = (props) => {
     handleFareRules(uId, dir, itemCode, brandedFareRef);
   };
 
+  const [getFareBtnClick, setGetFareBtnClick] = useState(false);
   const [idxD, setIdxD] = useState(0);
   const [idxA, setIdxA] = useState(0);
   const [idxD1, setIdxD1] = useState(0);
@@ -3966,6 +3967,7 @@ const ShowFlight = (props) => {
                 onClick={() => {
                   handleChangeBookingClass();
                   setNewBookingClassRes({});
+                  setGetFareBtnClick(false);
                 }}
                 ref={btnRef}
                 colorScheme="teal"
@@ -6473,32 +6475,39 @@ const ShowFlight = (props) => {
                 <button
                   type="submit"
                   className="btn button-color text-white fw-bold w-auto border-radius"
-                  onClick={handleGetFare}
+                  onClick={() => {
+                    handleGetFare();
+                    setGetFareBtnClick(true);
+                  }}
+
                   disabled={newBookingClassResLoader && true}
                 >
                   {" "}
                   Get Fare
                 </button>
               </div>
-              {Object.keys(newBookingClassRes).length !== 0 && (
-                <div className="d-flex justify-content-end my-3">
-                  <button
-                    type="submit"
-                    className="btn button-color text-white fw-bold w-auto border-radius"
-                    onClick={handleNewBookingClassBookBtn}
-                  >
-                    {" "}
-                    Book Now
-                  </button>
-                </div>
-              )}
+              {Object.keys(newBookingClassRes).length !== 0 &&
+                !newBookingClassResLoader && (
+                  <div className="d-flex justify-content-end my-3">
+                    <button
+                      type="submit"
+                      className="btn button-color text-white fw-bold w-auto border-radius"
+                      onClick={handleNewBookingClassBookBtn}
+                    >
+                      {" "}
+                      Book Now
+                    </button>
+                  </div>
+                )}
+
             </div>
 
             {newBookingClassResLoader ? (
               <TableLoader />
             ) : (
               <>
-                {Object.keys(newBookingClassRes).length !== 0 && (
+                {Object.keys(newBookingClassRes).length !== 0 ?
+                 (
                   <ShowFlightDataRbd
                     flightType={flightType}
                     direction0={newBookingClassRes?.directions[0][0]}
@@ -6538,7 +6547,17 @@ const ShowFlight = (props) => {
                     brandedFares={newBookingClassRes.brandedFares}
                     selectedBrandedFareIdx={selectedBrandedFareIdx}
                   />
-                )}
+                ) :
+                (
+                  <>
+                    {getFareBtnClick && (
+                      <div className="mb-5">
+                        Sorry, No fare found for this journey.
+                      </div>
+                    )}
+                  </>
+                )
+}
               </>
             )}
           </DrawerBody>
