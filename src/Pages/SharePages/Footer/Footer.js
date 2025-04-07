@@ -47,7 +47,7 @@ const quickLinksData = [
 
 const addressData = [
   {
-    text: `Al Muhairi 113-127, Al Dhagaya, Deira, Dubai, United Arab Emirates`,
+    text: `Office Number: 502, Rais Hassan Sadi 2 Building ( Beside of City Palace Hotel), Khalid Bin Walid Street, Al Raffa, Bur Dubai, Dubai, UAE.`,
     icon: BsFillHouseFill,
   },
   {
