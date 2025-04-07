@@ -26,7 +26,7 @@ const colors = {
   inactiveIcon: "#8796A1",
   white: "#FFFFFF",
   black: "#000000",
-  gradient: "linear-gradient(100.94deg, #ed7f22 -9.51%, #ed7f22 115.79%)",
+  gradient: "linear-gradient(100.94deg, #7c04c0 -9.51%, #fc2c74 115.79%)",
 };
 
 const fonts = {
