@@ -127,7 +127,7 @@ const SuccessTicketPanel = () => {
       JSON.parse(localStorage.getItem("ismail")) &&
       agentInfo.logoName !== undefined
     ) {
-      _successTicketMail();
+      // _successTicketMail();
       localStorage.setItem("ismail", JSON.stringify(false));
 
       // setIsMailSentFromIssueTicket(false);
