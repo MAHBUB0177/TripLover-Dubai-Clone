@@ -260,7 +260,7 @@ function App() {
       />
       <AuthProvider>
         <BrowserRouter>
-          {isLoggedIn && <DirectTopUp />}
+          {/* {isLoggedIn && <DirectTopUp />} */}
           <Routes>
             <Route
               path="/"
