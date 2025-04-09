@@ -175,7 +175,7 @@ const PaymentRequest = () => {
                 textAlign={"center"}
               >
                 N/B : Please send your Trade License and NID to
-                pd@Triplover.com to avail Partial Payments. Kindly include
+                help.dxb@triplover.ae to avail Partial Payments. Kindly include
                 "Partial Payment Request.
               </Text>
             </Box>
