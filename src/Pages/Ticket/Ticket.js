@@ -268,12 +268,12 @@ const Ticket = () => {
       setDiscount(response?.data[0]?.discount);
       setAdditionalPrice(response?.data[0]?.agentAdditionalPrice);
       setLoader(false);
-      setTimeout(() => {
-        if (JSON.parse(localStorage.getItem("ismail"))) {
-          _successTicketMail();
-          localStorage.setItem("ismail", JSON.stringify(false));
-        }
-      }, 1000);
+      // setTimeout(() => {
+      //   if (JSON.parse(localStorage.getItem("ismail"))) {
+      //     _successTicketMail();
+      //     localStorage.setItem("ismail", JSON.stringify(false));
+      //   }
+      // }, 1000);
     };
     getTicketingList();
   };
