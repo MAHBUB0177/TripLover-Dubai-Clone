@@ -6381,10 +6381,15 @@ const ShowFlight = (props) => {
             <div className="px-2">
               {bookingClasses?.journey?.map((item, index) => (
                 <div key={index}>
+                   {index === 0 ? (
+                    <div className="mt-2 fw-bold">Onward</div>
+                  ) : (
+                    index === 1 && <div className="mt-2 fw-bold">Return</div>
+                  )}
                   {item?.segments?.map((segment, segIndex) => (
                     <React.Fragment key={segIndex}>
                       {/* Rendering airlineCode */}
-                      <div className="d-flex justify-content-between align-items-center w-100 my-3">
+                      <div className="d-flex justify-content-between align-items-center w-100 my-2">
                         <div className="d-flex gap-3">
                           <img
                             src={
@@ -6488,7 +6493,22 @@ const ShowFlight = (props) => {
               </div>
               {Object.keys(newBookingClassRes).length !== 0 &&
                 !newBookingClassResLoader && (
-                  <div className="d-flex justify-content-end my-3">
+                  <div className="d-flex justify-content-end align-items-center my-3">
+                    <del>
+                      <div className="mx-2 fw-bold">
+                        AED{" "}
+                        {newBookingClassRes?.totalPrice &&
+                          newBookingClassRes.bookingComponents[0]?.totalPrice -
+                            newBookingClassRes.bookingComponents[0]
+                              ?.discountPrice}
+                      </div>
+                    </del>
+                    <div className="mx-2 fw-bold">
+                      AED{" "}
+                      {newBookingClassRes?.totalPrice &&
+                        newBookingClassRes.bookingComponents[0]?.totalPrice}
+                    </div>
+
                     <button
                       type="submit"
                       className="btn button-color text-white fw-bold w-auto border-radius"

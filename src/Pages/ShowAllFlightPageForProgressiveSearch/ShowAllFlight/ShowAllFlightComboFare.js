@@ -3298,7 +3298,12 @@ const ShowAllFlightComboFare = ({
                               -{" "}
                               {comboFare?.departure[
                                 comboFare?.groupDepartIndex
-                              ]?.segments[0]?.arrival?.substr(11, 5)}
+                              ]?.segments[
+                                comboFare?.departure[
+                                  comboFare?.groupDepartIndex
+                                ]?.segments.length - 1
+                              ]?.arrival?.substr(11, 5)}
+
                               <br />
                               {moment(
                                 comboFare?.departure[
@@ -3435,7 +3440,11 @@ const ShowAllFlightComboFare = ({
                               -{" "}
                               {comboFare?.return[
                                 comboFare?.groupReturnIndex
-                              ]?.segments[0].arrival?.substr(11, 5)}
+                              ]?.segments[
+                                comboFare?.return[comboFare?.groupReturnIndex]
+                                  ?.segments?.length - 1
+                              ].arrival?.substr(11, 5)}
+
                               <br />
                               {moment(
                                 comboFare?.return[comboFare?.groupReturnIndex]
@@ -3959,6 +3968,7 @@ const ShowAllFlightComboFare = ({
               <div className="px-2">
                 {bookingClasses?.journey?.map((item, index) => (
                   <div key={index}>
+                    <div className="mt-2 fw-bold">Onward</div>
                     {item?.segments?.map((segment, segIndex) => (
                       <React.Fragment key={segIndex}>
                         <div className="d-flex justify-content-between align-items-center w-100 my-3">
@@ -4056,6 +4066,7 @@ const ShowAllFlightComboFare = ({
 
                 {bookingClassesReturn?.journey?.map((item, index) => (
                   <div key={index}>
+                    <div className="mt-2 fw-bold">Return</div>
                     {item?.segments?.map((segment, segIndex) => (
                       <React.Fragment key={segIndex}>
                         <div className="d-flex justify-content-between align-items-center w-100 my-3">
@@ -4170,23 +4181,98 @@ const ShowAllFlightComboFare = ({
                   !newBookingClassResLoaderReturn &&
                   (Object.keys(newBookingClassRes).length !== 0 ||
                     Object.keys(newBookingClassResReturn).length !== 0) && (
-                    <div className="d-flex justify-content-end align-items-center my-3">
-                      <div className="mx-2 fw-bold">
-                        AED{" "}
-                        {newBookingClassRes?.totalPrice &&
-                        newBookingClassResReturn.totalPrice
-                          ? newBookingClassRes.totalPrice +
-                            newBookingClassResReturn?.totalPrice
-                          : Object.keys(newBookingClassRes).length === 0 &&
+                      <div className="d-flex justify-content-end align-items-center my-3">
+                      {amountChange === "Invoice Amount" ? (
+                        <>
+                          <del>
+                            <div className="mx-2 fw-bold">
+                              AED{" "}
+                              {newBookingClassRes?.totalPrice &&
+                              newBookingClassResReturn.totalPrice
+                                ? newBookingClassRes.bookingComponents[0]
+                                    ?.totalPrice -
+                                  newBookingClassRes.bookingComponents[0]
+                                    ?.discountPrice +
+                                  newBookingClassResReturn?.bookingComponents[0]
+                                    ?.totalPrice -
+                                  newBookingClassResReturn?.bookingComponents[0]
+                                    ?.discountPrice
+                                : Object.keys(newBookingClassRes).length ===
+                                    0 && newBookingClassResReturn.totalPrice
+                                ? comboFare?.item[0]?.bookingComponents[0]
+                                    ?.totalPrice -
+                                  comboFare?.item[0]?.bookingComponents[0]
+                                    ?.discountPrice +
+                                  newBookingClassResReturn.bookingComponents[0]
+                                    ?.totalPrice -
+                                  newBookingClassResReturn.bookingComponents[0]
+                                    ?.discountPrice
+                                : Object.keys(newBookingClassResReturn)
+                                    .length === 0 &&
+                                  newBookingClassRes.totalPrice &&
+                                  comboFare?.item[1]?.bookingComponents[0]
+                                    ?.totalPrice -
+                                    comboFare?.item[1]?.bookingComponents[0]
+                                      ?.discountPrice +
+                                    newBookingClassRes.bookingComponents[0]
+                                      ?.totalPrice -
+                                    newBookingClassRes.bookingComponents[0]
+                                      ?.discountPrice}
+                            </div>
+                          </del>
+                          <div className="mx-2 fw-bold">
+                            AED{" "}
+                            {newBookingClassRes?.totalPrice &&
                             newBookingClassResReturn.totalPrice
-                          ? comboFare?.item[0]?.totalPrice +
-                            newBookingClassResReturn.totalPrice
-                          : Object.keys(newBookingClassResReturn).length ===
-                              0 &&
-                            newBookingClassRes.totalPrice &&
-                            comboFare?.item[1]?.totalPrice +
-                              newBookingClassRes.totalPrice}
-                      </div>
+                              ? newBookingClassRes.totalPrice +
+                                newBookingClassResReturn?.totalPrice
+                              : Object.keys(newBookingClassRes).length === 0 &&
+                                newBookingClassResReturn.totalPrice
+                              ? comboFare?.item[0]?.totalPrice +
+                                newBookingClassResReturn.totalPrice
+                              : Object.keys(newBookingClassResReturn).length ===
+                                  0 &&
+                                newBookingClassRes.totalPrice &&
+                                comboFare?.item[1]?.totalPrice +
+                                  newBookingClassRes.totalPrice}
+                          </div>
+                        </>
+                      ) : (
+                        <div className="mx-2 fw-bold">
+                          AED{" "}
+                          {newBookingClassRes?.totalPrice &&
+                          newBookingClassResReturn.totalPrice
+                            ? newBookingClassRes.bookingComponents[0]
+                                ?.totalPrice -
+                              newBookingClassRes.bookingComponents[0]
+                                ?.discountPrice +
+                              newBookingClassResReturn?.bookingComponents[0]
+                                ?.totalPrice -
+                              newBookingClassResReturn?.bookingComponents[0]
+                                ?.discountPrice
+                            : Object.keys(newBookingClassRes).length === 0 &&
+                              newBookingClassResReturn.totalPrice
+                            ? comboFare?.item[0]?.bookingComponents[0]
+                                ?.totalPrice -
+                              comboFare?.item[0]?.bookingComponents[0]
+                                ?.discountPrice +
+                              newBookingClassResReturn.bookingComponents[0]
+                                ?.totalPrice -
+                              newBookingClassResReturn.bookingComponents[0]
+                                ?.discountPrice
+                            : Object.keys(newBookingClassResReturn).length ===
+                                0 &&
+                              newBookingClassRes.totalPrice &&
+                              comboFare?.item[1]?.bookingComponents[0]
+                                ?.totalPrice -
+                                comboFare?.item[1]?.bookingComponents[0]
+                                  ?.discountPrice +
+                                newBookingClassRes.bookingComponents[0]
+                                  ?.totalPrice -
+                                newBookingClassRes.bookingComponents[0]
+                                  ?.discountPrice}
+                        </div>
+                      )}
 
                       <button
                         type="submit"
@@ -4209,6 +4295,7 @@ const ShowAllFlightComboFare = ({
               <>
                 {Object.keys(newBookingClassRes).length !== 0 ? (
                   <div className="mb-5">
+                     <div className="my-2 fw-bold">Onward</div>
                     <ShowFlightDataRbd
                       flightType={
                         newBookingClassRes?.directions?.length === 1
@@ -4250,6 +4337,7 @@ const ShowAllFlightComboFare = ({
                 getFareBtnClick ? (
                   <div>
                     <div className="mb-5">
+                       <div className="my-2 fw-bold">Return</div>
                       <ShowFlightDataRbdReturn
                         flightType={
                           newBookingClassResReturn?.directions?.length === 1
