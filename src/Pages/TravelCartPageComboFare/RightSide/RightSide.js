@@ -3057,7 +3057,7 @@ const RightSide = ({
             passengerFaresDeparture={comboFare?.item[0]?.passengerFares}
             passengerFaresReturn={comboFare?.item[1]?.passengerFares}
             bookingComponentsDeparture={comboFare?.item[0]?.bookingComponents}
-            bookingComponentsReturn={comboFare?.item[0]?.bookingComponents}
+            bookingComponentsReturn={comboFare?.item[1]?.bookingComponents}
             comboFare={comboFare}
           />
         )}

@@ -262,7 +262,7 @@ export const environment = {
   requestVoid: baseApiURL + "FlightExchangeVoid/RequestVoid",
   getVoidRequestAccept:
     baseApiURL + "FlightExchangeVoid/VoidQuotationAcceptReject",
-  isProgressiveSearch: false,
+  isProgressiveSearch: true,
 
   getBasicInfoForReissueRequest:
     baseApiURL + "FlightExchangeReissue/GetBasicInfoForReissueRequest",

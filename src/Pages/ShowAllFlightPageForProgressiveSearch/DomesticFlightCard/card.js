@@ -140,7 +140,7 @@ const Card = ({
                   )}
                 </p>
                 <p style={{ fontSize: "12px" }}>
-                  {moment(itm?.segments[0].arrival).format("DD MMM,yyyy")}
+                {moment(itm?.segments[itm?.segments.length - 1].arrival).format("DD MMM,yyyy")}
                 </p>
                 <p className="fw-bold" style={{ fontSize: "12px" }}>
                   {airports
