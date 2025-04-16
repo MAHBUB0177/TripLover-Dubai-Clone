@@ -282,4 +282,11 @@ export const environment = {
   comboFareBook: baseApiURL + "book/combo-book",
   validateTransaction: baseApiURL + "combo/validate-transaction",
   comboTicket: baseApiURL + "Ticket/combo-ticket",
+
+  //adm defender
+  getAgentCancellationSummary: baseApiURL + `Report/high-cancellation-summary`,
+  getHighCancellationBookingList: baseApiURL + `HighCancellationBookings/get-high-cancellation-bookings-list`,
+  getDuplicateBookingsB2B: baseApiURL + `DuplicateBooking/GetDuplicateBookingsB2B`,
+  getChurnBookingsB2B: baseApiURL + `ChurnBooking/GetChurnBookingsB2B`
+
 };

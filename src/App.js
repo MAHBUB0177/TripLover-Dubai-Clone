@@ -117,6 +117,8 @@ import ReissueRequest from "./Pages/Reissue/reissueRequest";
 import { showHideController } from "./common/normal";
 import SearchList from "./Pages/SharePages/Navbar/SearchList";
 import TravelCartPageComboFare from "./Pages/TravelCartPageComboFare/TravelCartPage/TravelCartPageComboFare";
+import HighCancellationBooking from "./Pages/high-cancellation-bookings";
+import CancellationLists from "./Pages/cancellation-lists";
 
 function App() {
   var isLoggedIn = localStorage.getItem("token") !== null ? true : false;
@@ -924,6 +926,25 @@ function App() {
                 </PrivateRoute>
               }
             />
+
+<Route
+              path="/adm-defender"
+              element={
+                <PrivateRoute>
+                  <HighCancellationBooking />
+                </PrivateRoute>
+              }
+            />
+
+            <Route
+              path="/cancellation-lists"
+              element={
+                <PrivateRoute>
+                  <CancellationLists />
+                </PrivateRoute>
+              }
+            />
+
 
           </Routes>
         </BrowserRouter>

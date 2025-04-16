@@ -899,3 +899,78 @@ export const validateCheck = (payload) => {
   let url = environment.validateCheck;
   return axiosInstance.post(url,payload)
 } 
+
+
+export const getSupplierLists = ()=>{
+  const url = environment.suppliers;
+  return axiosInstance.get(url);
+}
+
+
+export const getAgentCancellationSummaryByID = ({
+  agentId = null,
+  apiId = '',
+  airlineCode = "",
+  fromDate = '',
+  toDate = '',
+  pageNumber = 1,
+  pageSize = 5
+} = {}) => {
+
+  const queryParams = new URLSearchParams({
+    agentId: agentId ?? '',
+    apiId: apiId?.toString(),
+    fromDate: fromDate || '',
+    toDate: toDate || '',
+    pageNumber: pageNumber.toString(),
+    pageSize: pageSize.toString(),
+    platingCarrier: airlineCode,
+  }).toString();
+
+  const url = `${environment?.getAgentCancellationSummary}?${queryParams}`;
+
+  return axiosInstance.get(url);
+};
+
+// If `isCancellationList` is false, it will return the booking list.  
+// Otherwise, it will return the cancelled booking list. 
+export const getHighCancellationBookingLists = ({
+  agentId = null,
+  supplierName = '',
+  platingCarrier = '',
+  fromDate = '',
+  toDate = '',
+  IsCancellationList = true,
+  pageNumber = 1,
+  pageSize = 5,
+} = {})=>{
+
+  const queryParams = new URLSearchParams({
+    AgentId: agentId ?? '',
+    SupplierName: supplierName,
+    PlatingCarrier: platingCarrier,
+    StartDate: fromDate || '',
+    EndDate: toDate || '',
+    IsCancellationList: IsCancellationList.toString(),
+    PageNumber: pageNumber.toString(),
+    PageSize: pageSize.toString(),
+  }).toString();
+
+  const url = `${environment?.getHighCancellationBookingList}?${queryParams}`;
+
+  return axiosInstance.get(url);
+}
+
+export const getDuplicateBookingData = (payload, currentPage, pageSize) => {
+  
+  const url = `${environment?.getDuplicateBookingsB2B}?pnr=${payload?.pnr}&uniqueTransId=${payload?.uniqueTransId}&paxName=${payload?.paxName}&flightNumber=${payload?.flightNumber}&bookingDateFrom=${payload?.bookingDateFrom}&bookingDateTo=${payload?.bookingDateTo}&flightDateFrom=${payload?.flightDateFrom}&flightDateTo=${payload?.flightDateTo}&pageNo=${currentPage}&pageSize=${pageSize}`;
+
+  return axiosInstance.get(url);
+};
+
+export const getChurnBookingData = (payload, currentPage, pageSize) => {
+
+  const url = `${environment?.getChurnBookingsB2B}?pnr=${payload?.pnr}&uniqueTransId=${payload?.uniqueTransId}&paxName=${payload?.paxName}&flightNumber=${payload?.flightNumber}&bookingDateFrom=${payload?.bookingDateFrom}&bookingDateTo=${payload?.bookingDateTo}&flightDateFrom=${payload?.flightDateFrom}&flightDateTo=${payload?.flightDateTo}&pageNo=${currentPage}&pageSize=${pageSize}`;
+
+  return axiosInstance.get(url);
+};

@@ -136,6 +136,16 @@ const SideNavBar = () => {
               </li>
             )}
 
+            {isAgent && (
+              <li className="nav-item">
+                <Link to="/adm-defender" className="nav-link">
+                <i className="nav-icon fas fa-calendar text-white"></i>
+                  <p className="text-white">ADM Defender</p>
+                </Link>
+              </li>
+            )}
+
+
             <li className="nav-item">
               <div
                 className="nav-link"
