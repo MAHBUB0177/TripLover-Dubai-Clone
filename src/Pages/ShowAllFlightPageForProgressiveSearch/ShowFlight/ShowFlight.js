@@ -39,18 +39,11 @@ import {
   ModalContent,
   ModalHeader,
   ModalOverlay,
-  // Popover,
-  // PopoverArrow,
-  // PopoverBody,
-  // PopoverCloseButton,
-  // PopoverContent,
-  // PopoverHeader,
-  // PopoverTrigger,
-  // Portal,
   Text,
   Tooltip,
   useDisclosure,
 } from "@chakra-ui/react";
+
 import ModalForm from "../../../common/modalForm";
 import { RiFlightTakeoffFill } from "react-icons/ri";
 // import barndedfare from "../../../JSON/brandedfare.json";
@@ -64,7 +57,6 @@ import { GiWaterRecycling } from "react-icons/gi";
 import { bookingcodes, validateCheck } from "../../../common/allApi";
 import ShowFlightDataRbd from "./ShowFlightDataRbd";
 import TableLoader from "../../../component/tableLoader";
-
 
 const ShowFlight = (props) => {
   const [grandTotal, setGrandTotal] = useState();
@@ -99,7 +91,6 @@ const ShowFlight = (props) => {
   const getFareRules = (uId, dir, itemCode, brandedFareRef) => {
     handleFareRules(uId, dir, itemCode, brandedFareRef);
   };
-
   const [getFareBtnClick, setGetFareBtnClick] = useState(false);
   const [idxD, setIdxD] = useState(0);
   const [idxA, setIdxA] = useState(0);
@@ -777,14 +768,12 @@ const ShowFlight = (props) => {
     sessionStorage.setItem("checkList", JSON.stringify(updatedList));
   }, [selectedBrandedFareIdx]);
 
-
   const {
     isOpen: isOpen4,
     onOpen: onOpen4,
     onClose: onClose4,
   } = useDisclosure();
   const [bookingClasses, setBookingClasses] = useState({});
-  console.log(bookingClasses,'bookingClasses=========')
   const btnRef = React.useRef();
 
   const handleChangeBookingClass = async () => {
@@ -1020,7 +1009,6 @@ const ShowFlight = (props) => {
     );
     navigate("/travellcart");
   };
-
 
   return (
     <>
@@ -3727,7 +3715,7 @@ const ShowFlight = (props) => {
               {passengerFares?.adt?.fareType === 2 && (
                 <span
                   className="pe-3 text-color font-size fw-bold"
-                  style={{ color: "#7c04c0" }}
+                  style={{ color: "#068b9f" }}
                 >
                   <i className="fas fa-graduation-cap me-1"></i> Studant Fare
                 </span>
@@ -5171,7 +5159,7 @@ const ShowFlight = (props) => {
           <div className="modal-content">
             <div
               className="modal-header"
-              style={{ backgroundColor: "#7c04c0" }}
+              style={{ backgroundColor: "#068b9f" }}
             >
               <h2
                 style={{
@@ -5254,12 +5242,12 @@ const ShowFlight = (props) => {
                       <div className="">
                         <p>
                           * Refund Amount= Received amount from customer -
-                          Refund Charge (As per Airline Policy + Triplover
+                          Refund Charge (As per Airline Policy + Travelchamp
                           Convenience Fee)
                         </p>
                         <p>
                           * Date Change Amount= Date change fee as per Airline +
-                          Difference of fare if any + Triplover Convenience
+                          Difference of fare if any + Travelchamp Convenience
                           Fee.
                         </p>
                       </div>
@@ -6364,7 +6352,6 @@ const ShowFlight = (props) => {
         </ModalContent>
       </Modal>
 
-      {/* //change booking class */}
       <Drawer
         isOpen={isOpen4}
         placement="right"
@@ -6381,7 +6368,7 @@ const ShowFlight = (props) => {
             <div className="px-2">
               {bookingClasses?.journey?.map((item, index) => (
                 <div key={index}>
-                   {index === 0 ? (
+                  {index === 0 ? (
                     <div className="mt-2 fw-bold">Onward</div>
                   ) : (
                     index === 1 && <div className="mt-2 fw-bold">Return</div>
@@ -6484,7 +6471,6 @@ const ShowFlight = (props) => {
                     handleGetFare();
                     setGetFareBtnClick(true);
                   }}
-
                   disabled={newBookingClassResLoader && true}
                 >
                   {" "}
@@ -6494,7 +6480,25 @@ const ShowFlight = (props) => {
               {Object.keys(newBookingClassRes).length !== 0 &&
                 !newBookingClassResLoader && (
                   <div className="d-flex justify-content-end align-items-center my-3">
-                    <del>
+                    {amountChange === "Invoice Amount" ? (
+                      <>
+                        <del>
+                          <div className="mx-2 fw-bold">
+                            AED{" "}
+                            {newBookingClassRes?.totalPrice &&
+                              newBookingClassRes.bookingComponents[0]
+                                ?.totalPrice -
+                                newBookingClassRes.bookingComponents[0]
+                                  ?.discountPrice}
+                          </div>
+                        </del>
+                        <div className="mx-2 fw-bold">
+                          AED{" "}
+                          {newBookingClassRes?.totalPrice &&
+                            newBookingClassRes.bookingComponents[0]?.totalPrice}
+                        </div>
+                      </>
+                    ) : (
                       <div className="mx-2 fw-bold">
                         AED{" "}
                         {newBookingClassRes?.totalPrice &&
@@ -6502,12 +6506,7 @@ const ShowFlight = (props) => {
                             newBookingClassRes.bookingComponents[0]
                               ?.discountPrice}
                       </div>
-                    </del>
-                    <div className="mx-2 fw-bold">
-                      AED{" "}
-                      {newBookingClassRes?.totalPrice &&
-                        newBookingClassRes.bookingComponents[0]?.totalPrice}
-                    </div>
+                    )}
 
                     <button
                       type="submit"
@@ -6519,15 +6518,13 @@ const ShowFlight = (props) => {
                     </button>
                   </div>
                 )}
-
             </div>
 
             {newBookingClassResLoader ? (
               <TableLoader />
             ) : (
               <>
-                {Object.keys(newBookingClassRes).length !== 0 ?
-                 (
+                {Object.keys(newBookingClassRes).length !== 0 ? (
                   <ShowFlightDataRbd
                     flightType={flightType}
                     direction0={newBookingClassRes?.directions[0][0]}
@@ -6567,8 +6564,7 @@ const ShowFlight = (props) => {
                     brandedFares={newBookingClassRes.brandedFares}
                     selectedBrandedFareIdx={selectedBrandedFareIdx}
                   />
-                ) :
-                (
+                ) : (
                   <>
                     {getFareBtnClick && (
                       <div className="mb-5">
@@ -6576,8 +6572,7 @@ const ShowFlight = (props) => {
                       </div>
                     )}
                   </>
-                )
-}
+                )}
               </>
             )}
           </DrawerBody>
@@ -6590,7 +6585,6 @@ const ShowFlight = (props) => {
           </DrawerFooter> */}
         </DrawerContent>
       </Drawer>
-
     </>
   );
 };
