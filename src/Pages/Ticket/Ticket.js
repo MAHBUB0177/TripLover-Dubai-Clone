@@ -381,7 +381,22 @@ const Ticket = () => {
         setSelectPassengerReturn(ticketingListReturn?.passengerInfo);
       }
     }
-  }, [journeyType, ticketingList, ticketingListReturn]);
+  }, [ticketingList, ticketingListReturn]);
+
+  useEffect(() => {
+    setPassengerListEdited([]);
+    if (journeyType === "ONWARD") {
+      setPassengerListEdited(ticketingList?.fareBreakdown);
+      setSelectPassenger(ticketingList?.passengerInfo);
+      setUnselectPassenger([]);
+    }
+    if (journeyType === "RETURN") {
+      setPassengerListEdited(ticketingListReturn?.fareBreakdown);
+      setSelectPassengerReturn(ticketingListReturn?.passengerInfo);
+      setUnselectPassengerReturn([]);
+    }
+  }, [journeyType]);
+
 
   const finalSegment = sortAndGroup(ticketingList?.segments);
   const finalSegmentReturn = sortAndGroup(ticketingListReturn?.segments);
@@ -2245,7 +2260,7 @@ const Ticket = () => {
                                                             </td>
                                                             <td>
                                                               {item.passengerCount -
-                                                                unSelectPassenger.filter(
+                                                                unSelectPassengerReturn.filter(
                                                                   (num) =>
                                                                     num.passengerType ===
                                                                     "ADT"
@@ -2260,7 +2275,7 @@ const Ticket = () => {
                                                                 ? (
                                                                     item.totalPrice *
                                                                     (item.passengerCount -
-                                                                      unSelectPassenger.filter(
+                                                                      unSelectPassengerReturn.filter(
                                                                         (num) =>
                                                                           num.passengerType ===
                                                                           "ADT"
