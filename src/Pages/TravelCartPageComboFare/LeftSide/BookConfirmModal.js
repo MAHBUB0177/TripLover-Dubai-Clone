@@ -1770,7 +1770,7 @@ const BookConfirmModal = ({
           </div>
         )}
 
-        {loader ? (
+        {/* {loader ? (
           <div className="d-flex align-items-center justify-content-center my-3">
             <div class="spinner-border" role="status">
               <span class="visually-hidden">Loading...</span>
@@ -1818,7 +1818,7 @@ const BookConfirmModal = ({
               </div>
             )}
           </>
-        )}
+        )} */}
       </div>
     </div>
   );
