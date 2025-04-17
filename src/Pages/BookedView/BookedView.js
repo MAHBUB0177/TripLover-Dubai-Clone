@@ -3292,7 +3292,7 @@ const BookedView = () => {
                                               </th>
                                               <th>Base</th>
                                               <th>Tax</th>
-                                              {isFareChange === false && (
+                                              {isFareChange === true && (
                                                 <th>Commission</th>
                                               )}
                                               <th>AIT</th>
@@ -3325,7 +3325,7 @@ const BookedView = () => {
                                                       {/* <td>{item.discount.toLocaleString("en-US")}</td> */}
 
                                                       {isFareChange ===
-                                                        false && (
+                                                        true && (
                                                         <td>
                                                           {item.discount.toLocaleString(
                                                             "en-US"
@@ -3342,7 +3342,7 @@ const BookedView = () => {
                                                       </td>
                                                       <td>
                                                         {item.currencyName}{" "}
-                                                        {isFareChange === false
+                                                        {isFareChange === true
                                                           ? (
                                                               item.totalPrice *
                                                               item.passengerCount
@@ -3365,7 +3365,7 @@ const BookedView = () => {
                                             <tr className="fw-bold">
                                               <td
                                                 colSpan={
-                                                  isFareChange === false ? 5 : 4
+                                                  isFareChange === true ? 5 : 4
                                                 }
                                                 className="border-none"
                                               ></td>
@@ -3388,7 +3388,7 @@ const BookedView = () => {
                                                 {/* {
                                   sumRating(ticketingList.fareBreakdown).toLocaleString("en-US")
                                 } */}
-                                                {isFareChange === false
+                                                {isFareChange === true
                                                   ? sumRating(
                                                       ticketingListReturn.fareBreakdown
                                                     )?.toLocaleString("en-US")
@@ -4586,7 +4586,7 @@ const BookedView = () => {
                                                 </th>
                                                 <th>Base</th>
                                                 <th>Tax</th>
-                                                {isFareChange === false && (
+                                                {isFareChange === true && (
                                                   <th>Commission</th>
                                                 )}
                                                 <th>AIT</th>
@@ -4619,7 +4619,7 @@ const BookedView = () => {
                                                         {/* <td>{item.discount.toLocaleString("en-US")}</td> */}
 
                                                         {isFareChange ===
-                                                          false && (
+                                                          true && (
                                                           <td>
                                                             {item.discount.toLocaleString(
                                                               "en-US"
@@ -4637,7 +4637,7 @@ const BookedView = () => {
                                                         <td>
                                                           {item.currencyName}{" "}
                                                           {isFareChange ===
-                                                          false
+                                                          true
                                                             ? (
                                                                 item.totalPrice *
                                                                 item.passengerCount
@@ -4660,7 +4660,7 @@ const BookedView = () => {
                                               <tr className="fw-bold">
                                                 <td
                                                   colSpan={
-                                                    isFareChange === false
+                                                    isFareChange === true
                                                       ? 5
                                                       : 4
                                                   }
@@ -4685,7 +4685,7 @@ const BookedView = () => {
                                                   {/* {
     sumRating(ticketingList.fareBreakdown).toLocaleString("en-US")
   } */}
-                                                  {isFareChange === false
+                                                  {isFareChange === true
                                                     ? sumRating(
                                                         ticketingList.fareBreakdown
                                                       )?.toLocaleString("en-US")
@@ -5487,7 +5487,7 @@ const BookedView = () => {
                                                 </th>
                                                 <th>Base</th>
                                                 <th>Tax</th>
-                                                {isFareChange === false && (
+                                                {isFareChange === true && (
                                                   <th>Commission</th>
                                                 )}
                                                 <th>AIT</th>
@@ -5520,7 +5520,7 @@ const BookedView = () => {
                                                         {/* <td>{item.discount.toLocaleString("en-US")}</td> */}
 
                                                         {isFareChange ===
-                                                          false && (
+                                                          true && (
                                                           <td>
                                                             {item.discount.toLocaleString(
                                                               "en-US"
@@ -5538,7 +5538,7 @@ const BookedView = () => {
                                                         <td>
                                                           {item.currencyName}{" "}
                                                           {isFareChange ===
-                                                          false
+                                                          true
                                                             ? (
                                                                 item.totalPrice *
                                                                 item.passengerCount
@@ -5561,7 +5561,7 @@ const BookedView = () => {
                                               <tr className="fw-bold">
                                                 <td
                                                   colSpan={
-                                                    isFareChange === false
+                                                    isFareChange === true
                                                       ? 5
                                                       : 4
                                                   }
@@ -5586,7 +5586,7 @@ const BookedView = () => {
                                                   {/* {
     sumRating(ticketingList.fareBreakdown).toLocaleString("en-US")
   } */}
-                                                  {isFareChange === false
+                                                  {isFareChange === true
                                                     ? sumRating(
                                                         ticketingListReturn.fareBreakdown
                                                       )?.toLocaleString("en-US")

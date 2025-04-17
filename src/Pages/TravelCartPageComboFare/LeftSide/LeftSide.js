@@ -736,6 +736,29 @@ const LeftSide = ({
   const [messageForExtra, setMessageForExtra] = useState();
   const [sameName, setSameName] = useState([]);
 
+
+    //additional phone added
+
+    const [optionalPhone, setOptionalPhone] = useState({
+      sentToEmail: "",
+      sentToPhone: "",
+    });
+  
+  
+    const [additionalPhoneadd, setAdditionalPhoneadd] = useState(false);
+    const aditionalphoneClick = (e) => {
+      if (e.target.checked) {
+        setAdditionalPhoneadd(true);
+      } else {
+        setAdditionalPhoneadd(false);
+        setOptionalPhone({
+          sentToEmail: "",
+          sentToPhone: "",
+        });
+      }
+    };
+  
+
   const bookingData = (e) => {
     // e.preventDefault();
     setExtraServiceConfirm(false);
@@ -746,6 +769,7 @@ const LeftSide = ({
       uniqueTransID: "",
       itemCodeRef: "",
       PriceCodeRef: "",
+      bookingWiseContactInfo: optionalPhone,
     };
 
     adult.map((item) => {
@@ -6044,6 +6068,84 @@ const LeftSide = ({
                 </div>
               );
             })}
+
+
+
+<div className="row">
+              <div className="col-lg-12">
+                <div class="form-check">
+                  <input
+                    class="form-check-input"
+                    type="checkbox"
+                    value=""
+                    id="flexCheckDefault1"
+                    onChange={aditionalphoneClick}
+                  />
+                  <label
+                    class="form-check-label font-size-checkbok"
+                    for="flexCheckDefault1"
+                  >
+                    Send Additional Phone or Email{" "}
+                  </label>
+                </div>
+              </div>
+            </div>
+
+            {additionalPhoneadd && (
+              <div className="row mt-2">
+                <div className="col-md-6">
+                  <div className="form-group">
+                    <label className="form-label float-start fw-bold">
+                      Additional Email
+                    </label>
+                    <input
+                      type="email"
+                      name="lastName"
+                      className="form-control form-rounded"
+                      onChange={(e) => {
+                        setOptionalPhone({
+                          ...optionalPhone,
+                          sentToEmail: e.target.value,
+                        });
+                      }}
+                      value={optionalPhone.sentToEmail}
+                      placeholder="Additional Email"
+                      autocomplete="none"
+                      spellcheck="false"
+                      pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
+                    />
+                  </div>
+                </div>
+
+                <div className="col-md-6">
+                  <div className="form-group">
+                    <label className="form-label float-start fw-bold">
+                      Additional Number
+                    </label>
+                    <input
+                      type="text"
+                      inputMode="numeric"
+                      name="phoneNumber"
+                      className="form-control form-rounded"
+                      onChange={(e) => {
+                        const additionalNumber = e.target.value
+                          .replace(/\D/g, "")
+                          .slice(0, 11);
+                        setOptionalPhone({
+                          ...optionalPhone,
+                          sentToPhone: additionalNumber,
+                        });
+                      }}
+                      value={optionalPhone.sentToPhone}
+                      placeholder="Additional Number"
+                      maxLength={11}
+                      autoComplete="off"
+                    />
+                  </div>
+                </div>
+              </div>
+            )}
+
             {bookable === false &&
             agentInfo?.activeCredit + agentInfo?.currentBalance <
               totalPrice ? null : (
