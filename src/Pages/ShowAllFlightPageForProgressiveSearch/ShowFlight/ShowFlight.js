@@ -5242,12 +5242,12 @@ const ShowFlight = (props) => {
                       <div className="">
                         <p>
                           * Refund Amount= Received amount from customer -
-                          Refund Charge (As per Airline Policy + Travelchamp
+                          Refund Charge (As per Airline Policy + Triplover LLC
                           Convenience Fee)
                         </p>
                         <p>
                           * Date Change Amount= Date change fee as per Airline +
-                          Difference of fare if any + Travelchamp Convenience
+                          Difference of fare if any + Triplover LLC Convenience
                           Fee.
                         </p>
                       </div>

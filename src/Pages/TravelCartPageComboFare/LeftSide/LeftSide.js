@@ -6326,16 +6326,16 @@ const LeftSide = ({
                     <h5 class="button-color p-2 text-white my-1 border-radius">
                       Your selected price has been changed!
                     </h5>
-                    <p className="py-2">
+                    {/* <p className="py-2">
                       Reference number :{" "}
                       {JSON.parse(sessionStorage.getItem("uniqueTransID"))}{" "}
-                    </p>
+                    </p> */}
                     <h5 className="text-success pb-1">
                       New Price is AED{" "}
                       {priceChangedData?.data?.item1?.totalPrice}
                     </h5>
                     <h5 className="text-success pb-3">
-                      Old Price is AED {totalPrice}
+                    Old Price is BDT {comboFare?.item[0]?.totalPrice + comboFare?.item[1]?.totalPrice}
                     </h5>
                     <hr></hr>
                     <div className="mt-4">
