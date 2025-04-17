@@ -2581,14 +2581,14 @@ const ShowAllFlightComboFare = ({
               </div>
 
               <div className="col-lg-8 d-flex  justify-content-end align-items-center py-2">
-                <a
+                {/* <a
                   href="https://www.iatatravelcentre.com/passport-visa-health-travel-document-requirements.htm"
                   target="_blank"
                   className="fw-bold text-color  button-color text-white p-2 border-radius"
                   style={{ fontSize: "11px", width: "auto" }}
                 >
                   Check Visa Requirements
-                </a>
+                </a> */}
 
                 <div className="bg-white py-1 mx-lg-4">
                   <div class="dropdown float-end">
@@ -2999,6 +2999,7 @@ const ShowAllFlightComboFare = ({
                           </div>
                         </div>
                       </div>
+                      
                       <div
                         ref={containerRef} // Ensure the ref is attached to a valid DOM element
                         style={{

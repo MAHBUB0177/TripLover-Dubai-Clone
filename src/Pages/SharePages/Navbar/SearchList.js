@@ -12,13 +12,16 @@ const SearchList = () => {
   const pnr = location.state?.pnr || ""; // Get the passed `sendObj`
 
   const getTicketingData = (utid, type, status) => {
+    let modifyStatus = status === "Issued" ? "Confirmed" : status;
     if (type === "Booking") {
-      window.open("/bookedview?utid=" + utid + "&sts=" + status, "_blank");
+      window.open(
+        "/bookedview?utid=" + utid + "&sts=" + modifyStatus,
+        "_blank"
+      );
     } else if (type === "Ticket") {
-      window.open("/ticket?utid=" + utid + "&sts=" + status, "_blank");
+      window.open("/ticket?utid=" + utid + "&sts=" + modifyStatus, "_blank");
     }
   };
-
   return (
     <div>
       <Navbar></Navbar>
