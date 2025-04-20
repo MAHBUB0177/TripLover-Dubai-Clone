@@ -403,7 +403,7 @@ const Ticket = () => {
 
   const donwloadRef = useRef();
   const donwloadRefUnSelect = useRef();
-  const handleDownloadPdf = async () => {
+   const handleDownloadPdf = async () => {
     setIsDownloading(true);
     donwloadRef.current.style.width = "1085px";
     const element = donwloadRef.current;
@@ -424,7 +424,7 @@ const Ticket = () => {
     const pdfHeight = (imgProperties.height * pdfWidth) / imgProperties.width;
 
     pdf.addImage(data, "PNG", 0, 0, pdfWidth, pdfHeight, "", "FAST");
-    pdf.save("ticket_Triplover.pdf");
+    pdf.save("ticket_TripLover.pdf");
     donwloadRef.current.style.width = "auto";
     setIsDownloading(false);
   };
@@ -938,6 +938,28 @@ const Ticket = () => {
                                 >
                                   Edit Price
                                 </a>
+
+                                
+                            {/* <button
+                              href="javascript:void(0)"
+                              className="btn btn-sm button-color text-white float-right mr-1 d-print-none rounded"
+                              onClick={handleDownloadPdf}
+                              disabled={isDownloading ? true : false}
+                            >
+                              {isDownloading ? (
+                                <>
+                                  <span
+                                    class="spinner-border spinner-border-sm"
+                                    role="status"
+                                    aria-hidden="true"
+                                  ></span>{" "}
+                                  Downloading
+                                </>
+                              ) : (
+                                <>Download</>
+                              )}
+                            </button> */}
+                         
 
                                 <button
                                   className="btn button-color text-white float-right mr-1 d-print-none border-radius"

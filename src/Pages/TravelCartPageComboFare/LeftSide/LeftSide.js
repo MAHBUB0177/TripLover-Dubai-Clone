@@ -6437,7 +6437,7 @@ const LeftSide = ({
                       {priceChangedData?.data?.item1?.totalPrice}
                     </h5>
                     <h5 className="text-success pb-3">
-                    Old Price is BDT {comboFare?.item[0]?.totalPrice + comboFare?.item[1]?.totalPrice}
+                    Old Price is AED {comboFare?.item[0]?.totalPrice + comboFare?.item[1]?.totalPrice}
                     </h5>
                     <hr></hr>
                     <div className="mt-4">
