@@ -3942,7 +3942,7 @@ const ShowFlight = (props) => {
               Price Breakdown
             </span>
 
-            {props?.data?.rbdChangeAllowed && (
+            {/* {props?.data?.rbdChangeAllowed && (
               <span
                 className="btn btn-sm w-100 fw-bold border-radius button-color px-2 text-white font-size"
                 style={{ cursor: "pointer" }}
@@ -3955,7 +3955,7 @@ const ShowFlight = (props) => {
               >
                 Change Booking Class
               </span>
-            )}
+            )} */}
 
 
             {/* <p className="text-color text-center font-size">

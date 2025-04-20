@@ -419,7 +419,7 @@ const Ticket = () => {
     const pdfHeight = (imgProperties.height * pdfWidth) / imgProperties.width;
 
     pdf.addImage(data, "PNG", 0, 0, pdfWidth, pdfHeight, "", "FAST");
-    pdf.save("ticket_travelchamp.pdf");
+    pdf.save("ticket_triplover.pdf");
     donwloadRef.current.style.width = "auto";
     setIsDownloading(false);
   };
@@ -446,7 +446,7 @@ const Ticket = () => {
     const pdfHeight = (imgProperties.height * pdfWidth) / imgProperties.width;
 
     pdf.addImage(data, "PNG", 0, 0, pdfWidth, pdfHeight, "", "FAST");
-    pdf.save("ticket_travelchamp.pdf");
+    pdf.save("ticket_triplover.pdf");
     donwloadRefUnSelect.current.style.width = "auto";
     setIsDownloadingUnSelect(false);
   };
@@ -789,7 +789,7 @@ const Ticket = () => {
                                         ).format("ddd, DD MMM,YY")}
                                       </p>
                                       <p>
-                                        BDT{" "}
+                                        AED{" "}
                                         {ticketingList?.comboSegmentInfo[0]?.totalPriceSelling?.toLocaleString(
                                           "en-US"
                                         )}
@@ -852,7 +852,7 @@ const Ticket = () => {
                                         ).format("ddd, DD MMM,YY")}
                                       </p>
                                       <p>
-                                        BDT{" "}
+                                        AED{" "}
                                         {ticketingList?.comboSegmentInfo[1]?.totalPriceSelling?.toLocaleString(
                                           "en-US"
                                         )}
