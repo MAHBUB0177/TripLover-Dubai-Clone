@@ -224,47 +224,43 @@ const Ticket = () => {
     const getTicketingList = async () => {
       let sendObj = location.search.split("=")[1];
       const response = await getTicketData(utid, sts);
-      // setIsFareHide(
-      //   response?.data?.segments[0].operationCarrier === "6E" ? true : false
-      // );
-
-      if (typeof response.data === "string") {
-        setTicketingList(response.data);
-      } else {
-        if (response.data?.comboSegmentInfo?.length > 0) {
-          setJourneyType(
-            response.data?.comboSegmentInfo?.findIndex(
-              (item) => item.uniqueTransID === searchParams.get("utid")
-            ) === 0
-              ? "ONWARD"
-              : "RETURN"
-          );
-          if (
-            response.data?.comboSegmentInfo?.findIndex(
-              (item) => item.uniqueTransID === searchParams.get("utid")
-            ) === 0
-          ) {
-            setSelectPassenger(response.data?.passengerInfo);
-            setTicketingList(response.data);
-            handleGetListReturn(
-              response.data?.comboSegmentInfo[1]?.uniqueTransID,
-              searchParams.get("sts")
-            );
-          } else {
-            setTicketingListReturn(response.data);
-            setSelectPassengerReturn(response.data?.passengerInfo);
-            handleGetListReturn(
-              response.data?.comboSegmentInfo[0]?.uniqueTransID,
-              searchParams.get("sts")
-            );
-          }
-        } else {
-          setJourneyType("ONWARD");
-          setTicketingList(response.data);
+      setIsFareHide(
+        response?.data?.segments[0].operationCarrier === "6E" ? true : false
+      );
+      if (response.data?.comboSegmentInfo?.length > 0) {
+        setJourneyType(
+          response.data?.comboSegmentInfo?.findIndex(
+            (item) => item.uniqueTransID === searchParams.get("utid")
+          ) === 0
+            ? "ONWARD"
+            : "RETURN"
+        );
+        if (
+          response.data?.comboSegmentInfo?.findIndex(
+            (item) => item.uniqueTransID === searchParams.get("utid")
+          ) === 0
+        ) {
           setSelectPassenger(response.data?.passengerInfo);
-          setPassengerListEdited(response.data.fareBreakdown);
+          setTicketingList(response.data);
+          handleGetListReturn(
+            response.data?.comboSegmentInfo[1]?.uniqueTransID,
+            searchParams.get("sts")
+          );
+        } else {
+          setTicketingListReturn(response.data);
+          setSelectPassengerReturn(response.data?.passengerInfo);
+          handleGetListReturn(
+            response.data?.comboSegmentInfo[0]?.uniqueTransID,
+            searchParams.get("sts")
+          );
         }
+      } else {
+        setJourneyType("ONWARD");
+        setTicketingList(response.data);
+        setSelectPassenger(response.data?.passengerInfo);
+        setPassengerListEdited(response.data.fareBreakdown);
       }
+
       setBasePrice(response?.data[0]?.basePrice);
       setTax(response?.data[0]?.tax);
       setAIT(Number(response?.data[0]?.basePrice) * 0.003);
@@ -272,12 +268,12 @@ const Ticket = () => {
       setDiscount(response?.data[0]?.discount);
       setAdditionalPrice(response?.data[0]?.agentAdditionalPrice);
       setLoader(false);
-      // setTimeout(() => {
-      //   if (JSON.parse(localStorage.getItem("ismail"))) {
-      //     _successTicketMail();
-      //     localStorage.setItem("ismail", JSON.stringify(false));
-      //   }
-      // }, 1000);
+      setTimeout(() => {
+        if (JSON.parse(localStorage.getItem("ismail"))) {
+          _successTicketMail();
+          localStorage.setItem("ismail", JSON.stringify(false));
+        }
+      }, 1000);
     };
     getTicketingList();
   };
@@ -397,13 +393,12 @@ const Ticket = () => {
     }
   }, [journeyType]);
 
-
   const finalSegment = sortAndGroup(ticketingList?.segments);
   const finalSegmentReturn = sortAndGroup(ticketingListReturn?.segments);
 
   const donwloadRef = useRef();
   const donwloadRefUnSelect = useRef();
-   const handleDownloadPdf = async () => {
+  const handleDownloadPdf = async () => {
     setIsDownloading(true);
     donwloadRef.current.style.width = "1085px";
     const element = donwloadRef.current;
@@ -424,7 +419,7 @@ const Ticket = () => {
     const pdfHeight = (imgProperties.height * pdfWidth) / imgProperties.width;
 
     pdf.addImage(data, "PNG", 0, 0, pdfWidth, pdfHeight, "", "FAST");
-    pdf.save("ticket_TripLover.pdf");
+    pdf.save("ticket_travelchamp.pdf");
     donwloadRef.current.style.width = "auto";
     setIsDownloading(false);
   };
@@ -451,7 +446,7 @@ const Ticket = () => {
     const pdfHeight = (imgProperties.height * pdfWidth) / imgProperties.width;
 
     pdf.addImage(data, "PNG", 0, 0, pdfWidth, pdfHeight, "", "FAST");
-    pdf.save("ticket_Triplover.pdf");
+    pdf.save("ticket_travelchamp.pdf");
     donwloadRefUnSelect.current.style.width = "auto";
     setIsDownloadingUnSelect(false);
   };
@@ -493,10 +488,11 @@ const Ticket = () => {
 
   const [unSelectPassenger, setUnselectPassenger] = useState([]);
   const [unSelectPassengerReturn, setUnselectPassengerReturn] = useState([]);
+  console.log(selectPassenger, unSelectPassenger, "fcsdfsdfsfsf");
   const handleCheckboxChange = async (item) => {
     const isSelected = selectPassenger.includes(item);
     if (isSelected && selectPassenger.length === 1) {
-      return toast.error("All passenger can not be unSelected");
+      return toast.error("All passenger can not be unselected");
     }
     const newSelectedPassengers = isSelected
       ? selectPassenger.filter(
@@ -603,528 +599,2718 @@ const Ticket = () => {
             </>
           ) : (
             <>
-              {typeof ticketingList === "string" ? (
-                <div>
-                  <div className="content-wrapper search-panel-bg">
-                    <section className="content-header"></section>
-                    <section className="content content-panel">
-                      <div className="container bg-white w-25">
-                        <div className="row">
-                          <div className="col-lg-12 text-center py-3">
-                            <h5 className="fw-bold">{ticketingList}</h5>
-                            <div className="my-1">
-                              <span className="text-danger fs-3">
-                                <i
-                                  class="fa fa-exclamation-triangle"
-                                  aria-hidden="true"
-                                ></i>
-                              </span>
-                            </div>
-                            <p>
-                              Please Reopen Your PNR From The List<br></br>Thank
-                              You
-                            </p>
-                            <hr></hr>
-                          </div>
+              <div className="container mb-3">
+                <div id="ui-view" data-select2-id="ui-view">
+                  <div>
+                    <div className="card box-shadow p-3">
+                      <div className="px-2  bg-white rounded border my-2">
+                        <div className="d-flex justify-content-between align-items-center pt-3 px-2">
+                          <div className="fw-bold">Select Passenger</div>
+                        </div>
+                        <div className="p-2 table-responsive px-2  bg-white">
+                          <table
+                            className="table text-start table-bordered  table-sm"
+                            style={{ width: "100%", fontSize: "13px" }}
+                          >
+                            <thead className="text-start fw-bold bg-secondary">
+                              <tr>
+                                <th>Select</th>
+                                <th>Passenger Name</th>
+                                <th>Passenger Type</th>
+                                <th>Ticket Number</th>
+                              </tr>
+                            </thead>
+                            {journeyType === "ONWARD" ? (
+                              <tbody>
+                                {ticketingList.passengerInfo?.length > 0 &&
+                                  ticketingList.passengerInfo?.map(
+                                    (item, index) => (
+                                      <tr key={index} className="border-none">
+                                        <td>
+                                          <div className="d-flex align-items-center">
+                                            <input
+                                              type="checkbox"
+                                              checked={selectPassenger.includes(
+                                                item
+                                              )}
+                                              onChange={() =>
+                                                handleCheckboxChange(item)
+                                              }
+                                            />
+                                          </div>
+                                        </td>
+
+                                        <td>{item.fullName}</td>
+                                        <td>
+                                          {item.passengerType === "ADT"
+                                            ? "Adult"
+                                            : item.passengerType === "CNN"
+                                            ? "Child"
+                                            : item.passengerType === "CHD"
+                                            ? "Child"
+                                            : item.passengerType === "INF"
+                                            ? "Infant"
+                                            : ""}
+                                        </td>
+                                        <td>{item.ticketNumbers}</td>
+                                      </tr>
+                                    )
+                                  )}
+                              </tbody>
+                            ) : (
+                              <tbody>
+                                {ticketingListReturn.passengerInfo?.length >
+                                  0 &&
+                                  ticketingListReturn.passengerInfo?.map(
+                                    (item, index) => (
+                                      <tr key={index} className="border-none">
+                                        <td>
+                                          <div className="d-flex align-items-center">
+                                            <input
+                                              type="checkbox"
+                                              checked={selectPassengerReturn.includes(
+                                                item
+                                              )}
+                                              onChange={() =>
+                                                handleCheckboxChangeReturn(item)
+                                              }
+                                            />
+                                          </div>
+                                        </td>
+
+                                        <td>{item.fullName}</td>
+                                        <td>
+                                          {item.passengerType === "ADT"
+                                            ? "Adult"
+                                            : item.passengerType === "CNN"
+                                            ? "Child"
+                                            : item.passengerType === "CHD"
+                                            ? "Child"
+                                            : item.passengerType === "INF"
+                                            ? "Infant"
+                                            : ""}
+                                        </td>
+                                        <td>{item.ticketNumbers}</td>
+                                      </tr>
+                                    )
+                                  )}
+                              </tbody>
+                            )}
+                          </table>
                         </div>
                       </div>
-                    </section>
+                    </div>
                   </div>
                 </div>
-              ) : (
-                <>
-                  <div className="container mb-3">
-                    <div id="ui-view" data-select2-id="ui-view">
-                      <div>
-                        <div className="card box-shadow p-3">
-                          <div className="px-2  bg-white rounded border my-2">
-                            <div className="d-flex justify-content-between align-items-center pt-3 px-2">
-                              <div className="fw-bold">Select Passenger</div>
-                            </div>
-                            <div className="p-2 table-responsive px-2  bg-white">
-                              <table
-                                className="table text-start table-bordered  table-sm"
-                                style={{ width: "100%", fontSize: "13px" }}
-                              >
-                                <thead className="text-start fw-bold bg-secondary">
-                                  <tr>
-                                    <th>Select</th>
-                                    <th>Passenger Name</th>
-                                    <th>Passenger Type</th>
-                                    <th>Ticket Number</th>
-                                  </tr>
-                                </thead>
-                                {journeyType === "ONWARD" ? (
-                                  <tbody>
-                                    {ticketingList.passengerInfo?.length > 0 &&
-                                      ticketingList.passengerInfo?.map(
-                                        (item, index) => (
-                                          <tr
-                                            key={index}
-                                            className="border-none"
-                                          >
-                                            <td>
-                                              <div className="d-flex align-items-center">
-                                                <input
-                                                  type="checkbox"
-                                                  checked={selectPassenger.includes(
-                                                    item
-                                                  )}
-                                                  onChange={() =>
-                                                    handleCheckboxChange(item)
-                                                  }
-                                                />
-                                              </div>
-                                            </td>
+              </div>
 
-                                            <td>{item.fullName}</td>
-                                            <td>
-                                              {item.passengerType === "ADT"
-                                                ? "Adult"
-                                                : item.passengerType === "CNN"
-                                                ? "Child"
-                                                : item.passengerType === "CHD"
-                                                ? "Child"
-                                                : item.passengerType === "INF"
-                                                ? "Infant"
-                                                : ""}
-                                            </td>
-                                            <td>{item.ticketNumbers}</td>
-                                          </tr>
-                                        )
-                                      )}
-                                  </tbody>
-                                ) : (
-                                  <tbody>
-                                    {ticketingListReturn.passengerInfo?.length >
-                                      0 &&
-                                      ticketingListReturn.passengerInfo?.map(
-                                        (item, index) => (
-                                          <tr
-                                            key={index}
-                                            className="border-none"
-                                          >
-                                            <td>
-                                              <div className="d-flex align-items-center">
-                                                <input
-                                                  type="checkbox"
-                                                  checked={selectPassengerReturn.includes(
-                                                    item
-                                                  )}
-                                                  onChange={() =>
-                                                    handleCheckboxChangeReturn(
-                                                      item
-                                                    )
-                                                  }
-                                                />
-                                              </div>
-                                            </td>
-
-                                            <td>{item.fullName}</td>
-                                            <td>
-                                              {item.passengerType === "ADT"
-                                                ? "Adult"
-                                                : item.passengerType === "CNN"
-                                                ? "Child"
-                                                : item.passengerType === "CHD"
-                                                ? "Child"
-                                                : item.passengerType === "INF"
-                                                ? "Infant"
-                                                : ""}
-                                            </td>
-                                            <td>{item.ticketNumbers}</td>
-                                          </tr>
-                                        )
-                                      )}
-                                  </tbody>
-                                )}
-                              </table>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
+              <div className="container mt-3">
+                <div className="row">
+                  <div className="col-lg-12">
+                    <h4 className="fw-bold text-center bg-white text-dark p-2">
+                      Ticket Details
+                    </h4>
+                    {/* <a className='btn btn-warning' href='/queues'>Back to List</a> */}
                   </div>
+                </div>
+              </div>
 
-                  <div className="container mt-3">
-                    <div className="row">
-                      <div className="col-lg-12">
-                        <h4 className="fw-bold text-center bg-white text-dark p-2">
-                          Ticket Details
-                        </h4>
-                        {/* <a className='btn btn-warning' href='/queues'>Back to List</a> */}
-                      </div>
-                    </div>
-                  </div>
-
-                  {ticketingList?.ticketInfo?.status && (
-                    <div className="container mt-3 py-5 pb-5">
-                      <div id="ui-view" data-select2-id="ui-view">
-                        <div>
-                          <div className="card box-shadow">
+              {ticketingList?.ticketInfo?.status && (
+                <div className="container mt-3 py-5 pb-5">
+                  <div id="ui-view" data-select2-id="ui-view">
+                    <div>
+                      <div className="card box-shadow">
+                        <div
+                          className={
+                            ticketingList?.comboSegmentInfo?.length > 0
+                              ? "d-flex justify-content-between align-items-center"
+                              : "d-flex justify-content-end align-items-center"
+                          }
+                        >
+                          {ticketingList?.comboSegmentInfo?.length > 0 && (
                             <div
-                              className={
-                                ticketingList?.comboSegmentInfo?.length > 0
-                                  ? "d-flex justify-content-between align-items-center"
-                                  : "d-flex justify-content-end align-items-center"
-                              }
+                              className="d-flex align-items-center justify-content-start"
+                              style={{
+                                // height: "60px",
+                                // width: "220px",
+                                borderEndEndRadius: "13px",
+                                backgroundColor: "#068b9f3b",
+                              }}
                             >
-                              {ticketingList?.comboSegmentInfo?.length > 0 && (
-                                <div
-                                  className="d-flex align-items-center justify-content-start"
+                              <div className="form-check form-check-inline border-radius mx-2">
+                                <input
+                                  className="form-check-input"
+                                  name="inlineFareRadioOptions"
+                                  id="inlineFareRadio1"
+                                  type="radio"
                                   style={{
-                                    // height: "60px",
-                                    // width: "220px",
-                                    borderEndEndRadius: "13px",
-                                    backgroundColor: "#068b9f3b",
+                                    border: "2px solid #ed7f22",
+                                    transition: "all 0.3s ease",
+                                    cursor: "pointer",
+                                    backgroundColor:
+                                      journeyType === "ONWARD" && "#ed7f22",
+                                    appearance: "none",
+                                  }}
+                                  value="ONWARD"
+                                  onClick={() => setJourneyType("ONWARD")}
+                                  checked={journeyType === "ONWARD" && true}
+                                />
+                                <label
+                                  className="form-check-label fw-bold"
+                                  for="inlineFareRadio1"
+                                  style={{
+                                    color:
+                                      journeyType === "ONWARD"
+                                        ? "#068b9f"
+                                        : "#1a202c",
                                   }}
                                 >
-                                  <div className="form-check form-check-inline border-radius mx-2">
-                                    <input
-                                      className="form-check-input"
-                                      name="inlineFareRadioOptions"
-                                      id="inlineFareRadio1"
-                                      type="radio"
-                                      style={{
-                                        border: "2px solid #ed7f22",
-                                        transition: "all 0.3s ease",
-                                        cursor: "pointer",
-                                        backgroundColor:
-                                          journeyType === "ONWARD" && "#ed7f22",
-                                        appearance: "none",
-                                      }}
-                                      value="ONWARD"
-                                      onClick={() => setJourneyType("ONWARD")}
-                                      checked={journeyType === "ONWARD" && true}
-                                    />
-                                    <label
-                                      className="form-check-label fw-bold"
-                                      for="inlineFareRadio1"
-                                      style={{
-                                        color:
-                                          journeyType === "ONWARD"
-                                            ? "#7c04c0"
-                                            : "#1a202c",
-                                      }}
-                                    >
-                                      <div className="p-2 d-flex justify-content-center align-items-center gap-3">
-                                        <img
-                                          src={
-                                            environment.s3ArliensImage +
-                                            `${ticketingList?.comboSegmentInfo[0]?.platingCarrier}.png`
-                                          }
-                                          alt=""
-                                          width="30px"
-                                          height="30px"
-                                        ></img>
-                                        <div>
-                                          <p>
-                                            {
-                                              ticketingList?.comboSegmentInfo[0]
-                                                ?.routes
-                                            }
-                                          </p>
-                                          <p style={{ fontSize: "10px" }}>
-                                            {moment(
-                                              ticketingList?.comboSegmentInfo[0]
-                                                ?.flightDate
-                                            ).format("ddd, DD MMM,YY")}
-                                          </p>
-                                          <p>
-                                            AED{" "}
-                                            {ticketingList?.comboSegmentInfo[0]?.totalPriceSelling?.toLocaleString(
-                                              "en-US"
-                                            )}
-                                          </p>
-                                        </div>
-                                      </div>
-                                    </label>
+                                  <div className="p-2 d-flex justify-content-center align-items-center gap-3">
+                                    <img
+                                      src={
+                                        environment.s3ArliensImage +
+                                        `${ticketingList?.comboSegmentInfo[0]?.platingCarrier}.png`
+                                      }
+                                      alt=""
+                                      width="30px"
+                                      height="30px"
+                                    ></img>
+                                    <div>
+                                      <p>
+                                        {
+                                          ticketingList?.comboSegmentInfo[0]
+                                            ?.routes
+                                        }
+                                      </p>
+                                      <p style={{ fontSize: "10px" }}>
+                                        {moment(
+                                          ticketingList?.comboSegmentInfo[0]
+                                            ?.flightDate
+                                        ).format("ddd, DD MMM,YY")}
+                                      </p>
+                                      <p>
+                                        BDT{" "}
+                                        {ticketingList?.comboSegmentInfo[0]?.totalPriceSelling?.toLocaleString(
+                                          "en-US"
+                                        )}
+                                      </p>
+                                    </div>
                                   </div>
-                                  <div className="form-check form-check-inline border-radius">
-                                    <input
-                                      className="form-check-input"
-                                      name="inlineFareRadioOptions"
-                                      id="inlineFareRadio2"
-                                      type="radio"
-                                      style={{
-                                        border: "2px solid #ed7f22",
-                                        color: "#ed7f22",
-                                        transition: "all 0.3s ease",
-                                        backgroundColor:
-                                          journeyType === "RETURN" && "#ed7f22",
-                                        cursor: "pointer",
-                                      }}
-                                      value="RETURN"
-                                      onClick={() => {
-                                        setJourneyType("RETURN");
-                                      }}
-                                      checked={journeyType === "RETURN" && true}
-                                    />
-                                    <label
-                                      className="form-check-label fw-bold"
-                                      for="inlineFareRadio2"
-                                      style={{
-                                        color:
-                                          journeyType === "RETURN"
-                                            ? "#7c04c0"
-                                            : "#1a202c",
-                                      }}
-                                    >
-                                      <div className="p-2 d-flex justify-content-center align-items-center gap-3">
-                                        <img
-                                          src={
-                                            environment.s3ArliensImage +
-                                            `${ticketingList?.comboSegmentInfo[1]?.platingCarrier}.png`
-                                          }
-                                          alt=""
-                                          width="30px"
-                                          height="30px"
-                                        ></img>
-                                        <div>
-                                          <p>
-                                            {
-                                              ticketingList?.comboSegmentInfo[1]
-                                                ?.routes
-                                            }
-                                          </p>
-                                          <p style={{ fontSize: "10px" }}>
-                                            {moment(
-                                              ticketingList?.comboSegmentInfo[1]
-                                                ?.flightDate
-                                            ).format("ddd, DD MMM,YY")}
-                                          </p>
-                                          <p>
-                                            AED{" "}
-                                            {ticketingList?.comboSegmentInfo[1]?.totalPriceSelling?.toLocaleString(
-                                              "en-US"
-                                            )}
-                                          </p>
-                                        </div>
-                                      </div>
-                                    </label>
+                                </label>
+                              </div>
+                              <div className="form-check form-check-inline border-radius">
+                                <input
+                                  className="form-check-input"
+                                  name="inlineFareRadioOptions"
+                                  id="inlineFareRadio2"
+                                  type="radio"
+                                  style={{
+                                    border: "2px solid #ed7f22",
+                                    color: "#ed7f22",
+                                    transition: "all 0.3s ease",
+                                    backgroundColor:
+                                      journeyType === "RETURN" && "#ed7f22",
+                                    cursor: "pointer",
+                                  }}
+                                  value="RETURN"
+                                  onClick={() => {
+                                    setJourneyType("RETURN");
+                                  }}
+                                  checked={journeyType === "RETURN" && true}
+                                />
+                                <label
+                                  className="form-check-label fw-bold"
+                                  for="inlineFareRadio2"
+                                  style={{
+                                    color:
+                                      journeyType === "RETURN"
+                                        ? "#068b9f"
+                                        : "#1a202c",
+                                  }}
+                                >
+                                  <div className="p-2 d-flex justify-content-center align-items-center gap-3">
+                                    <img
+                                      src={
+                                        environment.s3ArliensImage +
+                                        `${ticketingList?.comboSegmentInfo[1]?.platingCarrier}.png`
+                                      }
+                                      alt=""
+                                      width="30px"
+                                      height="30px"
+                                    ></img>
+                                    <div>
+                                      <p>
+                                        {
+                                          ticketingList?.comboSegmentInfo[1]
+                                            ?.routes
+                                        }
+                                      </p>
+                                      <p style={{ fontSize: "10px" }}>
+                                        {moment(
+                                          ticketingList?.comboSegmentInfo[1]
+                                            ?.flightDate
+                                        ).format("ddd, DD MMM,YY")}
+                                      </p>
+                                      <p>
+                                        BDT{" "}
+                                        {ticketingList?.comboSegmentInfo[1]?.totalPriceSelling?.toLocaleString(
+                                          "en-US"
+                                        )}
+                                      </p>
+                                    </div>
                                   </div>
+                                </label>
+                              </div>
+                            </div>
+                          )}
+
+                          <div
+                            style={{
+                              width: "auto",
+                              borderEndStartRadius: "13px",
+                              // backgroundColor: "#068b9f3b",
+                              padding: "10px",
+                              // height: "60px",
+                            }}
+                          >
+                            <ReactToPrint
+                              trigger={() => (
+                                <button className="btn button-color text-white float-right mr-1 d-print-none border-radius">
+                                  <span className="me-1">
+                                    <i className="fa fa-print"></i>
+                                  </span>
+                                  Print
+                                </button>
+                              )}
+                              content={() =>
+                                ticketingList?.comboSegmentInfo?.length > 0
+                                  ? componentRefCombo.current
+                                  : componentRef.current
+                              }
+                            />
+                            <a
+                              href="javascript:void(0)"
+                              className="btn button-color text-white float-right mr-1 d-print-none border-radius"
+                              data-bs-toggle="modal"
+                              data-bs-target="#priceModal"
+                            >
+                              Edit Price
+                            </a>
+
+                            <button
+                              className="btn button-color text-white float-right mr-1 d-print-none border-radius"
+                              onClick={() => {
+                                onOpen();
+                              }}
+                            >
+                              <span className="me-1">
+                                <Icon as={MdEmail} pb="4px" height={"20px"} />
+                              </span>
+                              Send Mail
+                            </button>
+                            {ticketingList?.ticketInfo?.bookingType ===
+                              "Online" && (
+                              <>
+                                {checkOperationCarrier(
+                                  ticketingList?.segments
+                                ) &&
+                                  originalPDFFareData && (
+                                    <button
+                                      href="javascript:void(0)"
+                                      className="btn button-color text-white float-right mr-1 d-print-none border-radius"
+                                      onClick={() =>
+                                        downloadPdf(
+                                          `${ticketingList?.ticketInfo?.pnr}`
+                                        )
+                                      }
+                                      disabled={isPdfGenerating ? true : false}
+                                    >
+                                      {isPdfGenerating ? (
+                                        <>
+                                          <span
+                                            class="spinner-border spinner-border-sm"
+                                            role="status"
+                                            aria-hidden="true"
+                                          ></span>{" "}
+                                          Downloading
+                                        </>
+                                      ) : (
+                                        <>Airline PDF</>
+                                      )}
+                                    </button>
+                                  )}
+                              </>
+                            )}
+                          </div>
+                        </div>
+
+                        <div className="card-header">
+                          <span>
+                            <input
+                              className="ms-3"
+                              type={"checkbox"}
+                              checked={isFareHide}
+                              onChange={(e) => {
+                                setIsFareHide(e.target.checked);
+                              }}
+                            />{" "}
+                            Hide Fare
+                          </span>
+                          <span>
+                            <input
+                              className="ms-3"
+                              type="checkbox"
+                              checked={isFareChange}
+                              onChange={(e) => {
+                                setIsFareChange(() => !isFareChange);
+                              }}
+                            />{" "}
+                            Gross Fare
+                          </span>
+
+                          <span>
+                            <input
+                              className="ms-3"
+                              type="checkbox"
+                              onChange={(e) => {
+                                setIsAgentInfo(() => e.target.checked);
+                              }}
+                            />{" "}
+                            Hide Agent Info
+                          </span>
+
+                          <span>
+                            <input
+                              className="ms-3"
+                              type="checkbox"
+                              onChange={(e) => {
+                                setContactInfo(() => e.target.checked);
+                              }}
+                            />{" "}
+                            Hide Contact Info
+                          </span>
+                        </div>
+
+                        <ModalForm
+                          isOpen={isOpen}
+                          onClose={onClose}
+                          title={"Compose New Message"}
+                        >
+                          <Stack spacing={3}>
+                            <Input
+                              variant="outline"
+                              onChange={(e) => {
+                                setMessageData({
+                                  ...messageData,
+                                  [e.target.name]: e.target.value,
+                                });
+                              }}
+                              required
+                              name="toEmail"
+                              placeholder="To"
+                              className="border-radius"
+                            />
+                            <Input
+                              variant="outline"
+                              onChange={(e) => {
+                                setMessageData({
+                                  ...messageData,
+                                  [e.target.name]: e.target.value,
+                                });
+                              }}
+                              placeholder="Subject"
+                              name="subject"
+                              required
+                            />
+                            <Textarea
+                              placeholder="Message"
+                              required
+                              name="body"
+                              onChange={(e) => {
+                                setMessageData({
+                                  ...messageData,
+                                  [e.target.name]: e.target.value,
+                                });
+                              }}
+                            ></Textarea>
+                          </Stack>
+                          <Box
+                            display="flex"
+                            alignItems="end"
+                            justifyContent={"end"}
+                          >
+                            <Button
+                              loadingText="Sending..."
+                              variant="solid"
+                              mt={"2"}
+                              bg={"#068b9f"}
+                              color={"white"}
+                              disabled={btnDisabled === true ? true : false}
+                              onClick={handleMessageUser}
+                            >
+                              Send
+                            </Button>
+                          </Box>
+                        </ModalForm>
+
+                        <div>
+                          <div className="card-body" ref={componentRef}>
+                            <div
+                              className="px-lg-5 px-md-5 px-sm-1 p-3"
+                              ref={donwloadRef}
+                            >
+                              <h4 className="text-center pb-2">E-Ticket</h4>
+
+                              {!isAgentInfo && (
+                                <div className="table-responsive mt-2">
+                                  <table class="table table-borderless table-sm">
+                                    <tbody>
+                                      <tr>
+                                        {/* FIXED COMPANY LOGO */}
+                                        {/* CHANGE THIS LATER */}
+                                        <td className="text-start">
+                                          {ticketingList.ticketInfo
+                                            ?.agentLogo !== null ? (
+                                            <>
+                                              {/* <img
+                                  alt="img01"
+                                  src={
+                                    environment.s3URL +
+                                    `${ticketingList.ticketInfo?.agentLogo}`
+                                  }
+                                  crossOrigin="true"
+                                  style={{ width: "160px" }}
+                                ></img> */}
+                                              <ImageComponentForAgent
+                                                logo={
+                                                  ticketingList.ticketInfo
+                                                    ?.agentLogo
+                                                }
+                                              />
+                                            </>
+                                          ) : (
+                                            <>
+                                              <img
+                                                alt="img01"
+                                                className="p-2"
+                                                src={tllLogo}
+                                                style={{ width: "160px" }}
+                                              ></img>
+                                            </>
+                                          )}
+                                        </td>
+                                        <td className="text-end bg-white">
+                                          <address>
+                                            <span className="fw-bold fs-6">
+                                              {agentInfo.name}
+                                            </span>
+                                            <br />
+                                            <div
+                                              className="mt-2"
+                                              style={{
+                                                fontSize: "12px",
+                                                lineHeight: "12px",
+                                              }}
+                                            >
+                                              {agentInfo.address}
+                                              <br />
+                                              <span style={{ fontSize: "8px" }}>
+                                                <i class="fas fa-phone fa-rotate-90"></i>
+                                              </span>{" "}
+                                              Phone: {agentInfo.mobileNo}
+                                              <br></br>
+                                              <span className="me-1">
+                                                <i
+                                                  class="fa fa-envelope"
+                                                  aria-hidden="true"
+                                                ></i>
+                                              </span>{" "}
+                                              Email: {agentInfo.email}
+                                            </div>
+                                          </address>
+                                        </td>
+                                      </tr>
+                                    </tbody>
+                                  </table>
                                 </div>
                               )}
 
-                              <div
-                                style={{
-                                  width: "auto",
-                                  borderEndStartRadius: "13px",
-                                  // backgroundColor: "#068b9f3b",
-                                  padding: "10px",
-                                  // height: "60px",
-                                }}
-                              >
-                                <ReactToPrint
-                                  trigger={() => (
-                                    <button className="btn button-color text-white float-right mr-1 d-print-none border-radius">
-                                      <span className="me-1">
-                                        <i className="fa fa-print"></i>
-                                      </span>
-                                      Print
-                                    </button>
-                                  )}
-                                  content={() =>
-                                    ticketingList?.comboSegmentInfo?.length > 0
-                                      ? componentRefCombo.current
-                                      : componentRef.current
-                                  }
-                                />
-                                <a
-                                  href="javascript:void(0)"
-                                  className="btn button-color text-white float-right mr-1 d-print-none border-radius"
-                                  data-bs-toggle="modal"
-                                  data-bs-target="#priceModal"
+                              {journeyType === "ONWARD" ? (
+                                <Box
+                                  display={"flex"}
+                                  justifyContent={"space-between"}
+                                  flexWrap={"wrap"}
+                                  style={{ fontSize: "14px" }}
                                 >
-                                  Edit Price
-                                </a>
+                                  <div>
+                                    <br></br>
+                                    <Text>
+                                      Booking ID :{" "}
+                                      <span className="fw-bold">
+                                        {
+                                          ticketingList.ticketInfo
+                                            ?.uniqueTransID
+                                        }
+                                      </span>
+                                    </Text>
+                                  </div>
 
-                                
-                            {/* <button
-                              href="javascript:void(0)"
-                              className="btn btn-sm button-color text-white float-right mr-1 d-print-none rounded"
-                              onClick={handleDownloadPdf}
-                              disabled={isDownloading ? true : false}
-                            >
-                              {isDownloading ? (
-                                <>
-                                  <span
-                                    class="spinner-border spinner-border-sm"
-                                    role="status"
-                                    aria-hidden="true"
-                                  ></span>{" "}
-                                  Downloading
-                                </>
+                                  <div>
+                                    <Text>
+                                      GDS PNR :{" "}
+                                      <span className="fw-bold">
+                                        {ticketingList.ticketInfo?.pnr}
+                                      </span>
+                                    </Text>
+                                    <Text>
+                                      Airline PNR:{" "}
+                                      <span className="fw-bold">
+                                        {ticketingList.ticketInfo
+                                          ?.airlinePNRs === "" ||
+                                        ticketingList.ticketInfo
+                                          ?.airlinePNRs === null
+                                          ? ticketingList.ticketInfo?.pnr
+                                          : ticketingList.ticketInfo
+                                              ?.airlinePNRs}
+                                      </span>
+                                    </Text>
+                                  </div>
+                                </Box>
                               ) : (
-                                <>Download</>
-                              )}
-                            </button> */}
-                         
+                                <Box
+                                  display={"flex"}
+                                  justifyContent={"space-between"}
+                                  flexWrap={"wrap"}
+                                  style={{ fontSize: "14px" }}
+                                >
+                                  <div>
+                                    <br></br>
+                                    <Text>
+                                      Booking ID :{" "}
+                                      <span className="fw-bold">
+                                        {
+                                          ticketingListReturn.ticketInfo
+                                            ?.uniqueTransID
+                                        }
+                                      </span>
+                                    </Text>
+                                  </div>
 
-                                <button
-                                  className="btn button-color text-white float-right mr-1 d-print-none border-radius"
-                                  onClick={() => {
-                                    onOpen();
+                                  <div>
+                                    <Text>
+                                      GDS PNR :{" "}
+                                      <span className="fw-bold">
+                                        {ticketingListReturn.ticketInfo?.pnr}
+                                      </span>
+                                    </Text>
+                                    <Text>
+                                      Airline PNR:{" "}
+                                      <span className="fw-bold">
+                                        {ticketingListReturn.ticketInfo
+                                          ?.airlinePNRs === "" ||
+                                        ticketingListReturn.ticketInfo
+                                          ?.airlinePNRs === null
+                                          ? ticketingListReturn.ticketInfo?.pnr
+                                          : ticketingListReturn.ticketInfo
+                                              ?.airlinePNRs}
+                                      </span>
+                                    </Text>
+                                  </div>
+                                </Box>
+                              )}
+
+                              <div className="table-responsive mt-2">
+                                <table
+                                  class="table table-bordered table-sm mt-1"
+                                  style={{ fontSize: "14px" }}
+                                >
+                                  <thead>
+                                    <tr>
+                                      <th
+                                        colspan="5"
+                                        className="fw-bold py-2 bg-light"
+                                      >
+                                        Passenger Information
+                                      </th>
+                                    </tr>
+                                    <tr className="text-center">
+                                      <th className="text-start">Name</th>
+                                      <th>Type</th>
+                                      <th>E-Ticket Number</th>
+                                      {/* <th>Booking ID</th> */}
+                                      <th>Ticket Issue Date</th>
+                                    </tr>
+                                  </thead>
+                                  {journeyType === "ONWARD" ? (
+                                    <tbody>
+                                      {ticketingList.passengerInfo?.map(
+                                        (item, index) => {
+                                          if (selectPassenger.includes(item)) {
+                                            return (
+                                              <tr
+                                                className="text-center"
+                                                style={{ lineHeight: "14px" }}
+                                              >
+                                                <td
+                                                  className="text-start"
+                                                  style={{ fontSize: "15px" }}
+                                                >
+                                                  {item.title.toUpperCase()}{" "}
+                                                  {item.first.toUpperCase()}{" "}
+                                                  {item.last.toUpperCase()}
+                                                </td>
+                                                <td>
+                                                  {item.passengerType === "ADT"
+                                                    ? "Adult"
+                                                    : item.passengerType ===
+                                                      "CNN"
+                                                    ? "Child"
+                                                    : item.passengerType ===
+                                                      "CHD"
+                                                    ? "Child"
+                                                    : item.passengerType ===
+                                                      "INF"
+                                                    ? "Infant"
+                                                    : ""}
+                                                </td>
+                                                <td>{item.ticketNumbers}</td>
+                                                <td>
+                                                  {" "}
+                                                  {moment(
+                                                    ticketingList.ticketInfo
+                                                      ?.issueDate
+                                                  ).format("ddd, DD MMM,YY")}
+                                                </td>
+                                              </tr>
+                                            );
+                                          }
+                                        }
+                                      )}
+                                    </tbody>
+                                  ) : (
+                                    <tbody>
+                                      {ticketingListReturn.passengerInfo?.map(
+                                        (item, index) => {
+                                          if (
+                                            selectPassengerReturn.includes(item)
+                                          ) {
+                                            return (
+                                              <tr
+                                                className="text-center"
+                                                style={{ lineHeight: "14px" }}
+                                              >
+                                                <td
+                                                  className="text-start"
+                                                  style={{ fontSize: "15px" }}
+                                                >
+                                                  {item.title.toUpperCase()}{" "}
+                                                  {item.first.toUpperCase()}{" "}
+                                                  {item.last.toUpperCase()}
+                                                </td>
+                                                <td>
+                                                  {item.passengerType === "ADT"
+                                                    ? "Adult"
+                                                    : item.passengerType ===
+                                                      "CNN"
+                                                    ? "Child"
+                                                    : item.passengerType ===
+                                                      "CHD"
+                                                    ? "Child"
+                                                    : item.passengerType ===
+                                                      "INF"
+                                                    ? "Infant"
+                                                    : ""}
+                                                </td>
+                                                <td>{item.ticketNumbers}</td>
+                                                <td>
+                                                  {" "}
+                                                  {moment(
+                                                    ticketingList.ticketInfo
+                                                      ?.issueDate
+                                                  ).format("ddd, DD MMM,YY")}
+                                                </td>
+                                              </tr>
+                                            );
+                                          }
+                                        }
+                                      )}
+                                    </tbody>
+                                  )}
+                                </table>
+                              </div>
+
+                              <div className="table-responsive mt-3">
+                                <div
+                                  className="ps-1 py-2 fw-bold text-start bg-light border"
+                                  style={{
+                                    fontSize: "14px",
                                   }}
                                 >
-                                  <span className="me-1">
-                                    <Icon
-                                      as={MdEmail}
-                                      pb="4px"
-                                      height={"20px"}
-                                    />
-                                  </span>
-                                  Send Mail
-                                </button>
-                                {ticketingList?.ticketInfo?.bookingType ===
-                                  "Online" && (
-                                  <>
-                                    {checkOperationCarrier(
-                                      ticketingList?.segments
-                                    ) &&
-                                      originalPDFFareData && (
-                                        <button
-                                          href="javascript:void(0)"
-                                          className="btn button-color text-white float-right mr-1 d-print-none border-radius"
-                                          onClick={() =>
-                                            downloadPdf(
-                                              `${ticketingList?.ticketInfo?.pnr}`
-                                            )
+                                  Flight Details
+                                </div>
+                                {journeyType === "ONWARD" ? (
+                                  <div className="">
+                                    <div
+                                      className="border p-1"
+                                      style={{ fontSize: "14px" }}
+                                    >
+                                      {ticketingList?.directions ===
+                                      undefined ? (
+                                        <>
+                                          {finalSegment.map((item, index) => {
+                                            return (
+                                              <div className="border my-1 p-1">
+                                                {item.map((itm, idx) => {
+                                                  let baggage = JSON.parse(
+                                                    itm.baggageInfo
+                                                  );
+                                                  return (
+                                                    <>
+                                                      <span className="fw-bold">
+                                                        {airports
+                                                          .filter(
+                                                            (f) =>
+                                                              f.iata ===
+                                                              itm.origin
+                                                          )
+                                                          .map(
+                                                            (itm) => itm.city
+                                                          )}{" "}
+                                                        ({itm.origin})
+                                                      </span>
+                                                      <span className="mx-2 fw-bold">
+                                                        <i class="fas fa-arrow-right"></i>
+                                                      </span>
+                                                      <span className="fw-bold">
+                                                        {airports
+                                                          .filter(
+                                                            (f) =>
+                                                              f.iata ===
+                                                              itm.destination
+                                                          )
+                                                          .map(
+                                                            (itm) => itm.city
+                                                          )}{" "}
+                                                        ({itm.destination})
+                                                      </span>
+                                                      <span className="d-flex align-items-center fw-bold">
+                                                        {/* <img
+                                          src={
+                                            environment.s3ArliensImage +
+                                            `${itm.operationCarrier}.png`
                                           }
-                                          disabled={
-                                            isPdfGenerating ? true : false
-                                          }
-                                        >
-                                          {isPdfGenerating ? (
-                                            <>
-                                              <span
-                                                class="spinner-border spinner-border-sm"
-                                                role="status"
-                                                aria-hidden="true"
-                                              ></span>{" "}
-                                              Downloading
-                                            </>
-                                          ) : (
-                                            <>Airline PDF</>
-                                          )}
-                                        </button>
+                                          className="me-2"
+                                          alt=""
+                                          width="30px"
+                                          height="30px"
+                                          crossOrigin="true"
+                                        ></img> */}
+                                                        <ImageComponentTicket
+                                                          logo={
+                                                            itm.operationCarrier
+                                                          }
+                                                        />
+                                                        {
+                                                          itm.operationCarrierName
+                                                        }{" "}
+                                                        ({itm.operationCarrier}-
+                                                        {itm.flightNumber})
+                                                      </span>
+
+                                                      <div className="table-responsive mt-3">
+                                                        <table
+                                                          class="table table-borderless table-sm mt-1"
+                                                          style={{
+                                                            fontSize: "14px",
+                                                          }}
+                                                        >
+                                                          <thead>
+                                                            <tr>
+                                                              <th className="p-0">
+                                                                <p
+                                                                  className="py-1 ps-1"
+                                                                  style={{
+                                                                    backgroundColor:
+                                                                      "#ededed",
+                                                                  }}
+                                                                >
+                                                                  Date
+                                                                </p>
+                                                              </th>
+                                                              <th className="p-0">
+                                                                <p
+                                                                  className="py-1 ps-1"
+                                                                  style={{
+                                                                    backgroundColor:
+                                                                      "#ededed",
+                                                                  }}
+                                                                >
+                                                                  Time
+                                                                </p>
+                                                              </th>
+                                                              <th className="p-0">
+                                                                <p
+                                                                  className="py-1 ps-1"
+                                                                  style={{
+                                                                    backgroundColor:
+                                                                      "#ededed",
+                                                                  }}
+                                                                >
+                                                                  Flight Info
+                                                                </p>
+                                                              </th>
+                                                              <th className="p-0">
+                                                                <p
+                                                                  className="py-1 ps-1"
+                                                                  style={{
+                                                                    backgroundColor:
+                                                                      "#ededed",
+                                                                  }}
+                                                                >
+                                                                  Flight Time
+                                                                </p>
+                                                              </th>
+                                                              <th className="p-0">
+                                                                <p
+                                                                  className="py-1 ps-1"
+                                                                  style={{
+                                                                    backgroundColor:
+                                                                      "#ededed",
+                                                                  }}
+                                                                >
+                                                                  Cabin
+                                                                </p>
+                                                              </th>
+                                                              <th className="p-0">
+                                                                <p
+                                                                  className="py-1 ps-1"
+                                                                  style={{
+                                                                    backgroundColor:
+                                                                      "#ededed",
+                                                                  }}
+                                                                >
+                                                                  Checked
+                                                                  Baggage
+                                                                </p>
+                                                              </th>
+                                                              <th className="p-0">
+                                                                <p
+                                                                  className="py-1 ps-1"
+                                                                  style={{
+                                                                    backgroundColor:
+                                                                      "#ededed",
+                                                                  }}
+                                                                >
+                                                                  Cabin Baggage
+                                                                </p>
+                                                              </th>
+                                                            </tr>
+                                                          </thead>
+                                                          <tbody>
+                                                            <tr>
+                                                              <td>
+                                                                {moment(
+                                                                  itm.departure
+                                                                ).format(
+                                                                  "ddd DD MMM,YY "
+                                                                )}
+                                                                <br></br>
+                                                                {moment(
+                                                                  itm.arrival
+                                                                ).format(
+                                                                  "ddd DD MMM,YY "
+                                                                )}
+                                                              </td>
+                                                              <td>
+                                                                {moment(
+                                                                  itm.departure
+                                                                ).format(
+                                                                  "HH:mm"
+                                                                )}
+                                                                <br></br>
+                                                                {moment(
+                                                                  itm.arrival
+                                                                ).format(
+                                                                  "HH:mm"
+                                                                )}
+                                                              </td>
+                                                              <td>
+                                                                Departs{" "}
+                                                                <span className="fw-bold">
+                                                                  {airports
+                                                                    .filter(
+                                                                      (f) =>
+                                                                        f.iata ===
+                                                                        itm.origin
+                                                                    )
+                                                                    .map(
+                                                                      (itm) =>
+                                                                        itm.city
+                                                                    )}{" "}
+                                                                  ({itm.origin})
+                                                                  {itm?.originTerminal && (
+                                                                    <>
+                                                                      Terminal-(
+                                                                      {
+                                                                        itm?.originTerminal
+                                                                      }
+                                                                      )
+                                                                    </>
+                                                                  )}
+                                                                </span>
+                                                                <br></br>
+                                                                Arrival{" "}
+                                                                <span className="fw-bold">
+                                                                  {airports
+                                                                    .filter(
+                                                                      (f) =>
+                                                                        f.iata ===
+                                                                        itm.destination
+                                                                    )
+                                                                    .map(
+                                                                      (itm) =>
+                                                                        itm.city
+                                                                    )}{" "}
+                                                                  (
+                                                                  {
+                                                                    itm.destination
+                                                                  }
+                                                                  )
+                                                                  {itm?.destinationTerminal && (
+                                                                    <>
+                                                                      Terminal-(
+                                                                      {
+                                                                        itm?.destinationTerminal
+                                                                      }
+                                                                      )
+                                                                    </>
+                                                                  )}
+                                                                </span>
+                                                              </td>
+                                                              <td className="align-middle">
+                                                                {itm.travelTime}
+                                                              </td>
+                                                              <td className="align-middle">
+                                                                {itm.cabinClass}
+                                                                (
+                                                                {
+                                                                  itm.bookingCode
+                                                                }
+                                                                )
+                                                              </td>
+                                                              <td className="align-middle">
+                                                                {baggage?.map(
+                                                                  (im, idx) => {
+                                                                    if (
+                                                                      selectPassenger.some(
+                                                                        (
+                                                                          passenegr
+                                                                        ) =>
+                                                                          passenegr.passengerType ===
+                                                                          im?.PassengerTypeCode
+                                                                      )
+                                                                    )
+                                                                      return (
+                                                                        <>
+                                                                          {im?.Amount && (
+                                                                            <>
+                                                                              <span className="left">
+                                                                                {im?.PassengerTypeCode ===
+                                                                                "ADT"
+                                                                                  ? "Adult"
+                                                                                  : im?.PassengerTypeCode ===
+                                                                                    "CNN"
+                                                                                  ? "Child"
+                                                                                  : im?.PassengerTypeCode ===
+                                                                                    "CHD"
+                                                                                  ? "Child"
+                                                                                  : im?.PassengerTypeCode ===
+                                                                                    "INF"
+                                                                                  ? "Infant"
+                                                                                  : ""}{" "}
+                                                                                :{" "}
+                                                                                <span className="ms-1 font-size">
+                                                                                  {im?.Amount +
+                                                                                    " " +
+                                                                                    im?.Units}
+                                                                                </span>
+                                                                              </span>
+                                                                              <br></br>
+                                                                            </>
+                                                                          )}
+                                                                        </>
+                                                                      );
+                                                                  }
+                                                                )}
+                                                              </td>
+                                                              <td className="align-middle">
+                                                                7KG (max 1 Bag)
+                                                              </td>
+                                                            </tr>
+                                                          </tbody>
+                                                        </table>
+                                                      </div>
+                                                    </>
+                                                  );
+                                                })}
+                                              </div>
+                                            );
+                                          })}
+                                        </>
+                                      ) : (
+                                        <></>
                                       )}
-                                  </>
+                                    </div>
+                                  </div>
+                                ) : (
+                                  <div className="">
+                                    <div
+                                      className="border p-1"
+                                      style={{ fontSize: "14px" }}
+                                    >
+                                      {ticketingListReturn?.directions ===
+                                      undefined ? (
+                                        <>
+                                          {finalSegmentReturn.map(
+                                            (item, index) => {
+                                              return (
+                                                <div className="border my-1 p-1">
+                                                  {item.map((itm, idx) => {
+                                                    let baggage = JSON.parse(
+                                                      itm.baggageInfo
+                                                    );
+                                                    return (
+                                                      <>
+                                                        <span className="fw-bold">
+                                                          {airports
+                                                            .filter(
+                                                              (f) =>
+                                                                f.iata ===
+                                                                itm.origin
+                                                            )
+                                                            .map(
+                                                              (itm) => itm.city
+                                                            )}{" "}
+                                                          ({itm.origin})
+                                                        </span>
+                                                        <span className="mx-2 fw-bold">
+                                                          <i class="fas fa-arrow-right"></i>
+                                                        </span>
+                                                        <span className="fw-bold">
+                                                          {airports
+                                                            .filter(
+                                                              (f) =>
+                                                                f.iata ===
+                                                                itm.destination
+                                                            )
+                                                            .map(
+                                                              (itm) => itm.city
+                                                            )}{" "}
+                                                          ({itm.destination})
+                                                        </span>
+                                                        <span className="d-flex align-items-center fw-bold">
+                                                          {/* <img
+                                          src={
+                                            environment.s3ArliensImage +
+                                            `${itm.operationCarrier}.png`
+                                          }
+                                          className="me-2"
+                                          alt=""
+                                          width="30px"
+                                          height="30px"
+                                          crossOrigin="true"
+                                        ></img> */}
+                                                          <ImageComponentTicket
+                                                            logo={
+                                                              itm.operationCarrier
+                                                            }
+                                                          />
+                                                          {
+                                                            itm.operationCarrierName
+                                                          }{" "}
+                                                          (
+                                                          {itm.operationCarrier}
+                                                          -{itm.flightNumber})
+                                                        </span>
+
+                                                        <div className="table-responsive mt-3">
+                                                          <table
+                                                            class="table table-borderless table-sm mt-1"
+                                                            style={{
+                                                              fontSize: "14px",
+                                                            }}
+                                                          >
+                                                            <thead>
+                                                              <tr>
+                                                                <th className="p-0">
+                                                                  <p
+                                                                    className="py-1 ps-1"
+                                                                    style={{
+                                                                      backgroundColor:
+                                                                        "#ededed",
+                                                                    }}
+                                                                  >
+                                                                    Date
+                                                                  </p>
+                                                                </th>
+                                                                <th className="p-0">
+                                                                  <p
+                                                                    className="py-1 ps-1"
+                                                                    style={{
+                                                                      backgroundColor:
+                                                                        "#ededed",
+                                                                    }}
+                                                                  >
+                                                                    Time
+                                                                  </p>
+                                                                </th>
+                                                                <th className="p-0">
+                                                                  <p
+                                                                    className="py-1 ps-1"
+                                                                    style={{
+                                                                      backgroundColor:
+                                                                        "#ededed",
+                                                                    }}
+                                                                  >
+                                                                    Flight Info
+                                                                  </p>
+                                                                </th>
+                                                                <th className="p-0">
+                                                                  <p
+                                                                    className="py-1 ps-1"
+                                                                    style={{
+                                                                      backgroundColor:
+                                                                        "#ededed",
+                                                                    }}
+                                                                  >
+                                                                    Flight Time
+                                                                  </p>
+                                                                </th>
+                                                                <th className="p-0">
+                                                                  <p
+                                                                    className="py-1 ps-1"
+                                                                    style={{
+                                                                      backgroundColor:
+                                                                        "#ededed",
+                                                                    }}
+                                                                  >
+                                                                    Cabin
+                                                                  </p>
+                                                                </th>
+                                                                <th className="p-0">
+                                                                  <p
+                                                                    className="py-1 ps-1"
+                                                                    style={{
+                                                                      backgroundColor:
+                                                                        "#ededed",
+                                                                    }}
+                                                                  >
+                                                                    Checked
+                                                                    Baggage
+                                                                  </p>
+                                                                </th>
+                                                                <th className="p-0">
+                                                                  <p
+                                                                    className="py-1 ps-1"
+                                                                    style={{
+                                                                      backgroundColor:
+                                                                        "#ededed",
+                                                                    }}
+                                                                  >
+                                                                    Cabin
+                                                                    Baggage
+                                                                  </p>
+                                                                </th>
+                                                              </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                              <tr>
+                                                                <td>
+                                                                  {moment(
+                                                                    itm.departure
+                                                                  ).format(
+                                                                    "ddd DD MMM,YY "
+                                                                  )}
+                                                                  <br></br>
+                                                                  {moment(
+                                                                    itm.arrival
+                                                                  ).format(
+                                                                    "ddd DD MMM,YY "
+                                                                  )}
+                                                                </td>
+                                                                <td>
+                                                                  {moment(
+                                                                    itm.departure
+                                                                  ).format(
+                                                                    "HH:mm"
+                                                                  )}
+                                                                  <br></br>
+                                                                  {moment(
+                                                                    itm.arrival
+                                                                  ).format(
+                                                                    "HH:mm"
+                                                                  )}
+                                                                </td>
+                                                                <td>
+                                                                  Departs{" "}
+                                                                  <span className="fw-bold">
+                                                                    {airports
+                                                                      .filter(
+                                                                        (f) =>
+                                                                          f.iata ===
+                                                                          itm.origin
+                                                                      )
+                                                                      .map(
+                                                                        (itm) =>
+                                                                          itm.city
+                                                                      )}{" "}
+                                                                    (
+                                                                    {itm.origin}
+                                                                    )
+                                                                    {itm?.originTerminal && (
+                                                                      <>
+                                                                        Terminal-(
+                                                                        {
+                                                                          itm?.originTerminal
+                                                                        }
+                                                                        )
+                                                                      </>
+                                                                    )}
+                                                                  </span>
+                                                                  <br></br>
+                                                                  Arrival{" "}
+                                                                  <span className="fw-bold">
+                                                                    {airports
+                                                                      .filter(
+                                                                        (f) =>
+                                                                          f.iata ===
+                                                                          itm.destination
+                                                                      )
+                                                                      .map(
+                                                                        (itm) =>
+                                                                          itm.city
+                                                                      )}{" "}
+                                                                    (
+                                                                    {
+                                                                      itm.destination
+                                                                    }
+                                                                    )
+                                                                    {itm?.destinationTerminal && (
+                                                                      <>
+                                                                        Terminal-(
+                                                                        {
+                                                                          itm?.destinationTerminal
+                                                                        }
+                                                                        )
+                                                                      </>
+                                                                    )}
+                                                                  </span>
+                                                                </td>
+                                                                <td className="align-middle">
+                                                                  {
+                                                                    itm.travelTime
+                                                                  }
+                                                                </td>
+                                                                <td className="align-middle">
+                                                                  {
+                                                                    itm.cabinClass
+                                                                  }
+                                                                  (
+                                                                  {
+                                                                    itm.bookingCode
+                                                                  }
+                                                                  )
+                                                                </td>
+                                                                <td className="align-middle">
+                                                                  {baggage?.map(
+                                                                    (
+                                                                      im,
+                                                                      idx
+                                                                    ) => {
+                                                                      if (
+                                                                        selectPassenger.some(
+                                                                          (
+                                                                            passenegr
+                                                                          ) =>
+                                                                            passenegr.passengerType ===
+                                                                            im?.PassengerTypeCode
+                                                                        )
+                                                                      )
+                                                                        return (
+                                                                          <>
+                                                                            {im?.Amount && (
+                                                                              <>
+                                                                                <span className="left">
+                                                                                  {im?.PassengerTypeCode ===
+                                                                                  "ADT"
+                                                                                    ? "Adult"
+                                                                                    : im?.PassengerTypeCode ===
+                                                                                      "CNN"
+                                                                                    ? "Child"
+                                                                                    : im?.PassengerTypeCode ===
+                                                                                      "CHD"
+                                                                                    ? "Child"
+                                                                                    : im?.PassengerTypeCode ===
+                                                                                      "INF"
+                                                                                    ? "Infant"
+                                                                                    : ""}{" "}
+                                                                                  :{" "}
+                                                                                  <span className="ms-1 font-size">
+                                                                                    {im?.Amount +
+                                                                                      " " +
+                                                                                      im?.Units}
+                                                                                  </span>
+                                                                                </span>
+                                                                                <br></br>
+                                                                              </>
+                                                                            )}
+                                                                          </>
+                                                                        );
+                                                                    }
+                                                                  )}
+                                                                </td>
+                                                                <td className="align-middle">
+                                                                  7KG (max 1
+                                                                  Bag)
+                                                                </td>
+                                                              </tr>
+                                                            </tbody>
+                                                          </table>
+                                                        </div>
+                                                      </>
+                                                    );
+                                                  })}
+                                                </div>
+                                              );
+                                            }
+                                          )}
+                                        </>
+                                      ) : (
+                                        <></>
+                                      )}
+                                    </div>
+                                  </div>
                                 )}
                               </div>
-                            </div>
 
-                            <div className="card-header">
-                              <span>
-                                <input
-                                  className="ms-3"
-                                  type={"checkbox"}
-                                  checked={isFareHide}
-                                  onChange={(e) => {
-                                    setIsFareHide(e.target.checked);
-                                  }}
-                                />{" "}
-                                Hide Fare
-                              </span>
-                              <span>
-                                <input
-                                  className="ms-3"
-                                  type="checkbox"
-                                  checked={isFareChange}
-                                  onChange={(e) => {
-                                    setIsFareChange(() => !isFareChange);
-                                  }}
-                                />{" "}
-                                Gross Fare
-                              </span>
+                              {journeyType === "ONWARD" ? (
+                                <>
+                                  {isFareHide === false ? (
+                                    <div className="table-responsive mt-3">
+                                      <table
+                                        class="table table-bordered table-sm text-end mt-1"
+                                        style={{ fontSize: "14px" }}
+                                      >
+                                        <thead className="text-end">
+                                          <tr>
+                                            <th
+                                              colspan={
+                                                isFareChange === false
+                                                  ? "8"
+                                                  : "7"
+                                              }
+                                              className="fw-bold text-start py-2 bg-light"
+                                            >
+                                              Fare Details
+                                            </th>
+                                          </tr>
+                                          <tr>
+                                            <th className="text-start">Type</th>
+                                            <th>Base Fare</th>
+                                            <th>Tax</th>
+                                            <th>AIT</th>
+                                            {isFareChange === false && (
+                                              <th>Commission</th>
+                                            )}
+                                            <th>Additional Collection</th>
+                                            <th>Person</th>
+                                            <th>Total</th>
+                                          </tr>
+                                        </thead>
+                                        <tbody className="text-end">
+                                          {ticketingList.fareBreakdown?.map(
+                                            (item, index) => {
+                                              return (
+                                                <>
+                                                  {item.passengerType ===
+                                                    "ADT" &&
+                                                  selectPassenger.some(
+                                                    (itm) =>
+                                                      itm.passengerType ===
+                                                      item.passengerType
+                                                  ) ? (
+                                                    <>
+                                                      <tr>
+                                                        <td className="text-start">
+                                                          Adult
+                                                        </td>
+                                                        <td>
+                                                          {item.basePrice?.toLocaleString(
+                                                            "en-US"
+                                                          )}
+                                                        </td>
+                                                        <td>
+                                                          {item.tax?.toLocaleString(
+                                                            "en-US"
+                                                          )}
+                                                        </td>
 
-                              <span>
-                                <input
-                                  className="ms-3"
-                                  type="checkbox"
-                                  onChange={(e) => {
-                                    setIsAgentInfo(() => e.target.checked);
-                                  }}
-                                />{" "}
-                                Hide Agent Info
-                              </span>
+                                                        <td>
+                                                          {item.ait?.toLocaleString(
+                                                            "en-US"
+                                                          )}
+                                                        </td>
+                                                        {isFareChange ===
+                                                          false && (
+                                                          <td>
+                                                            {item.discount?.toLocaleString(
+                                                              "en-US"
+                                                            )}
+                                                          </td>
+                                                        )}
+                                                        <td>
+                                                          {item.reissueCharge}
+                                                        </td>
+                                                        <td>
+                                                          {item.passengerCount -
+                                                            unSelectPassenger.filter(
+                                                              (num) =>
+                                                                num.passengerType ===
+                                                                "ADT"
+                                                            ).length}
+                                                        </td>
+                                                        <td className="fw-bold">
+                                                          {item.currencyName}{" "}
+                                                          {isFareChange ===
+                                                          false
+                                                            ? (
+                                                                item.totalPrice *
+                                                                (item.passengerCount -
+                                                                  unSelectPassenger.filter(
+                                                                    (num) =>
+                                                                      num.passengerType ===
+                                                                      "ADT"
+                                                                  ).length)
+                                                              )?.toLocaleString(
+                                                                "en-US"
+                                                              )
+                                                            : (
+                                                                (item.totalPrice -
+                                                                  item.discount) *
+                                                                (item.passengerCount -
+                                                                  unSelectPassenger.filter(
+                                                                    (num) =>
+                                                                      num.passengerType ===
+                                                                      "ADT"
+                                                                  ).length)
+                                                              )?.toLocaleString(
+                                                                "en-US"
+                                                              )}
+                                                        </td>
+                                                      </tr>
+                                                    </>
+                                                  ) : item.passengerType ===
+                                                      "CHD" &&
+                                                    selectPassenger.some(
+                                                      (itm) =>
+                                                        itm.passengerType ===
+                                                        item.passengerType
+                                                    ) ? (
+                                                    <>
+                                                      <tr>
+                                                        <td className="text-start">
+                                                          Child &gt; 5
+                                                        </td>
+                                                        <td>
+                                                          {item.basePrice?.toLocaleString(
+                                                            "en-US"
+                                                          )}
+                                                        </td>
+                                                        <td>
+                                                          {item.tax?.toLocaleString(
+                                                            "en-US"
+                                                          )}
+                                                        </td>
 
-                              <span>
-                                <input
-                                  className="ms-3"
-                                  type="checkbox"
-                                  onChange={(e) => {
-                                    setContactInfo(() => e.target.checked);
-                                  }}
-                                />{" "}
-                                Hide Contact Info
-                              </span>
-                            </div>
+                                                        <td>
+                                                          {item.ait?.toLocaleString(
+                                                            "en-US"
+                                                          )}
+                                                        </td>
+                                                        {isFareChange ===
+                                                          false && (
+                                                          <td>
+                                                            {item.discount?.toLocaleString(
+                                                              "en-US"
+                                                            )}
+                                                          </td>
+                                                        )}
+                                                        <td>
+                                                          {item.reissueCharge}
+                                                        </td>
+                                                        <td>
+                                                          {item.passengerCount -
+                                                            unSelectPassenger.filter(
+                                                              (num) =>
+                                                                num.passengerType ===
+                                                                "CHD"
+                                                            ).length}
+                                                        </td>
+                                                        <td className="fw-bold">
+                                                          {item.currencyName}{" "}
+                                                          {/* {(
+                                item.totalPrice *
+                                item.passengerCount
+                              )?.toLocaleString("en-US")} */}
+                                                          {isFareChange ===
+                                                          false
+                                                            ? (
+                                                                item.totalPrice *
+                                                                (item.passengerCount -
+                                                                  unSelectPassenger.filter(
+                                                                    (num) =>
+                                                                      num.passengerType ===
+                                                                      "CHD"
+                                                                  ).length)
+                                                              )?.toLocaleString(
+                                                                "en-US"
+                                                              )
+                                                            : (
+                                                                (item.totalPrice -
+                                                                  item.discount) *
+                                                                (item.passengerCount -
+                                                                  unSelectPassenger.filter(
+                                                                    (num) =>
+                                                                      num.passengerType ===
+                                                                      "CHD"
+                                                                  ).length)
+                                                              )?.toLocaleString(
+                                                                "en-US"
+                                                              )}
+                                                        </td>
+                                                      </tr>
+                                                    </>
+                                                  ) : item.passengerType ===
+                                                      "CNN" &&
+                                                    selectPassenger.some(
+                                                      (itm) =>
+                                                        itm.passengerType ===
+                                                        item.passengerType
+                                                    ) ? (
+                                                    <>
+                                                      <tr>
+                                                        <td className="text-start">
+                                                          {" "}
+                                                          {item.passengerType ===
+                                                            "CNN" &&
+                                                          ticketingList.fareBreakdown?.some(
+                                                            (item) =>
+                                                              item.passengerType ===
+                                                              "CHD"
+                                                          )
+                                                            ? "Child < 5"
+                                                            : "Child"}
+                                                        </td>
+                                                        <td>
+                                                          {item.basePrice?.toLocaleString(
+                                                            "en-US"
+                                                          )}
+                                                        </td>
+                                                        <td>
+                                                          {item.tax?.toLocaleString(
+                                                            "en-US"
+                                                          )}
+                                                        </td>
 
-                            <ModalForm
-                              isOpen={isOpen}
-                              onClose={onClose}
-                              title={"Compose New Message"}
-                            >
-                              <Stack spacing={3}>
-                                <Input
-                                  variant="outline"
-                                  onChange={(e) => {
-                                    setMessageData({
-                                      ...messageData,
-                                      [e.target.name]: e.target.value,
-                                    });
+                                                        <td>
+                                                          {item.ait?.toLocaleString(
+                                                            "en-US"
+                                                          )}
+                                                        </td>
+                                                        {isFareChange ===
+                                                          false && (
+                                                          <td>
+                                                            {item.discount?.toLocaleString(
+                                                              "en-US"
+                                                            )}
+                                                          </td>
+                                                        )}
+                                                        <td>
+                                                          {item.reissueCharge}
+                                                        </td>
+                                                        <td>
+                                                          {item.passengerCount -
+                                                            unSelectPassenger.filter(
+                                                              (num) =>
+                                                                num.passengerType ===
+                                                                "CNN"
+                                                            ).length}
+                                                        </td>
+                                                        <td className="fw-bold">
+                                                          {item.currencyName}{" "}
+                                                          {isFareChange ===
+                                                          false
+                                                            ? (
+                                                                item.totalPrice *
+                                                                (item.passengerCount -
+                                                                  unSelectPassenger.filter(
+                                                                    (num) =>
+                                                                      num.passengerType ===
+                                                                      "CNN"
+                                                                  ).length)
+                                                              )?.toLocaleString(
+                                                                "en-US"
+                                                              )
+                                                            : (
+                                                                (item.totalPrice -
+                                                                  item.discount) *
+                                                                (item.passengerCount -
+                                                                  unSelectPassenger.filter(
+                                                                    (num) =>
+                                                                      num.passengerType ===
+                                                                      "CNN"
+                                                                  ).length)
+                                                              )?.toLocaleString(
+                                                                "en-US"
+                                                              )}
+                                                        </td>
+                                                      </tr>
+                                                    </>
+                                                  ) : item.passengerType ===
+                                                      "INF" &&
+                                                    selectPassenger.some(
+                                                      (itm) =>
+                                                        itm.passengerType ===
+                                                        item.passengerType
+                                                    ) ? (
+                                                    <>
+                                                      <tr>
+                                                        <td className="text-start">
+                                                          Infant
+                                                        </td>
+                                                        <td>
+                                                          {item.basePrice?.toLocaleString(
+                                                            "en-US"
+                                                          )}
+                                                        </td>
+                                                        <td>
+                                                          {item.tax?.toLocaleString(
+                                                            "en-US"
+                                                          )}
+                                                        </td>
+
+                                                        <td>
+                                                          {item.ait?.toLocaleString(
+                                                            "en-US"
+                                                          )}
+                                                        </td>
+                                                        {isFareChange ===
+                                                          false && (
+                                                          <td>
+                                                            {item.discount?.toLocaleString(
+                                                              "en-US"
+                                                            )}
+                                                          </td>
+                                                        )}
+                                                        <td>
+                                                          {item.reissueCharge}
+                                                        </td>
+                                                        <td>
+                                                          {item.passengerCount -
+                                                            unSelectPassenger.filter(
+                                                              (num) =>
+                                                                num.passengerType ===
+                                                                "INF"
+                                                            ).length}
+                                                        </td>
+                                                        <td className="fw-bold">
+                                                          {item.currencyName}{" "}
+                                                          {isFareChange ===
+                                                          false
+                                                            ? (
+                                                                item.totalPrice *
+                                                                (item.passengerCount -
+                                                                  unSelectPassenger.filter(
+                                                                    (num) =>
+                                                                      num.passengerType ===
+                                                                      "INF"
+                                                                  ).length)
+                                                              )?.toLocaleString(
+                                                                "en-US"
+                                                              )
+                                                            : (
+                                                                (item.totalPrice -
+                                                                  item.discount) *
+                                                                (item.passengerCount -
+                                                                  unSelectPassenger.filter(
+                                                                    (num) =>
+                                                                      num.passengerType ===
+                                                                      "INF"
+                                                                  ).length)
+                                                              )?.toLocaleString(
+                                                                "en-US"
+                                                              )}
+                                                        </td>
+                                                      </tr>
+                                                    </>
+                                                  ) : (
+                                                    <></>
+                                                  )}
+                                                </>
+                                              );
+                                            }
+                                          )}
+                                          <tr className="fw-bold">
+                                            <td
+                                              colSpan={
+                                                isFareChange === false ? 6 : 5
+                                              }
+                                              className="border-none"
+                                            ></td>
+                                            <td>Additional Collection</td>
+                                            <td>
+                                              {ticketingList?.passengerInfo !==
+                                                undefined &&
+                                              ticketingList?.passengerInfo !==
+                                                " " &&
+                                              ticketingList?.passengerInfo !==
+                                                null
+                                                ? ticketingList.passengerInfo[0]
+                                                    ?.currencyName
+                                                : ""}{" "}
+                                              {/* {
+                            ticketingList?.penalty[0]?.reissueCharge.toLocaleString("en-US")
+                          } */}
+                                              {sumAdditinalPrice(
+                                                ticketingList.fareBreakdown
+                                              )?.toLocaleString("en-US")}
+                                            </td>
+                                          </tr>
+
+                                          {totalextraServicePnrData > 0 && (
+                                            <tr className="fw-bold">
+                                              <td
+                                                colSpan={
+                                                  isFareChange === false ? 6 : 5
+                                                }
+                                                className="border-none"
+                                              ></td>
+                                              <td>
+                                                Total Ticket Import Service
+                                                Charge
+                                              </td>
+                                              <td>
+                                                {totalextraServicePnrData?.toLocaleString(
+                                                  "en-US"
+                                                )}
+                                              </td>
+                                            </tr>
+                                          )}
+
+                                          <tr className="fw-bold">
+                                            <td
+                                              colSpan={
+                                                isFareChange === false ? 6 : 5
+                                              }
+                                              className="border-none"
+                                            ></td>
+                                            <td>Grand Total</td>
+                                            <td>
+                                              {ticketingList?.passengerInfo !==
+                                                undefined &&
+                                              ticketingList?.passengerInfo !==
+                                                " " &&
+                                              ticketingList?.passengerInfo !==
+                                                null
+                                                ? ticketingList.passengerInfo[0]
+                                                    ?.currencyName
+                                                : ""}{" "}
+                                              {ticketingList?.penalty?.length >
+                                              0 ? (
+                                                <>
+                                                  {isFareChange === false
+                                                    ? (
+                                                        sumRatingForPassengerTicket(
+                                                          ticketingList.fareBreakdown,
+                                                          unSelectPassenger
+                                                        ) +
+                                                        sumAdditinalPrice(
+                                                          ticketingList.fareBreakdown
+                                                        ) +
+                                                        totalextraServicePnrData
+                                                      )?.toLocaleString("en-US")
+                                                    : (
+                                                        sumRatingForPassengerTicketGross(
+                                                          ticketingList.fareBreakdown,
+                                                          unSelectPassenger
+                                                        ) +
+                                                        sumAdditinalPrice(
+                                                          ticketingList.fareBreakdown
+                                                        ) +
+                                                        totalextraServicePnrData
+                                                      )?.toLocaleString(
+                                                        "en-US"
+                                                      )}
+                                                </>
+                                              ) : (
+                                                <>
+                                                  {isFareChange === false
+                                                    ? (
+                                                        sumRatingForPassengerTicket(
+                                                          ticketingList.fareBreakdown,
+                                                          unSelectPassenger
+                                                        ) +
+                                                        totalextraServicePnrData
+                                                      )?.toLocaleString("en-US")
+                                                    : (
+                                                        sumRatingForPassengerTicketGross(
+                                                          ticketingList.fareBreakdown,
+                                                          unSelectPassenger
+                                                        ) +
+                                                        totalextraServicePnrData
+                                                      )?.toLocaleString(
+                                                        "en-US"
+                                                      )}
+                                                </>
+                                              )}
+                                            </td>
+                                          </tr>
+
+                                          {ticketingList?.penalty?.length >
+                                          0 ? (
+                                            <>
+                                              <tr className="fw-bold">
+                                                <td
+                                                  colSpan={
+                                                    isFareChange === false
+                                                      ? 6
+                                                      : 5
+                                                  }
+                                                  className="border-none"
+                                                ></td>
+                                                <td>Exchange Penalty</td>
+                                                <td>
+                                                  {ticketingList?.passengerInfo !==
+                                                    undefined &&
+                                                  ticketingList?.passengerInfo !==
+                                                    " " &&
+                                                  ticketingList?.passengerInfo !==
+                                                    null
+                                                    ? ticketingList
+                                                        .passengerInfo[0]
+                                                        ?.currencyName
+                                                    : ""}{" "}
+                                                  {ticketingList?.penalty[0]?.panalty?.toLocaleString(
+                                                    "en-US"
+                                                  )}
+                                                </td>
+                                              </tr>
+                                            </>
+                                          ) : (
+                                            <> </>
+                                          )}
+                                        </tbody>
+                                      </table>
+                                    </div>
+                                  ) : (
+                                    <></>
+                                  )}
+                                </>
+                              ) : (
+                                <>
+                                  {isFareHide === false ? (
+                                    <div className="table-responsive mt-3">
+                                      <table
+                                        class="table table-bordered table-sm text-end mt-1"
+                                        style={{ fontSize: "14px" }}
+                                      >
+                                        <thead className="text-end">
+                                          <tr>
+                                            <th
+                                              colspan={
+                                                isFareChange === false
+                                                  ? "8"
+                                                  : "7"
+                                              }
+                                              className="fw-bold text-start py-2 bg-light"
+                                            >
+                                              Fare Details
+                                            </th>
+                                          </tr>
+                                          <tr>
+                                            <th className="text-start">Type</th>
+                                            <th>Base Fare</th>
+                                            <th>Tax</th>
+                                            <th>AIT</th>
+                                            {isFareChange === false && (
+                                              <th>Commission</th>
+                                            )}
+                                            <th>Additional Collection</th>
+                                            <th>Person</th>
+                                            <th>Total</th>
+                                          </tr>
+                                        </thead>
+                                        <tbody className="text-end">
+                                          {ticketingListReturn.fareBreakdown?.map(
+                                            (item, index) => {
+                                              return (
+                                                <>
+                                                  {item.passengerType ===
+                                                    "ADT" &&
+                                                  selectPassengerReturn.some(
+                                                    (itm) =>
+                                                      itm.passengerType ===
+                                                      item.passengerType
+                                                  ) ? (
+                                                    <>
+                                                      <tr>
+                                                        <td className="text-start">
+                                                          Adult
+                                                        </td>
+                                                        <td>
+                                                          {item.basePrice?.toLocaleString(
+                                                            "en-US"
+                                                          )}
+                                                        </td>
+                                                        <td>
+                                                          {item.tax?.toLocaleString(
+                                                            "en-US"
+                                                          )}
+                                                        </td>
+
+                                                        <td>
+                                                          {item.ait?.toLocaleString(
+                                                            "en-US"
+                                                          )}
+                                                        </td>
+                                                        {isFareChange ===
+                                                          false && (
+                                                          <td>
+                                                            {item.discount?.toLocaleString(
+                                                              "en-US"
+                                                            )}
+                                                          </td>
+                                                        )}
+                                                        <td>
+                                                          {item.reissueCharge}
+                                                        </td>
+                                                        <td>
+                                                          {item.passengerCount -
+                                                            unSelectPassengerReturn.filter(
+                                                              (num) =>
+                                                                num.passengerType ===
+                                                                "ADT"
+                                                            ).length}
+                                                        </td>
+                                                        <td className="fw-bold">
+                                                          {item.currencyName}{" "}
+                                                          {isFareChange ===
+                                                          false
+                                                            ? (
+                                                                item.totalPrice *
+                                                                (item.passengerCount -
+                                                                  unSelectPassengerReturn.filter(
+                                                                    (num) =>
+                                                                      num.passengerType ===
+                                                                      "ADT"
+                                                                  ).length)
+                                                              )?.toLocaleString(
+                                                                "en-US"
+                                                              )
+                                                            : (
+                                                                (item.totalPrice -
+                                                                  item.discount) *
+                                                                (item.passengerCount -
+                                                                  unSelectPassengerReturn.filter(
+                                                                    (num) =>
+                                                                      num.passengerType ===
+                                                                      "ADT"
+                                                                  ).length)
+                                                              )?.toLocaleString(
+                                                                "en-US"
+                                                              )}
+                                                        </td>
+                                                      </tr>
+                                                    </>
+                                                  ) : item.passengerType ===
+                                                      "CHD" &&
+                                                    selectPassengerReturn.some(
+                                                      (itm) =>
+                                                        itm.passengerType ===
+                                                        item.passengerType
+                                                    ) ? (
+                                                    <>
+                                                      <tr>
+                                                        <td className="text-start">
+                                                          Child &gt; 5
+                                                        </td>
+                                                        <td>
+                                                          {item.basePrice?.toLocaleString(
+                                                            "en-US"
+                                                          )}
+                                                        </td>
+                                                        <td>
+                                                          {item.tax?.toLocaleString(
+                                                            "en-US"
+                                                          )}
+                                                        </td>
+
+                                                        <td>
+                                                          {item.ait?.toLocaleString(
+                                                            "en-US"
+                                                          )}
+                                                        </td>
+                                                        {isFareChange ===
+                                                          false && (
+                                                          <td>
+                                                            {item.discount?.toLocaleString(
+                                                              "en-US"
+                                                            )}
+                                                          </td>
+                                                        )}
+                                                        <td>
+                                                          {item.reissueCharge}
+                                                        </td>
+                                                        <td>
+                                                          {item.passengerCount -
+                                                            unSelectPassengerReturn.filter(
+                                                              (num) =>
+                                                                num.passengerType ===
+                                                                "CHD"
+                                                            ).length}
+                                                        </td>
+                                                        <td className="fw-bold">
+                                                          {item.currencyName}{" "}
+                                                          {/* {(
+                                item.totalPrice *
+                                item.passengerCount
+                              )?.toLocaleString("en-US")} */}
+                                                          {isFareChange ===
+                                                          false
+                                                            ? (
+                                                                item.totalPrice *
+                                                                (item.passengerCount -
+                                                                  unSelectPassengerReturn.filter(
+                                                                    (num) =>
+                                                                      num.passengerType ===
+                                                                      "CHD"
+                                                                  ).length)
+                                                              )?.toLocaleString(
+                                                                "en-US"
+                                                              )
+                                                            : (
+                                                                (item.totalPrice -
+                                                                  item.discount) *
+                                                                (item.passengerCount -
+                                                                  unSelectPassengerReturn.filter(
+                                                                    (num) =>
+                                                                      num.passengerType ===
+                                                                      "CHD"
+                                                                  ).length)
+                                                              )?.toLocaleString(
+                                                                "en-US"
+                                                              )}
+                                                        </td>
+                                                      </tr>
+                                                    </>
+                                                  ) : item.passengerType ===
+                                                      "CNN" &&
+                                                    selectPassengerReturn.some(
+                                                      (itm) =>
+                                                        itm.passengerType ===
+                                                        item.passengerType
+                                                    ) ? (
+                                                    <>
+                                                      <tr>
+                                                        <td className="text-start">
+                                                          {" "}
+                                                          {item.passengerType ===
+                                                            "CNN" &&
+                                                          ticketingListReturn.fareBreakdown?.some(
+                                                            (item) =>
+                                                              item.passengerType ===
+                                                              "CHD"
+                                                          )
+                                                            ? "Child < 5"
+                                                            : "Child"}
+                                                        </td>
+                                                        <td>
+                                                          {item.basePrice?.toLocaleString(
+                                                            "en-US"
+                                                          )}
+                                                        </td>
+                                                        <td>
+                                                          {item.tax?.toLocaleString(
+                                                            "en-US"
+                                                          )}
+                                                        </td>
+
+                                                        <td>
+                                                          {item.ait?.toLocaleString(
+                                                            "en-US"
+                                                          )}
+                                                        </td>
+                                                        {isFareChange ===
+                                                          false && (
+                                                          <td>
+                                                            {item.discount?.toLocaleString(
+                                                              "en-US"
+                                                            )}
+                                                          </td>
+                                                        )}
+                                                        <td>
+                                                          {item.reissueCharge}
+                                                        </td>
+                                                        <td>
+                                                          {item.passengerCount -
+                                                            unSelectPassengerReturn.filter(
+                                                              (num) =>
+                                                                num.passengerType ===
+                                                                "CNN"
+                                                            ).length}
+                                                        </td>
+                                                        <td className="fw-bold">
+                                                          {item.currencyName}{" "}
+                                                          {isFareChange ===
+                                                          false
+                                                            ? (
+                                                                item.totalPrice *
+                                                                (item.passengerCount -
+                                                                  unSelectPassengerReturn.filter(
+                                                                    (num) =>
+                                                                      num.passengerType ===
+                                                                      "CNN"
+                                                                  ).length)
+                                                              )?.toLocaleString(
+                                                                "en-US"
+                                                              )
+                                                            : (
+                                                                (item.totalPrice -
+                                                                  item.discount) *
+                                                                (item.passengerCount -
+                                                                  unSelectPassengerReturn.filter(
+                                                                    (num) =>
+                                                                      num.passengerType ===
+                                                                      "CNN"
+                                                                  ).length)
+                                                              )?.toLocaleString(
+                                                                "en-US"
+                                                              )}
+                                                        </td>
+                                                      </tr>
+                                                    </>
+                                                  ) : item.passengerType ===
+                                                      "INF" &&
+                                                    selectPassengerReturn.some(
+                                                      (itm) =>
+                                                        itm.passengerType ===
+                                                        item.passengerType
+                                                    ) ? (
+                                                    <>
+                                                      <tr>
+                                                        <td className="text-start">
+                                                          Infant
+                                                        </td>
+                                                        <td>
+                                                          {item.basePrice?.toLocaleString(
+                                                            "en-US"
+                                                          )}
+                                                        </td>
+                                                        <td>
+                                                          {item.tax?.toLocaleString(
+                                                            "en-US"
+                                                          )}
+                                                        </td>
+
+                                                        <td>
+                                                          {item.ait?.toLocaleString(
+                                                            "en-US"
+                                                          )}
+                                                        </td>
+                                                        {isFareChange ===
+                                                          false && (
+                                                          <td>
+                                                            {item.discount?.toLocaleString(
+                                                              "en-US"
+                                                            )}
+                                                          </td>
+                                                        )}
+                                                        <td>
+                                                          {item.reissueCharge}
+                                                        </td>
+                                                        <td>
+                                                          {item.passengerCount -
+                                                            unSelectPassengerReturn.filter(
+                                                              (num) =>
+                                                                num.passengerType ===
+                                                                "INF"
+                                                            ).length}
+                                                        </td>
+                                                        <td className="fw-bold">
+                                                          {item.currencyName}{" "}
+                                                          {isFareChange ===
+                                                          false
+                                                            ? (
+                                                                item.totalPrice *
+                                                                (item.passengerCount -
+                                                                  unSelectPassengerReturn.filter(
+                                                                    (num) =>
+                                                                      num.passengerType ===
+                                                                      "INF"
+                                                                  ).length)
+                                                              )?.toLocaleString(
+                                                                "en-US"
+                                                              )
+                                                            : (
+                                                                (item.totalPrice -
+                                                                  item.discount) *
+                                                                (item.passengerCount -
+                                                                  unSelectPassengerReturn.filter(
+                                                                    (num) =>
+                                                                      num.passengerType ===
+                                                                      "INF"
+                                                                  ).length)
+                                                              )?.toLocaleString(
+                                                                "en-US"
+                                                              )}
+                                                        </td>
+                                                      </tr>
+                                                    </>
+                                                  ) : (
+                                                    <></>
+                                                  )}
+                                                </>
+                                              );
+                                            }
+                                          )}
+                                          <tr className="fw-bold">
+                                            <td
+                                              colSpan={
+                                                isFareChange === false ? 6 : 5
+                                              }
+                                              className="border-none"
+                                            ></td>
+                                            <td>Additional Collection</td>
+                                            <td>
+                                              {ticketingListReturn?.passengerInfo !==
+                                                undefined &&
+                                              ticketingListReturn?.passengerInfo !==
+                                                " " &&
+                                              ticketingListReturn?.passengerInfo !==
+                                                null
+                                                ? ticketingListReturn
+                                                    .passengerInfo[0]
+                                                    ?.currencyName
+                                                : ""}{" "}
+                                              {/* {
+                            ticketingList?.penalty[0]?.reissueCharge.toLocaleString("en-US")
+                          } */}
+                                              {sumAdditinalPrice(
+                                                ticketingListReturn.fareBreakdown
+                                              )?.toLocaleString("en-US")}
+                                            </td>
+                                          </tr>
+
+                                          {totalextraServicePnrData > 0 && (
+                                            <tr className="fw-bold">
+                                              <td
+                                                colSpan={
+                                                  isFareChange === false ? 6 : 5
+                                                }
+                                                className="border-none"
+                                              ></td>
+                                              <td>
+                                                Total Ticket Import Service
+                                                Charge
+                                              </td>
+                                              <td>
+                                                {totalextraServicePnrData?.toLocaleString(
+                                                  "en-US"
+                                                )}
+                                              </td>
+                                            </tr>
+                                          )}
+
+                                          <tr className="fw-bold">
+                                            <td
+                                              colSpan={
+                                                isFareChange === false ? 6 : 5
+                                              }
+                                              className="border-none"
+                                            ></td>
+                                            <td>Grand Total</td>
+                                            <td>
+                                              {ticketingListReturn?.passengerInfo !==
+                                                undefined &&
+                                              ticketingListReturn?.passengerInfo !==
+                                                " " &&
+                                              ticketingListReturn?.passengerInfo !==
+                                                null
+                                                ? ticketingListReturn
+                                                    .passengerInfo[0]
+                                                    ?.currencyName
+                                                : ""}{" "}
+                                              {ticketingListReturn?.penalty
+                                                ?.length > 0 ? (
+                                                <>
+                                                  {isFareChange === false
+                                                    ? (
+                                                        sumRatingForPassengerTicket(
+                                                          ticketingListReturn.fareBreakdown,
+                                                          unSelectPassengerReturn
+                                                        ) +
+                                                        sumAdditinalPrice(
+                                                          ticketingListReturn.fareBreakdown
+                                                        ) +
+                                                        totalextraServicePnrData
+                                                      )?.toLocaleString("en-US")
+                                                    : (
+                                                        sumRatingForPassengerTicketGross(
+                                                          ticketingListReturn.fareBreakdown,
+                                                          unSelectPassengerReturn
+                                                        ) +
+                                                        sumAdditinalPrice(
+                                                          ticketingListReturn.fareBreakdown
+                                                        ) +
+                                                        totalextraServicePnrData
+                                                      )?.toLocaleString(
+                                                        "en-US"
+                                                      )}
+                                                </>
+                                              ) : (
+                                                <>
+                                                  {isFareChange === false
+                                                    ? (
+                                                        sumRatingForPassengerTicket(
+                                                          ticketingListReturn.fareBreakdown,
+                                                          unSelectPassengerReturn
+                                                        ) +
+                                                        totalextraServicePnrData
+                                                      )?.toLocaleString("en-US")
+                                                    : (
+                                                        sumRatingForPassengerTicketGross(
+                                                          ticketingListReturn.fareBreakdown,
+                                                          unSelectPassengerReturn
+                                                        ) +
+                                                        totalextraServicePnrData
+                                                      )?.toLocaleString(
+                                                        "en-US"
+                                                      )}
+                                                </>
+                                              )}
+                                            </td>
+                                          </tr>
+
+                                          {ticketingListReturn?.penalty
+                                            ?.length > 0 ? (
+                                            <>
+                                              <tr className="fw-bold">
+                                                <td
+                                                  colSpan={
+                                                    isFareChange === false
+                                                      ? 6
+                                                      : 5
+                                                  }
+                                                  className="border-none"
+                                                ></td>
+                                                <td>Exchange Penalty</td>
+                                                <td>
+                                                  {ticketingListReturn?.passengerInfo !==
+                                                    undefined &&
+                                                  ticketingListReturn?.passengerInfo !==
+                                                    " " &&
+                                                  ticketingListReturn?.passengerInfo !==
+                                                    null
+                                                    ? ticketingListReturn
+                                                        .passengerInfo[0]
+                                                        ?.currencyName
+                                                    : ""}{" "}
+                                                  {ticketingListReturn?.penalty[0]?.panalty?.toLocaleString(
+                                                    "en-US"
+                                                  )}
+                                                </td>
+                                              </tr>
+                                            </>
+                                          ) : (
+                                            <> </>
+                                          )}
+                                        </tbody>
+                                      </table>
+                                    </div>
+                                  ) : (
+                                    <></>
+                                  )}
+                                </>
+                              )}
+
+                              {extraServices && extraServices?.length > 0 ? (
+                                <div className="table-responsive mt-3">
+                                  <div
+                                    className="ps-1 py-2 fw-bold text-start"
+                                    style={{
+                                      fontSize: "14px",
+                                      backgroundColor: "#c3c2c2",
+                                    }}
+                                  >
+                                    Extra Services Details
+                                  </div>
+
+                                  <table
+                                    class="table table-bordered table-sm text-end mt-1"
+                                    style={{ fontSize: "14px" }}
+                                  >
+                                    <thead className="text-end">
+                                      <tr>
+                                        <th
+                                          colspan="4"
+                                          className="fw-bold text-start py-2 bg-light"
+                                        >
+                                          Extra Services Details
+                                        </th>
+                                      </tr>
+                                      <tr>
+                                        <th className="text-start">
+                                          Passenger Name
+                                        </th>
+                                        <th>Type Of Services</th>
+                                        <th>Segment</th>
+                                        <th>Service Name</th>
+                                      </tr>
+                                    </thead>
+                                    <tbody className="text-end">
+                                      {extraServices?.map((item) =>
+                                        item?.map((exService, idx) => {
+                                          return (
+                                            <tr key={idx}>
+                                              <>
+                                                <td className="text-start">
+                                                  {ticketingList?.passengerInfo?.map(
+                                                    (paxId) => {
+                                                      return (
+                                                        <>
+                                                          {paxId.paxId ===
+                                                            exService.fK_PaxId &&
+                                                            paxId?.title +
+                                                              " " +
+                                                              paxId?.first +
+                                                              " " +
+                                                              paxId?.last}
+                                                        </>
+                                                      );
+                                                    }
+                                                  )}
+                                                </td>
+                                                <td>
+                                                  {exService.typeOfServices}
+                                                </td>
+                                                <td>{exService.segment}</td>
+                                                <td>{exService.name}</td>
+                                              </>
+                                            </tr>
+                                          );
+                                        })
+                                      )}
+                                      <tr className="fw-bold">
+                                        <td
+                                          colSpan={2}
+                                          className="border-none"
+                                        ></td>
+                                        <td>Grand Total</td>
+                                        <td>
+                                          {total?.toLocaleString("en-US")}
+                                        </td>
+                                      </tr>
+                                    </tbody>
+                                  </table>
+                                </div>
+                              ) : (
+                                <></>
+                              )}
+
+                              {!contactInfo && (
+                                <div className="table-responsive">
+                                  <table
+                                    className="table table-bordered table-sm"
+                                    style={{ fontSize: "11px" }}
+                                  >
+                                    <thead>
+                                      <tr>
+                                        <th
+                                          colspan="3"
+                                          className="fw-bold py-2 bg-light"
+                                        >
+                                          CONTACT DETAILS
+                                        </th>
+                                      </tr>
+                                      <tr className="text-center">
+                                        <th>DEPARTS</th>
+                                        <th>Email</th>
+                                        <th>Phone Number</th>
+                                      </tr>
+                                    </thead>
+                                    <tbody className="text-center">
+                                      {ticketingList?.passengerInfo?.map(
+                                        (item, index) => {
+                                          return (
+                                            <>
+                                              {index === 0 ? (
+                                                <>
+                                                  <tr key={index}>
+                                                    <td>
+                                                      {airports
+                                                        .filter(
+                                                          (f) =>
+                                                            f.iata ===
+                                                            ticketingList
+                                                              .segments[0]
+                                                              ?.origin
+                                                        )
+                                                        .map(
+                                                          (item) => item.city
+                                                        )}
+                                                    </td>
+                                                    <td>
+                                                      {
+                                                        ticketingList
+                                                          ?.ticketInfo
+                                                          ?.leadPaxEmail
+                                                      }
+                                                    </td>
+                                                    <td>
+                                                      {item.phoneCountryCode +
+                                                        item.phone}{" "}
+                                                    </td>
+                                                  </tr>
+                                                </>
+                                              ) : (
+                                                <></>
+                                              )}
+                                            </>
+                                          );
+                                        }
+                                      )}
+                                    </tbody>
+                                  </table>
+                                </div>
+                              )}
+
+                              <div className="mt-3 pb-2">
+                                <div
+                                  className="ps-1 py-2 fw-bold text-start border bg-light"
+                                  style={{
+                                    fontSize: "13px",
+                                    marginBottom: "8px",
                                   }}
-                                  required
-                                  name="toEmail"
-                                  placeholder="To"
-                                  className="border-radius"
-                                />
-                                <Input
-                                  variant="outline"
-                                  onChange={(e) => {
-                                    setMessageData({
-                                      ...messageData,
-                                      [e.target.name]: e.target.value,
-                                    });
-                                  }}
-                                  placeholder="Subject"
-                                  name="subject"
-                                  required
-                                />
-                                <Textarea
-                                  placeholder="Message"
-                                  required
-                                  name="body"
-                                  onChange={(e) => {
-                                    setMessageData({
-                                      ...messageData,
-                                      [e.target.name]: e.target.value,
-                                    });
-                                  }}
-                                ></Textarea>
-                              </Stack>
-                              <Box
-                                display="flex"
-                                alignItems="end"
-                                justifyContent={"end"}
-                              >
-                                <Button
-                                  loadingText="Sending..."
-                                  variant="solid"
-                                  mt={"2"}
-                                  bg={"#7c04c0"}
-                                  color={"white"}
-                                  disabled={btnDisabled === true ? true : false}
-                                  onClick={handleMessageUser}
                                 >
-                                  Send
-                                </Button>
-                              </Box>
-                            </ModalForm>
+                                  Important Notice
+                                </div>
+                                <table
+                                  class="table table-bordered table-sm text-end mt-1 mb-0"
+                                  style={{ fontSize: "13px" }}
+                                >
+                                  <thead>
+                                    <tr>
+                                      <th className="text-start">
+                                        E-Ticket Notice:
+                                      </th>
+                                    </tr>
+                                  </thead>
+                                  <tbody>
+                                    <tr className="text-start">
+                                      <p className="border-0">
+                                        Carriage and other services provided by
+                                        the carrier are subject to conditions of
+                                        carriage which are hereby incorporated
+                                        by reference. These conditions may be
+                                        obtained from the issuing carrier.
+                                      </p>
+                                    </tr>
+                                  </tbody>
+                                </table>
+                                <table
+                                  class="table table-bordered table-sm text-end  mb-0"
+                                  style={{ fontSize: "13px" }}
+                                >
+                                  <thead>
+                                    <tr>
+                                      <th className="text-start">
+                                        Passport/Visa/Health:
+                                      </th>
+                                    </tr>
+                                  </thead>
+                                  <tbody>
+                                    <tr className="text-start">
+                                      <p className="border-0">
+                                        Please ensure that you have all the
+                                        required travel documents for your
+                                        entire journey - i.e. valid passport &
+                                        necessary Visas - and that you have had
+                                        the recommended
+                                        vaccinations/immunizations for your
+                                        destination's.
+                                      </p>
+                                    </tr>
+                                  </tbody>
+                                </table>
+                                <table
+                                  class="table table-bordered table-sm text-end mb-0"
+                                  style={{ fontSize: "13px" }}
+                                >
+                                  <thead>
+                                    <tr>
+                                      <th className="text-start">
+                                        Carry-on Baggage Allowance:
+                                      </th>
+                                    </tr>
+                                  </thead>
+                                  <tbody>
+                                    <tr className="text-start">
+                                      <p className="border-0">
+                                        LIMIT: 1 Carry-On bag per passenger /
+                                        SIZE LIMIT: 22in x 15in x 8in (L+W+H=45
+                                        inches) / WEIGHT LIMIT: Max weight 7 kg
+                                        / 15 lb
+                                      </p>
+                                    </tr>
+                                  </tbody>
+                                </table>
+                                <table
+                                  class="table table-bordered table-sm text-end  mb-0"
+                                  style={{ fontSize: "13px" }}
+                                >
+                                  <thead>
+                                    <tr>
+                                      <th className="text-start">
+                                        Reporting Time:
+                                      </th>
+                                    </tr>
+                                  </thead>
+                                  <tbody>
+                                    <tr className="text-start">
+                                      <p className="border-0">
+                                        Flights open for check-in 1 hour before
+                                        scheduled departure time on domestic
+                                        flights and 3 hours before scheduled
+                                        departure time on international flights.
+                                        Passengers must check-in 1 hour before
+                                        flight departure. Check-in counters
+                                        close 30 minutes before flight departure
+                                        for domestic, and 90 minutes before the
+                                        scheduled departure for international
+                                        flights.
+                                      </p>
+                                    </tr>
+                                  </tbody>
+                                </table>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
 
-                            <div>
-                              <div className="card-body" ref={componentRef}>
+                        {ticketingList?.comboSegmentInfo?.length > 0 && (
+                          <div style={{ display: "none" }}>
+                            <div ref={componentRefCombo}>
+                              <div className="card-body">
                                 <div
                                   className="px-lg-5 px-md-5 px-sm-1 p-3"
                                   ref={donwloadRef}
@@ -1143,14 +3329,14 @@ const Ticket = () => {
                                                 ?.agentLogo !== null ? (
                                                 <>
                                                   {/* <img
-                                    alt="img01"
-                                    src={
-                                      environment.s3URL +
-                                      `${ticketingList.ticketInfo?.agentLogo}`
-                                    }
-                                    crossOrigin="true"
-                                    style={{ width: "160px" }}
-                                  ></img> */}
+                                  alt="img01"
+                                  src={
+                                    environment.s3URL +
+                                    `${ticketingList.ticketInfo?.agentLogo}`
+                                  }
+                                  crossOrigin="true"
+                                  style={{ width: "160px" }}
+                                ></img> */}
                                                   <ImageComponentForAgent
                                                     logo={
                                                       ticketingList.ticketInfo
@@ -1207,93 +3393,46 @@ const Ticket = () => {
                                     </div>
                                   )}
 
-                                  {journeyType === "ONWARD" ? (
-                                    <Box
-                                      display={"flex"}
-                                      justifyContent={"space-between"}
-                                      flexWrap={"wrap"}
-                                      style={{ fontSize: "14px" }}
-                                    >
-                                      <div>
-                                        <br></br>
-                                        <Text>
-                                          Booking ID :{" "}
-                                          <span className="fw-bold">
-                                            {
-                                              ticketingList.ticketInfo
-                                                ?.uniqueTransID
-                                            }
-                                          </span>
-                                        </Text>
-                                      </div>
-
-                                      <div>
-                                        <Text>
-                                          GDS PNR :{" "}
-                                          <span className="fw-bold">
-                                            {ticketingList.ticketInfo?.pnr}
-                                          </span>
-                                        </Text>
-                                        <Text>
-                                          Airline PNR:{" "}
-                                          <span className="fw-bold">
-                                            {ticketingList.ticketInfo
-                                              ?.airlinePNRs === "" ||
+                                  <Box
+                                    display={"flex"}
+                                    justifyContent={"space-between"}
+                                    flexWrap={"wrap"}
+                                    style={{ fontSize: "14px" }}
+                                  >
+                                    <div>
+                                      <br></br>
+                                      <Text>
+                                        Booking ID :{" "}
+                                        <span className="fw-bold">
+                                          {
                                             ticketingList.ticketInfo
-                                              ?.airlinePNRs === null
-                                              ? ticketingList.ticketInfo?.pnr
-                                              : ticketingList.ticketInfo
-                                                  ?.airlinePNRs}
-                                          </span>
-                                        </Text>
-                                      </div>
-                                    </Box>
-                                  ) : (
-                                    <Box
-                                      display={"flex"}
-                                      justifyContent={"space-between"}
-                                      flexWrap={"wrap"}
-                                      style={{ fontSize: "14px" }}
-                                    >
-                                      <div>
-                                        <br></br>
-                                        <Text>
-                                          Booking ID :{" "}
-                                          <span className="fw-bold">
-                                            {
-                                              ticketingListReturn.ticketInfo
-                                                ?.uniqueTransID
-                                            }
-                                          </span>
-                                        </Text>
-                                      </div>
+                                              ?.uniqueTransID
+                                          }
+                                        </span>
+                                      </Text>
+                                    </div>
 
-                                      <div>
-                                        <Text>
-                                          GDS PNR :{" "}
-                                          <span className="fw-bold">
-                                            {
-                                              ticketingListReturn.ticketInfo
-                                                ?.pnr
-                                            }
-                                          </span>
-                                        </Text>
-                                        <Text>
-                                          Airline PNR:{" "}
-                                          <span className="fw-bold">
-                                            {ticketingListReturn.ticketInfo
-                                              ?.airlinePNRs === "" ||
-                                            ticketingListReturn.ticketInfo
-                                              ?.airlinePNRs === null
-                                              ? ticketingListReturn.ticketInfo
-                                                  ?.pnr
-                                              : ticketingListReturn.ticketInfo
-                                                  ?.airlinePNRs}
-                                          </span>
-                                        </Text>
-                                      </div>
-                                    </Box>
-                                  )}
+                                    <div>
+                                      <Text>
+                                        GDS PNR :{" "}
+                                        <span className="fw-bold">
+                                          {ticketingList.ticketInfo?.pnr}
+                                        </span>
+                                      </Text>
+                                      <Text>
+                                        Airline PNR:{" "}
+                                        <span className="fw-bold">
+                                          {ticketingList.ticketInfo
+                                            ?.airlinePNRs === "" ||
+                                          ticketingList.ticketInfo
+                                            ?.airlinePNRs === null
+                                            ? ticketingList.ticketInfo?.pnr
+                                            : ticketingList.ticketInfo
+                                                ?.airlinePNRs}
+                                        </span>
+                                      </Text>
+                                    </div>
+                                  </Box>
 
                                   <div className="table-responsive mt-2">
                                     <table
@@ -1317,123 +3456,54 @@ const Ticket = () => {
                                           <th>Ticket Issue Date</th>
                                         </tr>
                                       </thead>
-                                      {journeyType === "ONWARD" ? (
-                                        <tbody>
-                                          {ticketingList.passengerInfo?.map(
-                                            (item, index) => {
-                                              if (
-                                                selectPassenger.includes(item)
-                                              ) {
-                                                return (
-                                                  <tr
-                                                    className="text-center"
-                                                    style={{
-                                                      lineHeight: "14px",
-                                                    }}
+                                      <tbody>
+                                        {ticketingList.passengerInfo?.map(
+                                          (item, index) => {
+                                            if (
+                                              selectPassenger.includes(item)
+                                            ) {
+                                              return (
+                                                <tr
+                                                  className="text-center"
+                                                  style={{ lineHeight: "14px" }}
+                                                >
+                                                  <td
+                                                    className="text-start"
+                                                    style={{ fontSize: "15px" }}
                                                   >
-                                                    <td
-                                                      className="text-start"
-                                                      style={{
-                                                        fontSize: "15px",
-                                                      }}
-                                                    >
-                                                      {item.title.toUpperCase()}{" "}
-                                                      {item.first.toUpperCase()}{" "}
-                                                      {item.last.toUpperCase()}
-                                                    </td>
-                                                    <td>
-                                                      {item.passengerType ===
-                                                      "ADT"
-                                                        ? "Adult"
-                                                        : item.passengerType ===
-                                                          "CNN"
-                                                        ? "Child"
-                                                        : item.passengerType ===
-                                                          "CHD"
-                                                        ? "Child"
-                                                        : item.passengerType ===
-                                                          "INF"
-                                                        ? "Infant"
-                                                        : ""}
-                                                    </td>
-                                                    <td>
-                                                      {item.ticketNumbers}
-                                                    </td>
-                                                    <td>
-                                                      {" "}
-                                                      {moment(
-                                                        ticketingList.ticketInfo
-                                                          ?.issueDate
-                                                      ).format(
-                                                        "ddd, DD MMM,YY"
-                                                      )}
-                                                    </td>
-                                                  </tr>
-                                                );
-                                              }
+                                                    {item.title.toUpperCase()}{" "}
+                                                    {item.first.toUpperCase()}{" "}
+                                                    {item.last.toUpperCase()}
+                                                  </td>
+                                                  <td>
+                                                    {item.passengerType ===
+                                                    "ADT"
+                                                      ? "Adult"
+                                                      : item.passengerType ===
+                                                        "CNN"
+                                                      ? "Child"
+                                                      : item.passengerType ===
+                                                        "CHD"
+                                                      ? "Child"
+                                                      : item.passengerType ===
+                                                        "INF"
+                                                      ? "Infant"
+                                                      : ""}
+                                                  </td>
+                                                  <td>{item.ticketNumbers}</td>
+                                                  <td>
+                                                    {" "}
+                                                    {moment(
+                                                      ticketingList.ticketInfo
+                                                        ?.issueDate
+                                                    ).format("ddd, DD MMM,YY")}
+                                                  </td>
+                                                </tr>
+                                              );
                                             }
-                                          )}
-                                        </tbody>
-                                      ) : (
-                                        <tbody>
-                                          {ticketingListReturn.passengerInfo?.map(
-                                            (item, index) => {
-                                              if (
-                                                selectPassengerReturn.includes(
-                                                  item
-                                                )
-                                              ) {
-                                                return (
-                                                  <tr
-                                                    className="text-center"
-                                                    style={{
-                                                      lineHeight: "14px",
-                                                    }}
-                                                  >
-                                                    <td
-                                                      className="text-start"
-                                                      style={{
-                                                        fontSize: "15px",
-                                                      }}
-                                                    >
-                                                      {item.title.toUpperCase()}{" "}
-                                                      {item.first.toUpperCase()}{" "}
-                                                      {item.last.toUpperCase()}
-                                                    </td>
-                                                    <td>
-                                                      {item.passengerType ===
-                                                      "ADT"
-                                                        ? "Adult"
-                                                        : item.passengerType ===
-                                                          "CNN"
-                                                        ? "Child"
-                                                        : item.passengerType ===
-                                                          "CHD"
-                                                        ? "Child"
-                                                        : item.passengerType ===
-                                                          "INF"
-                                                        ? "Infant"
-                                                        : ""}
-                                                    </td>
-                                                    <td>
-                                                      {item.ticketNumbers}
-                                                    </td>
-                                                    <td>
-                                                      {" "}
-                                                      {moment(
-                                                        ticketingList.ticketInfo
-                                                          ?.issueDate
-                                                      ).format(
-                                                        "ddd, DD MMM,YY"
-                                                      )}
-                                                    </td>
-                                                  </tr>
-                                                );
-                                              }
-                                            }
-                                          )}
-                                        </tbody>
-                                      )}
+                                          }
+                                        )}
+                                      </tbody>
                                     </table>
                                   </div>
 
@@ -1446,1696 +3516,730 @@ const Ticket = () => {
                                     >
                                       Flight Details
                                     </div>
-                                    {journeyType === "ONWARD" ? (
-                                      <div className="">
-                                        <div
-                                          className="border p-1"
-                                          style={{ fontSize: "14px" }}
-                                        >
-                                          {ticketingList?.directions ===
-                                          undefined ? (
-                                            <>
-                                              {finalSegment.map(
-                                                (item, index) => {
-                                                  return (
-                                                    <div className="border my-1 p-1">
-                                                      {item.map((itm, idx) => {
-                                                        let baggage =
-                                                          JSON.parse(
-                                                            itm.baggageInfo
-                                                          );
-                                                        return (
-                                                          <>
-                                                          <div className="d-flex justify-content-between">
-                                                            <div>
-                                                            <span className="fw-bold">
-                                                              {airports
-                                                                .filter(
-                                                                  (f) =>
-                                                                    f.iata ===
-                                                                    itm.origin
-                                                                )
-                                                                .map(
-                                                                  (itm) =>
-                                                                    itm.city
-                                                                )}{" "}
-                                                              ({itm.origin})
-                                                            </span>
-                                                            <span className="mx-2 fw-bold">
-                                                              <i class="fas fa-arrow-right"></i>
-                                                            </span>
-                                                            <span className="fw-bold">
-                                                              {airports
-                                                                .filter(
-                                                                  (f) =>
-                                                                    f.iata ===
-                                                                    itm.destination
-                                                                )
-                                                                .map(
-                                                                  (itm) =>
-                                                                    itm.city
-                                                                )}{" "}
-                                                              ({itm.destination}
-                                                              )
-                                                            </span>
-                                                            <span className="d-flex align-items-center fw-bold">
-                                                                                  {/* <img
-                                                                src={
-                                                                  environment.s3ArliensImage +
-                                                                  `${itm.operationCarrier}.png`
-                                                                }
-                                                                className="me-2"
-                                                                alt=""
-                                                                width="30px"
-                                                                height="30px"
-                                                                crossOrigin="true"
-                                                              ></img> */}
-                                                              <ImageComponentTicket
-                                                                logo={
-                                                                  itm.operationCarrier
-                                                                }
-                                                              />
-                                                              {
-                                                                itm.operationCarrierName
-                                                              }{" "}
-                                                              (
-                                                              {
-                                                                itm.operationCarrier
-                                                              }
-                                                              -
-                                                              {itm.flightNumber}
-                                                              )
-                                                            </span>
-                                                            </div>
-                                                            {itm?.isRefunded && (
-                                                            <div>
-                                                              <Box
-                                                                background={
-                                                                  "#7C04C0"
-                                                                }
-                                                                color={"white"}
-                                                                p={2}
-                                                                rounded={"sm"}
-                                                                fontWeight={700}
-                                                                fontSize={
-                                                                  "15px"
-                                                                }
-                                                              >
-                                                                Refunded :{" "}
-                                                                {
-                                                                  itm?.legRefundAmount
-                                                                }
-                                                              </Box>
-                                                            </div>
-                                                          )}
-                                                    </div>
+                                    <div className="">
+                                      <div
+                                        className="border p-1"
+                                        style={{ fontSize: "14px" }}
+                                      >
+                                        {ticketingList?.directions ===
+                                        undefined ? (
+                                          <>
+                                            {finalSegment.map((item, index) => {
+                                              return (
+                                                <div className="border my-1 p-1">
+                                                  {item.map((itm, idx) => {
+                                                    let baggage = JSON.parse(
+                                                      itm.baggageInfo
+                                                    );
+                                                    return (
+                                                      <>
+                                                        <span className="fw-bold">
+                                                          {airports
+                                                            .filter(
+                                                              (f) =>
+                                                                f.iata ===
+                                                                itm.origin
+                                                            )
+                                                            .map(
+                                                              (itm) => itm.city
+                                                            )}{" "}
+                                                          ({itm.origin})
+                                                        </span>
+                                                        <span className="mx-2 fw-bold">
+                                                          <i class="fas fa-arrow-right"></i>
+                                                        </span>
+                                                        <span className="fw-bold">
+                                                          {airports
+                                                            .filter(
+                                                              (f) =>
+                                                                f.iata ===
+                                                                itm.destination
+                                                            )
+                                                            .map(
+                                                              (itm) => itm.city
+                                                            )}{" "}
+                                                          ({itm.destination})
+                                                        </span>
+                                                        <span className="d-flex align-items-center fw-bold">
+                                                          {/* <img
+                                          src={
+                                            environment.s3ArliensImage +
+                                            `${itm.operationCarrier}.png`
+                                          }
+                                          className="me-2"
+                                          alt=""
+                                          width="30px"
+                                          height="30px"
+                                          crossOrigin="true"
+                                        ></img> */}
+                                                          <ImageComponentTicket
+                                                            logo={
+                                                              itm.operationCarrier
+                                                            }
+                                                          />
+                                                          {
+                                                            itm.operationCarrierName
+                                                          }{" "}
+                                                          (
+                                                          {itm.operationCarrier}
+                                                          -{itm.flightNumber})
+                                                        </span>
 
-                                                            <div className="table-responsive mt-3">
-                                                              <table
-                                                                class="table table-borderless table-sm mt-1"
-                                                                style={{
-                                                                  fontSize:
-                                                                    "14px",
-                                                                }}
-                                                              >
-                                                                <thead>
-                                                                  <tr>
-                                                                    <th className="p-0">
-                                                                      <p
-                                                                        className="py-1 ps-1"
-                                                                        style={{
-                                                                          backgroundColor:
-                                                                            "#ededed",
-                                                                        }}
-                                                                      >
-                                                                        Date
-                                                                      </p>
-                                                                    </th>
-                                                                    <th className="p-0">
-                                                                      <p
-                                                                        className="py-1 ps-1"
-                                                                        style={{
-                                                                          backgroundColor:
-                                                                            "#ededed",
-                                                                        }}
-                                                                      >
-                                                                        Time
-                                                                      </p>
-                                                                    </th>
-                                                                    <th className="p-0">
-                                                                      <p
-                                                                        className="py-1 ps-1"
-                                                                        style={{
-                                                                          backgroundColor:
-                                                                            "#ededed",
-                                                                        }}
-                                                                      >
-                                                                        Flight
-                                                                        Info
-                                                                      </p>
-                                                                    </th>
-                                                                    <th className="p-0">
-                                                                      <p
-                                                                        className="py-1 ps-1"
-                                                                        style={{
-                                                                          backgroundColor:
-                                                                            "#ededed",
-                                                                        }}
-                                                                      >
-                                                                        Flight
-                                                                        Time
-                                                                      </p>
-                                                                    </th>
-                                                                    <th className="p-0">
-                                                                      <p
-                                                                        className="py-1 ps-1"
-                                                                        style={{
-                                                                          backgroundColor:
-                                                                            "#ededed",
-                                                                        }}
-                                                                      >
-                                                                        Cabin
-                                                                      </p>
-                                                                    </th>
-                                                                    <th className="p-0">
-                                                                      <p
-                                                                        className="py-1 ps-1"
-                                                                        style={{
-                                                                          backgroundColor:
-                                                                            "#ededed",
-                                                                        }}
-                                                                      >
-                                                                        Checked
-                                                                        Baggage
-                                                                      </p>
-                                                                    </th>
-                                                                    <th className="p-0">
-                                                                      <p
-                                                                        className="py-1 ps-1"
-                                                                        style={{
-                                                                          backgroundColor:
-                                                                            "#ededed",
-                                                                        }}
-                                                                      >
-                                                                        Cabin
-                                                                        Baggage
-                                                                      </p>
-                                                                    </th>
-                                                                  </tr>
-                                                                </thead>
-                                                                <tbody>
-                                                                  <tr>
-                                                                    <td>
-                                                                      {moment(
-                                                                        itm.departure
-                                                                      ).format(
-                                                                        "ddd DD MMM,YY "
-                                                                      )}
-                                                                      <br></br>
-                                                                      {moment(
-                                                                        itm.arrival
-                                                                      ).format(
-                                                                        "ddd DD MMM,YY "
-                                                                      )}
-                                                                    </td>
-                                                                    <td>
-                                                                      {moment(
-                                                                        itm.departure
-                                                                      ).format(
-                                                                        "HH:mm"
-                                                                      )}
-                                                                      <br></br>
-                                                                      {moment(
-                                                                        itm.arrival
-                                                                      ).format(
-                                                                        "HH:mm"
-                                                                      )}
-                                                                    </td>
-                                                                    <td>
-                                                                      Departs{" "}
-                                                                      <span className="fw-bold">
-                                                                        {airports
-                                                                          .filter(
-                                                                            (
-                                                                              f
-                                                                            ) =>
-                                                                              f.iata ===
-                                                                              itm.origin
-                                                                          )
-                                                                          .map(
-                                                                            (
-                                                                              itm
-                                                                            ) =>
-                                                                              itm.city
-                                                                          )}{" "}
-                                                                        (
-                                                                        {
+                                                        <div className="table-responsive mt-3">
+                                                          <table
+                                                            class="table table-borderless table-sm mt-1"
+                                                            style={{
+                                                              fontSize: "14px",
+                                                            }}
+                                                          >
+                                                            <thead>
+                                                              <tr>
+                                                                <th className="p-0">
+                                                                  <p
+                                                                    className="py-1 ps-1"
+                                                                    style={{
+                                                                      backgroundColor:
+                                                                        "#ededed",
+                                                                    }}
+                                                                  >
+                                                                    Date
+                                                                  </p>
+                                                                </th>
+                                                                <th className="p-0">
+                                                                  <p
+                                                                    className="py-1 ps-1"
+                                                                    style={{
+                                                                      backgroundColor:
+                                                                        "#ededed",
+                                                                    }}
+                                                                  >
+                                                                    Time
+                                                                  </p>
+                                                                </th>
+                                                                <th className="p-0">
+                                                                  <p
+                                                                    className="py-1 ps-1"
+                                                                    style={{
+                                                                      backgroundColor:
+                                                                        "#ededed",
+                                                                    }}
+                                                                  >
+                                                                    Flight Info
+                                                                  </p>
+                                                                </th>
+                                                                <th className="p-0">
+                                                                  <p
+                                                                    className="py-1 ps-1"
+                                                                    style={{
+                                                                      backgroundColor:
+                                                                        "#ededed",
+                                                                    }}
+                                                                  >
+                                                                    Flight Time
+                                                                  </p>
+                                                                </th>
+                                                                <th className="p-0">
+                                                                  <p
+                                                                    className="py-1 ps-1"
+                                                                    style={{
+                                                                      backgroundColor:
+                                                                        "#ededed",
+                                                                    }}
+                                                                  >
+                                                                    Cabin
+                                                                  </p>
+                                                                </th>
+                                                                <th className="p-0">
+                                                                  <p
+                                                                    className="py-1 ps-1"
+                                                                    style={{
+                                                                      backgroundColor:
+                                                                        "#ededed",
+                                                                    }}
+                                                                  >
+                                                                    Checked
+                                                                    Baggage
+                                                                  </p>
+                                                                </th>
+                                                                <th className="p-0">
+                                                                  <p
+                                                                    className="py-1 ps-1"
+                                                                    style={{
+                                                                      backgroundColor:
+                                                                        "#ededed",
+                                                                    }}
+                                                                  >
+                                                                    Cabin
+                                                                    Baggage
+                                                                  </p>
+                                                                </th>
+                                                              </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                              <tr>
+                                                                <td>
+                                                                  {moment(
+                                                                    itm.departure
+                                                                  ).format(
+                                                                    "ddd DD MMM,YY "
+                                                                  )}
+                                                                  <br></br>
+                                                                  {moment(
+                                                                    itm.arrival
+                                                                  ).format(
+                                                                    "ddd DD MMM,YY "
+                                                                  )}
+                                                                </td>
+                                                                <td>
+                                                                  {moment(
+                                                                    itm.departure
+                                                                  ).format(
+                                                                    "HH:mm"
+                                                                  )}
+                                                                  <br></br>
+                                                                  {moment(
+                                                                    itm.arrival
+                                                                  ).format(
+                                                                    "HH:mm"
+                                                                  )}
+                                                                </td>
+                                                                <td>
+                                                                  Departs{" "}
+                                                                  <span className="fw-bold">
+                                                                    {airports
+                                                                      .filter(
+                                                                        (f) =>
+                                                                          f.iata ===
                                                                           itm.origin
-                                                                        }
-                                                                        )
-                                                                        {itm?.originTerminal && (
-                                                                          <>
-                                                                            Terminal-(
-                                                                            {
-                                                                              itm?.originTerminal
-                                                                            }
-                                                                            )
-                                                                          </>
-                                                                        )}
-                                                                      </span>
-                                                                      <br></br>
-                                                                      Arrival{" "}
-                                                                      <span className="fw-bold">
-                                                                        {airports
-                                                                          .filter(
-                                                                            (
-                                                                              f
-                                                                            ) =>
-                                                                              f.iata ===
-                                                                              itm.destination
-                                                                          )
-                                                                          .map(
-                                                                            (
-                                                                              itm
-                                                                            ) =>
-                                                                              itm.city
-                                                                          )}{" "}
-                                                                        (
-                                                                        {
-                                                                          itm.destination
-                                                                        }
-                                                                        )
-                                                                        {itm?.destinationTerminal && (
-                                                                          <>
-                                                                            Terminal-(
-                                                                            {
-                                                                              itm?.destinationTerminal
-                                                                            }
-                                                                            )
-                                                                          </>
-                                                                        )}
-                                                                      </span>
-                                                                    </td>
-                                                                    <td className="align-middle">
-                                                                      {
-                                                                        itm.travelTime
-                                                                      }
-                                                                    </td>
-                                                                    <td className="align-middle">
-                                                                      {
-                                                                        itm.cabinClass
-                                                                      }
-                                                                      (
-                                                                      {
-                                                                        itm.bookingCode
-                                                                      }
                                                                       )
-                                                                    </td>
-                                                                    <td className="align-middle">
-                                                                      {baggage?.map(
-                                                                        (
-                                                                          im,
-                                                                          idx
-                                                                        ) => {
-                                                                          if (
-                                                                            selectPassenger.some(
-                                                                              (
-                                                                                passenegr
-                                                                              ) =>
-                                                                                passenegr.passengerType ===
-                                                                                im?.PassengerTypeCode
-                                                                            )
-                                                                          )
-                                                                            return (
-                                                                              <>
-                                                                                {im?.Amount && (
-                                                                                  <>
-                                                                                    <span className="left">
-                                                                                      {im?.PassengerTypeCode ===
-                                                                                      "ADT"
-                                                                                        ? "Adult"
-                                                                                        : im?.PassengerTypeCode ===
-                                                                                          "CNN"
-                                                                                        ? "Child"
-                                                                                        : im?.PassengerTypeCode ===
-                                                                                          "CHD"
-                                                                                        ? "Child"
-                                                                                        : im?.PassengerTypeCode ===
-                                                                                          "INF"
-                                                                                        ? "Infant"
-                                                                                        : ""}{" "}
-                                                                                      :{" "}
-                                                                                      <span className="ms-1 font-size">
-                                                                                        {im?.Amount +
-                                                                                          " " +
-                                                                                          im?.Units}
-                                                                                      </span>
-                                                                                    </span>
-                                                                                    <br></br>
-                                                                                  </>
-                                                                                )}
-                                                                              </>
-                                                                            );
-                                                                        }
-                                                                      )}
-                                                                    </td>
-                                                                    <td className="align-middle">
-                                                                      7KG (max 1
-                                                                      Bag)
-                                                                    </td>
-                                                                  </tr>
-                                                                </tbody>
-                                                              </table>
-                                                            </div>
-                                                          </>
-                                                        );
-                                                      })}
-                                                    </div>
-                                                  );
-                                                }
-                                              )}
-                                            </>
-                                          ) : (
-                                            <></>
-                                          )}
-                                        </div>
-                                      </div>
-                                    ) : (
-                                      <div className="">
-                                        <div
-                                          className="border p-1"
-                                          style={{ fontSize: "14px" }}
-                                        >
-                                          {ticketingListReturn?.directions ===
-                                          undefined ? (
-                                            <>
-                                              {finalSegmentReturn.map(
-                                                (item, index) => {
-                                                  return (
-                                                    <div className="border my-1 p-1">
-                                                      {item.map((itm, idx) => {
-                                                        let baggage =
-                                                          JSON.parse(
-                                                            itm.baggageInfo
-                                                          );
-                                                        return (
-                                                          <>
-                                                          <div className="d-flex justify-content-between">
-                                                            <div>
-                                                            <span className="fw-bold">
-                                                              {airports
-                                                                .filter(
-                                                                  (f) =>
-                                                                    f.iata ===
-                                                                    itm.origin
-                                                                )
-                                                                .map(
-                                                                  (itm) =>
-                                                                    itm.city
-                                                                )}{" "}
-                                                              ({itm.origin})
-                                                            </span>
-                                                            <span className="mx-2 fw-bold">
-                                                              <i class="fas fa-arrow-right"></i>
-                                                            </span>
-                                                            <span className="fw-bold">
-                                                              {airports
-                                                                .filter(
-                                                                  (f) =>
-                                                                    f.iata ===
-                                                                    itm.destination
-                                                                )
-                                                                .map(
-                                                                  (itm) =>
-                                                                    itm.city
-                                                                )}{" "}
-                                                              ({itm.destination}
-                                                              )
-                                                            </span>
-                                                            <span className="d-flex align-items-center fw-bold">
-                                                              {/* <img
-                                                                src={
-                                                                  environment.s3ArliensImage +
-                                                                  `${itm.operationCarrier}.png`
-                                                                }
-                                                                className="me-2"
-                                                                alt=""
-                                                                width="30px"
-                                                                height="30px"
-                                                                crossOrigin="true"
-                                                              ></img> */}
-                                                              <ImageComponentTicket
-                                                                logo={
-                                                                  itm.operationCarrier
-                                                                }
-                                                              />
-                                                              {
-                                                                itm.operationCarrierName
-                                                              }{" "}
-                                                              (
-                                                              {
-                                                                itm.operationCarrier
-                                                              }
-                                                              -
-                                                              {itm.flightNumber}
-                                                              )
-                                                            </span>
-                                                            </div>
-
-                                                            {itm?.isRefunded && (
-                                                            <div>
-                                                              <Box
-                                                                background={
-                                                                  "#7C04C0"
-                                                                }
-                                                                color={"white"}
-                                                                p={2}
-                                                                rounded={"sm"}
-                                                                fontWeight={700}
-                                                                fontSize={
-                                                                  "15px"
-                                                                }
-                                                              >
-                                                                Refunded :{" "}
-                                                                {
-                                                                  itm?.legRefundAmount
-                                                                }
-                                                              </Box>
-                                                            </div>
-                                                          )}
-                                                    </div>
-
-                                                            <div className="table-responsive mt-3">
-                                                              <table
-                                                                class="table table-borderless table-sm mt-1"
-                                                                style={{
-                                                                  fontSize:
-                                                                    "14px",
-                                                                }}
-                                                              >
-                                                                <thead>
-                                                                  <tr>
-                                                                    <th className="p-0">
-                                                                      <p
-                                                                        className="py-1 ps-1"
-                                                                        style={{
-                                                                          backgroundColor:
-                                                                            "#ededed",
-                                                                        }}
-                                                                      >
-                                                                        Date
-                                                                      </p>
-                                                                    </th>
-                                                                    <th className="p-0">
-                                                                      <p
-                                                                        className="py-1 ps-1"
-                                                                        style={{
-                                                                          backgroundColor:
-                                                                            "#ededed",
-                                                                        }}
-                                                                      >
-                                                                        Time
-                                                                      </p>
-                                                                    </th>
-                                                                    <th className="p-0">
-                                                                      <p
-                                                                        className="py-1 ps-1"
-                                                                        style={{
-                                                                          backgroundColor:
-                                                                            "#ededed",
-                                                                        }}
-                                                                      >
-                                                                        Flight
-                                                                        Info
-                                                                      </p>
-                                                                    </th>
-                                                                    <th className="p-0">
-                                                                      <p
-                                                                        className="py-1 ps-1"
-                                                                        style={{
-                                                                          backgroundColor:
-                                                                            "#ededed",
-                                                                        }}
-                                                                      >
-                                                                        Flight
-                                                                        Time
-                                                                      </p>
-                                                                    </th>
-                                                                    <th className="p-0">
-                                                                      <p
-                                                                        className="py-1 ps-1"
-                                                                        style={{
-                                                                          backgroundColor:
-                                                                            "#ededed",
-                                                                        }}
-                                                                      >
-                                                                        Cabin
-                                                                      </p>
-                                                                    </th>
-                                                                    <th className="p-0">
-                                                                      <p
-                                                                        className="py-1 ps-1"
-                                                                        style={{
-                                                                          backgroundColor:
-                                                                            "#ededed",
-                                                                        }}
-                                                                      >
-                                                                        Checked
-                                                                        Baggage
-                                                                      </p>
-                                                                    </th>
-                                                                    <th className="p-0">
-                                                                      <p
-                                                                        className="py-1 ps-1"
-                                                                        style={{
-                                                                          backgroundColor:
-                                                                            "#ededed",
-                                                                        }}
-                                                                      >
-                                                                        Cabin
-                                                                        Baggage
-                                                                      </p>
-                                                                    </th>
-                                                                  </tr>
-                                                                </thead>
-                                                                <tbody>
-                                                                  <tr>
-                                                                    <td>
-                                                                      {moment(
-                                                                        itm.departure
-                                                                      ).format(
-                                                                        "ddd DD MMM,YY "
-                                                                      )}
-                                                                      <br></br>
-                                                                      {moment(
-                                                                        itm.arrival
-                                                                      ).format(
-                                                                        "ddd DD MMM,YY "
-                                                                      )}
-                                                                    </td>
-                                                                    <td>
-                                                                      {moment(
-                                                                        itm.departure
-                                                                      ).format(
-                                                                        "HH:mm"
-                                                                      )}
-                                                                      <br></br>
-                                                                      {moment(
-                                                                        itm.arrival
-                                                                      ).format(
-                                                                        "HH:mm"
-                                                                      )}
-                                                                    </td>
-                                                                    <td>
-                                                                      Departs{" "}
-                                                                      <span className="fw-bold">
-                                                                        {airports
-                                                                          .filter(
-                                                                            (
-                                                                              f
-                                                                            ) =>
-                                                                              f.iata ===
-                                                                              itm.origin
-                                                                          )
-                                                                          .map(
-                                                                            (
-                                                                              itm
-                                                                            ) =>
-                                                                              itm.city
-                                                                          )}{" "}
-                                                                        (
+                                                                      .map(
+                                                                        (itm) =>
+                                                                          itm.city
+                                                                      )}{" "}
+                                                                    (
+                                                                    {itm.origin}
+                                                                    )
+                                                                    {itm?.originTerminal && (
+                                                                      <>
+                                                                        Terminal-(
                                                                         {
-                                                                          itm.origin
+                                                                          itm?.originTerminal
                                                                         }
                                                                         )
-                                                                        {itm?.originTerminal && (
-                                                                          <>
-                                                                            Terminal-(
-                                                                            {
-                                                                              itm?.originTerminal
-                                                                            }
-                                                                            )
-                                                                          </>
-                                                                        )}
-                                                                      </span>
-                                                                      <br></br>
-                                                                      Arrival{" "}
-                                                                      <span className="fw-bold">
-                                                                        {airports
-                                                                          .filter(
-                                                                            (
-                                                                              f
-                                                                            ) =>
-                                                                              f.iata ===
-                                                                              itm.destination
-                                                                          )
-                                                                          .map(
-                                                                            (
-                                                                              itm
-                                                                            ) =>
-                                                                              itm.city
-                                                                          )}{" "}
-                                                                        (
-                                                                        {
+                                                                      </>
+                                                                    )}
+                                                                  </span>
+                                                                  <br></br>
+                                                                  Arrival{" "}
+                                                                  <span className="fw-bold">
+                                                                    {airports
+                                                                      .filter(
+                                                                        (f) =>
+                                                                          f.iata ===
                                                                           itm.destination
+                                                                      )
+                                                                      .map(
+                                                                        (itm) =>
+                                                                          itm.city
+                                                                      )}{" "}
+                                                                    (
+                                                                    {
+                                                                      itm.destination
+                                                                    }
+                                                                    )
+                                                                    {itm?.destinationTerminal && (
+                                                                      <>
+                                                                        Terminal-(
+                                                                        {
+                                                                          itm?.destinationTerminal
                                                                         }
                                                                         )
-                                                                        {itm?.destinationTerminal && (
-                                                                          <>
-                                                                            Terminal-(
-                                                                            {
-                                                                              itm?.destinationTerminal
-                                                                            }
-                                                                            )
-                                                                          </>
-                                                                        )}
-                                                                      </span>
-                                                                    </td>
-                                                                    <td className="align-middle">
-                                                                      {
-                                                                        itm.travelTime
-                                                                      }
-                                                                    </td>
-                                                                    <td className="align-middle">
-                                                                      {
-                                                                        itm.cabinClass
-                                                                      }
-                                                                      (
-                                                                      {
-                                                                        itm.bookingCode
-                                                                      }
+                                                                      </>
+                                                                    )}
+                                                                  </span>
+                                                                </td>
+                                                                <td className="align-middle">
+                                                                  {
+                                                                    itm.travelTime
+                                                                  }
+                                                                </td>
+                                                                <td className="align-middle">
+                                                                  {
+                                                                    itm.cabinClass
+                                                                  }
+                                                                  (
+                                                                  {
+                                                                    itm.bookingCode
+                                                                  }
+                                                                  )
+                                                                </td>
+                                                                <td className="align-middle">
+                                                                  {baggage?.map(
+                                                                    (
+                                                                      im,
+                                                                      idx
+                                                                    ) => {
+                                                                      if (
+                                                                        selectPassenger.some(
+                                                                          (
+                                                                            passenegr
+                                                                          ) =>
+                                                                            passenegr.passengerType ===
+                                                                            im?.PassengerTypeCode
+                                                                        )
                                                                       )
-                                                                    </td>
-                                                                    <td className="align-middle">
-                                                                      {baggage?.map(
-                                                                        (
-                                                                          im,
-                                                                          idx
-                                                                        ) => {
-                                                                          if (
-                                                                            selectPassenger.some(
-                                                                              (
-                                                                                passenegr
-                                                                              ) =>
-                                                                                passenegr.passengerType ===
-                                                                                im?.PassengerTypeCode
-                                                                            )
-                                                                          )
-                                                                            return (
+                                                                        return (
+                                                                          <>
+                                                                            {im?.Amount && (
                                                                               <>
-                                                                                {im?.Amount && (
-                                                                                  <>
-                                                                                    <span className="left">
-                                                                                      {im?.PassengerTypeCode ===
-                                                                                      "ADT"
-                                                                                        ? "Adult"
-                                                                                        : im?.PassengerTypeCode ===
-                                                                                          "CNN"
-                                                                                        ? "Child"
-                                                                                        : im?.PassengerTypeCode ===
-                                                                                          "CHD"
-                                                                                        ? "Child"
-                                                                                        : im?.PassengerTypeCode ===
-                                                                                          "INF"
-                                                                                        ? "Infant"
-                                                                                        : ""}{" "}
-                                                                                      :{" "}
-                                                                                      <span className="ms-1 font-size">
-                                                                                        {im?.Amount +
-                                                                                          " " +
-                                                                                          im?.Units}
-                                                                                      </span>
-                                                                                    </span>
-                                                                                    <br></br>
-                                                                                  </>
-                                                                                )}
+                                                                                <span className="left">
+                                                                                  {im?.PassengerTypeCode ===
+                                                                                  "ADT"
+                                                                                    ? "Adult"
+                                                                                    : im?.PassengerTypeCode ===
+                                                                                      "CNN"
+                                                                                    ? "Child"
+                                                                                    : im?.PassengerTypeCode ===
+                                                                                      "CHD"
+                                                                                    ? "Child"
+                                                                                    : im?.PassengerTypeCode ===
+                                                                                      "INF"
+                                                                                    ? "Infant"
+                                                                                    : ""}{" "}
+                                                                                  :{" "}
+                                                                                  <span className="ms-1 font-size">
+                                                                                    {im?.Amount +
+                                                                                      " " +
+                                                                                      im?.Units}
+                                                                                  </span>
+                                                                                </span>
+                                                                                <br></br>
                                                                               </>
-                                                                            );
-                                                                        }
-                                                                      )}
-                                                                    </td>
-                                                                    <td className="align-middle">
-                                                                      7KG (max 1
-                                                                      Bag)
-                                                                    </td>
-                                                                  </tr>
-                                                                </tbody>
-                                                              </table>
-                                                            </div>
-                                                          </>
-                                                        );
-                                                      })}
-                                                    </div>
-                                                  );
-                                                }
-                                              )}
-                                            </>
-                                          ) : (
-                                            <></>
-                                          )}
-                                        </div>
+                                                                            )}
+                                                                          </>
+                                                                        );
+                                                                    }
+                                                                  )}
+                                                                </td>
+                                                                <td className="align-middle">
+                                                                  7KG (max 1
+                                                                  Bag)
+                                                                </td>
+                                                              </tr>
+                                                            </tbody>
+                                                          </table>
+                                                        </div>
+                                                      </>
+                                                    );
+                                                  })}
+                                                </div>
+                                              );
+                                            })}
+                                          </>
+                                        ) : (
+                                          <></>
+                                        )}
                                       </div>
-                                    )}
+                                    </div>
                                   </div>
 
-                                  {journeyType === "ONWARD" ? (
-                                    <>
-                                      {isFareHide === false ? (
-                                        <div className="table-responsive mt-3">
-                                          <table
-                                            class="table table-bordered table-sm text-end mt-1"
-                                            style={{ fontSize: "14px" }}
-                                          >
-                                            <thead className="text-end">
-                                              <tr>
-                                                <th
-                                                  colspan={
-                                                    isFareChange === false
-                                                      ? "8"
-                                                      : "7"
-                                                  }
-                                                  className="fw-bold text-start py-2 bg-light"
-                                                >
-                                                  Fare Details
-                                                </th>
-                                              </tr>
-                                              <tr>
-                                                <th className="text-start">
-                                                  Type
-                                                </th>
-                                                <th>Base Fare</th>
-                                                <th>Tax</th>
-                                                <th>AIT</th>
-                                                {isFareChange === false && (
-                                                  <th>Commission</th>
-                                                )}
-                                                <th>Additional Collection</th>
-                                                <th>Person</th>
-                                                <th>Total</th>
-                                              </tr>
-                                            </thead>
-                                            <tbody className="text-end">
-                                              {ticketingList.fareBreakdown?.map(
-                                                (item, index) => {
-                                                  return (
-                                                    <>
-                                                      {item.passengerType ===
-                                                        "ADT" &&
+                                  <>
+                                    {isFareHide === false ? (
+                                      <div className="table-responsive mt-3">
+                                        <table
+                                          class="table table-bordered table-sm text-end mt-1"
+                                          style={{ fontSize: "14px" }}
+                                        >
+                                          <thead className="text-end">
+                                            <tr>
+                                              <th
+                                                colspan={
+                                                  isFareChange === false
+                                                    ? "8"
+                                                    : "7"
+                                                }
+                                                className="fw-bold text-start py-2 bg-light"
+                                              >
+                                                Fare Details
+                                              </th>
+                                            </tr>
+                                            <tr>
+                                              <th className="text-start">
+                                                Type
+                                              </th>
+                                              <th>Base Fare</th>
+                                              <th>Tax</th>
+                                              <th>AIT</th>
+                                              {isFareChange === false && (
+                                                <th>Commission</th>
+                                              )}
+                                              <th>Additional Collection</th>
+                                              <th>Person</th>
+                                              <th>Total</th>
+                                            </tr>
+                                          </thead>
+                                          <tbody className="text-end">
+                                            {ticketingList.fareBreakdown?.map(
+                                              (item, index) => {
+                                                return (
+                                                  <>
+                                                    {item.passengerType ===
+                                                      "ADT" &&
+                                                    selectPassenger.some(
+                                                      (itm) =>
+                                                        itm.passengerType ===
+                                                        item.passengerType
+                                                    ) ? (
+                                                      <>
+                                                        <tr>
+                                                          <td className="text-start">
+                                                            Adult
+                                                          </td>
+                                                          <td>
+                                                            {item.basePrice?.toLocaleString(
+                                                              "en-US"
+                                                            )}
+                                                          </td>
+                                                          <td>
+                                                            {item.tax?.toLocaleString(
+                                                              "en-US"
+                                                            )}
+                                                          </td>
+
+                                                          <td>
+                                                            {item.ait?.toLocaleString(
+                                                              "en-US"
+                                                            )}
+                                                          </td>
+                                                          {isFareChange ===
+                                                            false && (
+                                                            <td>
+                                                              {item.discount?.toLocaleString(
+                                                                "en-US"
+                                                              )}
+                                                            </td>
+                                                          )}
+                                                          <td>
+                                                            {item.reissueCharge}
+                                                          </td>
+                                                          <td>
+                                                            {item.passengerCount -
+                                                              unSelectPassenger.filter(
+                                                                (num) =>
+                                                                  num.passengerType ===
+                                                                  "ADT"
+                                                              ).length}
+                                                          </td>
+                                                          <td className="fw-bold">
+                                                            {item.currencyName}{" "}
+                                                            {isFareChange ===
+                                                            false
+                                                              ? (
+                                                                  item.totalPrice *
+                                                                  (item.passengerCount -
+                                                                    unSelectPassenger.filter(
+                                                                      (num) =>
+                                                                        num.passengerType ===
+                                                                        "ADT"
+                                                                    ).length)
+                                                                )?.toLocaleString(
+                                                                  "en-US"
+                                                                )
+                                                              : (
+                                                                  (item.totalPrice -
+                                                                    item.discount) *
+                                                                  (item.passengerCount -
+                                                                    unSelectPassenger.filter(
+                                                                      (num) =>
+                                                                        num.passengerType ===
+                                                                        "ADT"
+                                                                    ).length)
+                                                                )?.toLocaleString(
+                                                                  "en-US"
+                                                                )}
+                                                          </td>
+                                                        </tr>
+                                                      </>
+                                                    ) : item.passengerType ===
+                                                        "CHD" &&
                                                       selectPassenger.some(
                                                         (itm) =>
                                                           itm.passengerType ===
                                                           item.passengerType
                                                       ) ? (
-                                                        <>
-                                                          <tr>
-                                                            <td className="text-start">
-                                                              Adult
-                                                            </td>
-                                                            <td>
-                                                              {item.basePrice?.toLocaleString(
-                                                                "en-US"
-                                                              )}
-                                                            </td>
-                                                            <td>
-                                                              {item.tax?.toLocaleString(
-                                                                "en-US"
-                                                              )}
-                                                            </td>
-
-                                                            <td>
-                                                              {item.ait?.toLocaleString(
-                                                                "en-US"
-                                                              )}
-                                                            </td>
-                                                            {isFareChange ===
-                                                              false && (
-                                                              <td>
-                                                                {item.discount?.toLocaleString(
-                                                                  "en-US"
-                                                                )}
-                                                              </td>
+                                                      <>
+                                                        <tr>
+                                                          <td className="text-start">
+                                                            Child &gt; 5
+                                                          </td>
+                                                          <td>
+                                                            {item.basePrice?.toLocaleString(
+                                                              "en-US"
                                                             )}
-                                                            <td>
-                                                              {
-                                                                item.reissueCharge
-                                                              }
-                                                            </td>
-                                                            <td>
-                                                              {item.passengerCount -
-                                                                unSelectPassengerReturn.filter(
-                                                                  (num) =>
-                                                                    num.passengerType ===
-                                                                    "ADT"
-                                                                ).length}
-                                                            </td>
-                                                            <td className="fw-bold">
-                                                              {
-                                                                item.currencyName
-                                                              }{" "}
-                                                              {isFareChange ===
-                                                              false
-                                                                ? (
-                                                                    item.totalPrice *
-                                                                    (item.passengerCount -
-                                                                      unSelectPassengerReturn.filter(
-                                                                        (num) =>
-                                                                          num.passengerType ===
-                                                                          "ADT"
-                                                                      ).length)
-                                                                  )?.toLocaleString(
-                                                                    "en-US"
-                                                                  )
-                                                                : (
-                                                                    (item.totalPrice -
-                                                                      item.discount) *
-                                                                    (item.passengerCount -
-                                                                      unSelectPassenger.filter(
-                                                                        (num) =>
-                                                                          num.passengerType ===
-                                                                          "ADT"
-                                                                      ).length)
-                                                                  )?.toLocaleString(
-                                                                    "en-US"
-                                                                  )}
-                                                            </td>
-                                                          </tr>
-                                                        </>
-                                                      ) : item.passengerType ===
-                                                          "CHD" &&
-                                                        selectPassenger.some(
-                                                          (itm) =>
-                                                            itm.passengerType ===
-                                                            item.passengerType
-                                                        ) ? (
-                                                        <>
-                                                          <tr>
-                                                            <td className="text-start">
-                                                              Child &gt; 5
-                                                            </td>
-                                                            <td>
-                                                              {item.basePrice?.toLocaleString(
-                                                                "en-US"
-                                                              )}
-                                                            </td>
-                                                            <td>
-                                                              {item.tax?.toLocaleString(
-                                                                "en-US"
-                                                              )}
-                                                            </td>
-
-                                                            <td>
-                                                              {item.ait?.toLocaleString(
-                                                                "en-US"
-                                                              )}
-                                                            </td>
-                                                            {isFareChange ===
-                                                              false && (
-                                                              <td>
-                                                                {item.discount?.toLocaleString(
-                                                                  "en-US"
-                                                                )}
-                                                              </td>
+                                                          </td>
+                                                          <td>
+                                                            {item.tax?.toLocaleString(
+                                                              "en-US"
                                                             )}
+                                                          </td>
+
+                                                          <td>
+                                                            {item.ait?.toLocaleString(
+                                                              "en-US"
+                                                            )}
+                                                          </td>
+                                                          {isFareChange ===
+                                                            false && (
                                                             <td>
-                                                              {
-                                                                item.reissueCharge
-                                                              }
+                                                              {item.discount?.toLocaleString(
+                                                                "en-US"
+                                                              )}
                                                             </td>
-                                                            <td>
-                                                              {item.passengerCount -
-                                                                unSelectPassenger.filter(
-                                                                  (num) =>
-                                                                    num.passengerType ===
-                                                                    "CHD"
-                                                                ).length}
-                                                            </td>
-                                                            <td className="fw-bold">
-                                                              {
-                                                                item.currencyName
-                                                              }{" "}
-                                                              {/* {(
-                                  item.totalPrice *
-                                  item.passengerCount
-                                )?.toLocaleString("en-US")} */}
-                                                              {isFareChange ===
-                                                              false
-                                                                ? (
-                                                                    item.totalPrice *
-                                                                    (item.passengerCount -
-                                                                      unSelectPassenger.filter(
-                                                                        (num) =>
-                                                                          num.passengerType ===
-                                                                          "CHD"
-                                                                      ).length)
-                                                                  )?.toLocaleString(
-                                                                    "en-US"
-                                                                  )
-                                                                : (
-                                                                    (item.totalPrice -
-                                                                      item.discount) *
-                                                                    (item.passengerCount -
-                                                                      unSelectPassenger.filter(
-                                                                        (num) =>
-                                                                          num.passengerType ===
-                                                                          "CHD"
-                                                                      ).length)
-                                                                  )?.toLocaleString(
-                                                                    "en-US"
-                                                                  )}
-                                                            </td>
-                                                          </tr>
-                                                        </>
-                                                      ) : item.passengerType ===
-                                                          "CNN" &&
-                                                        selectPassenger.some(
-                                                          (itm) =>
-                                                            itm.passengerType ===
-                                                            item.passengerType
-                                                        ) ? (
-                                                        <>
-                                                          <tr>
-                                                            <td className="text-start">
-                                                              {" "}
-                                                              {item.passengerType ===
-                                                                "CNN" &&
-                                                              ticketingList.fareBreakdown?.some(
-                                                                (item) =>
-                                                                  item.passengerType ===
+                                                          )}
+                                                          <td>
+                                                            {item.reissueCharge}
+                                                          </td>
+                                                          <td>
+                                                            {item.passengerCount -
+                                                              unSelectPassenger.filter(
+                                                                (num) =>
+                                                                  num.passengerType ===
                                                                   "CHD"
-                                                              )
-                                                                ? "Child < 5"
-                                                                : "Child"}
-                                                            </td>
-                                                            <td>
-                                                              {item.basePrice?.toLocaleString(
-                                                                "en-US"
-                                                              )}
-                                                            </td>
-                                                            <td>
-                                                              {item.tax?.toLocaleString(
-                                                                "en-US"
-                                                              )}
-                                                            </td>
-
-                                                            <td>
-                                                              {item.ait?.toLocaleString(
-                                                                "en-US"
-                                                              )}
-                                                            </td>
+                                                              ).length}
+                                                          </td>
+                                                          <td className="fw-bold">
+                                                            {item.currencyName}{" "}
+                                                            {/* {(
+                                item.totalPrice *
+                                item.passengerCount
+                              )?.toLocaleString("en-US")} */}
                                                             {isFareChange ===
-                                                              false && (
-                                                              <td>
-                                                                {item.discount?.toLocaleString(
+                                                            false
+                                                              ? (
+                                                                  item.totalPrice *
+                                                                  (item.passengerCount -
+                                                                    unSelectPassenger.filter(
+                                                                      (num) =>
+                                                                        num.passengerType ===
+                                                                        "CHD"
+                                                                    ).length)
+                                                                )?.toLocaleString(
+                                                                  "en-US"
+                                                                )
+                                                              : (
+                                                                  (item.totalPrice -
+                                                                    item.discount) *
+                                                                  (item.passengerCount -
+                                                                    unSelectPassenger.filter(
+                                                                      (num) =>
+                                                                        num.passengerType ===
+                                                                        "CHD"
+                                                                    ).length)
+                                                                )?.toLocaleString(
                                                                   "en-US"
                                                                 )}
-                                                              </td>
-                                                            )}
-                                                            <td>
-                                                              {
-                                                                item.reissueCharge
-                                                              }
-                                                            </td>
-                                                            <td>
-                                                              {item.passengerCount -
-                                                                unSelectPassenger.filter(
-                                                                  (num) =>
-                                                                    num.passengerType ===
-                                                                    "CNN"
-                                                                ).length}
-                                                            </td>
-                                                            <td className="fw-bold">
-                                                              {
-                                                                item.currencyName
-                                                              }{" "}
-                                                              {isFareChange ===
-                                                              false
-                                                                ? (
-                                                                    item.totalPrice *
-                                                                    (item.passengerCount -
-                                                                      unSelectPassenger.filter(
-                                                                        (num) =>
-                                                                          num.passengerType ===
-                                                                          "CNN"
-                                                                      ).length)
-                                                                  )?.toLocaleString(
-                                                                    "en-US"
-                                                                  )
-                                                                : (
-                                                                    (item.totalPrice -
-                                                                      item.discount) *
-                                                                    (item.passengerCount -
-                                                                      unSelectPassenger.filter(
-                                                                        (num) =>
-                                                                          num.passengerType ===
-                                                                          "CNN"
-                                                                      ).length)
-                                                                  )?.toLocaleString(
-                                                                    "en-US"
-                                                                  )}
-                                                            </td>
-                                                          </tr>
-                                                        </>
-                                                      ) : item.passengerType ===
-                                                          "INF" &&
-                                                        selectPassenger.some(
-                                                          (itm) =>
-                                                            itm.passengerType ===
-                                                            item.passengerType
-                                                        ) ? (
-                                                        <>
-                                                          <tr>
-                                                            <td className="text-start">
-                                                              Infant
-                                                            </td>
-                                                            <td>
-                                                              {item.basePrice?.toLocaleString(
-                                                                "en-US"
-                                                              )}
-                                                            </td>
-                                                            <td>
-                                                              {item.tax?.toLocaleString(
-                                                                "en-US"
-                                                              )}
-                                                            </td>
-
-                                                            <td>
-                                                              {item.ait?.toLocaleString(
-                                                                "en-US"
-                                                              )}
-                                                            </td>
-                                                            {isFareChange ===
-                                                              false && (
-                                                              <td>
-                                                                {item.discount?.toLocaleString(
-                                                                  "en-US"
-                                                                )}
-                                                              </td>
-                                                            )}
-                                                            <td>
-                                                              {
-                                                                item.reissueCharge
-                                                              }
-                                                            </td>
-                                                            <td>
-                                                              {item.passengerCount -
-                                                                unSelectPassenger.filter(
-                                                                  (num) =>
-                                                                    num.passengerType ===
-                                                                    "INF"
-                                                                ).length}
-                                                            </td>
-                                                            <td className="fw-bold">
-                                                              {
-                                                                item.currencyName
-                                                              }{" "}
-                                                              {isFareChange ===
-                                                              false
-                                                                ? (
-                                                                    item.totalPrice *
-                                                                    (item.passengerCount -
-                                                                      unSelectPassenger.filter(
-                                                                        (num) =>
-                                                                          num.passengerType ===
-                                                                          "INF"
-                                                                      ).length)
-                                                                  )?.toLocaleString(
-                                                                    "en-US"
-                                                                  )
-                                                                : (
-                                                                    (item.totalPrice -
-                                                                      item.discount) *
-                                                                    (item.passengerCount -
-                                                                      unSelectPassenger.filter(
-                                                                        (num) =>
-                                                                          num.passengerType ===
-                                                                          "INF"
-                                                                      ).length)
-                                                                  )?.toLocaleString(
-                                                                    "en-US"
-                                                                  )}
-                                                            </td>
-                                                          </tr>
-                                                        </>
-                                                      ) : (
-                                                        <></>
-                                                      )}
-                                                    </>
-                                                  );
-                                                }
-                                              )}
-                                              <tr className="fw-bold">
-                                                <td
-                                                  colSpan={
-                                                    isFareChange === false
-                                                      ? 6
-                                                      : 5
-                                                  }
-                                                  className="border-none"
-                                                ></td>
-                                                <td>Additional Collection</td>
-                                                <td>
-                                                  {ticketingList?.passengerInfo !==
-                                                    undefined &&
-                                                  ticketingList?.passengerInfo !==
-                                                    " " &&
-                                                  ticketingList?.passengerInfo !==
-                                                    null
-                                                    ? ticketingList
-                                                        .passengerInfo[0]
-                                                        ?.currencyName
-                                                    : ""}{" "}
-                                                  {/* {
-                              ticketingList?.penalty[0]?.reissueCharge.toLocaleString("en-US")
-                            } */}
-                                                  {sumAdditinalPrice(
-                                                    ticketingList.fareBreakdown
-                                                  )?.toLocaleString("en-US")}
-                                                </td>
-                                              </tr>
-
-                                              {totalextraServicePnrData > 0 && (
-                                                <tr className="fw-bold">
-                                                  <td
-                                                    colSpan={
-                                                      isFareChange === false
-                                                        ? 6
-                                                        : 5
-                                                    }
-                                                    className="border-none"
-                                                  ></td>
-                                                  <td>
-                                                    Total Ticket Import Service
-                                                    Charge
-                                                  </td>
-                                                  <td>
-                                                    {totalextraServicePnrData?.toLocaleString(
-                                                      "en-US"
-                                                    )}
-                                                  </td>
-                                                </tr>
-                                              )}
-
-                                              <tr className="fw-bold">
-                                                <td
-                                                  colSpan={
-                                                    isFareChange === false
-                                                      ? 6
-                                                      : 5
-                                                  }
-                                                  className="border-none"
-                                                ></td>
-                                                <td>Grand Total</td>
-                                                <td>
-                                                  {ticketingList?.passengerInfo !==
-                                                    undefined &&
-                                                  ticketingList?.passengerInfo !==
-                                                    " " &&
-                                                  ticketingList?.passengerInfo !==
-                                                    null
-                                                    ? ticketingList
-                                                        .passengerInfo[0]
-                                                        ?.currencyName
-                                                    : ""}{" "}
-                                                  {ticketingList?.penalty
-                                                    ?.length > 0 ? (
-                                                    <>
-                                                      {isFareChange === false
-                                                        ? (
-                                                            sumRatingForPassengerTicket(
-                                                              ticketingList.fareBreakdown,
-                                                              unSelectPassenger
-                                                            ) +
-                                                            sumAdditinalPrice(
-                                                              ticketingList.fareBreakdown
-                                                            ) +
-                                                            totalextraServicePnrData
-                                                          )?.toLocaleString(
-                                                            "en-US"
-                                                          )
-                                                        : (
-                                                            sumRatingForPassengerTicketGross(
-                                                              ticketingList.fareBreakdown,
-                                                              unSelectPassenger
-                                                            ) +
-                                                            sumAdditinalPrice(
-                                                              ticketingList.fareBreakdown
-                                                            ) +
-                                                            totalextraServicePnrData
-                                                          )?.toLocaleString(
-                                                            "en-US"
-                                                          )}
-                                                    </>
-                                                  ) : (
-                                                    <>
-                                                      {isFareChange === false
-                                                        ? (
-                                                            sumRatingForPassengerTicket(
-                                                              ticketingList.fareBreakdown,
-                                                              unSelectPassenger
-                                                            ) +
-                                                            totalextraServicePnrData
-                                                          )?.toLocaleString(
-                                                            "en-US"
-                                                          )
-                                                        : (
-                                                            sumRatingForPassengerTicketGross(
-                                                              ticketingList.fareBreakdown,
-                                                              unSelectPassenger
-                                                            ) +
-                                                            totalextraServicePnrData
-                                                          )?.toLocaleString(
-                                                            "en-US"
-                                                          )}
-                                                    </>
-                                                  )}
-                                                </td>
-                                              </tr>
-
-                                              {ticketingList?.penalty?.length >
-                                              0 ? (
-                                                <>
-                                                  <tr className="fw-bold">
-                                                    <td
-                                                      colSpan={
-                                                        isFareChange === false
-                                                          ? 6
-                                                          : 5
-                                                      }
-                                                      className="border-none"
-                                                    ></td>
-                                                    <td>Exchange Penalty</td>
-                                                    <td>
-                                                      {ticketingList?.passengerInfo !==
-                                                        undefined &&
-                                                      ticketingList?.passengerInfo !==
-                                                        " " &&
-                                                      ticketingList?.passengerInfo !==
-                                                        null
-                                                        ? ticketingList
-                                                            .passengerInfo[0]
-                                                            ?.currencyName
-                                                        : ""}{" "}
-                                                      {ticketingList?.penalty[0]?.panalty?.toLocaleString(
-                                                        "en-US"
-                                                      )}
-                                                    </td>
-                                                  </tr>
-                                                </>
-                                              ) : (
-                                                <> </>
-                                              )}
-                                            </tbody>
-                                          </table>
-                                        </div>
-                                      ) : (
-                                        <></>
-                                      )}
-                                    </>
-                                  ) : (
-                                    <>
-                                      {isFareHide === false ? (
-                                        <div className="table-responsive mt-3">
-                                          <table
-                                            class="table table-bordered table-sm text-end mt-1"
-                                            style={{ fontSize: "14px" }}
-                                          >
-                                            <thead className="text-end">
-                                              <tr>
-                                                <th
-                                                  colspan={
-                                                    isFareChange === false
-                                                      ? "8"
-                                                      : "7"
-                                                  }
-                                                  className="fw-bold text-start py-2 bg-light"
-                                                >
-                                                  Fare Details
-                                                </th>
-                                              </tr>
-                                              <tr>
-                                                <th className="text-start">
-                                                  Type
-                                                </th>
-                                                <th>Base Fare</th>
-                                                <th>Tax</th>
-                                                <th>AIT</th>
-                                                {isFareChange === false && (
-                                                  <th>Commission</th>
-                                                )}
-                                                <th>Additional Collection</th>
-                                                <th>Person</th>
-                                                <th>Total</th>
-                                              </tr>
-                                            </thead>
-                                            <tbody className="text-end">
-                                              {ticketingListReturn.fareBreakdown?.map(
-                                                (item, index) => {
-                                                  return (
-                                                    <>
-                                                      {item.passengerType ===
-                                                        "ADT" &&
-                                                      selectPassengerReturn.some(
+                                                          </td>
+                                                        </tr>
+                                                      </>
+                                                    ) : item.passengerType ===
+                                                        "CNN" &&
+                                                      selectPassenger.some(
                                                         (itm) =>
                                                           itm.passengerType ===
                                                           item.passengerType
                                                       ) ? (
-                                                        <>
-                                                          <tr>
-                                                            <td className="text-start">
-                                                              Adult
-                                                            </td>
-                                                            <td>
-                                                              {item.basePrice?.toLocaleString(
-                                                                "en-US"
-                                                              )}
-                                                            </td>
-                                                            <td>
-                                                              {item.tax?.toLocaleString(
-                                                                "en-US"
-                                                              )}
-                                                            </td>
+                                                      <>
+                                                        <tr>
+                                                          <td className="text-start">
+                                                            {" "}
+                                                            {item.passengerType ===
+                                                              "CNN" &&
+                                                            ticketingList.fareBreakdown?.some(
+                                                              (item) =>
+                                                                item.passengerType ===
+                                                                "CHD"
+                                                            )
+                                                              ? "Child < 5"
+                                                              : "Child"}
+                                                          </td>
+                                                          <td>
+                                                            {item.basePrice?.toLocaleString(
+                                                              "en-US"
+                                                            )}
+                                                          </td>
+                                                          <td>
+                                                            {item.tax?.toLocaleString(
+                                                              "en-US"
+                                                            )}
+                                                          </td>
 
+                                                          <td>
+                                                            {item.ait?.toLocaleString(
+                                                              "en-US"
+                                                            )}
+                                                          </td>
+                                                          {isFareChange ===
+                                                            false && (
                                                             <td>
-                                                              {item.ait?.toLocaleString(
+                                                              {item.discount?.toLocaleString(
                                                                 "en-US"
                                                               )}
                                                             </td>
+                                                          )}
+                                                          <td>
+                                                            {item.reissueCharge}
+                                                          </td>
+                                                          <td>
+                                                            {item.passengerCount -
+                                                              unSelectPassenger.filter(
+                                                                (num) =>
+                                                                  num.passengerType ===
+                                                                  "CNN"
+                                                              ).length}
+                                                          </td>
+                                                          <td className="fw-bold">
+                                                            {item.currencyName}{" "}
                                                             {isFareChange ===
-                                                              false && (
-                                                              <td>
-                                                                {item.discount?.toLocaleString(
+                                                            false
+                                                              ? (
+                                                                  item.totalPrice *
+                                                                  (item.passengerCount -
+                                                                    unSelectPassenger.filter(
+                                                                      (num) =>
+                                                                        num.passengerType ===
+                                                                        "CNN"
+                                                                    ).length)
+                                                                )?.toLocaleString(
+                                                                  "en-US"
+                                                                )
+                                                              : (
+                                                                  (item.totalPrice -
+                                                                    item.discount) *
+                                                                  (item.passengerCount -
+                                                                    unSelectPassenger.filter(
+                                                                      (num) =>
+                                                                        num.passengerType ===
+                                                                        "CNN"
+                                                                    ).length)
+                                                                )?.toLocaleString(
                                                                   "en-US"
                                                                 )}
-                                                              </td>
+                                                          </td>
+                                                        </tr>
+                                                      </>
+                                                    ) : item.passengerType ===
+                                                        "INF" &&
+                                                      selectPassenger.some(
+                                                        (itm) =>
+                                                          itm.passengerType ===
+                                                          item.passengerType
+                                                      ) ? (
+                                                      <>
+                                                        <tr>
+                                                          <td className="text-start">
+                                                            Infant
+                                                          </td>
+                                                          <td>
+                                                            {item.basePrice?.toLocaleString(
+                                                              "en-US"
                                                             )}
-                                                            <td>
-                                                              {
-                                                                item.reissueCharge
-                                                              }
-                                                            </td>
-                                                            <td>
-                                                              {item.passengerCount -
-                                                                unSelectPassenger.filter(
-                                                                  (num) =>
-                                                                    num.passengerType ===
-                                                                    "ADT"
-                                                                ).length}
-                                                            </td>
-                                                            <td className="fw-bold">
-                                                              {
-                                                                item.currencyName
-                                                              }{" "}
-                                                              {isFareChange ===
-                                                              false
-                                                                ? (
-                                                                    item.totalPrice *
-                                                                    (item.passengerCount -
-                                                                      unSelectPassenger.filter(
-                                                                        (num) =>
-                                                                          num.passengerType ===
-                                                                          "ADT"
-                                                                      ).length)
-                                                                  )?.toLocaleString(
-                                                                    "en-US"
-                                                                  )
-                                                                : (
-                                                                    (item.totalPrice -
-                                                                      item.discount) *
-                                                                    (item.passengerCount -
-                                                                      unSelectPassengerReturn.filter(
-                                                                        (num) =>
-                                                                          num.passengerType ===
-                                                                          "ADT"
-                                                                      ).length)
-                                                                  )?.toLocaleString(
-                                                                    "en-US"
-                                                                  )}
-                                                            </td>
-                                                          </tr>
-                                                        </>
-                                                      ) : item.passengerType ===
-                                                          "CHD" &&
-                                                        selectPassengerReturn.some(
-                                                          (itm) =>
-                                                            itm.passengerType ===
-                                                            item.passengerType
-                                                        ) ? (
-                                                        <>
-                                                          <tr>
-                                                            <td className="text-start">
-                                                              Child &gt; 5
-                                                            </td>
-                                                            <td>
-                                                              {item.basePrice?.toLocaleString(
-                                                                "en-US"
-                                                              )}
-                                                            </td>
-                                                            <td>
-                                                              {item.tax?.toLocaleString(
-                                                                "en-US"
-                                                              )}
-                                                            </td>
+                                                          </td>
+                                                          <td>
+                                                            {item.tax?.toLocaleString(
+                                                              "en-US"
+                                                            )}
+                                                          </td>
 
+                                                          <td>
+                                                            {item.ait?.toLocaleString(
+                                                              "en-US"
+                                                            )}
+                                                          </td>
+                                                          {isFareChange ===
+                                                            false && (
                                                             <td>
-                                                              {item.ait?.toLocaleString(
+                                                              {item.discount?.toLocaleString(
                                                                 "en-US"
                                                               )}
                                                             </td>
+                                                          )}
+                                                          <td>
+                                                            {item.reissueCharge}
+                                                          </td>
+                                                          <td>
+                                                            {item.passengerCount -
+                                                              unSelectPassenger.filter(
+                                                                (num) =>
+                                                                  num.passengerType ===
+                                                                  "INF"
+                                                              ).length}
+                                                          </td>
+                                                          <td className="fw-bold">
+                                                            {item.currencyName}{" "}
                                                             {isFareChange ===
-                                                              false && (
-                                                              <td>
-                                                                {item.discount?.toLocaleString(
+                                                            false
+                                                              ? (
+                                                                  item.totalPrice *
+                                                                  (item.passengerCount -
+                                                                    unSelectPassenger.filter(
+                                                                      (num) =>
+                                                                        num.passengerType ===
+                                                                        "INF"
+                                                                    ).length)
+                                                                )?.toLocaleString(
+                                                                  "en-US"
+                                                                )
+                                                              : (
+                                                                  (item.totalPrice -
+                                                                    item.discount) *
+                                                                  (item.passengerCount -
+                                                                    unSelectPassenger.filter(
+                                                                      (num) =>
+                                                                        num.passengerType ===
+                                                                        "INF"
+                                                                    ).length)
+                                                                )?.toLocaleString(
                                                                   "en-US"
                                                                 )}
-                                                              </td>
-                                                            )}
-                                                            <td>
-                                                              {
-                                                                item.reissueCharge
-                                                              }
-                                                            </td>
-                                                            <td>
-                                                              {item.passengerCount -
-                                                                unSelectPassengerReturn.filter(
-                                                                  (num) =>
-                                                                    num.passengerType ===
-                                                                    "CHD"
-                                                                ).length}
-                                                            </td>
-                                                            <td className="fw-bold">
-                                                              {
-                                                                item.currencyName
-                                                              }{" "}
-                                                              {/* {(
-                                  item.totalPrice *
-                                  item.passengerCount
-                                )?.toLocaleString("en-US")} */}
-                                                              {isFareChange ===
-                                                              false
-                                                                ? (
-                                                                    item.totalPrice *
-                                                                    (item.passengerCount -
-                                                                      unSelectPassengerReturn.filter(
-                                                                        (num) =>
-                                                                          num.passengerType ===
-                                                                          "CHD"
-                                                                      ).length)
-                                                                  )?.toLocaleString(
-                                                                    "en-US"
-                                                                  )
-                                                                : (
-                                                                    (item.totalPrice -
-                                                                      item.discount) *
-                                                                    (item.passengerCount -
-                                                                      unSelectPassengerReturn.filter(
-                                                                        (num) =>
-                                                                          num.passengerType ===
-                                                                          "CHD"
-                                                                      ).length)
-                                                                  )?.toLocaleString(
-                                                                    "en-US"
-                                                                  )}
-                                                            </td>
-                                                          </tr>
-                                                        </>
-                                                      ) : item.passengerType ===
-                                                          "CNN" &&
-                                                        selectPassengerReturn.some(
-                                                          (itm) =>
-                                                            itm.passengerType ===
-                                                            item.passengerType
-                                                        ) ? (
-                                                        <>
-                                                          <tr>
-                                                            <td className="text-start">
-                                                              {" "}
-                                                              {item.passengerType ===
-                                                                "CNN" &&
-                                                              ticketingListReturn.fareBreakdown?.some(
-                                                                (item) =>
-                                                                  item.passengerType ===
-                                                                  "CHD"
-                                                              )
-                                                                ? "Child < 5"
-                                                                : "Child"}
-                                                            </td>
-                                                            <td>
-                                                              {item.basePrice?.toLocaleString(
-                                                                "en-US"
-                                                              )}
-                                                            </td>
-                                                            <td>
-                                                              {item.tax?.toLocaleString(
-                                                                "en-US"
-                                                              )}
-                                                            </td>
-
-                                                            <td>
-                                                              {item.ait?.toLocaleString(
-                                                                "en-US"
-                                                              )}
-                                                            </td>
-                                                            {isFareChange ===
-                                                              false && (
-                                                              <td>
-                                                                {item.discount?.toLocaleString(
-                                                                  "en-US"
-                                                                )}
-                                                              </td>
-                                                            )}
-                                                            <td>
-                                                              {
-                                                                item.reissueCharge
-                                                              }
-                                                            </td>
-                                                            <td>
-                                                              {item.passengerCount -
-                                                                unSelectPassengerReturn.filter(
-                                                                  (num) =>
-                                                                    num.passengerType ===
-                                                                    "CNN"
-                                                                ).length}
-                                                            </td>
-                                                            <td className="fw-bold">
-                                                              {
-                                                                item.currencyName
-                                                              }{" "}
-                                                              {isFareChange ===
-                                                              false
-                                                                ? (
-                                                                    item.totalPrice *
-                                                                    (item.passengerCount -
-                                                                      unSelectPassengerReturn.filter(
-                                                                        (num) =>
-                                                                          num.passengerType ===
-                                                                          "CNN"
-                                                                      ).length)
-                                                                  )?.toLocaleString(
-                                                                    "en-US"
-                                                                  )
-                                                                : (
-                                                                    (item.totalPrice -
-                                                                      item.discount) *
-                                                                    (item.passengerCount -
-                                                                      unSelectPassengerReturn.filter(
-                                                                        (num) =>
-                                                                          num.passengerType ===
-                                                                          "CNN"
-                                                                      ).length)
-                                                                  )?.toLocaleString(
-                                                                    "en-US"
-                                                                  )}
-                                                            </td>
-                                                          </tr>
-                                                        </>
-                                                      ) : item.passengerType ===
-                                                          "INF" &&
-                                                        selectPassengerReturn.some(
-                                                          (itm) =>
-                                                            itm.passengerType ===
-                                                            item.passengerType
-                                                        ) ? (
-                                                        <>
-                                                          <tr>
-                                                            <td className="text-start">
-                                                              Infant
-                                                            </td>
-                                                            <td>
-                                                              {item.basePrice?.toLocaleString(
-                                                                "en-US"
-                                                              )}
-                                                            </td>
-                                                            <td>
-                                                              {item.tax?.toLocaleString(
-                                                                "en-US"
-                                                              )}
-                                                            </td>
-
-                                                            <td>
-                                                              {item.ait?.toLocaleString(
-                                                                "en-US"
-                                                              )}
-                                                            </td>
-                                                            {isFareChange ===
-                                                              false && (
-                                                              <td>
-                                                                {item.discount?.toLocaleString(
-                                                                  "en-US"
-                                                                )}
-                                                              </td>
-                                                            )}
-                                                            <td>
-                                                              {
-                                                                item.reissueCharge
-                                                              }
-                                                            </td>
-                                                            <td>
-                                                              {item.passengerCount -
-                                                                unSelectPassengerReturn.filter(
-                                                                  (num) =>
-                                                                    num.passengerType ===
-                                                                    "INF"
-                                                                ).length}
-                                                            </td>
-                                                            <td className="fw-bold">
-                                                              {
-                                                                item.currencyName
-                                                              }{" "}
-                                                              {isFareChange ===
-                                                              false
-                                                                ? (
-                                                                    item.totalPrice *
-                                                                    (item.passengerCount -
-                                                                      unSelectPassengerReturn.filter(
-                                                                        (num) =>
-                                                                          num.passengerType ===
-                                                                          "INF"
-                                                                      ).length)
-                                                                  )?.toLocaleString(
-                                                                    "en-US"
-                                                                  )
-                                                                : (
-                                                                    (item.totalPrice -
-                                                                      item.discount) *
-                                                                    (item.passengerCount -
-                                                                      unSelectPassengerReturn.filter(
-                                                                        (num) =>
-                                                                          num.passengerType ===
-                                                                          "INF"
-                                                                      ).length)
-                                                                  )?.toLocaleString(
-                                                                    "en-US"
-                                                                  )}
-                                                            </td>
-                                                          </tr>
-                                                        </>
-                                                      ) : (
-                                                        <></>
-                                                      )}
-                                                    </>
-                                                  );
+                                                          </td>
+                                                        </tr>
+                                                      </>
+                                                    ) : (
+                                                      <></>
+                                                    )}
+                                                  </>
+                                                );
+                                              }
+                                            )}
+                                            <tr className="fw-bold">
+                                              <td
+                                                colSpan={
+                                                  isFareChange === false ? 6 : 5
                                                 }
-                                              )}
+                                                className="border-none"
+                                              ></td>
+                                              <td>Additional Collection</td>
+                                              <td>
+                                                {ticketingList?.passengerInfo !==
+                                                  undefined &&
+                                                ticketingList?.passengerInfo !==
+                                                  " " &&
+                                                ticketingList?.passengerInfo !==
+                                                  null
+                                                  ? ticketingList
+                                                      .passengerInfo[0]
+                                                      ?.currencyName
+                                                  : ""}{" "}
+                                                {/* {
+                            ticketingList?.penalty[0]?.reissueCharge.toLocaleString("en-US")
+                          } */}
+                                                {sumAdditinalPrice(
+                                                  ticketingList.fareBreakdown
+                                                )?.toLocaleString("en-US")}
+                                              </td>
+                                            </tr>
+
+                                            {totalextraServicePnrData > 0 && (
                                               <tr className="fw-bold">
                                                 <td
                                                   colSpan={
@@ -3145,28 +4249,95 @@ const Ticket = () => {
                                                   }
                                                   className="border-none"
                                                 ></td>
-                                                <td>Additional Collection</td>
                                                 <td>
-                                                  {ticketingListReturn?.passengerInfo !==
-                                                    undefined &&
-                                                  ticketingListReturn?.passengerInfo !==
-                                                    " " &&
-                                                  ticketingListReturn?.passengerInfo !==
-                                                    null
-                                                    ? ticketingListReturn
-                                                        .passengerInfo[0]
-                                                        ?.currencyName
-                                                    : ""}{" "}
-                                                  {/* {
-                              ticketingList?.penalty[0]?.reissueCharge.toLocaleString("en-US")
-                            } */}
-                                                  {sumAdditinalPrice(
-                                                    ticketingListReturn.fareBreakdown
-                                                  )?.toLocaleString("en-US")}
+                                                  Total Ticket Import Service
+                                                  Charge
+                                                </td>
+                                                <td>
+                                                  {totalextraServicePnrData?.toLocaleString(
+                                                    "en-US"
+                                                  )}
                                                 </td>
                                               </tr>
+                                            )}
 
-                                              {totalextraServicePnrData > 0 && (
+                                            <tr className="fw-bold">
+                                              <td
+                                                colSpan={
+                                                  isFareChange === false ? 6 : 5
+                                                }
+                                                className="border-none"
+                                              ></td>
+                                              <td>Grand Total</td>
+                                              <td>
+                                                {ticketingList?.passengerInfo !==
+                                                  undefined &&
+                                                ticketingList?.passengerInfo !==
+                                                  " " &&
+                                                ticketingList?.passengerInfo !==
+                                                  null
+                                                  ? ticketingList
+                                                      .passengerInfo[0]
+                                                      ?.currencyName
+                                                  : ""}{" "}
+                                                {ticketingList?.penalty
+                                                  ?.length > 0 ? (
+                                                  <>
+                                                    {isFareChange === false
+                                                      ? (
+                                                          sumRatingForPassengerTicket(
+                                                            ticketingList.fareBreakdown,
+                                                            unSelectPassenger
+                                                          ) +
+                                                          sumAdditinalPrice(
+                                                            ticketingList.fareBreakdown
+                                                          ) +
+                                                          totalextraServicePnrData
+                                                        )?.toLocaleString(
+                                                          "en-US"
+                                                        )
+                                                      : (
+                                                          sumRatingForPassengerTicketGross(
+                                                            ticketingList.fareBreakdown,
+                                                            unSelectPassenger
+                                                          ) +
+                                                          sumAdditinalPrice(
+                                                            ticketingList.fareBreakdown
+                                                          ) +
+                                                          totalextraServicePnrData
+                                                        )?.toLocaleString(
+                                                          "en-US"
+                                                        )}
+                                                  </>
+                                                ) : (
+                                                  <>
+                                                    {isFareChange === false
+                                                      ? (
+                                                          sumRatingForPassengerTicket(
+                                                            ticketingList.fareBreakdown,
+                                                            unSelectPassenger
+                                                          ) +
+                                                          totalextraServicePnrData
+                                                        )?.toLocaleString(
+                                                          "en-US"
+                                                        )
+                                                      : (
+                                                          sumRatingForPassengerTicketGross(
+                                                            ticketingList.fareBreakdown,
+                                                            unSelectPassenger
+                                                          ) +
+                                                          totalextraServicePnrData
+                                                        )?.toLocaleString(
+                                                          "en-US"
+                                                        )}
+                                                  </>
+                                                )}
+                                              </td>
+                                            </tr>
+
+                                            {ticketingList?.penalty?.length >
+                                            0 ? (
+                                              <>
                                                 <tr className="fw-bold">
                                                   <td
                                                     colSpan={
@@ -3176,135 +4347,34 @@ const Ticket = () => {
                                                     }
                                                     className="border-none"
                                                   ></td>
+                                                  <td>Exchange Penalty</td>
                                                   <td>
-                                                    Total Ticket Import Service
-                                                    Charge
-                                                  </td>
-                                                  <td>
-                                                    {totalextraServicePnrData?.toLocaleString(
+                                                    {ticketingList?.passengerInfo !==
+                                                      undefined &&
+                                                    ticketingList?.passengerInfo !==
+                                                      " " &&
+                                                    ticketingList?.passengerInfo !==
+                                                      null
+                                                      ? ticketingList
+                                                          .passengerInfo[0]
+                                                          ?.currencyName
+                                                      : ""}{" "}
+                                                    {ticketingList?.penalty[0]?.panalty?.toLocaleString(
                                                       "en-US"
                                                     )}
                                                   </td>
                                                 </tr>
-                                              )}
-
-                                              <tr className="fw-bold">
-                                                <td
-                                                  colSpan={
-                                                    isFareChange === false
-                                                      ? 6
-                                                      : 5
-                                                  }
-                                                  className="border-none"
-                                                ></td>
-                                                <td>Grand Total</td>
-                                                <td>
-                                                  {ticketingListReturn?.passengerInfo !==
-                                                    undefined &&
-                                                  ticketingListReturn?.passengerInfo !==
-                                                    " " &&
-                                                  ticketingListReturn?.passengerInfo !==
-                                                    null
-                                                    ? ticketingListReturn
-                                                        .passengerInfo[0]
-                                                        ?.currencyName
-                                                    : ""}{" "}
-                                                  {ticketingListReturn?.penalty
-                                                    ?.length > 0 ? (
-                                                    <>
-                                                      {isFareChange === false
-                                                        ? (
-                                                            sumRatingForPassengerTicket(
-                                                              ticketingListReturn.fareBreakdown,
-                                                              unSelectPassengerReturn
-                                                            ) +
-                                                            sumAdditinalPrice(
-                                                              ticketingListReturn.fareBreakdown
-                                                            ) +
-                                                            totalextraServicePnrData
-                                                          )?.toLocaleString(
-                                                            "en-US"
-                                                          )
-                                                        : (
-                                                            sumRatingForPassengerTicketGross(
-                                                              ticketingListReturn.fareBreakdown,
-                                                              unSelectPassengerReturn
-                                                            ) +
-                                                            sumAdditinalPrice(
-                                                              ticketingListReturn.fareBreakdown
-                                                            ) +
-                                                            totalextraServicePnrData
-                                                          )?.toLocaleString(
-                                                            "en-US"
-                                                          )}
-                                                    </>
-                                                  ) : (
-                                                    <>
-                                                      {isFareChange === false
-                                                        ? (
-                                                            sumRatingForPassengerTicket(
-                                                              ticketingListReturn.fareBreakdown,
-                                                              unSelectPassengerReturn
-                                                            ) +
-                                                            totalextraServicePnrData
-                                                          )?.toLocaleString(
-                                                            "en-US"
-                                                          )
-                                                        : (
-                                                            sumRatingForPassengerTicketGross(
-                                                              ticketingListReturn.fareBreakdown,
-                                                              unSelectPassengerReturn
-                                                            ) +
-                                                            totalextraServicePnrData
-                                                          )?.toLocaleString(
-                                                            "en-US"
-                                                          )}
-                                                    </>
-                                                  )}
-                                                </td>
-                                              </tr>
-
-                                              {ticketingListReturn?.penalty
-                                                ?.length > 0 ? (
-                                                <>
-                                                  <tr className="fw-bold">
-                                                    <td
-                                                      colSpan={
-                                                        isFareChange === false
-                                                          ? 6
-                                                          : 5
-                                                      }
-                                                      className="border-none"
-                                                    ></td>
-                                                    <td>Exchange Penalty</td>
-                                                    <td>
-                                                      {ticketingListReturn?.passengerInfo !==
-                                                        undefined &&
-                                                      ticketingListReturn?.passengerInfo !==
-                                                        " " &&
-                                                      ticketingListReturn?.passengerInfo !==
-                                                        null
-                                                        ? ticketingListReturn
-                                                            .passengerInfo[0]
-                                                            ?.currencyName
-                                                        : ""}{" "}
-                                                      {ticketingListReturn?.penalty[0]?.panalty?.toLocaleString(
-                                                        "en-US"
-                                                      )}
-                                                    </td>
-                                                  </tr>
-                                                </>
-                                              ) : (
-                                                <> </>
-                                              )}
-                                            </tbody>
-                                          </table>
-                                        </div>
-                                      ) : (
-                                        <></>
-                                      )}
-                                    </>
-                                  )}
+                                              </>
+                                            ) : (
+                                              <> </>
+                                            )}
+                                          </tbody>
+                                        </table>
+                                      </div>
+                                    ) : (
+                                      <></>
+                                    )}
+                                  </>
 
                                   {extraServices &&
                                   extraServices?.length > 0 ? (
@@ -3391,72 +4461,1426 @@ const Ticket = () => {
                                     <></>
                                   )}
 
-                                  {/* {!contactInfo && (
-                                  <div className="table-responsive">
+                                  {!contactInfo && (
+                                    <div className="table-responsive">
+                                      <table
+                                        className="table table-bordered table-sm"
+                                        style={{ fontSize: "11px" }}
+                                      >
+                                        <thead>
+                                          <tr>
+                                            <th
+                                              colspan="3"
+                                              className="fw-bold py-2 bg-light"
+                                            >
+                                              CONTACT DETAILS
+                                            </th>
+                                          </tr>
+                                          <tr className="text-center">
+                                            <th>DEPARTS</th>
+                                            <th>Email</th>
+                                            <th>Phone Number</th>
+                                          </tr>
+                                        </thead>
+                                        <tbody className="text-center">
+                                          {ticketingList?.passengerInfo?.map(
+                                            (item, index) => {
+                                              return (
+                                                <>
+                                                  {index === 0 ? (
+                                                    <>
+                                                      <tr key={index}>
+                                                        <td>
+                                                          {airports
+                                                            .filter(
+                                                              (f) =>
+                                                                f.iata ===
+                                                                ticketingList
+                                                                  .segments[0]
+                                                                  ?.origin
+                                                            )
+                                                            .map(
+                                                              (item) =>
+                                                                item.city
+                                                            )}
+                                                        </td>
+                                                        <td>
+                                                          {
+                                                            ticketingList
+                                                              ?.ticketInfo
+                                                              ?.leadPaxEmail
+                                                          }
+                                                        </td>
+                                                        <td>
+                                                          {item.phoneCountryCode +
+                                                            item.phone}{" "}
+                                                        </td>
+                                                      </tr>
+                                                    </>
+                                                  ) : (
+                                                    <></>
+                                                  )}
+                                                </>
+                                              );
+                                            }
+                                          )}
+                                        </tbody>
+                                      </table>
+                                    </div>
+                                  )}
+
+                                  <div className="mt-3 pb-2">
+                                    <div
+                                      className="ps-1 py-2 fw-bold text-start border bg-light"
+                                      style={{
+                                        fontSize: "13px",
+                                        marginBottom: "8px",
+                                      }}
+                                    >
+                                      Important Notice
+                                    </div>
                                     <table
-                                      className="table table-bordered table-sm"
-                                      style={{ fontSize: "11px" }}
+                                      class="table table-bordered table-sm text-end mt-1 mb-0"
+                                      style={{ fontSize: "13px" }}
+                                    >
+                                      <thead>
+                                        <tr>
+                                          <th className="text-start">
+                                            E-Ticket Notice:
+                                          </th>
+                                        </tr>
+                                      </thead>
+                                      <tbody>
+                                        <tr className="text-start">
+                                          <p className="border-0">
+                                            Carriage and other services provided
+                                            by the carrier are subject to
+                                            conditions of carriage which are
+                                            hereby incorporated by reference.
+                                            These conditions may be obtained
+                                            from the issuing carrier.
+                                          </p>
+                                        </tr>
+                                      </tbody>
+                                    </table>
+                                    <table
+                                      class="table table-bordered table-sm text-end  mb-0"
+                                      style={{ fontSize: "13px" }}
+                                    >
+                                      <thead>
+                                        <tr>
+                                          <th className="text-start">
+                                            Passport/Visa/Health:
+                                          </th>
+                                        </tr>
+                                      </thead>
+                                      <tbody>
+                                        <tr className="text-start">
+                                          <p className="border-0">
+                                            Please ensure that you have all the
+                                            required travel documents for your
+                                            entire journey - i.e. valid passport
+                                            & necessary Visas - and that you
+                                            have had the recommended
+                                            vaccinations/immunizations for your
+                                            destination's.
+                                          </p>
+                                        </tr>
+                                      </tbody>
+                                    </table>
+                                    <table
+                                      class="table table-bordered table-sm text-end mb-0"
+                                      style={{ fontSize: "13px" }}
+                                    >
+                                      <thead>
+                                        <tr>
+                                          <th className="text-start">
+                                            Carry-on Baggage Allowance:
+                                          </th>
+                                        </tr>
+                                      </thead>
+                                      <tbody>
+                                        <tr className="text-start">
+                                          <p className="border-0">
+                                            LIMIT: 1 Carry-On bag per passenger
+                                            / SIZE LIMIT: 22in x 15in x 8in
+                                            (L+W+H=45 inches) / WEIGHT LIMIT:
+                                            Max weight 7 kg / 15 lb
+                                          </p>
+                                        </tr>
+                                      </tbody>
+                                    </table>
+                                    <table
+                                      class="table table-bordered table-sm text-end  mb-0"
+                                      style={{ fontSize: "13px" }}
+                                    >
+                                      <thead>
+                                        <tr>
+                                          <th className="text-start">
+                                            Reporting Time:
+                                          </th>
+                                        </tr>
+                                      </thead>
+                                      <tbody>
+                                        <tr className="text-start">
+                                          <p className="border-0">
+                                            Flights open for check-in 1 hour
+                                            before scheduled departure time on
+                                            domestic flights and 3 hours before
+                                            scheduled departure time on
+                                            international flights. Passengers
+                                            must check-in 1 hour before flight
+                                            departure. Check-in counters close
+                                            30 minutes before flight departure
+                                            for domestic, and 90 minutes before
+                                            the scheduled departure for
+                                            international flights.
+                                          </p>
+                                        </tr>
+                                      </tbody>
+                                    </table>
+                                  </div>
+                                </div>
+                              </div>
+
+                              <div style={{ pageBreakAfter: "always" }}></div>
+
+                              <div className="card-body" ref={componentRef}>
+                                <div
+                                  className="px-lg-5 px-md-5 px-sm-1 p-3"
+                                  ref={donwloadRef}
+                                >
+                                  <h4 className="text-center pb-2">E-Ticket</h4>
+
+                                  {!isAgentInfo && (
+                                    <div className="table-responsive mt-2">
+                                      <table class="table table-borderless table-sm">
+                                        <tbody>
+                                          <tr>
+                                            {/* FIXED COMPANY LOGO */}
+                                            {/* CHANGE THIS LATER */}
+                                            <td className="text-start">
+                                              {ticketingList.ticketInfo
+                                                ?.agentLogo !== null ? (
+                                                <>
+                                                  {/* <img
+                                  alt="img01"
+                                  src={
+                                    environment.s3URL +
+                                    `${ticketingList.ticketInfo?.agentLogo}`
+                                  }
+                                  crossOrigin="true"
+                                  style={{ width: "160px" }}
+                                ></img> */}
+                                                  <ImageComponentForAgent
+                                                    logo={
+                                                      ticketingList.ticketInfo
+                                                        ?.agentLogo
+                                                    }
+                                                  />
+                                                </>
+                                              ) : (
+                                                <>
+                                                  <img
+                                                    alt="img01"
+                                                    className="p-2"
+                                                    src={tllLogo}
+                                                    style={{ width: "160px" }}
+                                                  ></img>
+                                                </>
+                                              )}
+                                            </td>
+                                            <td className="text-end bg-white">
+                                              <address>
+                                                <span className="fw-bold fs-6">
+                                                  {agentInfo.name}
+                                                </span>
+                                                <br />
+                                                <div
+                                                  className="mt-2"
+                                                  style={{
+                                                    fontSize: "12px",
+                                                    lineHeight: "12px",
+                                                  }}
+                                                >
+                                                  {agentInfo.address}
+                                                  <br />
+                                                  <span
+                                                    style={{ fontSize: "8px" }}
+                                                  >
+                                                    <i class="fas fa-phone fa-rotate-90"></i>
+                                                  </span>{" "}
+                                                  Phone: {agentInfo.mobileNo}
+                                                  <br></br>
+                                                  <span className="me-1">
+                                                    <i
+                                                      class="fa fa-envelope"
+                                                      aria-hidden="true"
+                                                    ></i>
+                                                  </span>{" "}
+                                                  Email: {agentInfo.email}
+                                                </div>
+                                              </address>
+                                            </td>
+                                          </tr>
+                                        </tbody>
+                                      </table>
+                                    </div>
+                                  )}
+
+                                  <Box
+                                    display={"flex"}
+                                    justifyContent={"space-between"}
+                                    flexWrap={"wrap"}
+                                    style={{ fontSize: "14px" }}
+                                  >
+                                    <div>
+                                      <br></br>
+                                      <Text>
+                                        Booking ID :{" "}
+                                        <span className="fw-bold">
+                                          {
+                                            ticketingListReturn.ticketInfo
+                                              ?.uniqueTransID
+                                          }
+                                        </span>
+                                      </Text>
+                                    </div>
+
+                                    <div>
+                                      <Text>
+                                        GDS PNR :{" "}
+                                        <span className="fw-bold">
+                                          {ticketingListReturn.ticketInfo?.pnr}
+                                        </span>
+                                      </Text>
+                                      <Text>
+                                        Airline PNR:{" "}
+                                        <span className="fw-bold">
+                                          {ticketingListReturn.ticketInfo
+                                            ?.airlinePNRs === "" ||
+                                          ticketingListReturn.ticketInfo
+                                            ?.airlinePNRs === null
+                                            ? ticketingListReturn.ticketInfo
+                                                ?.pnr
+                                            : ticketingListReturn.ticketInfo
+                                                ?.airlinePNRs}
+                                        </span>
+                                      </Text>
+                                    </div>
+                                  </Box>
+
+                                  <div className="table-responsive mt-2">
+                                    <table
+                                      class="table table-bordered table-sm mt-1"
+                                      style={{ fontSize: "14px" }}
                                     >
                                       <thead>
                                         <tr>
                                           <th
-                                            colspan="3"
+                                            colspan="5"
                                             className="fw-bold py-2 bg-light"
                                           >
-                                            CONTACT DETAILS
+                                            Passenger Information
                                           </th>
                                         </tr>
                                         <tr className="text-center">
-                                          <th>DEPARTS</th>
-                                          <th>Email</th>
-                                          <th>Phone Number</th>
+                                          <th className="text-start">Name</th>
+                                          <th>Type</th>
+                                          <th>E-Ticket Number</th>
+                                          {/* <th>Booking ID</th> */}
+                                          <th>Ticket Issue Date</th>
                                         </tr>
                                       </thead>
-                                      <tbody className="text-center">
-                                        {ticketingList?.passengerInfo?.map(
+                                      <tbody>
+                                        {ticketingListReturn.passengerInfo?.map(
                                           (item, index) => {
-                                            return (
-                                              <>
-                                                {index === 0 ? (
-                                                  <>
-                                                    <tr key={index}>
-                                                      <td>
-                                                        {airports
-                                                          .filter(
-                                                            (f) =>
-                                                              f.iata ===
-                                                              ticketingList
-                                                                .segments[0]
-                                                                ?.origin
-                                                          )
-                                                          .map(
-                                                            (item) => item.city
-                                                          )}
-                                                      </td>
-                                                      <td>
-                                                        {
-                                                          ticketingList
-                                                            ?.ticketInfo
-                                                            ?.leadPaxEmail
-                                                        }
-                                                      </td>
-                                                      <td>
-                                                        {item.phoneCountryCode +
-                                                          item.phone}{" "}
-                                                      </td>
-                                                    </tr>
-                                                  </>
-                                                ) : (
-                                                  <></>
-                                                )}
-                                              </>
-                                            );
+                                            if (
+                                              selectPassengerReturn.includes(
+                                                item
+                                              )
+                                            ) {
+                                              return (
+                                                <tr
+                                                  className="text-center"
+                                                  style={{ lineHeight: "14px" }}
+                                                >
+                                                  <td
+                                                    className="text-start"
+                                                    style={{ fontSize: "15px" }}
+                                                  >
+                                                    {item.title.toUpperCase()}{" "}
+                                                    {item.first.toUpperCase()}{" "}
+                                                    {item.last.toUpperCase()}
+                                                  </td>
+                                                  <td>
+                                                    {item.passengerType ===
+                                                    "ADT"
+                                                      ? "Adult"
+                                                      : item.passengerType ===
+                                                        "CNN"
+                                                      ? "Child"
+                                                      : item.passengerType ===
+                                                        "CHD"
+                                                      ? "Child"
+                                                      : item.passengerType ===
+                                                        "INF"
+                                                      ? "Infant"
+                                                      : ""}
+                                                  </td>
+                                                  <td>{item.ticketNumbers}</td>
+                                                  <td>
+                                                    {" "}
+                                                    {moment(
+                                                      ticketingList.ticketInfo
+                                                        ?.issueDate
+                                                    ).format("ddd, DD MMM,YY")}
+                                                  </td>
+                                                </tr>
+                                              );
+                                            }
                                           }
                                         )}
                                       </tbody>
                                     </table>
                                   </div>
-                                )} */}
+
+                                  <div className="table-responsive mt-3">
+                                    <div
+                                      className="ps-1 py-2 fw-bold text-start bg-light border"
+                                      style={{
+                                        fontSize: "14px",
+                                      }}
+                                    >
+                                      Flight Details
+                                    </div>
+                                    <div className="">
+                                      <div
+                                        className="border p-1"
+                                        style={{ fontSize: "14px" }}
+                                      >
+                                        {ticketingListReturn?.directions ===
+                                        undefined ? (
+                                          <>
+                                            {finalSegmentReturn.map(
+                                              (item, index) => {
+                                                return (
+                                                  <div className="border my-1 p-1">
+                                                    {item.map((itm, idx) => {
+                                                      let baggage = JSON.parse(
+                                                        itm.baggageInfo
+                                                      );
+                                                      return (
+                                                        <>
+                                                          <span className="fw-bold">
+                                                            {airports
+                                                              .filter(
+                                                                (f) =>
+                                                                  f.iata ===
+                                                                  itm.origin
+                                                              )
+                                                              .map(
+                                                                (itm) =>
+                                                                  itm.city
+                                                              )}{" "}
+                                                            ({itm.origin})
+                                                          </span>
+                                                          <span className="mx-2 fw-bold">
+                                                            <i class="fas fa-arrow-right"></i>
+                                                          </span>
+                                                          <span className="fw-bold">
+                                                            {airports
+                                                              .filter(
+                                                                (f) =>
+                                                                  f.iata ===
+                                                                  itm.destination
+                                                              )
+                                                              .map(
+                                                                (itm) =>
+                                                                  itm.city
+                                                              )}{" "}
+                                                            ({itm.destination})
+                                                          </span>
+                                                          <span className="d-flex align-items-center fw-bold">
+                                                            {/* <img
+                                          src={
+                                            environment.s3ArliensImage +
+                                            `${itm.operationCarrier}.png`
+                                          }
+                                          className="me-2"
+                                          alt=""
+                                          width="30px"
+                                          height="30px"
+                                          crossOrigin="true"
+                                        ></img> */}
+                                                            <ImageComponentTicket
+                                                              logo={
+                                                                itm.operationCarrier
+                                                              }
+                                                            />
+                                                            {
+                                                              itm.operationCarrierName
+                                                            }{" "}
+                                                            (
+                                                            {
+                                                              itm.operationCarrier
+                                                            }
+                                                            -{itm.flightNumber})
+                                                          </span>
+
+                                                          <div className="table-responsive mt-3">
+                                                            <table
+                                                              class="table table-borderless table-sm mt-1"
+                                                              style={{
+                                                                fontSize:
+                                                                  "14px",
+                                                              }}
+                                                            >
+                                                              <thead>
+                                                                <tr>
+                                                                  <th className="p-0">
+                                                                    <p
+                                                                      className="py-1 ps-1"
+                                                                      style={{
+                                                                        backgroundColor:
+                                                                          "#ededed",
+                                                                      }}
+                                                                    >
+                                                                      Date
+                                                                    </p>
+                                                                  </th>
+                                                                  <th className="p-0">
+                                                                    <p
+                                                                      className="py-1 ps-1"
+                                                                      style={{
+                                                                        backgroundColor:
+                                                                          "#ededed",
+                                                                      }}
+                                                                    >
+                                                                      Time
+                                                                    </p>
+                                                                  </th>
+                                                                  <th className="p-0">
+                                                                    <p
+                                                                      className="py-1 ps-1"
+                                                                      style={{
+                                                                        backgroundColor:
+                                                                          "#ededed",
+                                                                      }}
+                                                                    >
+                                                                      Flight
+                                                                      Info
+                                                                    </p>
+                                                                  </th>
+                                                                  <th className="p-0">
+                                                                    <p
+                                                                      className="py-1 ps-1"
+                                                                      style={{
+                                                                        backgroundColor:
+                                                                          "#ededed",
+                                                                      }}
+                                                                    >
+                                                                      Flight
+                                                                      Time
+                                                                    </p>
+                                                                  </th>
+                                                                  <th className="p-0">
+                                                                    <p
+                                                                      className="py-1 ps-1"
+                                                                      style={{
+                                                                        backgroundColor:
+                                                                          "#ededed",
+                                                                      }}
+                                                                    >
+                                                                      Cabin
+                                                                    </p>
+                                                                  </th>
+                                                                  <th className="p-0">
+                                                                    <p
+                                                                      className="py-1 ps-1"
+                                                                      style={{
+                                                                        backgroundColor:
+                                                                          "#ededed",
+                                                                      }}
+                                                                    >
+                                                                      Checked
+                                                                      Baggage
+                                                                    </p>
+                                                                  </th>
+                                                                  <th className="p-0">
+                                                                    <p
+                                                                      className="py-1 ps-1"
+                                                                      style={{
+                                                                        backgroundColor:
+                                                                          "#ededed",
+                                                                      }}
+                                                                    >
+                                                                      Cabin
+                                                                      Baggage
+                                                                    </p>
+                                                                  </th>
+                                                                </tr>
+                                                              </thead>
+                                                              <tbody>
+                                                                <tr>
+                                                                  <td>
+                                                                    {moment(
+                                                                      itm.departure
+                                                                    ).format(
+                                                                      "ddd DD MMM,YY "
+                                                                    )}
+                                                                    <br></br>
+                                                                    {moment(
+                                                                      itm.arrival
+                                                                    ).format(
+                                                                      "ddd DD MMM,YY "
+                                                                    )}
+                                                                  </td>
+                                                                  <td>
+                                                                    {moment(
+                                                                      itm.departure
+                                                                    ).format(
+                                                                      "HH:mm"
+                                                                    )}
+                                                                    <br></br>
+                                                                    {moment(
+                                                                      itm.arrival
+                                                                    ).format(
+                                                                      "HH:mm"
+                                                                    )}
+                                                                  </td>
+                                                                  <td>
+                                                                    Departs{" "}
+                                                                    <span className="fw-bold">
+                                                                      {airports
+                                                                        .filter(
+                                                                          (f) =>
+                                                                            f.iata ===
+                                                                            itm.origin
+                                                                        )
+                                                                        .map(
+                                                                          (
+                                                                            itm
+                                                                          ) =>
+                                                                            itm.city
+                                                                        )}{" "}
+                                                                      (
+                                                                      {
+                                                                        itm.origin
+                                                                      }
+                                                                      )
+                                                                      {itm?.originTerminal && (
+                                                                        <>
+                                                                          Terminal-(
+                                                                          {
+                                                                            itm?.originTerminal
+                                                                          }
+                                                                          )
+                                                                        </>
+                                                                      )}
+                                                                    </span>
+                                                                    <br></br>
+                                                                    Arrival{" "}
+                                                                    <span className="fw-bold">
+                                                                      {airports
+                                                                        .filter(
+                                                                          (f) =>
+                                                                            f.iata ===
+                                                                            itm.destination
+                                                                        )
+                                                                        .map(
+                                                                          (
+                                                                            itm
+                                                                          ) =>
+                                                                            itm.city
+                                                                        )}{" "}
+                                                                      (
+                                                                      {
+                                                                        itm.destination
+                                                                      }
+                                                                      )
+                                                                      {itm?.destinationTerminal && (
+                                                                        <>
+                                                                          Terminal-(
+                                                                          {
+                                                                            itm?.destinationTerminal
+                                                                          }
+                                                                          )
+                                                                        </>
+                                                                      )}
+                                                                    </span>
+                                                                  </td>
+                                                                  <td className="align-middle">
+                                                                    {
+                                                                      itm.travelTime
+                                                                    }
+                                                                  </td>
+                                                                  <td className="align-middle">
+                                                                    {
+                                                                      itm.cabinClass
+                                                                    }
+                                                                    (
+                                                                    {
+                                                                      itm.bookingCode
+                                                                    }
+                                                                    )
+                                                                  </td>
+                                                                  <td className="align-middle">
+                                                                    {baggage?.map(
+                                                                      (
+                                                                        im,
+                                                                        idx
+                                                                      ) => {
+                                                                        if (
+                                                                          selectPassenger.some(
+                                                                            (
+                                                                              passenegr
+                                                                            ) =>
+                                                                              passenegr.passengerType ===
+                                                                              im?.PassengerTypeCode
+                                                                          )
+                                                                        )
+                                                                          return (
+                                                                            <>
+                                                                              {im?.Amount && (
+                                                                                <>
+                                                                                  <span className="left">
+                                                                                    {im?.PassengerTypeCode ===
+                                                                                    "ADT"
+                                                                                      ? "Adult"
+                                                                                      : im?.PassengerTypeCode ===
+                                                                                        "CNN"
+                                                                                      ? "Child"
+                                                                                      : im?.PassengerTypeCode ===
+                                                                                        "CHD"
+                                                                                      ? "Child"
+                                                                                      : im?.PassengerTypeCode ===
+                                                                                        "INF"
+                                                                                      ? "Infant"
+                                                                                      : ""}{" "}
+                                                                                    :{" "}
+                                                                                    <span className="ms-1 font-size">
+                                                                                      {im?.Amount +
+                                                                                        " " +
+                                                                                        im?.Units}
+                                                                                    </span>
+                                                                                  </span>
+                                                                                  <br></br>
+                                                                                </>
+                                                                              )}
+                                                                            </>
+                                                                          );
+                                                                      }
+                                                                    )}
+                                                                  </td>
+                                                                  <td className="align-middle">
+                                                                    7KG (max 1
+                                                                    Bag)
+                                                                  </td>
+                                                                </tr>
+                                                              </tbody>
+                                                            </table>
+                                                          </div>
+                                                        </>
+                                                      );
+                                                    })}
+                                                  </div>
+                                                );
+                                              }
+                                            )}
+                                          </>
+                                        ) : (
+                                          <></>
+                                        )}
+                                      </div>
+                                    </div>
+                                  </div>
+
+                                  <>
+                                    {isFareHide === false ? (
+                                      <div className="table-responsive mt-3">
+                                        <table
+                                          class="table table-bordered table-sm text-end mt-1"
+                                          style={{ fontSize: "14px" }}
+                                        >
+                                          <thead className="text-end">
+                                            <tr>
+                                              <th
+                                                colspan={
+                                                  isFareChange === false
+                                                    ? "8"
+                                                    : "7"
+                                                }
+                                                className="fw-bold text-start py-2 bg-light"
+                                              >
+                                                Fare Details
+                                              </th>
+                                            </tr>
+                                            <tr>
+                                              <th className="text-start">
+                                                Type
+                                              </th>
+                                              <th>Base Fare</th>
+                                              <th>Tax</th>
+                                              <th>AIT</th>
+                                              {isFareChange === false && (
+                                                <th>Commission</th>
+                                              )}
+                                              <th>Additional Collection</th>
+                                              <th>Person</th>
+                                              <th>Total</th>
+                                            </tr>
+                                          </thead>
+                                          <tbody className="text-end">
+                                            {ticketingListReturn.fareBreakdown?.map(
+                                              (item, index) => {
+                                                return (
+                                                  <>
+                                                    {item.passengerType ===
+                                                      "ADT" &&
+                                                    selectPassenger.some(
+                                                      (itm) =>
+                                                        itm.passengerType ===
+                                                        item.passengerType
+                                                    ) ? (
+                                                      <>
+                                                        <tr>
+                                                          <td className="text-start">
+                                                            Adult
+                                                          </td>
+                                                          <td>
+                                                            {item.basePrice?.toLocaleString(
+                                                              "en-US"
+                                                            )}
+                                                          </td>
+                                                          <td>
+                                                            {item.tax?.toLocaleString(
+                                                              "en-US"
+                                                            )}
+                                                          </td>
+
+                                                          <td>
+                                                            {item.ait?.toLocaleString(
+                                                              "en-US"
+                                                            )}
+                                                          </td>
+                                                          {isFareChange ===
+                                                            false && (
+                                                            <td>
+                                                              {item.discount?.toLocaleString(
+                                                                "en-US"
+                                                              )}
+                                                            </td>
+                                                          )}
+                                                          <td>
+                                                            {item.reissueCharge}
+                                                          </td>
+                                                          <td>
+                                                            {item.passengerCount -
+                                                              unSelectPassenger.filter(
+                                                                (num) =>
+                                                                  num.passengerType ===
+                                                                  "ADT"
+                                                              ).length}
+                                                          </td>
+                                                          <td className="fw-bold">
+                                                            {item.currencyName}{" "}
+                                                            {isFareChange ===
+                                                            false
+                                                              ? (
+                                                                  item.totalPrice *
+                                                                  (item.passengerCount -
+                                                                    unSelectPassenger.filter(
+                                                                      (num) =>
+                                                                        num.passengerType ===
+                                                                        "ADT"
+                                                                    ).length)
+                                                                )?.toLocaleString(
+                                                                  "en-US"
+                                                                )
+                                                              : (
+                                                                  (item.totalPrice -
+                                                                    item.discount) *
+                                                                  (item.passengerCount -
+                                                                    unSelectPassenger.filter(
+                                                                      (num) =>
+                                                                        num.passengerType ===
+                                                                        "ADT"
+                                                                    ).length)
+                                                                )?.toLocaleString(
+                                                                  "en-US"
+                                                                )}
+                                                          </td>
+                                                        </tr>
+                                                      </>
+                                                    ) : item.passengerType ===
+                                                        "CHD" &&
+                                                      selectPassenger.some(
+                                                        (itm) =>
+                                                          itm.passengerType ===
+                                                          item.passengerType
+                                                      ) ? (
+                                                      <>
+                                                        <tr>
+                                                          <td className="text-start">
+                                                            Child &gt; 5
+                                                          </td>
+                                                          <td>
+                                                            {item.basePrice?.toLocaleString(
+                                                              "en-US"
+                                                            )}
+                                                          </td>
+                                                          <td>
+                                                            {item.tax?.toLocaleString(
+                                                              "en-US"
+                                                            )}
+                                                          </td>
+
+                                                          <td>
+                                                            {item.ait?.toLocaleString(
+                                                              "en-US"
+                                                            )}
+                                                          </td>
+                                                          {isFareChange ===
+                                                            false && (
+                                                            <td>
+                                                              {item.discount?.toLocaleString(
+                                                                "en-US"
+                                                              )}
+                                                            </td>
+                                                          )}
+                                                          <td>
+                                                            {item.reissueCharge}
+                                                          </td>
+                                                          <td>
+                                                            {item.passengerCount -
+                                                              unSelectPassenger.filter(
+                                                                (num) =>
+                                                                  num.passengerType ===
+                                                                  "CHD"
+                                                              ).length}
+                                                          </td>
+                                                          <td className="fw-bold">
+                                                            {item.currencyName}{" "}
+                                                            {/* {(
+                                item.totalPrice *
+                                item.passengerCount
+                              )?.toLocaleString("en-US")} */}
+                                                            {isFareChange ===
+                                                            false
+                                                              ? (
+                                                                  item.totalPrice *
+                                                                  (item.passengerCount -
+                                                                    unSelectPassenger.filter(
+                                                                      (num) =>
+                                                                        num.passengerType ===
+                                                                        "CHD"
+                                                                    ).length)
+                                                                )?.toLocaleString(
+                                                                  "en-US"
+                                                                )
+                                                              : (
+                                                                  (item.totalPrice -
+                                                                    item.discount) *
+                                                                  (item.passengerCount -
+                                                                    unSelectPassenger.filter(
+                                                                      (num) =>
+                                                                        num.passengerType ===
+                                                                        "CHD"
+                                                                    ).length)
+                                                                )?.toLocaleString(
+                                                                  "en-US"
+                                                                )}
+                                                          </td>
+                                                        </tr>
+                                                      </>
+                                                    ) : item.passengerType ===
+                                                        "CNN" &&
+                                                      selectPassenger.some(
+                                                        (itm) =>
+                                                          itm.passengerType ===
+                                                          item.passengerType
+                                                      ) ? (
+                                                      <>
+                                                        <tr>
+                                                          <td className="text-start">
+                                                            {" "}
+                                                            {item.passengerType ===
+                                                              "CNN" &&
+                                                            ticketingListReturn.fareBreakdown?.some(
+                                                              (item) =>
+                                                                item.passengerType ===
+                                                                "CHD"
+                                                            )
+                                                              ? "Child < 5"
+                                                              : "Child"}
+                                                          </td>
+                                                          <td>
+                                                            {item.basePrice?.toLocaleString(
+                                                              "en-US"
+                                                            )}
+                                                          </td>
+                                                          <td>
+                                                            {item.tax?.toLocaleString(
+                                                              "en-US"
+                                                            )}
+                                                          </td>
+
+                                                          <td>
+                                                            {item.ait?.toLocaleString(
+                                                              "en-US"
+                                                            )}
+                                                          </td>
+                                                          {isFareChange ===
+                                                            false && (
+                                                            <td>
+                                                              {item.discount?.toLocaleString(
+                                                                "en-US"
+                                                              )}
+                                                            </td>
+                                                          )}
+                                                          <td>
+                                                            {item.reissueCharge}
+                                                          </td>
+                                                          <td>
+                                                            {item.passengerCount -
+                                                              unSelectPassenger.filter(
+                                                                (num) =>
+                                                                  num.passengerType ===
+                                                                  "CNN"
+                                                              ).length}
+                                                          </td>
+                                                          <td className="fw-bold">
+                                                            {item.currencyName}{" "}
+                                                            {isFareChange ===
+                                                            false
+                                                              ? (
+                                                                  item.totalPrice *
+                                                                  (item.passengerCount -
+                                                                    unSelectPassenger.filter(
+                                                                      (num) =>
+                                                                        num.passengerType ===
+                                                                        "CNN"
+                                                                    ).length)
+                                                                )?.toLocaleString(
+                                                                  "en-US"
+                                                                )
+                                                              : (
+                                                                  (item.totalPrice -
+                                                                    item.discount) *
+                                                                  (item.passengerCount -
+                                                                    unSelectPassenger.filter(
+                                                                      (num) =>
+                                                                        num.passengerType ===
+                                                                        "CNN"
+                                                                    ).length)
+                                                                )?.toLocaleString(
+                                                                  "en-US"
+                                                                )}
+                                                          </td>
+                                                        </tr>
+                                                      </>
+                                                    ) : item.passengerType ===
+                                                        "INF" &&
+                                                      selectPassenger.some(
+                                                        (itm) =>
+                                                          itm.passengerType ===
+                                                          item.passengerType
+                                                      ) ? (
+                                                      <>
+                                                        <tr>
+                                                          <td className="text-start">
+                                                            Infant
+                                                          </td>
+                                                          <td>
+                                                            {item.basePrice?.toLocaleString(
+                                                              "en-US"
+                                                            )}
+                                                          </td>
+                                                          <td>
+                                                            {item.tax?.toLocaleString(
+                                                              "en-US"
+                                                            )}
+                                                          </td>
+
+                                                          <td>
+                                                            {item.ait?.toLocaleString(
+                                                              "en-US"
+                                                            )}
+                                                          </td>
+                                                          {isFareChange ===
+                                                            false && (
+                                                            <td>
+                                                              {item.discount?.toLocaleString(
+                                                                "en-US"
+                                                              )}
+                                                            </td>
+                                                          )}
+                                                          <td>
+                                                            {item.reissueCharge}
+                                                          </td>
+                                                          <td>
+                                                            {item.passengerCount -
+                                                              unSelectPassenger.filter(
+                                                                (num) =>
+                                                                  num.passengerType ===
+                                                                  "INF"
+                                                              ).length}
+                                                          </td>
+                                                          <td className="fw-bold">
+                                                            {item.currencyName}{" "}
+                                                            {isFareChange ===
+                                                            false
+                                                              ? (
+                                                                  item.totalPrice *
+                                                                  (item.passengerCount -
+                                                                    unSelectPassenger.filter(
+                                                                      (num) =>
+                                                                        num.passengerType ===
+                                                                        "INF"
+                                                                    ).length)
+                                                                )?.toLocaleString(
+                                                                  "en-US"
+                                                                )
+                                                              : (
+                                                                  (item.totalPrice -
+                                                                    item.discount) *
+                                                                  (item.passengerCount -
+                                                                    unSelectPassenger.filter(
+                                                                      (num) =>
+                                                                        num.passengerType ===
+                                                                        "INF"
+                                                                    ).length)
+                                                                )?.toLocaleString(
+                                                                  "en-US"
+                                                                )}
+                                                          </td>
+                                                        </tr>
+                                                      </>
+                                                    ) : (
+                                                      <></>
+                                                    )}
+                                                  </>
+                                                );
+                                              }
+                                            )}
+                                            <tr className="fw-bold">
+                                              <td
+                                                colSpan={
+                                                  isFareChange === false ? 6 : 5
+                                                }
+                                                className="border-none"
+                                              ></td>
+                                              <td>Additional Collection</td>
+                                              <td>
+                                                {ticketingListReturn?.passengerInfo !==
+                                                  undefined &&
+                                                ticketingListReturn?.passengerInfo !==
+                                                  " " &&
+                                                ticketingListReturn?.passengerInfo !==
+                                                  null
+                                                  ? ticketingListReturn
+                                                      .passengerInfo[0]
+                                                      ?.currencyName
+                                                  : ""}{" "}
+                                                {/* {
+                            ticketingList?.penalty[0]?.reissueCharge.toLocaleString("en-US")
+                          } */}
+                                                {sumAdditinalPrice(
+                                                  ticketingListReturn.fareBreakdown
+                                                )?.toLocaleString("en-US")}
+                                              </td>
+                                            </tr>
+
+                                            {totalextraServicePnrData > 0 && (
+                                              <tr className="fw-bold">
+                                                <td
+                                                  colSpan={
+                                                    isFareChange === false
+                                                      ? 6
+                                                      : 5
+                                                  }
+                                                  className="border-none"
+                                                ></td>
+                                                <td>
+                                                  Total Ticket Import Service
+                                                  Charge
+                                                </td>
+                                                <td>
+                                                  {totalextraServicePnrData?.toLocaleString(
+                                                    "en-US"
+                                                  )}
+                                                </td>
+                                              </tr>
+                                            )}
+
+                                            <tr className="fw-bold">
+                                              <td
+                                                colSpan={
+                                                  isFareChange === false ? 6 : 5
+                                                }
+                                                className="border-none"
+                                              ></td>
+                                              <td>Grand Total</td>
+                                              <td>
+                                                {ticketingListReturn?.passengerInfo !==
+                                                  undefined &&
+                                                ticketingListReturn?.passengerInfo !==
+                                                  " " &&
+                                                ticketingListReturn?.passengerInfo !==
+                                                  null
+                                                  ? ticketingListReturn
+                                                      .passengerInfo[0]
+                                                      ?.currencyName
+                                                  : ""}{" "}
+                                                {ticketingListReturn?.penalty
+                                                  ?.length > 0 ? (
+                                                  <>
+                                                    {isFareChange === false
+                                                      ? (
+                                                          sumRatingForPassengerTicket(
+                                                            ticketingListReturn.fareBreakdown,
+                                                            unSelectPassenger
+                                                          ) +
+                                                          sumAdditinalPrice(
+                                                            ticketingListReturn.fareBreakdown
+                                                          ) +
+                                                          totalextraServicePnrData
+                                                        )?.toLocaleString(
+                                                          "en-US"
+                                                        )
+                                                      : (
+                                                          sumRatingForPassengerTicketGross(
+                                                            ticketingListReturn.fareBreakdown,
+                                                            unSelectPassenger
+                                                          ) +
+                                                          sumAdditinalPrice(
+                                                            ticketingListReturn.fareBreakdown
+                                                          ) +
+                                                          totalextraServicePnrData
+                                                        )?.toLocaleString(
+                                                          "en-US"
+                                                        )}
+                                                  </>
+                                                ) : (
+                                                  <>
+                                                    {isFareChange === false
+                                                      ? (
+                                                          sumRatingForPassengerTicket(
+                                                            ticketingListReturn.fareBreakdown,
+                                                            unSelectPassenger
+                                                          ) +
+                                                          totalextraServicePnrData
+                                                        )?.toLocaleString(
+                                                          "en-US"
+                                                        )
+                                                      : (
+                                                          sumRatingForPassengerTicketGross(
+                                                            ticketingListReturn.fareBreakdown,
+                                                            unSelectPassenger
+                                                          ) +
+                                                          totalextraServicePnrData
+                                                        )?.toLocaleString(
+                                                          "en-US"
+                                                        )}
+                                                  </>
+                                                )}
+                                              </td>
+                                            </tr>
+
+                                            {ticketingListReturn?.penalty
+                                              ?.length > 0 ? (
+                                              <>
+                                                <tr className="fw-bold">
+                                                  <td
+                                                    colSpan={
+                                                      isFareChange === false
+                                                        ? 6
+                                                        : 5
+                                                    }
+                                                    className="border-none"
+                                                  ></td>
+                                                  <td>Exchange Penalty</td>
+                                                  <td>
+                                                    {ticketingListReturn?.passengerInfo !==
+                                                      undefined &&
+                                                    ticketingListReturn?.passengerInfo !==
+                                                      " " &&
+                                                    ticketingListReturn?.passengerInfo !==
+                                                      null
+                                                      ? ticketingListReturn
+                                                          .passengerInfo[0]
+                                                          ?.currencyName
+                                                      : ""}{" "}
+                                                    {ticketingListReturn?.penalty[0]?.panalty?.toLocaleString(
+                                                      "en-US"
+                                                    )}
+                                                  </td>
+                                                </tr>
+                                              </>
+                                            ) : (
+                                              <> </>
+                                            )}
+                                          </tbody>
+                                        </table>
+                                      </div>
+                                    ) : (
+                                      <></>
+                                    )}
+                                  </>
+
+                                  {extraServices &&
+                                  extraServices?.length > 0 ? (
+                                    <div className="table-responsive mt-3">
+                                      <div
+                                        className="ps-1 py-2 fw-bold text-start"
+                                        style={{
+                                          fontSize: "14px",
+                                          backgroundColor: "#c3c2c2",
+                                        }}
+                                      >
+                                        Extra Services Details
+                                      </div>
+
+                                      <table
+                                        class="table table-bordered table-sm text-end mt-1"
+                                        style={{ fontSize: "14px" }}
+                                      >
+                                        <thead className="text-end">
+                                          <tr>
+                                            <th
+                                              colspan="4"
+                                              className="fw-bold text-start py-2 bg-light"
+                                            >
+                                              Extra Services Details
+                                            </th>
+                                          </tr>
+                                          <tr>
+                                            <th className="text-start">
+                                              Passenger Name
+                                            </th>
+                                            <th>Type Of Services</th>
+                                            <th>Segment</th>
+                                            <th>Service Name</th>
+                                          </tr>
+                                        </thead>
+                                        <tbody className="text-end">
+                                          {extraServices?.map((item) =>
+                                            item?.map((exService, idx) => {
+                                              return (
+                                                <tr key={idx}>
+                                                  <>
+                                                    <td className="text-start">
+                                                      {ticketingList?.passengerInfo?.map(
+                                                        (paxId) => {
+                                                          return (
+                                                            <>
+                                                              {paxId.paxId ===
+                                                                exService.fK_PaxId &&
+                                                                paxId?.title +
+                                                                  " " +
+                                                                  paxId?.first +
+                                                                  " " +
+                                                                  paxId?.last}
+                                                            </>
+                                                          );
+                                                        }
+                                                      )}
+                                                    </td>
+                                                    <td>
+                                                      {exService.typeOfServices}
+                                                    </td>
+                                                    <td>{exService.segment}</td>
+                                                    <td>{exService.name}</td>
+                                                  </>
+                                                </tr>
+                                              );
+                                            })
+                                          )}
+                                          <tr className="fw-bold">
+                                            <td
+                                              colSpan={2}
+                                              className="border-none"
+                                            ></td>
+                                            <td>Grand Total</td>
+                                            <td>
+                                              {total?.toLocaleString("en-US")}
+                                            </td>
+                                          </tr>
+                                        </tbody>
+                                      </table>
+                                    </div>
+                                  ) : (
+                                    <></>
+                                  )}
+
+                                  {!contactInfo && (
+                                    <div className="table-responsive">
+                                      <table
+                                        className="table table-bordered table-sm"
+                                        style={{ fontSize: "11px" }}
+                                      >
+                                        <thead>
+                                          <tr>
+                                            <th
+                                              colspan="3"
+                                              className="fw-bold py-2 bg-light"
+                                            >
+                                              CONTACT DETAILS
+                                            </th>
+                                          </tr>
+                                          <tr className="text-center">
+                                            <th>DEPARTS</th>
+                                            <th>Email</th>
+                                            <th>Phone Number</th>
+                                          </tr>
+                                        </thead>
+                                        <tbody className="text-center">
+                                          {ticketingList?.passengerInfo?.map(
+                                            (item, index) => {
+                                              return (
+                                                <>
+                                                  {index === 0 ? (
+                                                    <>
+                                                      <tr key={index}>
+                                                        <td>
+                                                          {airports
+                                                            .filter(
+                                                              (f) =>
+                                                                f.iata ===
+                                                                ticketingList
+                                                                  .segments[0]
+                                                                  ?.origin
+                                                            )
+                                                            .map(
+                                                              (item) =>
+                                                                item.city
+                                                            )}
+                                                        </td>
+                                                        <td>
+                                                          {
+                                                            ticketingList
+                                                              ?.ticketInfo
+                                                              ?.leadPaxEmail
+                                                          }
+                                                        </td>
+                                                        <td>
+                                                          {item.phoneCountryCode +
+                                                            item.phone}{" "}
+                                                        </td>
+                                                      </tr>
+                                                    </>
+                                                  ) : (
+                                                    <></>
+                                                  )}
+                                                </>
+                                              );
+                                            }
+                                          )}
+                                        </tbody>
+                                      </table>
+                                    </div>
+                                  )}
 
                                   <div className="mt-3 pb-2">
                                     <div
@@ -3572,3049 +5996,91 @@ const Ticket = () => {
                                 </div>
                               </div>
                             </div>
-
-                            {ticketingList?.comboSegmentInfo?.length > 0 && (
-                              <div style={{ display: "none" }}>
-                                <div ref={componentRefCombo}>
-                                  <div className="card-body">
-                                    <div
-                                      className="px-lg-5 px-md-5 px-sm-1 p-3"
-                                      ref={donwloadRef}
-                                    >
-                                      <h4 className="text-center pb-2">
-                                        E-Ticket
-                                      </h4>
-
-                                      {!isAgentInfo && (
-                                        <div className="table-responsive mt-2">
-                                          <table class="table table-borderless table-sm">
-                                            <tbody>
-                                              <tr>
-                                                {/* FIXED COMPANY LOGO */}
-                                                {/* CHANGE THIS LATER */}
-                                                <td className="text-start">
-                                                  {ticketingList.ticketInfo
-                                                    ?.agentLogo !== null ? (
-                                                    <>
-                                                      {/* <img
-                                    alt="img01"
-                                    src={
-                                      environment.s3URL +
-                                      `${ticketingList.ticketInfo?.agentLogo}`
-                                    }
-                                    crossOrigin="true"
-                                    style={{ width: "160px" }}
-                                  ></img> */}
-                                                      <ImageComponentForAgent
-                                                        logo={
-                                                          ticketingList
-                                                            .ticketInfo
-                                                            ?.agentLogo
-                                                        }
-                                                      />
-                                                    </>
-                                                  ) : (
-                                                    <>
-                                                      <img
-                                                        alt="img01"
-                                                        className="p-2"
-                                                        src={tllLogo}
-                                                        style={{
-                                                          width: "160px",
-                                                        }}
-                                                      ></img>
-                                                    </>
-                                                  )}
-                                                </td>
-                                                <td className="text-end bg-white">
-                                                  <address>
-                                                    <span className="fw-bold fs-6">
-                                                      {agentInfo.name}
-                                                    </span>
-                                                    <br />
-                                                    <div
-                                                      className="mt-2"
-                                                      style={{
-                                                        fontSize: "12px",
-                                                        lineHeight: "12px",
-                                                      }}
-                                                    >
-                                                      {agentInfo.address}
-                                                      <br />
-                                                      <span
-                                                        style={{
-                                                          fontSize: "8px",
-                                                        }}
-                                                      >
-                                                        <i class="fas fa-phone fa-rotate-90"></i>
-                                                      </span>{" "}
-                                                      Phone:{" "}
-                                                      {agentInfo.mobileNo}
-                                                      <br></br>
-                                                      <span className="me-1">
-                                                        <i
-                                                          class="fa fa-envelope"
-                                                          aria-hidden="true"
-                                                        ></i>
-                                                      </span>{" "}
-                                                      Email: {agentInfo.email}
-                                                    </div>
-                                                  </address>
-                                                </td>
-                                              </tr>
-                                            </tbody>
-                                          </table>
-                                        </div>
-                                      )}
-
-                                      <Box
-                                        display={"flex"}
-                                        justifyContent={"space-between"}
-                                        flexWrap={"wrap"}
-                                        style={{ fontSize: "14px" }}
-                                      >
-                                        <div>
-                                          <br></br>
-                                          <Text>
-                                            Booking ID :{" "}
-                                            <span className="fw-bold">
-                                              {
-                                                ticketingList.ticketInfo
-                                                  ?.uniqueTransID
-                                              }
-                                            </span>
-                                          </Text>
-                                        </div>
-
-                                        <div>
-                                          <Text>
-                                            GDS PNR :{" "}
-                                            <span className="fw-bold">
-                                              {ticketingList.ticketInfo?.pnr}
-                                            </span>
-                                          </Text>
-                                          <Text>
-                                            Airline PNR:{" "}
-                                            <span className="fw-bold">
-                                              {ticketingList.ticketInfo
-                                                ?.airlinePNRs === "" ||
-                                              ticketingList.ticketInfo
-                                                ?.airlinePNRs === null
-                                                ? ticketingList.ticketInfo?.pnr
-                                                : ticketingList.ticketInfo
-                                                    ?.airlinePNRs}
-                                            </span>
-                                          </Text>
-                                        </div>
-                                      </Box>
-
-                                      <div className="table-responsive mt-2">
-                                        <table
-                                          class="table table-bordered table-sm mt-1"
-                                          style={{ fontSize: "14px" }}
-                                        >
-                                          <thead>
-                                            <tr>
-                                              <th
-                                                colspan="5"
-                                                className="fw-bold py-2 bg-light"
-                                              >
-                                                Passenger Information
-                                              </th>
-                                            </tr>
-                                            <tr className="text-center">
-                                              <th className="text-start">
-                                                Name
-                                              </th>
-                                              <th>Type</th>
-                                              <th>E-Ticket Number</th>
-                                              {/* <th>Booking ID</th> */}
-                                              <th>Ticket Issue Date</th>
-                                            </tr>
-                                          </thead>
-                                          <tbody>
-                                            {ticketingList.passengerInfo?.map(
-                                              (item, index) => {
-                                                if (
-                                                  selectPassenger.includes(item)
-                                                ) {
-                                                  return (
-                                                    <tr
-                                                      className="text-center"
-                                                      style={{
-                                                        lineHeight: "14px",
-                                                      }}
-                                                    >
-                                                      <td
-                                                        className="text-start"
-                                                        style={{
-                                                          fontSize: "15px",
-                                                        }}
-                                                      >
-                                                        {item.title.toUpperCase()}{" "}
-                                                        {item.first.toUpperCase()}{" "}
-                                                        {item.last.toUpperCase()}
-                                                      </td>
-                                                      <td>
-                                                        {item.passengerType ===
-                                                        "ADT"
-                                                          ? "Adult"
-                                                          : item.passengerType ===
-                                                            "CNN"
-                                                          ? "Child"
-                                                          : item.passengerType ===
-                                                            "CHD"
-                                                          ? "Child"
-                                                          : item.passengerType ===
-                                                            "INF"
-                                                          ? "Infant"
-                                                          : ""}
-                                                      </td>
-                                                      <td>
-                                                        {item.ticketNumbers}
-                                                      </td>
-                                                      <td>
-                                                        {" "}
-                                                        {moment(
-                                                          ticketingList
-                                                            .ticketInfo
-                                                            ?.issueDate
-                                                        ).format(
-                                                          "ddd, DD MMM,YY"
-                                                        )}
-                                                      </td>
-                                                    </tr>
-                                                  );
-                                                }
-                                              }
-                                            )}
-                                          </tbody>
-                                        </table>
-                                      </div>
-
-                                      <div className="table-responsive mt-3">
-                                        <div
-                                          className="ps-1 py-2 fw-bold text-start bg-light border"
-                                          style={{
-                                            fontSize: "14px",
-                                          }}
-                                        >
-                                          Flight Details
-                                        </div>
-                                        <div className="">
-                                          <div
-                                            className="border p-1"
-                                            style={{ fontSize: "14px" }}
-                                          >
-                                            {ticketingList?.directions ===
-                                            undefined ? (
-                                              <>
-                                                {finalSegment.map(
-                                                  (item, index) => {
-                                                    return (
-                                                      <div className="border my-1 p-1">
-                                                        {item.map(
-                                                          (itm, idx) => {
-                                                            let baggage =
-                                                              JSON.parse(
-                                                                itm.baggageInfo
-                                                              );
-                                                            return (
-                                                              <>
-                                                               <div className="d-flex justify-content-between">
-                                                               <div>
-                                                                <span className="fw-bold">
-                                                                  {airports
-                                                                    .filter(
-                                                                      (f) =>
-                                                                        f.iata ===
-                                                                        itm.origin
-                                                                    )
-                                                                    .map(
-                                                                      (itm) =>
-                                                                        itm.city
-                                                                    )}{" "}
-                                                                  ({itm.origin})
-                                                                </span>
-                                                                <span className="mx-2 fw-bold">
-                                                                  <i class="fas fa-arrow-right"></i>
-                                                                </span>
-                                                                <span className="fw-bold">
-                                                                  {airports
-                                                                    .filter(
-                                                                      (f) =>
-                                                                        f.iata ===
-                                                                        itm.destination
-                                                                    )
-                                                                    .map(
-                                                                      (itm) =>
-                                                                        itm.city
-                                                                    )}{" "}
-                                                                  (
-                                                                  {
-                                                                    itm.destination
-                                                                  }
-                                                                  )
-                                                                </span>
-                                                                <span className="d-flex align-items-center fw-bold">
-                                                                  {/* <img
-                                                                    src={
-                                                                      environment.s3ArliensImage +
-                                                                      `${itm.operationCarrier}.png`
-                                                                    }
-                                                                    className="me-2"
-                                                                    alt=""
-                                                                    width="30px"
-                                                                    height="30px"
-                                                                    crossOrigin="true"
-                                                                  ></img> */}
-                                                                  <ImageComponentTicket
-                                                                    logo={
-                                                                      itm.operationCarrier
-                                                                    }
-                                                                  />
-                                                                  {
-                                                                    itm.operationCarrierName
-                                                                  }{" "}
-                                                                  (
-                                                                  {
-                                                                    itm.operationCarrier
-                                                                  }
-                                                                  -
-                                                                  {
-                                                                    itm.flightNumber
-                                                                  }
-                                                                  )
-                                                                </span>
-                                                                </div>
-
-                                                                {itm?.isRefunded && (
-                                                            <div>
-                                                              <Box
-                                                                background={
-                                                                  "#7C04C0"
-                                                                }
-                                                                color={"white"}
-                                                                p={2}
-                                                                rounded={"sm"}
-                                                                fontWeight={700}
-                                                                fontSize={
-                                                                  "15px"
-                                                                }
-                                                              >
-                                                                Refunded :{" "}
-                                                                {
-                                                                  itm?.legRefundAmount
-                                                                }
-                                                              </Box>
-                                                            </div>
-                                                          )}
-                                                    </div>
-
-                                                                <div className="table-responsive mt-3">
-                                                                  <table
-                                                                    class="table table-borderless table-sm mt-1"
-                                                                    style={{
-                                                                      fontSize:
-                                                                        "14px",
-                                                                    }}
-                                                                  >
-                                                                    <thead>
-                                                                      <tr>
-                                                                        <th className="p-0">
-                                                                          <p
-                                                                            className="py-1 ps-1"
-                                                                            style={{
-                                                                              backgroundColor:
-                                                                                "#ededed",
-                                                                            }}
-                                                                          >
-                                                                            Date
-                                                                          </p>
-                                                                        </th>
-                                                                        <th className="p-0">
-                                                                          <p
-                                                                            className="py-1 ps-1"
-                                                                            style={{
-                                                                              backgroundColor:
-                                                                                "#ededed",
-                                                                            }}
-                                                                          >
-                                                                            Time
-                                                                          </p>
-                                                                        </th>
-                                                                        <th className="p-0">
-                                                                          <p
-                                                                            className="py-1 ps-1"
-                                                                            style={{
-                                                                              backgroundColor:
-                                                                                "#ededed",
-                                                                            }}
-                                                                          >
-                                                                            Flight
-                                                                            Info
-                                                                          </p>
-                                                                        </th>
-                                                                        <th className="p-0">
-                                                                          <p
-                                                                            className="py-1 ps-1"
-                                                                            style={{
-                                                                              backgroundColor:
-                                                                                "#ededed",
-                                                                            }}
-                                                                          >
-                                                                            Flight
-                                                                            Time
-                                                                          </p>
-                                                                        </th>
-                                                                        <th className="p-0">
-                                                                          <p
-                                                                            className="py-1 ps-1"
-                                                                            style={{
-                                                                              backgroundColor:
-                                                                                "#ededed",
-                                                                            }}
-                                                                          >
-                                                                            Cabin
-                                                                          </p>
-                                                                        </th>
-                                                                        <th className="p-0">
-                                                                          <p
-                                                                            className="py-1 ps-1"
-                                                                            style={{
-                                                                              backgroundColor:
-                                                                                "#ededed",
-                                                                            }}
-                                                                          >
-                                                                            Checked
-                                                                            Baggage
-                                                                          </p>
-                                                                        </th>
-                                                                        <th className="p-0">
-                                                                          <p
-                                                                            className="py-1 ps-1"
-                                                                            style={{
-                                                                              backgroundColor:
-                                                                                "#ededed",
-                                                                            }}
-                                                                          >
-                                                                            Cabin
-                                                                            Baggage
-                                                                          </p>
-                                                                        </th>
-                                                                      </tr>
-                                                                    </thead>
-                                                                    <tbody>
-                                                                      <tr>
-                                                                        <td>
-                                                                          {moment(
-                                                                            itm.departure
-                                                                          ).format(
-                                                                            "ddd DD MMM,YY "
-                                                                          )}
-                                                                          <br></br>
-                                                                          {moment(
-                                                                            itm.arrival
-                                                                          ).format(
-                                                                            "ddd DD MMM,YY "
-                                                                          )}
-                                                                        </td>
-                                                                        <td>
-                                                                          {moment(
-                                                                            itm.departure
-                                                                          ).format(
-                                                                            "HH:mm"
-                                                                          )}
-                                                                          <br></br>
-                                                                          {moment(
-                                                                            itm.arrival
-                                                                          ).format(
-                                                                            "HH:mm"
-                                                                          )}
-                                                                        </td>
-                                                                        <td>
-                                                                          Departs{" "}
-                                                                          <span className="fw-bold">
-                                                                            {airports
-                                                                              .filter(
-                                                                                (
-                                                                                  f
-                                                                                ) =>
-                                                                                  f.iata ===
-                                                                                  itm.origin
-                                                                              )
-                                                                              .map(
-                                                                                (
-                                                                                  itm
-                                                                                ) =>
-                                                                                  itm.city
-                                                                              )}{" "}
-                                                                            (
-                                                                            {
-                                                                              itm.origin
-                                                                            }
-                                                                            )
-                                                                            {itm?.originTerminal && (
-                                                                              <>
-                                                                                Terminal-(
-                                                                                {
-                                                                                  itm?.originTerminal
-                                                                                }
-
-                                                                                )
-                                                                              </>
-                                                                            )}
-                                                                          </span>
-                                                                          <br></br>
-                                                                          Arrival{" "}
-                                                                          <span className="fw-bold">
-                                                                            {airports
-                                                                              .filter(
-                                                                                (
-                                                                                  f
-                                                                                ) =>
-                                                                                  f.iata ===
-                                                                                  itm.destination
-                                                                              )
-                                                                              .map(
-                                                                                (
-                                                                                  itm
-                                                                                ) =>
-                                                                                  itm.city
-                                                                              )}{" "}
-                                                                            (
-                                                                            {
-                                                                              itm.destination
-                                                                            }
-                                                                            )
-                                                                            {itm?.destinationTerminal && (
-                                                                              <>
-                                                                                Terminal-(
-                                                                                {
-                                                                                  itm?.destinationTerminal
-                                                                                }
-
-                                                                                )
-                                                                              </>
-                                                                            )}
-                                                                          </span>
-                                                                        </td>
-                                                                        <td className="align-middle">
-                                                                          {
-                                                                            itm.travelTime
-                                                                          }
-                                                                        </td>
-                                                                        <td className="align-middle">
-                                                                          {
-                                                                            itm.cabinClass
-                                                                          }
-                                                                          (
-                                                                          {
-                                                                            itm.bookingCode
-                                                                          }
-                                                                          )
-                                                                        </td>
-                                                                        <td className="align-middle">
-                                                                          {baggage?.map(
-                                                                            (
-                                                                              im,
-                                                                              idx
-                                                                            ) => {
-                                                                              if (
-                                                                                selectPassenger.some(
-                                                                                  (
-                                                                                    passenegr
-                                                                                  ) =>
-                                                                                    passenegr.passengerType ===
-                                                                                    im?.PassengerTypeCode
-                                                                                )
-                                                                              )
-                                                                                return (
-                                                                                  <>
-                                                                                    {im?.Amount && (
-                                                                                      <>
-                                                                                        <span className="left">
-                                                                                          {im?.PassengerTypeCode ===
-                                                                                          "ADT"
-                                                                                            ? "Adult"
-                                                                                            : im?.PassengerTypeCode ===
-                                                                                              "CNN"
-                                                                                            ? "Child"
-                                                                                            : im?.PassengerTypeCode ===
-                                                                                              "CHD"
-                                                                                            ? "Child"
-                                                                                            : im?.PassengerTypeCode ===
-                                                                                              "INF"
-                                                                                            ? "Infant"
-                                                                                            : ""}{" "}
-                                                                                          :{" "}
-                                                                                          <span className="ms-1 font-size">
-                                                                                            {im?.Amount +
-                                                                                              " " +
-                                                                                              im?.Units}
-                                                                                          </span>
-                                                                                        </span>
-                                                                                        <br></br>
-                                                                                      </>
-                                                                                    )}
-                                                                                  </>
-                                                                                );
-                                                                            }
-                                                                          )}
-                                                                        </td>
-                                                                        <td className="align-middle">
-                                                                          7KG
-                                                                          (max 1
-                                                                          Bag)
-                                                                        </td>
-                                                                      </tr>
-                                                                    </tbody>
-                                                                  </table>
-                                                                </div>
-                                                              </>
-                                                            );
-                                                          }
-                                                        )}
-                                                      </div>
-                                                    );
-                                                  }
-                                                )}
-                                              </>
-                                            ) : (
-                                              <></>
-                                            )}
-                                          </div>
-                                        </div>
-                                      </div>
-
-                                      <>
-                                        {isFareHide === false ? (
-                                          <div className="table-responsive mt-3">
-                                            <table
-                                              class="table table-bordered table-sm text-end mt-1"
-                                              style={{ fontSize: "14px" }}
-                                            >
-                                              <thead className="text-end">
-                                                <tr>
-                                                  <th
-                                                    colspan={
-                                                      isFareChange === false
-                                                        ? "8"
-                                                        : "7"
-                                                    }
-                                                    className="fw-bold text-start py-2 bg-light"
-                                                  >
-                                                    Fare Details
-                                                  </th>
-                                                </tr>
-                                                <tr>
-                                                  <th className="text-start">
-                                                    Type
-                                                  </th>
-                                                  <th>Base Fare</th>
-                                                  <th>Tax</th>
-                                                  <th>AIT</th>
-                                                  {isFareChange === false && (
-                                                    <th>Commission</th>
-                                                  )}
-                                                  <th>Additional Collection</th>
-                                                  <th>Person</th>
-                                                  <th>Total</th>
-                                                </tr>
-                                              </thead>
-                                              <tbody className="text-end">
-                                                {ticketingList.fareBreakdown?.map(
-                                                  (item, index) => {
-                                                    return (
-                                                      <>
-                                                        {item.passengerType ===
-                                                          "ADT" &&
-                                                        selectPassenger.some(
-                                                          (itm) =>
-                                                            itm.passengerType ===
-                                                            item.passengerType
-                                                        ) ? (
-                                                          <>
-                                                            <tr>
-                                                              <td className="text-start">
-                                                                Adult
-                                                              </td>
-                                                              <td>
-                                                                {item.basePrice?.toLocaleString(
-                                                                  "en-US"
-                                                                )}
-                                                              </td>
-                                                              <td>
-                                                                {item.tax?.toLocaleString(
-                                                                  "en-US"
-                                                                )}
-                                                              </td>
-
-                                                              <td>
-                                                                {item.ait?.toLocaleString(
-                                                                  "en-US"
-                                                                )}
-                                                              </td>
-                                                              {isFareChange ===
-                                                                false && (
-                                                                <td>
-                                                                  {item.discount?.toLocaleString(
-                                                                    "en-US"
-                                                                  )}
-                                                                </td>
-                                                              )}
-                                                              <td>
-                                                                {
-                                                                  item.reissueCharge
-                                                                }
-                                                              </td>
-                                                              <td>
-                                                                {item.passengerCount -
-                                                                  unSelectPassenger.filter(
-                                                                    (num) =>
-                                                                      num.passengerType ===
-                                                                      "ADT"
-                                                                  ).length}
-                                                              </td>
-                                                              <td className="fw-bold">
-                                                                {
-                                                                  item.currencyName
-                                                                }{" "}
-                                                                {isFareChange ===
-                                                                false
-                                                                  ? (
-                                                                      item.totalPrice *
-                                                                      (item.passengerCount -
-                                                                        unSelectPassenger.filter(
-                                                                          (
-                                                                            num
-                                                                          ) =>
-                                                                            num.passengerType ===
-                                                                            "ADT"
-                                                                        )
-                                                                          .length)
-                                                                    )?.toLocaleString(
-                                                                      "en-US"
-                                                                    )
-                                                                  : (
-                                                                      (item.totalPrice -
-                                                                        item.discount) *
-                                                                      (item.passengerCount -
-                                                                        unSelectPassenger.filter(
-                                                                          (
-                                                                            num
-                                                                          ) =>
-                                                                            num.passengerType ===
-                                                                            "ADT"
-                                                                        )
-                                                                          .length)
-                                                                    )?.toLocaleString(
-                                                                      "en-US"
-                                                                    )}
-                                                              </td>
-                                                            </tr>
-                                                          </>
-                                                        ) : item.passengerType ===
-                                                            "CHD" &&
-                                                          selectPassenger.some(
-                                                            (itm) =>
-                                                              itm.passengerType ===
-                                                              item.passengerType
-                                                          ) ? (
-                                                          <>
-                                                            <tr>
-                                                              <td className="text-start">
-                                                                Child &gt; 5
-                                                              </td>
-                                                              <td>
-                                                                {item.basePrice?.toLocaleString(
-                                                                  "en-US"
-                                                                )}
-                                                              </td>
-                                                              <td>
-                                                                {item.tax?.toLocaleString(
-                                                                  "en-US"
-                                                                )}
-                                                              </td>
-
-                                                              <td>
-                                                                {item.ait?.toLocaleString(
-                                                                  "en-US"
-                                                                )}
-                                                              </td>
-                                                              {isFareChange ===
-                                                                false && (
-                                                                <td>
-                                                                  {item.discount?.toLocaleString(
-                                                                    "en-US"
-                                                                  )}
-                                                                </td>
-                                                              )}
-                                                              <td>
-                                                                {
-                                                                  item.reissueCharge
-                                                                }
-                                                              </td>
-                                                              <td>
-                                                                {item.passengerCount -
-                                                                  unSelectPassenger.filter(
-                                                                    (num) =>
-                                                                      num.passengerType ===
-                                                                      "CHD"
-                                                                  ).length}
-                                                              </td>
-                                                              <td className="fw-bold">
-                                                                {
-                                                                  item.currencyName
-                                                                }{" "}
-                                                                {/* {(
-                                  item.totalPrice *
-                                  item.passengerCount
-                                )?.toLocaleString("en-US")} */}
-                                                                {isFareChange ===
-                                                                false
-                                                                  ? (
-                                                                      item.totalPrice *
-                                                                      (item.passengerCount -
-                                                                        unSelectPassenger.filter(
-                                                                          (
-                                                                            num
-                                                                          ) =>
-                                                                            num.passengerType ===
-                                                                            "CHD"
-                                                                        )
-                                                                          .length)
-                                                                    )?.toLocaleString(
-                                                                      "en-US"
-                                                                    )
-                                                                  : (
-                                                                      (item.totalPrice -
-                                                                        item.discount) *
-                                                                      (item.passengerCount -
-                                                                        unSelectPassenger.filter(
-                                                                          (
-                                                                            num
-                                                                          ) =>
-                                                                            num.passengerType ===
-                                                                            "CHD"
-                                                                        )
-                                                                          .length)
-                                                                    )?.toLocaleString(
-                                                                      "en-US"
-                                                                    )}
-                                                              </td>
-                                                            </tr>
-                                                          </>
-                                                        ) : item.passengerType ===
-                                                            "CNN" &&
-                                                          selectPassenger.some(
-                                                            (itm) =>
-                                                              itm.passengerType ===
-                                                              item.passengerType
-                                                          ) ? (
-                                                          <>
-                                                            <tr>
-                                                              <td className="text-start">
-                                                                {" "}
-                                                                {item.passengerType ===
-                                                                  "CNN" &&
-                                                                ticketingList.fareBreakdown?.some(
-                                                                  (item) =>
-                                                                    item.passengerType ===
-                                                                    "CHD"
-                                                                )
-                                                                  ? "Child < 5"
-                                                                  : "Child"}
-                                                              </td>
-                                                              <td>
-                                                                {item.basePrice?.toLocaleString(
-                                                                  "en-US"
-                                                                )}
-                                                              </td>
-                                                              <td>
-                                                                {item.tax?.toLocaleString(
-                                                                  "en-US"
-                                                                )}
-                                                              </td>
-
-                                                              <td>
-                                                                {item.ait?.toLocaleString(
-                                                                  "en-US"
-                                                                )}
-                                                              </td>
-                                                              {isFareChange ===
-                                                                false && (
-                                                                <td>
-                                                                  {item.discount?.toLocaleString(
-                                                                    "en-US"
-                                                                  )}
-                                                                </td>
-                                                              )}
-                                                              <td>
-                                                                {
-                                                                  item.reissueCharge
-                                                                }
-                                                              </td>
-                                                              <td>
-                                                                {item.passengerCount -
-                                                                  unSelectPassenger.filter(
-                                                                    (num) =>
-                                                                      num.passengerType ===
-                                                                      "CNN"
-                                                                  ).length}
-                                                              </td>
-                                                              <td className="fw-bold">
-                                                                {
-                                                                  item.currencyName
-                                                                }{" "}
-                                                                {isFareChange ===
-                                                                false
-                                                                  ? (
-                                                                      item.totalPrice *
-                                                                      (item.passengerCount -
-                                                                        unSelectPassenger.filter(
-                                                                          (
-                                                                            num
-                                                                          ) =>
-                                                                            num.passengerType ===
-                                                                            "CNN"
-                                                                        )
-                                                                          .length)
-                                                                    )?.toLocaleString(
-                                                                      "en-US"
-                                                                    )
-                                                                  : (
-                                                                      (item.totalPrice -
-                                                                        item.discount) *
-                                                                      (item.passengerCount -
-                                                                        unSelectPassenger.filter(
-                                                                          (
-                                                                            num
-                                                                          ) =>
-                                                                            num.passengerType ===
-                                                                            "CNN"
-                                                                        )
-                                                                          .length)
-                                                                    )?.toLocaleString(
-                                                                      "en-US"
-                                                                    )}
-                                                              </td>
-                                                            </tr>
-                                                          </>
-                                                        ) : item.passengerType ===
-                                                            "INF" &&
-                                                          selectPassenger.some(
-                                                            (itm) =>
-                                                              itm.passengerType ===
-                                                              item.passengerType
-                                                          ) ? (
-                                                          <>
-                                                            <tr>
-                                                              <td className="text-start">
-                                                                Infant
-                                                              </td>
-                                                              <td>
-                                                                {item.basePrice?.toLocaleString(
-                                                                  "en-US"
-                                                                )}
-                                                              </td>
-                                                              <td>
-                                                                {item.tax?.toLocaleString(
-                                                                  "en-US"
-                                                                )}
-                                                              </td>
-
-                                                              <td>
-                                                                {item.ait?.toLocaleString(
-                                                                  "en-US"
-                                                                )}
-                                                              </td>
-                                                              {isFareChange ===
-                                                                false && (
-                                                                <td>
-                                                                  {item.discount?.toLocaleString(
-                                                                    "en-US"
-                                                                  )}
-                                                                </td>
-                                                              )}
-                                                              <td>
-                                                                {
-                                                                  item.reissueCharge
-                                                                }
-                                                              </td>
-                                                              <td>
-                                                                {item.passengerCount -
-                                                                  unSelectPassenger.filter(
-                                                                    (num) =>
-                                                                      num.passengerType ===
-                                                                      "INF"
-                                                                  ).length}
-                                                              </td>
-                                                              <td className="fw-bold">
-                                                                {
-                                                                  item.currencyName
-                                                                }{" "}
-                                                                {isFareChange ===
-                                                                false
-                                                                  ? (
-                                                                      item.totalPrice *
-                                                                      (item.passengerCount -
-                                                                        unSelectPassenger.filter(
-                                                                          (
-                                                                            num
-                                                                          ) =>
-                                                                            num.passengerType ===
-                                                                            "INF"
-                                                                        )
-                                                                          .length)
-                                                                    )?.toLocaleString(
-                                                                      "en-US"
-                                                                    )
-                                                                  : (
-                                                                      (item.totalPrice -
-                                                                        item.discount) *
-                                                                      (item.passengerCount -
-                                                                        unSelectPassenger.filter(
-                                                                          (
-                                                                            num
-                                                                          ) =>
-                                                                            num.passengerType ===
-                                                                            "INF"
-                                                                        )
-                                                                          .length)
-                                                                    )?.toLocaleString(
-                                                                      "en-US"
-                                                                    )}
-                                                              </td>
-                                                            </tr>
-                                                          </>
-                                                        ) : (
-                                                          <></>
-                                                        )}
-                                                      </>
-                                                    );
-                                                  }
-                                                )}
-                                                <tr className="fw-bold">
-                                                  <td
-                                                    colSpan={
-                                                      isFareChange === false
-                                                        ? 6
-                                                        : 5
-                                                    }
-                                                    className="border-none"
-                                                  ></td>
-                                                  <td>Additional Collection</td>
-                                                  <td>
-                                                    {ticketingList?.passengerInfo !==
-                                                      undefined &&
-                                                    ticketingList?.passengerInfo !==
-                                                      " " &&
-                                                    ticketingList?.passengerInfo !==
-                                                      null
-                                                      ? ticketingList
-                                                          .passengerInfo[0]
-                                                          ?.currencyName
-                                                      : ""}{" "}
-                                                    {/* {
-                              ticketingList?.penalty[0]?.reissueCharge.toLocaleString("en-US")
-                            } */}
-                                                    {sumAdditinalPrice(
-                                                      ticketingList.fareBreakdown
-                                                    )?.toLocaleString("en-US")}
-                                                  </td>
-                                                </tr>
-
-                                                {totalextraServicePnrData >
-                                                  0 && (
-                                                  <tr className="fw-bold">
-                                                    <td
-                                                      colSpan={
-                                                        isFareChange === false
-                                                          ? 6
-                                                          : 5
-                                                      }
-                                                      className="border-none"
-                                                    ></td>
-                                                    <td>
-                                                      Total Ticket Import
-                                                      Service Charge
-                                                    </td>
-                                                    <td>
-                                                      {totalextraServicePnrData?.toLocaleString(
-                                                        "en-US"
-                                                      )}
-                                                    </td>
-                                                  </tr>
-                                                )}
-
-                                                <tr className="fw-bold">
-                                                  <td
-                                                    colSpan={
-                                                      isFareChange === false
-                                                        ? 6
-                                                        : 5
-                                                    }
-                                                    className="border-none"
-                                                  ></td>
-                                                  <td>Grand Total</td>
-                                                  <td>
-                                                    {ticketingList?.passengerInfo !==
-                                                      undefined &&
-                                                    ticketingList?.passengerInfo !==
-                                                      " " &&
-                                                    ticketingList?.passengerInfo !==
-                                                      null
-                                                      ? ticketingList
-                                                          .passengerInfo[0]
-                                                          ?.currencyName
-                                                      : ""}{" "}
-                                                    {ticketingList?.penalty
-                                                      ?.length > 0 ? (
-                                                      <>
-                                                        {isFareChange === false
-                                                          ? (
-                                                              sumRatingForPassengerTicket(
-                                                                ticketingList.fareBreakdown,
-                                                                unSelectPassenger
-                                                              ) +
-                                                              sumAdditinalPrice(
-                                                                ticketingList.fareBreakdown
-                                                              ) +
-                                                              totalextraServicePnrData
-                                                            )?.toLocaleString(
-                                                              "en-US"
-                                                            )
-                                                          : (
-                                                              sumRatingForPassengerTicketGross(
-                                                                ticketingList.fareBreakdown,
-                                                                unSelectPassenger
-                                                              ) +
-                                                              sumAdditinalPrice(
-                                                                ticketingList.fareBreakdown
-                                                              ) +
-                                                              totalextraServicePnrData
-                                                            )?.toLocaleString(
-                                                              "en-US"
-                                                            )}
-                                                      </>
-                                                    ) : (
-                                                      <>
-                                                        {isFareChange === false
-                                                          ? (
-                                                              sumRatingForPassengerTicket(
-                                                                ticketingList.fareBreakdown,
-                                                                unSelectPassenger
-                                                              ) +
-                                                              totalextraServicePnrData
-                                                            )?.toLocaleString(
-                                                              "en-US"
-                                                            )
-                                                          : (
-                                                              sumRatingForPassengerTicketGross(
-                                                                ticketingList.fareBreakdown,
-                                                                unSelectPassenger
-                                                              ) +
-                                                              totalextraServicePnrData
-                                                            )?.toLocaleString(
-                                                              "en-US"
-                                                            )}
-                                                      </>
-                                                    )}
-                                                  </td>
-                                                </tr>
-
-                                                {ticketingList?.penalty
-                                                  ?.length > 0 ? (
-                                                  <>
-                                                    <tr className="fw-bold">
-                                                      <td
-                                                        colSpan={
-                                                          isFareChange === false
-                                                            ? 6
-                                                            : 5
-                                                        }
-                                                        className="border-none"
-                                                      ></td>
-                                                      <td>Exchange Penalty</td>
-                                                      <td>
-                                                        {ticketingList?.passengerInfo !==
-                                                          undefined &&
-                                                        ticketingList?.passengerInfo !==
-                                                          " " &&
-                                                        ticketingList?.passengerInfo !==
-                                                          null
-                                                          ? ticketingList
-                                                              .passengerInfo[0]
-                                                              ?.currencyName
-                                                          : ""}{" "}
-                                                        {ticketingList?.penalty[0]?.panalty?.toLocaleString(
-                                                          "en-US"
-                                                        )}
-                                                      </td>
-                                                    </tr>
-                                                  </>
-                                                ) : (
-                                                  <> </>
-                                                )}
-                                              </tbody>
-                                            </table>
-                                          </div>
-                                        ) : (
-                                          <></>
-                                        )}
-                                      </>
-
-                                      {extraServices &&
-                                      extraServices?.length > 0 ? (
-                                        <div className="table-responsive mt-3">
-                                          <div
-                                            className="ps-1 py-2 fw-bold text-start"
-                                            style={{
-                                              fontSize: "14px",
-                                              backgroundColor: "#c3c2c2",
-                                            }}
-                                          >
-                                            Extra Services Details
-                                          </div>
-
-                                          <table
-                                            class="table table-bordered table-sm text-end mt-1"
-                                            style={{ fontSize: "14px" }}
-                                          >
-                                            <thead className="text-end">
-                                              <tr>
-                                                <th
-                                                  colspan="4"
-                                                  className="fw-bold text-start py-2 bg-light"
-                                                >
-                                                  Extra Services Details
-                                                </th>
-                                              </tr>
-                                              <tr>
-                                                <th className="text-start">
-                                                  Passenger Name
-                                                </th>
-                                                <th>Type Of Services</th>
-                                                <th>Segment</th>
-                                                <th>Service Name</th>
-                                              </tr>
-                                            </thead>
-                                            <tbody className="text-end">
-                                              {extraServices?.map((item) =>
-                                                item?.map((exService, idx) => {
-                                                  return (
-                                                    <tr key={idx}>
-                                                      <>
-                                                        <td className="text-start">
-                                                          {ticketingList?.passengerInfo?.map(
-                                                            (paxId) => {
-                                                              return (
-                                                                <>
-                                                                  {paxId.paxId ===
-                                                                    exService.fK_PaxId &&
-                                                                    paxId?.title +
-                                                                      " " +
-                                                                      paxId?.first +
-                                                                      " " +
-                                                                      paxId?.last}
-                                                                </>
-                                                              );
-                                                            }
-                                                          )}
-                                                        </td>
-                                                        <td>
-                                                          {
-                                                            exService.typeOfServices
-                                                          }
-                                                        </td>
-                                                        <td>
-                                                          {exService.segment}
-                                                        </td>
-                                                        <td>
-                                                          {exService.name}
-                                                        </td>
-                                                      </>
-                                                    </tr>
-                                                  );
-                                                })
-                                              )}
-                                              <tr className="fw-bold">
-                                                <td
-                                                  colSpan={2}
-                                                  className="border-none"
-                                                ></td>
-                                                <td>Grand Total</td>
-                                                <td>
-                                                  {total?.toLocaleString(
-                                                    "en-US"
-                                                  )}
-                                                </td>
-                                              </tr>
-                                            </tbody>
-                                          </table>
-                                        </div>
-                                      ) : (
-                                        <></>
-                                      )}
-
-                                      {!contactInfo && (
-                                        <div className="table-responsive">
-                                          <table
-                                            className="table table-bordered table-sm"
-                                            style={{ fontSize: "11px" }}
-                                          >
-                                            <thead>
-                                              <tr>
-                                                <th
-                                                  colspan="3"
-                                                  className="fw-bold py-2 bg-light"
-                                                >
-                                                  CONTACT DETAILS
-                                                </th>
-                                              </tr>
-                                              <tr className="text-center">
-                                                <th>DEPARTS</th>
-                                                <th>Email</th>
-                                                <th>Phone Number</th>
-                                              </tr>
-                                            </thead>
-                                            <tbody className="text-center">
-                                              {ticketingList?.passengerInfo?.map(
-                                                (item, index) => {
-                                                  return (
-                                                    <>
-                                                      {index === 0 ? (
-                                                        <>
-                                                          <tr key={index}>
-                                                            <td>
-                                                              {airports
-                                                                .filter(
-                                                                  (f) =>
-                                                                    f.iata ===
-                                                                    ticketingList
-                                                                      .segments[0]
-                                                                      ?.origin
-                                                                )
-                                                                .map(
-                                                                  (item) =>
-                                                                    item.city
-                                                                )}
-                                                            </td>
-                                                            <td>
-                                                              {
-                                                                ticketingList
-                                                                  ?.ticketInfo
-                                                                  ?.leadPaxEmail
-                                                              }
-                                                            </td>
-                                                            <td>
-                                                              {item.phoneCountryCode +
-                                                                item.phone}{" "}
-                                                            </td>
-                                                          </tr>
-                                                        </>
-                                                      ) : (
-                                                        <></>
-                                                      )}
-                                                    </>
-                                                  );
-                                                }
-                                              )}
-                                            </tbody>
-                                          </table>
-                                        </div>
-                                      )}
-
-                                      <div className="mt-3 pb-2">
-                                        <div
-                                          className="ps-1 py-2 fw-bold text-start border bg-light"
-                                          style={{
-                                            fontSize: "13px",
-                                            marginBottom: "8px",
-                                          }}
-                                        >
-                                          Important Notice
-                                        </div>
-                                        <table
-                                          class="table table-bordered table-sm text-end mt-1 mb-0"
-                                          style={{ fontSize: "13px" }}
-                                        >
-                                          <thead>
-                                            <tr>
-                                              <th className="text-start">
-                                                E-Ticket Notice:
-                                              </th>
-                                            </tr>
-                                          </thead>
-                                          <tbody>
-                                            <tr className="text-start">
-                                              <p className="border-0">
-                                                Carriage and other services
-                                                provided by the carrier are
-                                                subject to conditions of
-                                                carriage which are hereby
-                                                incorporated by reference. These
-                                                conditions may be obtained from
-                                                the issuing carrier.
-                                              </p>
-                                            </tr>
-                                          </tbody>
-                                        </table>
-                                        <table
-                                          class="table table-bordered table-sm text-end  mb-0"
-                                          style={{ fontSize: "13px" }}
-                                        >
-                                          <thead>
-                                            <tr>
-                                              <th className="text-start">
-                                                Passport/Visa/Health:
-                                              </th>
-                                            </tr>
-                                          </thead>
-                                          <tbody>
-                                            <tr className="text-start">
-                                              <p className="border-0">
-                                                Please ensure that you have all
-                                                the required travel documents
-                                                for your entire journey - i.e.
-                                                valid passport & necessary Visas
-                                                - and that you have had the
-                                                recommended
-                                                vaccinations/immunizations for
-                                                your destination's.
-                                              </p>
-                                            </tr>
-                                          </tbody>
-                                        </table>
-                                        <table
-                                          class="table table-bordered table-sm text-end mb-0"
-                                          style={{ fontSize: "13px" }}
-                                        >
-                                          <thead>
-                                            <tr>
-                                              <th className="text-start">
-                                                Carry-on Baggage Allowance:
-                                              </th>
-                                            </tr>
-                                          </thead>
-                                          <tbody>
-                                            <tr className="text-start">
-                                              <p className="border-0">
-                                                LIMIT: 1 Carry-On bag per
-                                                passenger / SIZE LIMIT: 22in x
-                                                15in x 8in (L+W+H=45 inches) /
-                                                WEIGHT LIMIT: Max weight 7 kg /
-                                                15 lb
-                                              </p>
-                                            </tr>
-                                          </tbody>
-                                        </table>
-                                        <table
-                                          class="table table-bordered table-sm text-end  mb-0"
-                                          style={{ fontSize: "13px" }}
-                                        >
-                                          <thead>
-                                            <tr>
-                                              <th className="text-start">
-                                                Reporting Time:
-                                              </th>
-                                            </tr>
-                                          </thead>
-                                          <tbody>
-                                            <tr className="text-start">
-                                              <p className="border-0">
-                                                Flights open for check-in 1 hour
-                                                before scheduled departure time
-                                                on domestic flights and 3 hours
-                                                before scheduled departure time
-                                                on international flights.
-                                                Passengers must check-in 1 hour
-                                                before flight departure.
-                                                Check-in counters close 30
-                                                minutes before flight departure
-                                                for domestic, and 90 minutes
-                                                before the scheduled departure
-                                                for international flights.
-                                              </p>
-                                            </tr>
-                                          </tbody>
-                                        </table>
-                                      </div>
-                                    </div>
-                                  </div>
-
-                                  <div
-                                    style={{ pageBreakAfter: "always" }}
-                                  ></div>
-
-                                  <div className="card-body" ref={componentRef}>
-                                    <div
-                                      className="px-lg-5 px-md-5 px-sm-1 p-3"
-                                      ref={donwloadRef}
-                                    >
-                                      <h4 className="text-center pb-2">
-                                        E-Ticket
-                                      </h4>
-
-                                      {!isAgentInfo && (
-                                        <div className="table-responsive mt-2">
-                                          <table class="table table-borderless table-sm">
-                                            <tbody>
-                                              <tr>
-                                                {/* FIXED COMPANY LOGO */}
-                                                {/* CHANGE THIS LATER */}
-                                                <td className="text-start">
-                                                  {ticketingList.ticketInfo
-                                                    ?.agentLogo !== null ? (
-                                                    <>
-                                                      {/* <img
-                                    alt="img01"
-                                    src={
-                                      environment.s3URL +
-                                      `${ticketingList.ticketInfo?.agentLogo}`
-                                    }
-                                    crossOrigin="true"
-                                    style={{ width: "160px" }}
-                                  ></img> */}
-                                                      <ImageComponentForAgent
-                                                        logo={
-                                                          ticketingList
-                                                            .ticketInfo
-                                                            ?.agentLogo
-                                                        }
-                                                      />
-                                                    </>
-                                                  ) : (
-                                                    <>
-                                                      <img
-                                                        alt="img01"
-                                                        className="p-2"
-                                                        src={tllLogo}
-                                                        style={{
-                                                          width: "160px",
-                                                        }}
-                                                      ></img>
-                                                    </>
-                                                  )}
-                                                </td>
-                                                <td className="text-end bg-white">
-                                                  <address>
-                                                    <span className="fw-bold fs-6">
-                                                      {agentInfo.name}
-                                                    </span>
-                                                    <br />
-                                                    <div
-                                                      className="mt-2"
-                                                      style={{
-                                                        fontSize: "12px",
-                                                        lineHeight: "12px",
-                                                      }}
-                                                    >
-                                                      {agentInfo.address}
-                                                      <br />
-                                                      <span
-                                                        style={{
-                                                          fontSize: "8px",
-                                                        }}
-                                                      >
-                                                        <i class="fas fa-phone fa-rotate-90"></i>
-                                                      </span>{" "}
-                                                      Phone:{" "}
-                                                      {agentInfo.mobileNo}
-                                                      <br></br>
-                                                      <span className="me-1">
-                                                        <i
-                                                          class="fa fa-envelope"
-                                                          aria-hidden="true"
-                                                        ></i>
-                                                      </span>{" "}
-                                                      Email: {agentInfo.email}
-                                                    </div>
-                                                  </address>
-                                                </td>
-                                              </tr>
-                                            </tbody>
-                                          </table>
-                                        </div>
-                                      )}
-
-                                      <Box
-                                        display={"flex"}
-                                        justifyContent={"space-between"}
-                                        flexWrap={"wrap"}
-                                        style={{ fontSize: "14px" }}
-                                      >
-                                        <div>
-                                          <br></br>
-                                          <Text>
-                                            Booking ID :{" "}
-                                            <span className="fw-bold">
-                                              {
-                                                ticketingListReturn.ticketInfo
-                                                  ?.uniqueTransID
-                                              }
-                                            </span>
-                                          </Text>
-                                        </div>
-
-                                        <div>
-                                          <Text>
-                                            GDS PNR :{" "}
-                                            <span className="fw-bold">
-                                              {
-                                                ticketingListReturn.ticketInfo
-                                                  ?.pnr
-                                              }
-                                            </span>
-                                          </Text>
-                                          <Text>
-                                            Airline PNR:{" "}
-                                            <span className="fw-bold">
-                                              {ticketingListReturn.ticketInfo
-                                                ?.airlinePNRs === "" ||
-                                              ticketingListReturn.ticketInfo
-                                                ?.airlinePNRs === null
-                                                ? ticketingListReturn.ticketInfo
-                                                    ?.pnr
-                                                : ticketingListReturn.ticketInfo
-                                                    ?.airlinePNRs}
-                                            </span>
-                                          </Text>
-                                        </div>
-                                      </Box>
-
-                                      <div className="table-responsive mt-2">
-                                        <table
-                                          class="table table-bordered table-sm mt-1"
-                                          style={{ fontSize: "14px" }}
-                                        >
-                                          <thead>
-                                            <tr>
-                                              <th
-                                                colspan="5"
-                                                className="fw-bold py-2 bg-light"
-                                              >
-                                                Passenger Information
-                                              </th>
-                                            </tr>
-                                            <tr className="text-center">
-                                              <th className="text-start">
-                                                Name
-                                              </th>
-                                              <th>Type</th>
-                                              <th>E-Ticket Number</th>
-                                              {/* <th>Booking ID</th> */}
-                                              <th>Ticket Issue Date</th>
-                                            </tr>
-                                          </thead>
-                                          <tbody>
-                                            {ticketingListReturn.passengerInfo?.map(
-                                              (item, index) => {
-                                                if (
-                                                  selectPassengerReturn.includes(
-                                                    item
-                                                  )
-                                                ) {
-                                                  return (
-                                                    <tr
-                                                      className="text-center"
-                                                      style={{
-                                                        lineHeight: "14px",
-                                                      }}
-                                                    >
-                                                      <td
-                                                        className="text-start"
-                                                        style={{
-                                                          fontSize: "15px",
-                                                        }}
-                                                      >
-                                                        {item.title.toUpperCase()}{" "}
-                                                        {item.first.toUpperCase()}{" "}
-                                                        {item.last.toUpperCase()}
-                                                      </td>
-                                                      <td>
-                                                        {item.passengerType ===
-                                                        "ADT"
-                                                          ? "Adult"
-                                                          : item.passengerType ===
-                                                            "CNN"
-                                                          ? "Child"
-                                                          : item.passengerType ===
-                                                            "CHD"
-                                                          ? "Child"
-                                                          : item.passengerType ===
-                                                            "INF"
-                                                          ? "Infant"
-                                                          : ""}
-                                                      </td>
-                                                      <td>
-                                                        {item.ticketNumbers}
-                                                      </td>
-                                                      <td>
-                                                        {" "}
-                                                        {moment(
-                                                          ticketingList
-                                                            .ticketInfo
-                                                            ?.issueDate
-                                                        ).format(
-                                                          "ddd, DD MMM,YY"
-                                                        )}
-                                                      </td>
-                                                    </tr>
-                                                  );
-                                                }
-                                              }
-                                            )}
-                                          </tbody>
-                                        </table>
-                                      </div>
-
-                                      <div className="table-responsive mt-3">
-                                        <div
-                                          className="ps-1 py-2 fw-bold text-start bg-light border"
-                                          style={{
-                                            fontSize: "14px",
-                                          }}
-                                        >
-                                          Flight Details
-                                        </div>
-                                        <div className="">
-                                          <div
-                                            className="border p-1"
-                                            style={{ fontSize: "14px" }}
-                                          >
-                                            {ticketingListReturn?.directions ===
-                                            undefined ? (
-                                              <>
-                                                {finalSegmentReturn.map(
-                                                  (item, index) => {
-                                                    return (
-                                                      <div className="border my-1 p-1">
-                                                        {item.map(
-                                                          (itm, idx) => {
-                                                            let baggage =
-                                                              JSON.parse(
-                                                                itm.baggageInfo
-                                                              );
-                                                            return (
-                                                              <>
-                                                               <div className="d-flex justify-content-between">
-                                                               <div>
-                                                                <span className="fw-bold">
-                                                                  {airports
-                                                                    .filter(
-                                                                      (f) =>
-                                                                        f.iata ===
-                                                                        itm.origin
-                                                                    )
-                                                                    .map(
-                                                                      (itm) =>
-                                                                        itm.city
-                                                                    )}{" "}
-                                                                  ({itm.origin})
-                                                                </span>
-                                                                <span className="mx-2 fw-bold">
-                                                                  <i class="fas fa-arrow-right"></i>
-                                                                </span>
-                                                                <span className="fw-bold">
-                                                                  {airports
-                                                                    .filter(
-                                                                      (f) =>
-                                                                        f.iata ===
-                                                                        itm.destination
-                                                                    )
-                                                                    .map(
-                                                                      (itm) =>
-                                                                        itm.city
-                                                                    )}{" "}
-                                                                  (
-                                                                  {
-                                                                    itm.destination
-                                                                  }
-                                                                  )
-                                                                </span>
-                                                                <span className="d-flex align-items-center fw-bold">
-                                                                  {/* <img
-                                                                src={
-                                                                  environment.s3ArliensImage +
-                                                                  `${itm.operationCarrier}.png`
-                                                                }
-                                                                className="me-2"
-                                                                alt=""
-                                                                width="30px"
-                                                                height="30px"
-                                                                crossOrigin="true"
-                                                              ></img> */}
-                                                                  <ImageComponentTicket
-                                                                    logo={
-                                                                      itm.operationCarrier
-                                                                    }
-                                                                  />
-                                                                  {
-                                                                    itm.operationCarrierName
-                                                                  }{" "}
-                                                                  (
-                                                                  {
-                                                                    itm.operationCarrier
-                                                                  }
-                                                                  -
-                                                                  {
-                                                                    itm.flightNumber
-                                                                  }
-                                                                  )
-                                                                </span>
-                                                                </div>
-
-                                                                {itm?.isRefunded && (
-                                                            <div>
-                                                              <Box
-                                                                background={
-                                                                  "#7C04C0"
-                                                                }
-                                                                color={"white"}
-                                                                p={2}
-                                                                rounded={"sm"}
-                                                                fontWeight={700}
-                                                                fontSize={
-                                                                  "15px"
-                                                                }
-                                                              >
-                                                                Refunded :{" "}
-                                                                {
-                                                                  itm?.legRefundAmount
-                                                                }
-                                                              </Box>
-                                                            </div>
-                                                          )}
-                                                    </div>
-
-                                                                <div className="table-responsive mt-3">
-                                                                  <table
-                                                                    class="table table-borderless table-sm mt-1"
-                                                                    style={{
-                                                                      fontSize:
-                                                                        "14px",
-                                                                    }}
-                                                                  >
-                                                                    <thead>
-                                                                      <tr>
-                                                                        <th className="p-0">
-                                                                          <p
-                                                                            className="py-1 ps-1"
-                                                                            style={{
-                                                                              backgroundColor:
-                                                                                "#ededed",
-                                                                            }}
-                                                                          >
-                                                                            Date
-                                                                          </p>
-                                                                        </th>
-                                                                        <th className="p-0">
-                                                                          <p
-                                                                            className="py-1 ps-1"
-                                                                            style={{
-                                                                              backgroundColor:
-                                                                                "#ededed",
-                                                                            }}
-                                                                          >
-                                                                            Time
-                                                                          </p>
-                                                                        </th>
-                                                                        <th className="p-0">
-                                                                          <p
-                                                                            className="py-1 ps-1"
-                                                                            style={{
-                                                                              backgroundColor:
-                                                                                "#ededed",
-                                                                            }}
-                                                                          >
-                                                                            Flight
-                                                                            Info
-                                                                          </p>
-                                                                        </th>
-                                                                        <th className="p-0">
-                                                                          <p
-                                                                            className="py-1 ps-1"
-                                                                            style={{
-                                                                              backgroundColor:
-                                                                                "#ededed",
-                                                                            }}
-                                                                          >
-                                                                            Flight
-                                                                            Time
-                                                                          </p>
-                                                                        </th>
-                                                                        <th className="p-0">
-                                                                          <p
-                                                                            className="py-1 ps-1"
-                                                                            style={{
-                                                                              backgroundColor:
-                                                                                "#ededed",
-                                                                            }}
-                                                                          >
-                                                                            Cabin
-                                                                          </p>
-                                                                        </th>
-                                                                        <th className="p-0">
-                                                                          <p
-                                                                            className="py-1 ps-1"
-                                                                            style={{
-                                                                              backgroundColor:
-                                                                                "#ededed",
-                                                                            }}
-                                                                          >
-                                                                            Checked
-                                                                            Baggage
-                                                                          </p>
-                                                                        </th>
-                                                                        <th className="p-0">
-                                                                          <p
-                                                                            className="py-1 ps-1"
-                                                                            style={{
-                                                                              backgroundColor:
-                                                                                "#ededed",
-                                                                            }}
-                                                                          >
-                                                                            Cabin
-                                                                            Baggage
-                                                                          </p>
-                                                                        </th>
-                                                                      </tr>
-                                                                    </thead>
-                                                                    <tbody>
-                                                                      <tr>
-                                                                        <td>
-                                                                          {moment(
-                                                                            itm.departure
-                                                                          ).format(
-                                                                            "ddd DD MMM,YY "
-                                                                          )}
-                                                                          <br></br>
-                                                                          {moment(
-                                                                            itm.arrival
-                                                                          ).format(
-                                                                            "ddd DD MMM,YY "
-                                                                          )}
-                                                                        </td>
-                                                                        <td>
-                                                                          {moment(
-                                                                            itm.departure
-                                                                          ).format(
-                                                                            "HH:mm"
-                                                                          )}
-                                                                          <br></br>
-                                                                          {moment(
-                                                                            itm.arrival
-                                                                          ).format(
-                                                                            "HH:mm"
-                                                                          )}
-                                                                        </td>
-                                                                        <td>
-                                                                          Departs{" "}
-                                                                          <span className="fw-bold">
-                                                                            {airports
-                                                                              .filter(
-                                                                                (
-                                                                                  f
-                                                                                ) =>
-                                                                                  f.iata ===
-                                                                                  itm.origin
-                                                                              )
-                                                                              .map(
-                                                                                (
-                                                                                  itm
-                                                                                ) =>
-                                                                                  itm.city
-                                                                              )}{" "}
-                                                                            (
-                                                                            {
-                                                                              itm.origin
-                                                                            }
-                                                                            )
-                                                                            {itm?.originTerminal && (
-                                                                              <>
-                                                                                Terminal-(
-                                                                                {
-                                                                                  itm?.originTerminal
-                                                                                }
-
-                                                                                )
-                                                                              </>
-                                                                            )}
-                                                                          </span>
-                                                                          <br></br>
-                                                                          Arrival{" "}
-                                                                          <span className="fw-bold">
-                                                                            {airports
-                                                                              .filter(
-                                                                                (
-                                                                                  f
-                                                                                ) =>
-                                                                                  f.iata ===
-                                                                                  itm.destination
-                                                                              )
-                                                                              .map(
-                                                                                (
-                                                                                  itm
-                                                                                ) =>
-                                                                                  itm.city
-                                                                              )}{" "}
-                                                                            (
-                                                                            {
-                                                                              itm.destination
-                                                                            }
-                                                                            )
-                                                                            {itm?.destinationTerminal && (
-                                                                              <>
-                                                                                Terminal-(
-                                                                                {
-                                                                                  itm?.destinationTerminal
-                                                                                }
-
-                                                                                )
-                                                                              </>
-                                                                            )}
-                                                                          </span>
-                                                                        </td>
-                                                                        <td className="align-middle">
-                                                                          {
-                                                                            itm.travelTime
-                                                                          }
-                                                                        </td>
-                                                                        <td className="align-middle">
-                                                                          {
-                                                                            itm.cabinClass
-                                                                          }
-                                                                          (
-                                                                          {
-                                                                            itm.bookingCode
-                                                                          }
-                                                                          )
-                                                                        </td>
-                                                                        <td className="align-middle">
-                                                                          {baggage?.map(
-                                                                            (
-                                                                              im,
-                                                                              idx
-                                                                            ) => {
-                                                                              if (
-                                                                                selectPassenger.some(
-                                                                                  (
-                                                                                    passenegr
-                                                                                  ) =>
-                                                                                    passenegr.passengerType ===
-                                                                                    im?.PassengerTypeCode
-                                                                                )
-                                                                              )
-                                                                                return (
-                                                                                  <>
-                                                                                    {im?.Amount && (
-                                                                                      <>
-                                                                                        <span className="left">
-                                                                                          {im?.PassengerTypeCode ===
-                                                                                          "ADT"
-                                                                                            ? "Adult"
-                                                                                            : im?.PassengerTypeCode ===
-                                                                                              "CNN"
-                                                                                            ? "Child"
-                                                                                            : im?.PassengerTypeCode ===
-                                                                                              "CHD"
-                                                                                            ? "Child"
-                                                                                            : im?.PassengerTypeCode ===
-                                                                                              "INF"
-                                                                                            ? "Infant"
-                                                                                            : ""}{" "}
-                                                                                          :{" "}
-                                                                                          <span className="ms-1 font-size">
-                                                                                            {im?.Amount +
-                                                                                              " " +
-                                                                                              im?.Units}
-                                                                                          </span>
-                                                                                        </span>
-                                                                                        <br></br>
-                                                                                      </>
-                                                                                    )}
-                                                                                  </>
-                                                                                );
-                                                                            }
-                                                                          )}
-                                                                        </td>
-                                                                        <td className="align-middle">
-                                                                          7KG
-                                                                          (max 1
-                                                                          Bag)
-                                                                        </td>
-                                                                      </tr>
-                                                                    </tbody>
-                                                                  </table>
-                                                                </div>
-                                                              </>
-                                                            );
-                                                          }
-                                                        )}
-                                                      </div>
-                                                    );
-                                                  }
-                                                )}
-                                              </>
-                                            ) : (
-                                              <></>
-                                            )}
-                                          </div>
-                                        </div>
-                                      </div>
-
-                                      <>
-                                        {isFareHide === false ? (
-                                          <div className="table-responsive mt-3">
-                                            <table
-                                              class="table table-bordered table-sm text-end mt-1"
-                                              style={{ fontSize: "14px" }}
-                                            >
-                                              <thead className="text-end">
-                                                <tr>
-                                                  <th
-                                                    colspan={
-                                                      isFareChange === false
-                                                        ? "8"
-                                                        : "7"
-                                                    }
-                                                    className="fw-bold text-start py-2 bg-light"
-                                                  >
-                                                    Fare Details
-                                                  </th>
-                                                </tr>
-                                                <tr>
-                                                  <th className="text-start">
-                                                    Type
-                                                  </th>
-                                                  <th>Base Fare</th>
-                                                  <th>Tax</th>
-                                                  <th>AIT</th>
-                                                  {isFareChange === false && (
-                                                    <th>Commission</th>
-                                                  )}
-                                                  <th>Additional Collection</th>
-                                                  <th>Person</th>
-                                                  <th>Total</th>
-                                                </tr>
-                                              </thead>
-                                              <tbody className="text-end">
-                                                {ticketingListReturn.fareBreakdown?.map(
-                                                  (item, index) => {
-                                                    return (
-                                                      <>
-                                                        {item.passengerType ===
-                                                          "ADT" &&
-                                                        selectPassenger.some(
-                                                          (itm) =>
-                                                            itm.passengerType ===
-                                                            item.passengerType
-                                                        ) ? (
-                                                          <>
-                                                            <tr>
-                                                              <td className="text-start">
-                                                                Adult
-                                                              </td>
-                                                              <td>
-                                                                {item.basePrice?.toLocaleString(
-                                                                  "en-US"
-                                                                )}
-                                                              </td>
-                                                              <td>
-                                                                {item.tax?.toLocaleString(
-                                                                  "en-US"
-                                                                )}
-                                                              </td>
-
-                                                              <td>
-                                                                {item.ait?.toLocaleString(
-                                                                  "en-US"
-                                                                )}
-                                                              </td>
-                                                              {isFareChange ===
-                                                                false && (
-                                                                <td>
-                                                                  {item.discount?.toLocaleString(
-                                                                    "en-US"
-                                                                  )}
-                                                                </td>
-                                                              )}
-                                                              <td>
-                                                                {
-                                                                  item.reissueCharge
-                                                                }
-                                                              </td>
-                                                              <td>
-                                                                {item.passengerCount -
-                                                                  unSelectPassenger.filter(
-                                                                    (num) =>
-                                                                      num.passengerType ===
-                                                                      "ADT"
-                                                                  ).length}
-                                                              </td>
-                                                              <td className="fw-bold">
-                                                                {
-                                                                  item.currencyName
-                                                                }{" "}
-                                                                {isFareChange ===
-                                                                false
-                                                                  ? (
-                                                                      item.totalPrice *
-                                                                      (item.passengerCount -
-                                                                        unSelectPassenger.filter(
-                                                                          (
-                                                                            num
-                                                                          ) =>
-                                                                            num.passengerType ===
-                                                                            "ADT"
-                                                                        )
-                                                                          .length)
-                                                                    )?.toLocaleString(
-                                                                      "en-US"
-                                                                    )
-                                                                  : (
-                                                                      (item.totalPrice -
-                                                                        item.discount) *
-                                                                      (item.passengerCount -
-                                                                        unSelectPassenger.filter(
-                                                                          (
-                                                                            num
-                                                                          ) =>
-                                                                            num.passengerType ===
-                                                                            "ADT"
-                                                                        )
-                                                                          .length)
-                                                                    )?.toLocaleString(
-                                                                      "en-US"
-                                                                    )}
-                                                              </td>
-                                                            </tr>
-                                                          </>
-                                                        ) : item.passengerType ===
-                                                            "CHD" &&
-                                                          selectPassenger.some(
-                                                            (itm) =>
-                                                              itm.passengerType ===
-                                                              item.passengerType
-                                                          ) ? (
-                                                          <>
-                                                            <tr>
-                                                              <td className="text-start">
-                                                                Child &gt; 5
-                                                              </td>
-                                                              <td>
-                                                                {item.basePrice?.toLocaleString(
-                                                                  "en-US"
-                                                                )}
-                                                              </td>
-                                                              <td>
-                                                                {item.tax?.toLocaleString(
-                                                                  "en-US"
-                                                                )}
-                                                              </td>
-
-                                                              <td>
-                                                                {item.ait?.toLocaleString(
-                                                                  "en-US"
-                                                                )}
-                                                              </td>
-                                                              {isFareChange ===
-                                                                false && (
-                                                                <td>
-                                                                  {item.discount?.toLocaleString(
-                                                                    "en-US"
-                                                                  )}
-                                                                </td>
-                                                              )}
-                                                              <td>
-                                                                {
-                                                                  item.reissueCharge
-                                                                }
-                                                              </td>
-                                                              <td>
-                                                                {item.passengerCount -
-                                                                  unSelectPassenger.filter(
-                                                                    (num) =>
-                                                                      num.passengerType ===
-                                                                      "CHD"
-                                                                  ).length}
-                                                              </td>
-                                                              <td className="fw-bold">
-                                                                {
-                                                                  item.currencyName
-                                                                }{" "}
-                                                                {/* {(
-                                  item.totalPrice *
-                                  item.passengerCount
-                                )?.toLocaleString("en-US")} */}
-                                                                {isFareChange ===
-                                                                false
-                                                                  ? (
-                                                                      item.totalPrice *
-                                                                      (item.passengerCount -
-                                                                        unSelectPassenger.filter(
-                                                                          (
-                                                                            num
-                                                                          ) =>
-                                                                            num.passengerType ===
-                                                                            "CHD"
-                                                                        )
-                                                                          .length)
-                                                                    )?.toLocaleString(
-                                                                      "en-US"
-                                                                    )
-                                                                  : (
-                                                                      (item.totalPrice -
-                                                                        item.discount) *
-                                                                      (item.passengerCount -
-                                                                        unSelectPassenger.filter(
-                                                                          (
-                                                                            num
-                                                                          ) =>
-                                                                            num.passengerType ===
-                                                                            "CHD"
-                                                                        )
-                                                                          .length)
-                                                                    )?.toLocaleString(
-                                                                      "en-US"
-                                                                    )}
-                                                              </td>
-                                                            </tr>
-                                                          </>
-                                                        ) : item.passengerType ===
-                                                            "CNN" &&
-                                                          selectPassenger.some(
-                                                            (itm) =>
-                                                              itm.passengerType ===
-                                                              item.passengerType
-                                                          ) ? (
-                                                          <>
-                                                            <tr>
-                                                              <td className="text-start">
-                                                                {" "}
-                                                                {item.passengerType ===
-                                                                  "CNN" &&
-                                                                ticketingListReturn.fareBreakdown?.some(
-                                                                  (item) =>
-                                                                    item.passengerType ===
-                                                                    "CHD"
-                                                                )
-                                                                  ? "Child < 5"
-                                                                  : "Child"}
-                                                              </td>
-                                                              <td>
-                                                                {item.basePrice?.toLocaleString(
-                                                                  "en-US"
-                                                                )}
-                                                              </td>
-                                                              <td>
-                                                                {item.tax?.toLocaleString(
-                                                                  "en-US"
-                                                                )}
-                                                              </td>
-
-                                                              <td>
-                                                                {item.ait?.toLocaleString(
-                                                                  "en-US"
-                                                                )}
-                                                              </td>
-                                                              {isFareChange ===
-                                                                false && (
-                                                                <td>
-                                                                  {item.discount?.toLocaleString(
-                                                                    "en-US"
-                                                                  )}
-                                                                </td>
-                                                              )}
-                                                              <td>
-                                                                {
-                                                                  item.reissueCharge
-                                                                }
-                                                              </td>
-                                                              <td>
-                                                                {item.passengerCount -
-                                                                  unSelectPassenger.filter(
-                                                                    (num) =>
-                                                                      num.passengerType ===
-                                                                      "CNN"
-                                                                  ).length}
-                                                              </td>
-                                                              <td className="fw-bold">
-                                                                {
-                                                                  item.currencyName
-                                                                }{" "}
-                                                                {isFareChange ===
-                                                                false
-                                                                  ? (
-                                                                      item.totalPrice *
-                                                                      (item.passengerCount -
-                                                                        unSelectPassenger.filter(
-                                                                          (
-                                                                            num
-                                                                          ) =>
-                                                                            num.passengerType ===
-                                                                            "CNN"
-                                                                        )
-                                                                          .length)
-                                                                    )?.toLocaleString(
-                                                                      "en-US"
-                                                                    )
-                                                                  : (
-                                                                      (item.totalPrice -
-                                                                        item.discount) *
-                                                                      (item.passengerCount -
-                                                                        unSelectPassenger.filter(
-                                                                          (
-                                                                            num
-                                                                          ) =>
-                                                                            num.passengerType ===
-                                                                            "CNN"
-                                                                        )
-                                                                          .length)
-                                                                    )?.toLocaleString(
-                                                                      "en-US"
-                                                                    )}
-                                                              </td>
-                                                            </tr>
-                                                          </>
-                                                        ) : item.passengerType ===
-                                                            "INF" &&
-                                                          selectPassenger.some(
-                                                            (itm) =>
-                                                              itm.passengerType ===
-                                                              item.passengerType
-                                                          ) ? (
-                                                          <>
-                                                            <tr>
-                                                              <td className="text-start">
-                                                                Infant
-                                                              </td>
-                                                              <td>
-                                                                {item.basePrice?.toLocaleString(
-                                                                  "en-US"
-                                                                )}
-                                                              </td>
-                                                              <td>
-                                                                {item.tax?.toLocaleString(
-                                                                  "en-US"
-                                                                )}
-                                                              </td>
-
-                                                              <td>
-                                                                {item.ait?.toLocaleString(
-                                                                  "en-US"
-                                                                )}
-                                                              </td>
-                                                              {isFareChange ===
-                                                                false && (
-                                                                <td>
-                                                                  {item.discount?.toLocaleString(
-                                                                    "en-US"
-                                                                  )}
-                                                                </td>
-                                                              )}
-                                                              <td>
-                                                                {
-                                                                  item.reissueCharge
-                                                                }
-                                                              </td>
-                                                              <td>
-                                                                {item.passengerCount -
-                                                                  unSelectPassenger.filter(
-                                                                    (num) =>
-                                                                      num.passengerType ===
-                                                                      "INF"
-                                                                  ).length}
-                                                              </td>
-                                                              <td className="fw-bold">
-                                                                {
-                                                                  item.currencyName
-                                                                }{" "}
-                                                                {isFareChange ===
-                                                                false
-                                                                  ? (
-                                                                      item.totalPrice *
-                                                                      (item.passengerCount -
-                                                                        unSelectPassenger.filter(
-                                                                          (
-                                                                            num
-                                                                          ) =>
-                                                                            num.passengerType ===
-                                                                            "INF"
-                                                                        )
-                                                                          .length)
-                                                                    )?.toLocaleString(
-                                                                      "en-US"
-                                                                    )
-                                                                  : (
-                                                                      (item.totalPrice -
-                                                                        item.discount) *
-                                                                      (item.passengerCount -
-                                                                        unSelectPassenger.filter(
-                                                                          (
-                                                                            num
-                                                                          ) =>
-                                                                            num.passengerType ===
-                                                                            "INF"
-                                                                        )
-                                                                          .length)
-                                                                    )?.toLocaleString(
-                                                                      "en-US"
-                                                                    )}
-                                                              </td>
-                                                            </tr>
-                                                          </>
-                                                        ) : (
-                                                          <></>
-                                                        )}
-                                                      </>
-                                                    );
-                                                  }
-                                                )}
-                                                <tr className="fw-bold">
-                                                  <td
-                                                    colSpan={
-                                                      isFareChange === false
-                                                        ? 6
-                                                        : 5
-                                                    }
-                                                    className="border-none"
-                                                  ></td>
-                                                  <td>Additional Collection</td>
-                                                  <td>
-                                                    {ticketingListReturn?.passengerInfo !==
-                                                      undefined &&
-                                                    ticketingListReturn?.passengerInfo !==
-                                                      " " &&
-                                                    ticketingListReturn?.passengerInfo !==
-                                                      null
-                                                      ? ticketingListReturn
-                                                          .passengerInfo[0]
-                                                          ?.currencyName
-                                                      : ""}{" "}
-                                                    {/* {
-                              ticketingList?.penalty[0]?.reissueCharge.toLocaleString("en-US")
-                            } */}
-                                                    {sumAdditinalPrice(
-                                                      ticketingListReturn.fareBreakdown
-                                                    )?.toLocaleString("en-US")}
-                                                  </td>
-                                                </tr>
-
-                                                {totalextraServicePnrData >
-                                                  0 && (
-                                                  <tr className="fw-bold">
-                                                    <td
-                                                      colSpan={
-                                                        isFareChange === false
-                                                          ? 6
-                                                          : 5
-                                                      }
-                                                      className="border-none"
-                                                    ></td>
-                                                    <td>
-                                                      Total Ticket Import
-                                                      Service Charge
-                                                    </td>
-                                                    <td>
-                                                      {totalextraServicePnrData?.toLocaleString(
-                                                        "en-US"
-                                                      )}
-                                                    </td>
-                                                  </tr>
-                                                )}
-
-                                                <tr className="fw-bold">
-                                                  <td
-                                                    colSpan={
-                                                      isFareChange === false
-                                                        ? 6
-                                                        : 5
-                                                    }
-                                                    className="border-none"
-                                                  ></td>
-                                                  <td>Grand Total</td>
-                                                  <td>
-                                                    {ticketingListReturn?.passengerInfo !==
-                                                      undefined &&
-                                                    ticketingListReturn?.passengerInfo !==
-                                                      " " &&
-                                                    ticketingListReturn?.passengerInfo !==
-                                                      null
-                                                      ? ticketingListReturn
-                                                          .passengerInfo[0]
-                                                          ?.currencyName
-                                                      : ""}{" "}
-                                                    {ticketingListReturn
-                                                      ?.penalty?.length > 0 ? (
-                                                      <>
-                                                        {isFareChange === false
-                                                          ? (
-                                                              sumRatingForPassengerTicket(
-                                                                ticketingListReturn.fareBreakdown,
-                                                                unSelectPassenger
-                                                              ) +
-                                                              sumAdditinalPrice(
-                                                                ticketingListReturn.fareBreakdown
-                                                              ) +
-                                                              totalextraServicePnrData
-                                                            )?.toLocaleString(
-                                                              "en-US"
-                                                            )
-                                                          : (
-                                                              sumRatingForPassengerTicketGross(
-                                                                ticketingListReturn.fareBreakdown,
-                                                                unSelectPassenger
-                                                              ) +
-                                                              sumAdditinalPrice(
-                                                                ticketingListReturn.fareBreakdown
-                                                              ) +
-                                                              totalextraServicePnrData
-                                                            )?.toLocaleString(
-                                                              "en-US"
-                                                            )}
-                                                      </>
-                                                    ) : (
-                                                      <>
-                                                        {isFareChange === false
-                                                          ? (
-                                                              sumRatingForPassengerTicket(
-                                                                ticketingListReturn.fareBreakdown,
-                                                                unSelectPassenger
-                                                              ) +
-                                                              totalextraServicePnrData
-                                                            )?.toLocaleString(
-                                                              "en-US"
-                                                            )
-                                                          : (
-                                                              sumRatingForPassengerTicketGross(
-                                                                ticketingListReturn.fareBreakdown,
-                                                                unSelectPassenger
-                                                              ) +
-                                                              totalextraServicePnrData
-                                                            )?.toLocaleString(
-                                                              "en-US"
-                                                            )}
-                                                      </>
-                                                    )}
-                                                  </td>
-                                                </tr>
-
-                                                {ticketingListReturn?.penalty
-                                                  ?.length > 0 ? (
-                                                  <>
-                                                    <tr className="fw-bold">
-                                                      <td
-                                                        colSpan={
-                                                          isFareChange === false
-                                                            ? 6
-                                                            : 5
-                                                        }
-                                                        className="border-none"
-                                                      ></td>
-                                                      <td>Exchange Penalty</td>
-                                                      <td>
-                                                        {ticketingListReturn?.passengerInfo !==
-                                                          undefined &&
-                                                        ticketingListReturn?.passengerInfo !==
-                                                          " " &&
-                                                        ticketingListReturn?.passengerInfo !==
-                                                          null
-                                                          ? ticketingListReturn
-                                                              .passengerInfo[0]
-                                                              ?.currencyName
-                                                          : ""}{" "}
-                                                        {ticketingListReturn?.penalty[0]?.panalty?.toLocaleString(
-                                                          "en-US"
-                                                        )}
-                                                      </td>
-                                                    </tr>
-                                                  </>
-                                                ) : (
-                                                  <> </>
-                                                )}
-                                              </tbody>
-                                            </table>
-                                          </div>
-                                        ) : (
-                                          <></>
-                                        )}
-                                      </>
-
-                                      {extraServices &&
-                                      extraServices?.length > 0 ? (
-                                        <div className="table-responsive mt-3">
-                                          <div
-                                            className="ps-1 py-2 fw-bold text-start"
-                                            style={{
-                                              fontSize: "14px",
-                                              backgroundColor: "#c3c2c2",
-                                            }}
-                                          >
-                                            Extra Services Details
-                                          </div>
-
-                                          <table
-                                            class="table table-bordered table-sm text-end mt-1"
-                                            style={{ fontSize: "14px" }}
-                                          >
-                                            <thead className="text-end">
-                                              <tr>
-                                                <th
-                                                  colspan="4"
-                                                  className="fw-bold text-start py-2 bg-light"
-                                                >
-                                                  Extra Services Details
-                                                </th>
-                                              </tr>
-                                              <tr>
-                                                <th className="text-start">
-                                                  Passenger Name
-                                                </th>
-                                                <th>Type Of Services</th>
-                                                <th>Segment</th>
-                                                <th>Service Name</th>
-                                              </tr>
-                                            </thead>
-                                            <tbody className="text-end">
-                                              {extraServices?.map((item) =>
-                                                item?.map((exService, idx) => {
-                                                  return (
-                                                    <tr key={idx}>
-                                                      <>
-                                                        <td className="text-start">
-                                                          {ticketingList?.passengerInfo?.map(
-                                                            (paxId) => {
-                                                              return (
-                                                                <>
-                                                                  {paxId.paxId ===
-                                                                    exService.fK_PaxId &&
-                                                                    paxId?.title +
-                                                                      " " +
-                                                                      paxId?.first +
-                                                                      " " +
-                                                                      paxId?.last}
-                                                                </>
-                                                              );
-                                                            }
-                                                          )}
-                                                        </td>
-                                                        <td>
-                                                          {
-                                                            exService.typeOfServices
-                                                          }
-                                                        </td>
-                                                        <td>
-                                                          {exService.segment}
-                                                        </td>
-                                                        <td>
-                                                          {exService.name}
-                                                        </td>
-                                                      </>
-                                                    </tr>
-                                                  );
-                                                })
-                                              )}
-                                              <tr className="fw-bold">
-                                                <td
-                                                  colSpan={2}
-                                                  className="border-none"
-                                                ></td>
-                                                <td>Grand Total</td>
-                                                <td>
-                                                  {total?.toLocaleString(
-                                                    "en-US"
-                                                  )}
-                                                </td>
-                                              </tr>
-                                            </tbody>
-                                          </table>
-                                        </div>
-                                      ) : (
-                                        <></>
-                                      )}
-
-                                      {!contactInfo && (
-                                        <div className="table-responsive">
-                                          <table
-                                            className="table table-bordered table-sm"
-                                            style={{ fontSize: "11px" }}
-                                          >
-                                            <thead>
-                                              <tr>
-                                                <th
-                                                  colspan="3"
-                                                  className="fw-bold py-2 bg-light"
-                                                >
-                                                  CONTACT DETAILS
-                                                </th>
-                                              </tr>
-                                              <tr className="text-center">
-                                                <th>DEPARTS</th>
-                                                <th>Email</th>
-                                                <th>Phone Number</th>
-                                              </tr>
-                                            </thead>
-                                            <tbody className="text-center">
-                                              {ticketingList?.passengerInfo?.map(
-                                                (item, index) => {
-                                                  return (
-                                                    <>
-                                                      {index === 0 ? (
-                                                        <>
-                                                          <tr key={index}>
-                                                            <td>
-                                                              {airports
-                                                                .filter(
-                                                                  (f) =>
-                                                                    f.iata ===
-                                                                    ticketingList
-                                                                      .segments[0]
-                                                                      ?.origin
-                                                                )
-                                                                .map(
-                                                                  (item) =>
-                                                                    item.city
-                                                                )}
-                                                            </td>
-                                                            <td>
-                                                              {
-                                                                ticketingList
-                                                                  ?.ticketInfo
-                                                                  ?.leadPaxEmail
-                                                              }
-                                                            </td>
-                                                            <td>
-                                                              {item.phoneCountryCode +
-                                                                item.phone}{" "}
-                                                            </td>
-                                                          </tr>
-                                                        </>
-                                                      ) : (
-                                                        <></>
-                                                      )}
-                                                    </>
-                                                  );
-                                                }
-                                              )}
-                                            </tbody>
-                                          </table>
-                                        </div>
-                                      )}
-
-                                      <div className="mt-3 pb-2">
-                                        <div
-                                          className="ps-1 py-2 fw-bold text-start border bg-light"
-                                          style={{
-                                            fontSize: "13px",
-                                            marginBottom: "8px",
-                                          }}
-                                        >
-                                          Important Notice
-                                        </div>
-                                        <table
-                                          class="table table-bordered table-sm text-end mt-1 mb-0"
-                                          style={{ fontSize: "13px" }}
-                                        >
-                                          <thead>
-                                            <tr>
-                                              <th className="text-start">
-                                                E-Ticket Notice:
-                                              </th>
-                                            </tr>
-                                          </thead>
-                                          <tbody>
-                                            <tr className="text-start">
-                                              <p className="border-0">
-                                                Carriage and other services
-                                                provided by the carrier are
-                                                subject to conditions of
-                                                carriage which are hereby
-                                                incorporated by reference. These
-                                                conditions may be obtained from
-                                                the issuing carrier.
-                                              </p>
-                                            </tr>
-                                          </tbody>
-                                        </table>
-                                        <table
-                                          class="table table-bordered table-sm text-end  mb-0"
-                                          style={{ fontSize: "13px" }}
-                                        >
-                                          <thead>
-                                            <tr>
-                                              <th className="text-start">
-                                                Passport/Visa/Health:
-                                              </th>
-                                            </tr>
-                                          </thead>
-                                          <tbody>
-                                            <tr className="text-start">
-                                              <p className="border-0">
-                                                Please ensure that you have all
-                                                the required travel documents
-                                                for your entire journey - i.e.
-                                                valid passport & necessary Visas
-                                                - and that you have had the
-                                                recommended
-                                                vaccinations/immunizations for
-                                                your destination's.
-                                              </p>
-                                            </tr>
-                                          </tbody>
-                                        </table>
-                                        <table
-                                          class="table table-bordered table-sm text-end mb-0"
-                                          style={{ fontSize: "13px" }}
-                                        >
-                                          <thead>
-                                            <tr>
-                                              <th className="text-start">
-                                                Carry-on Baggage Allowance:
-                                              </th>
-                                            </tr>
-                                          </thead>
-                                          <tbody>
-                                            <tr className="text-start">
-                                              <p className="border-0">
-                                                LIMIT: 1 Carry-On bag per
-                                                passenger / SIZE LIMIT: 22in x
-                                                15in x 8in (L+W+H=45 inches) /
-                                                WEIGHT LIMIT: Max weight 7 kg /
-                                                15 lb
-                                              </p>
-                                            </tr>
-                                          </tbody>
-                                        </table>
-                                        <table
-                                          class="table table-bordered table-sm text-end  mb-0"
-                                          style={{ fontSize: "13px" }}
-                                        >
-                                          <thead>
-                                            <tr>
-                                              <th className="text-start">
-                                                Reporting Time:
-                                              </th>
-                                            </tr>
-                                          </thead>
-                                          <tbody>
-                                            <tr className="text-start">
-                                              <p className="border-0">
-                                                Flights open for check-in 1 hour
-                                                before scheduled departure time
-                                                on domestic flights and 3 hours
-                                                before scheduled departure time
-                                                on international flights.
-                                                Passengers must check-in 1 hour
-                                                before flight departure.
-                                                Check-in counters close 30
-                                                minutes before flight departure
-                                                for domestic, and 90 minutes
-                                                before the scheduled departure
-                                                for international flights.
-                                              </p>
-                                            </tr>
-                                          </tbody>
-                                        </table>
-                                      </div>
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-                            )}
-
-                            {ticketingList?.ticketInfo?.status === "Issued" && (
-                              <Box
-                                display={"flex"}
-                                // flexDir={"column"}
-                                flexWrap={"wrap"}
-                                justifyContent={"center"}
-                                alignItems={"center"}
-                                gap={3}
-                                className="pb-5"
-                              >
-                                <button
-                                  className="btn button-color text-white float-right mr-1 d-print-none border-radius px-5 w-auto"
-                                  onClick={() => {
-                                    if (journeyType === "ONWARD") {
-                                      window.open(
-                                        "/create-refund?uniqueTransId=" +
-                                          ticketingList?.ticketInfo
-                                            ?.uniqueTransID
-                                      );
-                                    } else {
-                                      window.open(
-                                        "/create-refund?uniqueTransId=" +
-                                          ticketingListReturn?.ticketInfo
-                                            ?.uniqueTransID
-                                      );
-                                    }
-                                  }}
-                                >
-                                  <span className="me-1">
-                                    <Icon
-                                      as={FaRecycle}
-                                      pb="4px"
-                                      height={"20px"}
-                                    />
-                                  </span>
-                                  Refund Request
-                                </button>
-
-                                <button
-                                  className="btn button-color text-white float-right mr-1 d-print-none border-radius px-5  mt-0 w-lg-25 w-sm-none"
-                                  onClick={() => {
-                                    navigate(
-                                      "/create-void?uniqueTransId=" +
-                                        searchParams.get("utid")
-                                    );
-                                  }}
-                                >
-                                  <span className="me-1">
-                                    <Icon
-                                      as={FaRecycle}
-                                      pb="4px"
-                                      height={"20px"}
-                                    />
-                                  </span>
-                                  Void Request
-                                </button>
-                                {/* <button
-                                className="btn button-color text-white float-right mr-1 d-print-none border-radius px-5 w-auto"
-                                onClick={() => {
-                                  if (journeyType === "ONWARD") {
-                                    window.open(
-                                      "/create-reissue?uniqueTransId=" +
-                                        ticketingList?.ticketInfo?.uniqueTransID
-                                    );
-                                  } else {
-                                    window.open(
-                                      "/create-reissue?uniqueTransId=" +
-                                        ticketingListReturn?.ticketInfo
-                                          ?.uniqueTransID
-                                    );
-                                  }
-                                }}
-                              >
-                                <span className="me-1">
-                                  <Icon
-                                    as={SiStarlingbank}
-                                    pb="4px"
-                                    height={"20px"}
-                                  />
-                                </span>
-                                Reissue Request
-                              </button> */}
-                              </Box>
-                            )}
                           </div>
-                        </div>
+                        )}
+
+                        {ticketingList?.ticketInfo?.status === "Issued" && (
+                          <Box
+                            display={"flex"}
+                            flexDir={"column"}
+                            justifyContent={"center"}
+                            alignItems={"center"}
+                            gap={3}
+                            className="pb-5"
+                          >
+                            <button
+                              className="btn button-color text-white float-right mr-1 d-print-none border-radius px-5 w-auto"
+                              onClick={() => {
+                                if (journeyType === "ONWARD") {
+                                  window.open(
+                                    "/create-refund?uniqueTransId=" +
+                                      ticketingList?.ticketInfo?.uniqueTransID
+                                  );
+                                } else {
+                                  window.open(
+                                    "/create-refund?uniqueTransId=" +
+                                      ticketingListReturn?.ticketInfo
+                                        ?.uniqueTransID
+                                  );
+                                }
+                              }}
+                            >
+                              <span className="me-1">
+                                <Icon as={FaRecycle} pb="4px" height={"20px"} />
+                              </span>
+                              Refund Request
+                            </button>
+
+                            {/* <button
+              className="btn button-color text-white float-right mr-1 d-print-none border-radius px-5 w-25"
+              onClick={() => {
+                window.open(
+                  "/create-void?uniqueTransId=" +
+                    searchParams.get("utid")
+                );
+              }}
+            >
+              <span className="me-1">
+                <Icon
+                  as={SiStarlingbank}
+                  pb="4px"
+                  height={"20px"}
+                />
+              </span>
+              Void Request
+            </button> */}
+                            {/* <button
+                              className="btn button-color text-white float-right mr-1 d-print-none border-radius px-5 w-auto"
+                              onClick={() => {
+                                if (journeyType === "ONWARD") {
+                                  window.open(
+                                    "/create-reissue?uniqueTransId=" +
+                                      ticketingList?.ticketInfo?.uniqueTransID
+                                  );
+                                } else {
+                                  window.open(
+                                    "/create-reissue?uniqueTransId=" +
+                                      ticketingListReturn?.ticketInfo
+                                        ?.uniqueTransID
+                                  );
+                                }
+                              }}
+                            >
+                              <span className="me-1">
+                                <Icon
+                                  as={SiStarlingbank}
+                                  pb="4px"
+                                  height={"20px"}
+                                />
+                              </span>
+                              Reissue Request
+                            </button> */}
+                          </Box>
+                        )}
                       </div>
                     </div>
-                  )}
-                </>
+                  </div>
+                </div>
               )}
             </>
           )}
@@ -6638,7 +6104,7 @@ const Ticket = () => {
                 </div>
                 <div className="modal-body">
                   <table className="table table-bordered table-hover table-responsive ">
-                    <thead style={{ background: "#7c04c0", color: "white" }}>
+                    <thead style={{ background: "#068b9f", color: "white" }}>
                       <tr>
                         <th style={{ minWidth: "150px" }}>Passenger Type</th>
                         <th style={{ minWidth: "150px" }}>Base Fare</th>

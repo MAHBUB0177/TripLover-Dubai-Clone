@@ -6486,25 +6486,25 @@ const ShowFlight = (props) => {
                           <div className="mx-2 fw-bold">
                             AED{" "}
                             {newBookingClassRes?.totalPrice &&
-                              newBookingClassRes.bookingComponents[0]
+                              (newBookingClassRes.bookingComponents[0]
                                 ?.totalPrice -
                                 newBookingClassRes.bookingComponents[0]
-                                  ?.discountPrice}
+                                  ?.discountPrice)?.toFixed(2)}
                           </div>
                         </del>
                         <div className="mx-2 fw-bold">
                           AED{" "}
                           {newBookingClassRes?.totalPrice &&
-                            newBookingClassRes.bookingComponents[0]?.totalPrice}
+                            (newBookingClassRes.bookingComponents[0]?.totalPrice)?.toFixed(2)}
                         </div>
                       </>
                     ) : (
                       <div className="mx-2 fw-bold">
                         AED{" "}
                         {newBookingClassRes?.totalPrice &&
-                          newBookingClassRes.bookingComponents[0]?.totalPrice -
+                         ( newBookingClassRes.bookingComponents[0]?.totalPrice -
                             newBookingClassRes.bookingComponents[0]
-                              ?.discountPrice}
+                              ?.discountPrice)?.toFixed(2)}
                       </div>
                     )}
 
