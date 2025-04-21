@@ -30899,5 +30899,11 @@
     "city": "Dakar",
     "country": "Senegal",
     "iata": "DSS"
+  },
+  {
+    "name": "Chișinău International Airport",
+    "city": "Chișinău",
+    "country": "Moldova",
+    "iata": "RMO"
   }
 ]

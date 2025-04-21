@@ -4214,52 +4214,52 @@ const ShowAllFlightComboFare = ({
                               AED{" "}
                               {newBookingClassRes?.totalPrice &&
                               newBookingClassResReturn.totalPrice
-                                ? newBookingClassRes.bookingComponents[0]
+                                ? (newBookingClassRes.bookingComponents[0]
                                     ?.totalPrice -
                                   newBookingClassRes.bookingComponents[0]
                                     ?.discountPrice +
                                   newBookingClassResReturn?.bookingComponents[0]
                                     ?.totalPrice -
                                   newBookingClassResReturn?.bookingComponents[0]
-                                    ?.discountPrice
+                                    ?.discountPrice)?.toFixed(2)
                                 : Object.keys(newBookingClassRes).length ===
                                     0 && newBookingClassResReturn.totalPrice
-                                ? comboFare?.item[0]?.bookingComponents[0]
+                                ? (comboFare?.item[0]?.bookingComponents[0]
                                     ?.totalPrice -
                                   comboFare?.item[0]?.bookingComponents[0]
                                     ?.discountPrice +
                                   newBookingClassResReturn.bookingComponents[0]
                                     ?.totalPrice -
                                   newBookingClassResReturn.bookingComponents[0]
-                                    ?.discountPrice
+                                    ?.discountPrice)?.toFixed(2)
                                 : Object.keys(newBookingClassResReturn)
                                     .length === 0 &&
                                   newBookingClassRes.totalPrice &&
-                                  comboFare?.item[1]?.bookingComponents[0]
+                                  (comboFare?.item[1]?.bookingComponents[0]
                                     ?.totalPrice -
                                     comboFare?.item[1]?.bookingComponents[0]
                                       ?.discountPrice +
                                     newBookingClassRes.bookingComponents[0]
                                       ?.totalPrice -
                                     newBookingClassRes.bookingComponents[0]
-                                      ?.discountPrice}
+                                      ?.discountPrice)?.toFixed(2)}
                             </div>
                           </del>
                           <div className="mx-2 fw-bold">
                             AED{" "}
                             {newBookingClassRes?.totalPrice &&
                             newBookingClassResReturn.totalPrice
-                              ? newBookingClassRes.totalPrice +
-                                newBookingClassResReturn?.totalPrice
+                              ? (newBookingClassRes.totalPrice +
+                                newBookingClassResReturn?.totalPrice)?.toFixed(2)
                               : Object.keys(newBookingClassRes).length === 0 &&
                                 newBookingClassResReturn.totalPrice
-                              ? comboFare?.item[0]?.totalPrice +
-                                newBookingClassResReturn.totalPrice
+                              ? (comboFare?.item[0]?.totalPrice +
+                                newBookingClassResReturn.totalPrice)?.toFixed(2)
                               : Object.keys(newBookingClassResReturn).length ===
                                   0 &&
                                 newBookingClassRes.totalPrice &&
-                                comboFare?.item[1]?.totalPrice +
-                                  newBookingClassRes.totalPrice}
+                                (comboFare?.item[1]?.totalPrice +
+                                  newBookingClassRes.totalPrice)?.toFixed(2)}
                           </div>
                         </>
                       ) : (
@@ -4267,35 +4267,35 @@ const ShowAllFlightComboFare = ({
                           AED{" "}
                           {newBookingClassRes?.totalPrice &&
                           newBookingClassResReturn.totalPrice
-                            ? newBookingClassRes.bookingComponents[0]
+                            ? (newBookingClassRes.bookingComponents[0]
                                 ?.totalPrice -
                               newBookingClassRes.bookingComponents[0]
                                 ?.discountPrice +
                               newBookingClassResReturn?.bookingComponents[0]
                                 ?.totalPrice -
                               newBookingClassResReturn?.bookingComponents[0]
-                                ?.discountPrice
+                                ?.discountPrice)?.toFixed(2)
                             : Object.keys(newBookingClassRes).length === 0 &&
                               newBookingClassResReturn.totalPrice
-                            ? comboFare?.item[0]?.bookingComponents[0]
+                            ? (comboFare?.item[0]?.bookingComponents[0]
                                 ?.totalPrice -
                               comboFare?.item[0]?.bookingComponents[0]
                                 ?.discountPrice +
                               newBookingClassResReturn.bookingComponents[0]
                                 ?.totalPrice -
                               newBookingClassResReturn.bookingComponents[0]
-                                ?.discountPrice
+                                ?.discountPrice)?.toFixed(2)
                             : Object.keys(newBookingClassResReturn).length ===
                                 0 &&
                               newBookingClassRes.totalPrice &&
-                              comboFare?.item[1]?.bookingComponents[0]
+                              (comboFare?.item[1]?.bookingComponents[0]
                                 ?.totalPrice -
                                 comboFare?.item[1]?.bookingComponents[0]
                                   ?.discountPrice +
                                 newBookingClassRes.bookingComponents[0]
                                   ?.totalPrice -
                                 newBookingClassRes.bookingComponents[0]
-                                  ?.discountPrice}
+                                  ?.discountPrice)?.toFixed(2)}
                         </div>
                       )}
 
