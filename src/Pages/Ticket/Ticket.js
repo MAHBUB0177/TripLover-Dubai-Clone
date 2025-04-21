@@ -6002,11 +6002,11 @@ const Ticket = () => {
                         {ticketingList?.ticketInfo?.status === "Issued" && (
                           <Box
                             display={"flex"}
-                            flexDir={"column"}
+                            flexWrap={'wrap'}
+                            mb={10}
+                            gap={2}
                             justifyContent={"center"}
                             alignItems={"center"}
-                            gap={3}
-                            className="pb-5"
                           >
                             <button
                               className="btn button-color text-white float-right mr-1 d-print-none border-radius px-5 w-auto"
@@ -6031,7 +6031,7 @@ const Ticket = () => {
                               Refund Request
                             </button>
 
-                            {/* <button
+                            <button
               className="btn button-color text-white float-right mr-1 d-print-none border-radius px-5 w-25"
               onClick={() => {
                 window.open(
@@ -6048,7 +6048,7 @@ const Ticket = () => {
                 />
               </span>
               Void Request
-            </button> */}
+            </button>
                             {/* <button
                               className="btn button-color text-white float-right mr-1 d-print-none border-radius px-5 w-auto"
                               onClick={() => {

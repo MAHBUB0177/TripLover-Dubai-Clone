@@ -1739,7 +1739,9 @@ const ShowAllFlightComboFare = ({
     onClose: onClose5,
   } = useDisclosure();
   const [bookingClasses, setBookingClasses] = useState({});
+  console.log(bookingClasses,'bookingClasses====================')
   const [bookingClassesReturn, setBookingClassesReturn] = useState({});
+  console.log(bookingClassesReturn,'bookingClassesReturn====================')
   const btnRef = React.useRef();
 
   const handleChangeBookingClass = async () => {
@@ -3967,6 +3969,17 @@ const ShowAllFlightComboFare = ({
           <DrawerBody>
             <div>
               <div className="px-2">
+                <>
+               
+              {Object.keys(bookingClasses)?.length === 0 &&
+              <>
+                <div className="mt-3 fw-bold">Onward</div>
+                <div className="flex justify-center items-center mt-2">
+                  <p className="fw-bold text-center">Sorry, No RBD found for this journey.</p>
+                </div>
+              </>
+              }
+
                 {bookingClasses?.journey?.map((item, index) => (
                   <div key={index}>
                     <div className="mt-2 fw-bold">Onward</div>
@@ -4064,7 +4077,17 @@ const ShowAllFlightComboFare = ({
                     ))}
                   </div>
                 ))}
+                 </>
 
+                 <>
+              {Object.keys(bookingClassesReturn)?.length === 0 &&
+                  <>
+                    <div className="mt-3 fw-bold">Return</div>
+                    <div className="flex justify-center items-center mt-2">
+                      <p className="fw-bold text-center">Sorry, No RBD found for this journey.</p>
+                    </div>
+                  </>
+               }
                 {bookingClassesReturn?.journey?.map((item, index) => (
                   <div key={index}>
                     <div className="mt-2 fw-bold">Return</div>
@@ -4162,6 +4185,7 @@ const ShowAllFlightComboFare = ({
                     ))}
                   </div>
                 ))}
+                 </>
 
                 <div className="d-flex justify-content-end my-3">
                   <button
@@ -4329,7 +4353,11 @@ const ShowAllFlightComboFare = ({
                   <>
                     {getFareBtnClick && (
                       <div className="mb-5">
-                        Sorry, No fare found for this onward journey.
+                        <div className="my-2 fw-bold">Onward</div>
+                        <div className="flex justify-center items-center mt-2">
+                          <p className="fw-bold text-center">Sorry, No fare found for this journey.</p>
+                        </div>
+                        
                       </div>
                     )}
                   </>
@@ -4375,7 +4403,13 @@ const ShowAllFlightComboFare = ({
                 ) : (
                   <>
                     {getFareBtnClick && (
-                      <div>Sorry, No fare found for this return journey.</div>
+                      <>
+                      <div className="my-1 fw-bold">Return</div>
+                      <div className="flex justify-center items-center mt-2">
+                        <p className="fw-bold text-center">Sorry, No fare found for this journey.</p>
+                      </div>
+                      </>
+                      
                     )}
                   </>
                 )}
