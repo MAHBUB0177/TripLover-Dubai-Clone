@@ -224,43 +224,47 @@ const Ticket = () => {
     const getTicketingList = async () => {
       let sendObj = location.search.split("=")[1];
       const response = await getTicketData(utid, sts);
-      setIsFareHide(
-        response?.data?.segments[0].operationCarrier === "6E" ? true : false
-      );
-      if (response.data?.comboSegmentInfo?.length > 0) {
-        setJourneyType(
-          response.data?.comboSegmentInfo?.findIndex(
-            (item) => item.uniqueTransID === searchParams.get("utid")
-          ) === 0
-            ? "ONWARD"
-            : "RETURN"
-        );
-        if (
-          response.data?.comboSegmentInfo?.findIndex(
-            (item) => item.uniqueTransID === searchParams.get("utid")
-          ) === 0
-        ) {
-          setSelectPassenger(response.data?.passengerInfo);
-          setTicketingList(response.data);
-          handleGetListReturn(
-            response.data?.comboSegmentInfo[1]?.uniqueTransID,
-            searchParams.get("sts")
-          );
-        } else {
-          setTicketingListReturn(response.data);
-          setSelectPassengerReturn(response.data?.passengerInfo);
-          handleGetListReturn(
-            response.data?.comboSegmentInfo[0]?.uniqueTransID,
-            searchParams.get("sts")
-          );
-        }
-      } else {
-        setJourneyType("ONWARD");
-        setTicketingList(response.data);
-        setSelectPassenger(response.data?.passengerInfo);
-        setPassengerListEdited(response.data.fareBreakdown);
-      }
+      // setIsFareHide(
+      //   response?.data?.segments[0].operationCarrier === "6E" ? true : false
+      // );
 
+      if (typeof response.data === "string") {
+        setTicketingList(response.data);
+      } else {
+        if (response.data?.comboSegmentInfo?.length > 0) {
+          setJourneyType(
+            response.data?.comboSegmentInfo?.findIndex(
+              (item) => item.uniqueTransID === searchParams.get("utid")
+            ) === 0
+              ? "ONWARD"
+              : "RETURN"
+          );
+          if (
+            response.data?.comboSegmentInfo?.findIndex(
+              (item) => item.uniqueTransID === searchParams.get("utid")
+            ) === 0
+          ) {
+            setSelectPassenger(response.data?.passengerInfo);
+            setTicketingList(response.data);
+            handleGetListReturn(
+              response.data?.comboSegmentInfo[1]?.uniqueTransID,
+              searchParams.get("sts")
+            );
+          } else {
+            setTicketingListReturn(response.data);
+            setSelectPassengerReturn(response.data?.passengerInfo);
+            handleGetListReturn(
+              response.data?.comboSegmentInfo[0]?.uniqueTransID,
+              searchParams.get("sts")
+            );
+          }
+        } else {
+          setJourneyType("ONWARD");
+          setTicketingList(response.data);
+          setSelectPassenger(response.data?.passengerInfo);
+          setPassengerListEdited(response.data.fareBreakdown);
+        }
+      }
       setBasePrice(response?.data[0]?.basePrice);
       setTax(response?.data[0]?.tax);
       setAIT(Number(response?.data[0]?.basePrice) * 0.003);
@@ -268,12 +272,12 @@ const Ticket = () => {
       setDiscount(response?.data[0]?.discount);
       setAdditionalPrice(response?.data[0]?.agentAdditionalPrice);
       setLoader(false);
-      setTimeout(() => {
-        if (JSON.parse(localStorage.getItem("ismail"))) {
-          _successTicketMail();
-          localStorage.setItem("ismail", JSON.stringify(false));
-        }
-      }, 1000);
+      // setTimeout(() => {
+      //   if (JSON.parse(localStorage.getItem("ismail"))) {
+      //     _successTicketMail();
+      //     localStorage.setItem("ismail", JSON.stringify(false));
+      //   }
+      // }, 1000);
     };
     getTicketingList();
   };
