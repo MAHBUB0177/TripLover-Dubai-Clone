@@ -492,7 +492,6 @@ const Ticket = () => {
 
   const [unSelectPassenger, setUnselectPassenger] = useState([]);
   const [unSelectPassengerReturn, setUnselectPassengerReturn] = useState([]);
-  console.log(selectPassenger, unSelectPassenger, "fcsdfsdfsfsf");
   const handleCheckboxChange = async (item) => {
     const isSelected = selectPassenger.includes(item);
     if (isSelected && selectPassenger.length === 1) {

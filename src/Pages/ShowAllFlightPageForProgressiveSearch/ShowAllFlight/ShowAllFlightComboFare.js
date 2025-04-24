@@ -1171,7 +1171,7 @@ const ShowAllFlightComboFare = ({
     window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
   };
 
-  if (environment.usBanglaAstrfa) {
+ if (environment.usBanglaAstrfa && change === "Select"){
     if (searchData?.fareType === "Regular") {
       flightsData?.sort((a, b) => {
         const priority = ["2A", "BS"];
@@ -1200,7 +1200,7 @@ const ShowAllFlightComboFare = ({
     }
   }
 
-  if (environment.usBanglaAstrfa) {
+  if  (environment.usBanglaAstrfa && changeReturn === "Select") {
     if (searchData?.fareType === "Regular") {
       flightsDataReturn?.sort((a, b) => {
         const priority = ["2A", "BS"];
