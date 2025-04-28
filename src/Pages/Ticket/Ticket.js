@@ -923,6 +923,30 @@ const Ticket = () => {
                                     : componentRef.current
                                 }
                               />
+
+                              
+                            {ticketingList?.comboSegmentInfo?.length === 0 && (
+                              <button
+                                href="javascript:void(0)"
+                                className="btn button-color text-white float-right mr-2 d-print-none border-radius"
+                                onClick={handleDownloadPdf}
+                                disabled={isDownloading ? true : false}
+                              >
+                                {isDownloading ? (
+                                  <>
+                                    <span
+                                      class="spinner-border spinner-border-sm"
+                                      role="status"
+                                      aria-hidden="true"
+                                    ></span>{" "}
+                                    Downloading
+                                  </>
+                                ) : (
+                                  <>Download</>
+                                )}
+                              </button>
+                            )}
+                            
                               <a
                                 href="javascript:void(0)"
                                 className="btn button-color text-white float-right mr-1 d-print-none border-radius"

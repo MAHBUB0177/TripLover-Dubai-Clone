@@ -1362,7 +1362,7 @@ const BookedView = () => {
                                 Send Mail
                               </button>
 
-                              {/* <button
+                              <button
                                 href="javascript:void(0)"
                                 className="btn button-color text-white float-right mr-1 d-print-none border-radius"
                                 onClick={handleDownloadPdf}
@@ -1375,11 +1375,12 @@ const BookedView = () => {
                                       role="status"
                                       aria-hidden="true"
                                     ></span>{" "}
+                                     Downloading
                                   </>
                                 ) : (
                                   <>Download</>
                                 )}
-                              </button> */}
+                              </button>
                             </div>
                           </div>
 
