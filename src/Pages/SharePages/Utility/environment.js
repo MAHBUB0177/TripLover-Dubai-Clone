@@ -5,7 +5,7 @@
 // const baseURL = "http://192.168.48.55:250/";
 // const baseURL = "https://dev-webapi.Triplover.com/";
 // const baseURL = "http://18.138.98.64:90/";
-// const baseURL = "https://api.Triplover.com/";
+// const baseURL = "https://api.triplover.ae/";
 
 
 // const baseURL = "https://dev-webapi.travelchamp.com/";
@@ -16,6 +16,8 @@ const baseURL = "http://13.229.80.34:92/";
 const newSearch = "http://13.229.80.34:100/api/Search/";
 // const newSearch = "https://apiv2.Triplover.com/api/Search/";
 // const newSearch = "http://18.138.98.64:90/api/search";
+
+// const newSearch = "https://apiv2.triplover.ae/api/Search/";
 
 const baseApiURL = baseURL + "api/";
 

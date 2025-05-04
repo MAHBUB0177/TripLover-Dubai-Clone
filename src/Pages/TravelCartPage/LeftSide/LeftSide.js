@@ -158,7 +158,7 @@ const LeftSide = ({
       start: birthDateStart,
       end: birthDateEnd,
     });
-    if (years < 1 && months < 6 && days <= 31) {
+    if (years < 1 && months <= 12 && days <= 31) {
       return true;
     } else return false;
   }

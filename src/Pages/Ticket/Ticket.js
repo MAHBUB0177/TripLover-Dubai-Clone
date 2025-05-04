@@ -6191,23 +6191,23 @@ const Ticket = () => {
                               </button>
 
                               <button
-                className="btn button-color text-white float-right mr-1 d-print-none border-radius px-5 w-25"
-                onClick={() => {
-                  window.open(
-                    "/create-void?uniqueTransId=" +
-                      searchParams.get("utid")
-                  );
-                }}
-              >
-                <span className="me-1">
-                  <Icon
-                    as={SiStarlingbank}
-                    pb="4px"
-                    height={"20px"}
-                  />
-                </span>
-                Void Request
-              </button>
+                                className="btn button-color text-white float-right mr-1 d-print-none border-radius px-5 w-25"
+                                onClick={() => {
+                                  window.open(
+                                    "/create-void?uniqueTransId=" +
+                                      searchParams.get("utid")
+                                  );
+                                }}
+                              >
+                                <span className="me-1">
+                                  <Icon
+                                    as={SiStarlingbank}
+                                    pb="4px"
+                                    height={"20px"}
+                                  />
+                                </span>
+                                Void Request
+                              </button>
                               {/* <button
                                 className="btn button-color text-white float-right mr-1 d-print-none border-radius px-5 w-auto"
                                 onClick={() => {
