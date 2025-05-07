@@ -999,8 +999,8 @@ const ShowAllFlight = ({
     window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
   };
 
-  if (environment.usBanglaAstrfa) {
-    if (searchData?.fareType === "Regular" && change === "Select") {
+  if (environment.usBanglaAstrfa && change === "Select") {
+    if (searchData?.fareType === "Regular" ) {
       flightsData?.sort(
         (a, b) =>
           a.bookingComponents[0]?.totalPrice -

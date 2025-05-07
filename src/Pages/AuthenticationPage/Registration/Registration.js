@@ -86,6 +86,7 @@ const Registration = () => {
     const response = await axios.get(
       environment.getcityListbycountryName + "/" + countryName
     );
+    console.log(response,'response==============')
     if (response.data.length > 0) {
       setCityList(response.data);
 
