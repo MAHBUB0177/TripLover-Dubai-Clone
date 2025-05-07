@@ -5,19 +5,21 @@
 // const baseURL = "http://192.168.48.55:250/";
 // const baseURL = "https://dev-webapi.Triplover.com/";
 // const baseURL = "http://18.138.98.64:90/";
-// const baseURL = "https://api.triplover.ae/";
+
 
 
 // const baseURL = "https://dev-webapi.travelchamp.com/";
-const baseURL = "http://13.229.80.34:92/";
+// const baseURL = "http://13.229.80.34:92/";
 // const baseURL = "http://18.138.98.64:210/";
 // const newSearch = "https://dev-webapi.Triplover.com/api/search";
 // const newSearch = "http://13.229.80.34:96/api/Search/";
-const newSearch = "http://13.229.80.34:100/api/Search/";
+// const newSearch = "http://13.229.80.34:100/api/Search/";
 // const newSearch = "https://apiv2.Triplover.com/api/Search/";
 // const newSearch = "http://18.138.98.64:90/api/search";
 
-// const newSearch = "https://apiv2.triplover.ae/api/Search/";
+//live url
+const baseURL = "https://api.triplover.ae/";
+const newSearch = "https://apiv2.triplover.ae/api/Search/";
 
 const baseApiURL = baseURL + "api/";
 
@@ -37,9 +39,9 @@ export const environment = {
   ProgressiveSearch: newSearch + "Progressive",
   bookingcodes: newSearch + "bookingcodes",
   validateCheck: newSearch + "validate",
-  s3URL: "https://tcluploaddocument.s3.ap-southeast-1.amazonaws.com/",
+  s3URL: "https://tlluploaddocument.s3.ap-southeast-1.amazonaws.com/",
   s3ArliensImage:
-    "https://tcluploaddocument.s3.ap-southeast-1.amazonaws.com/AirlineLogos/",
+    "https://tlluploaddocument.s3.ap-southeast-1.amazonaws.com/AirlineLogos/",
   baseApiURL: baseApiURL,
   headerToken: headerToken,
   //sendEmailProposal: baseApiURL + "B2BEmail/NewSendProposal", // modal email senty
