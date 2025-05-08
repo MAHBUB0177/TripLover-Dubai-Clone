@@ -1102,7 +1102,8 @@ const Ticket = () => {
                                 loadingText="Sending..."
                                 variant="solid"
                                 mt={"2"}
-                                bg={"#068b9f"}
+                                bg={"#7C04C0"}
+                                _hover={'none'}
                                 color={"white"}
                                 disabled={btnDisabled === true ? true : false}
                                 onClick={handleMessageUser}
@@ -6269,7 +6270,7 @@ const Ticket = () => {
                 </div>
                 <div className="modal-body">
                   <table className="table table-bordered table-hover table-responsive ">
-                    <thead style={{ background: "#068b9f", color: "white" }}>
+                    <thead style={{ background: "#7C04C0", color: "white" }}>
                       <tr>
                         <th style={{ minWidth: "150px" }}>Passenger Type</th>
                         <th style={{ minWidth: "150px" }}>Base Fare</th>
