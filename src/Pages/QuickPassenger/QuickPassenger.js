@@ -797,14 +797,14 @@ const QuickPassenger = () => {
                               </td>
 
                               <td>
-                                <div className="d-flex gap-2 justify-content-start">
+                                <div className="d-flex gap-2 justify-content-start " >
                                   <a
                                     onClick={() => {
                                       onOpen();
                                       setEdititem(item);
                                     }}
                                   >
-                                    <HStack justifyContent="center">
+                                    <HStack justifyContent="center" style={{cursor:'pointer'}}>
                                       <div className="shadow p-1 rounded-3 button-color text-white">
                                         <Icon
                                           as={BiEdit}
