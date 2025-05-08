@@ -6407,7 +6407,9 @@ const LeftSide = ({
                     <Button
                       type="button"
                       bg={"#7c04c0"}
-                      colorScheme="green"
+                      // colorScheme="green"
+                      _hover={'none'}
+                      color={'white'}
                       onClick={() => {
                         onClose();
                         bookingData();
